@@ -130,6 +130,19 @@ details.x{background:var(--card);border:1px solid var(--line);border-radius:14px
 details.x>summary{font-weight:700;min-height:48px}
 details.x .in{padding-bottom:14px;font-size:15px}
 @media(max-width:600px){.pg{grid-template-columns:repeat(3,minmax(0,1fr))}.ab{padding-left:16px}.hs{grid-template-columns:auto minmax(0,1fr)}.ring{width:88px;height:88px;font-size:32px}.ring span{width:70px;height:70px}.band2{font-size:22px}}
+.week{display:none;margin-top:16px;background:rgba(0,0,0,.22);border-radius:16px;padding:14px 16px}
+.wh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}.wh b{font-size:17px}.wh span{font-size:12px;color:var(--lime);opacity:.8}
+.wd{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;padding:8px 0;border-top:1px solid rgba(230,245,200,.12)}
+.wd.past{opacity:.45}.wd.today .wdl{color:var(--lime)}
+.wdl{font:800 17px "Inter Tight","Noto Sans KR";line-height:1.2}.wdl small{display:block;font:500 12px "Noto Sans KR";opacity:.75}
+.wev{display:grid;gap:4px}
+.we{display:grid;grid-template-columns:44px minmax(0,1fr);gap:6px;font-size:14px;line-height:1.35}
+.we b{font-weight:500}.we.hi b{font-weight:800;color:#fff}.we.hi .wt{color:var(--amber)}
+.we.mine b{color:var(--amber);font-weight:800}
+.we small{font-size:12px;color:var(--lime);opacity:.75}
+.wt{font-variant-numeric:tabular-nums;color:var(--lime);opacity:.85}
+.we.none{display:block;opacity:.5}
+.wfoot{font-size:12px;color:var(--lime);opacity:.6;margin-top:6px}
 </style>
 </head>
 <body>
@@ -156,6 +169,7 @@ details.x .in{padding-bottom:14px;font-size:15px}
   <div class="err" id="err"></div>
 
   <div class="hero" id="hero"></div>
+  <div class="week" id="week"></div>
   <div class="board" id="board"><div class="bh"><span>7인 위원 의견</span><span>눌러서 이유 보기</span></div><div id="rows"></div></div>
 </div></section>
 

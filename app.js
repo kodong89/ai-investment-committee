@@ -158,6 +158,48 @@ regime은 지수가 200일선 위·50일선 위면 "상승장", 200일선 아래
   return v;
 }
 
+
+// ── 이번 주 주요 일정 (하루 1회 검색, 캐시) ─────────────────
+function kstNow() { return new Date(Date.now() + 9 * 3600e3); } // UTC 기준 필드로 KST 날짜를 다룸
+const ymd = d => d.toISOString().slice(0, 10);
+function weekRange() {
+  const n = kstNow(), dow = n.getUTCDay();             // 0=일
+  const mon = new Date(n); mon.setUTCDate(n.getUTCDate() - ((dow + 6) % 7) + (dow === 6 || dow === 0 ? 7 : 0)); // 주말이면 다음 주
+  const days = [...Array(5)].map((_, i) => { const d = new Date(mon); d.setUTCDate(mon.getUTCDate() + i); return ymd(d); });
+  return { from: days[0], to: days[4], days };
+}
+async function getWeekly() {
+  const wr = weekRange(), c = store.get("aic-week", null);
+  if (c && c.from === wr.from && Date.now() - c.t < 24 * 3600e3) return c.v;
+  const r = await gemini(`${wr.from}(월)부터 ${wr.to}(금)까지 한 주의 주식시장 주요 일정을 구글 검색(인베스팅닷컴 경제 캘린더, 연준·한국은행 일정, 실적 발표 캘린더 등)으로 찾아라.
+포함: 미국 FOMC·연준 의장 발언·CPI·PCE·고용보고서·GDP·소매판매·ISM, 한국 금통위·수출입·옵션만기, 중국·일본 중앙은행 등 시장에 큰 영향을 주는 것, 그리고 시가총액 상위 주요 기업 실적 발표(미국·한국).
+시간은 한국시간(KST) 기준 HH:MM, 모르면 빈 문자열. 중요도는 "상" 또는 "중"만, "하"는 빼라. 하루 최대 6개. 휴장일이면 그것도 적어라.
+설명 없이 JSON 하나만:
+{"days":[{"date":"YYYY-MM-DD","events":[{"time":"HH:MM","country":"미국|한국|중국|일본|유럽","title":"일정 이름(20자 이내)","imp":"상|중","note":"예상치나 의미(20자 이내)"}]}]}`, { search: true, label: "이번 주 일정" });
+  const v = { ...wr, days: r.data.days || [], sources: r.sources };
+  store.set("aic-week", { from: wr.from, t: Date.now(), v });
+  return v;
+}
+function renderWeek() {
+  const W = R.W || store.get("aic-week", null)?.v;
+  const el = $("week");
+  if (!W || !W.days) { el.style.display = "none"; return; }
+  const today = ymd(kstNow()), dn = ["일", "월", "화", "수", "목", "금", "토"];
+  const ed = R.S?.F?.next_earnings_date, myName = R.S?.F?.name;
+  const byDate = Object.fromEntries((W.days || []).map(d => [d.date, d.events || []]));
+  el.style.display = "block";
+  el.innerHTML = `<div class="wh"><b>이번 주 주요 일정</b><span>${W.from.slice(5).replace("-", ".")} ~ ${W.to.slice(5).replace("-", ".")} · 한국시간</span></div>
+    ${weekDays(W).map(date => {
+      const d = new Date(date + "T00:00:00Z"), ev = [...(byDate[date] || [])].sort((a, b) => (a.time || "99").localeCompare(b.time || "99"));
+      if (ed === date && myName) ev.unshift({ time: "", country: "", title: `${myName} 실적 발표`, imp: "내 종목", note: "검색한 종목" });
+      const cls = date === today ? "today" : date < today ? "past" : "";
+      return `<div class="wd ${cls}"><div class="wdl">${d.getUTCMonth() + 1}/${d.getUTCDate()}<small>${dn[d.getUTCDay()]}${date === today ? " · 오늘" : ""}</small></div>
+        <div class="wev">${ev.length ? ev.map(e => `<div class="we ${e.imp === "상" ? "hi" : e.imp === "내 종목" ? "mine" : ""}"><span class="wt">${esc(e.time || "")}</span><span><b>${esc(e.title)}</b>${e.country ? ` <small>${esc(e.country)}</small>` : ""}${e.note ? `<br><small>${esc(e.note)}</small>` : ""}</span></div>`).join("") : `<div class="we none">주요 일정 없음</div>`}</div></div>`;
+    }).join("")}
+    <div class="wfoot">진한 표시는 중요도 높음 · 하루 1회 갱신</div>`;
+}
+function weekDays(W) { return W.from ? [...Array(5)].map((_, i) => { const d = new Date(W.from + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + i); return ymd(d); }) : []; }
+
 // ── 2. 종목 데이터 수집 ───────────────────────────────────
 const FUND = `{"name":"회사명","ticker":"티커","market":"거래소","currency":"USD|KRW","sector":"섹터","price":숫자,"change_pct":숫자,"as_of":"가격 기준일","market_cap":"시총(단위 포함)","per":숫자,"fwd_per":숫자,"per_hist_avg":숫자,"pbr":숫자,"roe_pct":숫자,"roic_pct":숫자,"op_margin_pct":숫자,"debt_to_equity_pct":숫자,"net_debt":"순부채(음수면 순현금, 단위 포함)","current_ratio":숫자,"fcf":"최근 연간 FCF(단위 포함)","fcf_trend":"증가|감소|흑자 유지|적자","revenue_growth_pct":숫자,"eps_growth_pct":숫자,"eps_growth_next_pct":숫자,"peg":숫자,"eps":숫자,"bps":숫자,"guidance":"최근 가이던스·컨센서스 변화 한 줄","next_earnings_date":"YYYY-MM-DD","business":"사업 한 줄","news":["최근 뉴스1","2","3"],"corporate_actions":"증자·M&A·소송·상폐 위험 한 줄(없으면 '특이사항 없음')"}`;
 const TECH = `{"ma20":숫자,"ma50":숫자,"ma150":숫자,"ma200":숫자,"ma200_rising":true|false,"high_52w":숫자,"low_52w":숫자,"rsi14":숫자,"atr14":숫자,"support":숫자,"resistance":숫자,"swing_low":숫자,"volume_trend":"최근 거래량 흐름 한 줄","return_1m_pct":숫자,"return_3m_pct":숫자,"index_return_3m_pct":숫자,"sector_strength":"섹터 상대강도 한 줄","flow":"기관·외국인·정치인 공시·옵션 등 수급 한 줄","pattern":"돌파|눌림목|박스권|추세 이탈|과열 중 하나와 설명"}`;
@@ -380,7 +422,7 @@ function renderExtra() {
     ${S.sources?.length ? `<p class="tag" style="overflow-wrap:anywhere">${S.sources.slice(0, 8).map(x => `<a href="${esc(x.uri)}" target="_blank" rel="noopener">${esc(x.title || "링크")}</a>`).join(" · ")}</p>` : ""}`]);
   $("extra").innerHTML = `<div class="xs">${sec.map(([t, b]) => `<details class="x"><summary>${t}</summary><div class="in">${b}</div></details>`).join("")}</div>`;
 }
-const renderAll = () => { renderHero(); paint(); renderExtra(); };
+const renderAll = () => { renderHero(); renderWeek(); paint(); renderExtra(); };
 
 // ── 5. 찬반 토론 ──────────────────────────────────────────
 async function runDebate(tk, S, M, P) {
@@ -407,6 +449,7 @@ async function convene(tk) {
     setStatus("1/5 · 시장 위험 판단 중…");
     let M = null; try { M = await getMarket(); } catch (e) { if (e.status === 404) throw e; if (/한도를 다 썼/.test(e.message)) throw e; }
     R.M = M;
+    try { setStatus("1/5 · 이번 주 일정 확인 중…"); R.W = await getWeekly(); renderWeek(); } catch (e) { if (/한도를 다 썼/.test(e.message)) throw e; }
 
     setStatus("2/5 · 펀더멘털 수집 중…");
     let S;
