@@ -167,20 +167,27 @@ const today = () => new Date().toISOString().slice(0, 10);
 
 // ── 1. 시장 위험 판단 (6시간 캐시) ─────────────────────────
 async function getMarket() {
-  const c = store.get("aic-market2", null);
+  const c = store.get("aic-market3", null);
   if (c && Date.now() - c.t < 6 * 3600e3) return c.v;
   const r = await gemini(`오늘은 ${today()}. 구글 검색으로 현재 주식시장 흐름을 정리하라.
-각 지수가 50일·200일 이동평균 위인지, 최근 1주일 등락률. VIX, 달러인덱스 추세, 미국 10년물 금리, 원달러 환율, 최근 1개월 미국·한국 주도 섹터.
+각 지수의 최근 종가, 50일·200일 단순이동평균(SMA) 값, 최근 1주일 등락률을 숫자로 찾아라.
+investing.com 기술분석·이동평균 페이지, 증권사 리포트, 네이버 금융, stockcharts 등에서 실제 숫자를 확인하고, 위/아래를 추측하지 마라. VIX, 달러인덱스 추세, 미국 10년물 금리, 원달러 환율, 최근 1개월 미국·한국 주도 섹터.
 설명 없이 JSON 하나만:
-{"as_of":"날짜","indices":[{"name":"나스닥","above50":true|false,"above200":true|false,"chg_1w_pct":숫자},{"name":"S&P500",...},{"name":"코스피",...},{"name":"코스닥",...}],"vix":숫자,"dxy":"상승|횡보|하락","us10y":숫자,"usdkrw":숫자,"leading_us":["섹터1","섹터2"],"leading_kr":["섹터1","섹터2"],"summary":"장 흐름 한 줄 요약(30자)"}`, { search: true, label: "장 흐름 확인" });
+{"as_of":"날짜","indices":[{"name":"나스닥","close":숫자,"ma50":숫자,"ma200":숫자,"chg_1w_pct":숫자},{"name":"S&P500",...},{"name":"코스피",...},{"name":"코스닥",...}],"vix":숫자,"dxy":"상승|횡보|하락","us10y":숫자,"usdkrw":숫자,"leading_us":["섹터1","섹터2"],"leading_kr":["섹터1","섹터2"],"summary":"장 흐름 한 줄 요약(30자)"}`, { search: true, label: "장 흐름 확인" });
   const v = { ...r.data, sources: r.sources };
+  // 위/아래는 숫자로 코드가 판정 (숫자가 없으면 판정 보류)
+  for (const x of v.indices || []) {
+    const c = num(x.close), a = num(x.ma50), b = num(x.ma200);
+    x.above50 = c && a ? c > a : null; x.above200 = c && b ? c > b : null;
+    x.gap200 = c && b ? (c / b - 1) * 100 : null;
+  }
   // 국면은 코드로 판정: 50일·200일선 모두 위 = 상승장, 모두 아래 = 하락장, 그 외 횡보장
-  const reg = names => { const xs = (v.indices || []).filter(x => names.includes(x.name)); if (!xs.length) return null;
+  const reg = names => { const xs = (v.indices || []).filter(x => names.includes(x.name) && x.above50 != null && x.above200 != null); if (!xs.length) return null;
     const up = xs.filter(x => x.above50 === true && x.above200 === true).length, dn = xs.filter(x => x.above50 === false && x.above200 === false).length;
     return up === xs.length ? "상승장" : dn === xs.length ? "하락장" : "횡보장"; };
   v.regime_us = reg(["나스닥", "S&P500"]); v.regime_kr = reg(["코스피", "코스닥"]);
   v.regime = v.regime_us || v.regime_kr;
-  store.set("aic-market2", { t: Date.now(), v });
+  store.set("aic-market3", { t: Date.now(), v });
   return v;
 }
 const isKR = F => /KRW|원/.test(F?.currency || "") || /KRX|KOSPI|KOSDAQ|코스피|코스닥/i.test(F?.market || "");
@@ -469,18 +476,18 @@ function renderExtra() {
 }
 
 function renderMarketCard() {
-  const M = R.M || store.get("aic-market2", null)?.v, el = $("mkt");
+  const M = R.M || store.get("aic-market3", null)?.v, el = $("mkt");
   if (!M || !M.indices) { el.style.display = "none"; return; }
   const F = R.S?.F, focus = F ? (isKR(F) ? "kr" : "us") : null;
   const badge = g => `<span class="rg ${g === "상승장" ? "up" : g === "하락장" ? "dn" : "side"}">${esc(g || "—")}</span>`;
-  const o = v => v === true ? '<span class="ok">위</span>' : v === false ? '<span class="no">아래</span>' : "—";
+  const o = v => v === true ? '<span class="ok">위</span>' : v === false ? '<span class="no">아래</span>' : '<span style="opacity:.6">확인 불가</span>';
   const mk = (key, label, g, names) => { const st = STRAT[g] || ["—", ""];
     return `<div class="mcol ${focus === key ? "focus" : ""}"><div class="mt">${label} ${badge(g)}${focus === key ? '<small>내 종목 시장</small>' : ""}</div>
       <div class="ms"><b>${st[0]}</b> · ${st[1]}</div>
-      <table class="mi"><tbody>${(M.indices || []).filter(x => names.includes(x.name)).map(x => `<tr><td>${esc(x.name)}</td><td>50일 ${o(x.above50)}</td><td>200일 ${o(x.above200)}</td><td class="r ${num(x.chg_1w_pct) >= 0 ? "ok" : "no"}">${x.chg_1w_pct == null ? "—" : (num(x.chg_1w_pct) >= 0 ? "+" : "") + num(x.chg_1w_pct).toFixed(1) + "%"}</td></tr>`).join("")}</tbody></table>
+      <table class="mi"><tbody>${(M.indices || []).filter(x => names.includes(x.name)).map(x => `<tr><td>${esc(x.name)}${x.close != null ? `<br><small style="opacity:.75">${esc(fmt(num(x.close)))}</small>` : ""}</td><td>50일선 ${o(x.above50)}</td><td>200일선 ${o(x.above200)}${x.gap200 != null ? `<br><small style="opacity:.75">${x.gap200 >= 0 ? "+" : ""}${x.gap200.toFixed(1)}%</small>` : ""}</td><td class="r ${num(x.chg_1w_pct) >= 0 ? "ok" : "no"}">${x.chg_1w_pct == null ? "—" : (num(x.chg_1w_pct) >= 0 ? "+" : "") + num(x.chg_1w_pct).toFixed(1) + "%"}</td></tr>`).join("")}</tbody></table>
       <div class="sec">주도 ${esc(((key === "us" ? M.leading_us : M.leading_kr) || []).slice(0, 3).join(" · ") || "—")}</div></div>`; };
   el.style.display = "block";
-  el.innerHTML = `<div class="wh2">장 흐름 <span>${esc(M.as_of || "")} · 1주 등락 · 6시간마다 갱신</span></div>
+  el.innerHTML = `<div class="wh2">장 흐름 <span>${esc(M.as_of || "")} · 이동평균선(SMA) 기준 · 6시간마다 갱신</span></div>
     <div class="msum">${esc(M.summary || "")}</div>
     <div class="mgrid">${mk("us", "미국", M.regime_us, ["나스닥", "S&P500"])}${mk("kr", "한국", M.regime_kr, ["코스피", "코스닥"])}</div>
     <div class="mmac">VIX <b>${esc(fmt(num(M.vix)))}</b> ${vixTag(num(M.vix))} · 달러 <b>${esc(M.dxy || "—")}</b> · 미 10년물 <b>${esc(fmt(num(M.us10y), "%"))}</b> · 원달러 <b>${esc(fmt(num(M.usdkrw)))}</b></div>`;
