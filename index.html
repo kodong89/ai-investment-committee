@@ -4,22 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI 투자위원회</title>
-<meta name="description" content="버핏·멍거·그레이엄·린치·드러켄밀러 관점으로 종목을 분석하는 AI 투자위원회 (Gemini 무료 API)">
+<meta name="description" content="투자 대가 7인 관점의 스윙 투자 심사 위원회 (Gemini 무료 API)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0d1412);--ink:light-dark(#0f1a17,#e9f1ed);--mut:light-dark(#5b6b66,#93a59f);--line:light-dark(#e3e9e6,#22302b);--card:light-dark(#f5f8f6,#14201c);
---g:#00463c;--lime:#e6f5c8;--coral:#ff6f59;--up:#2fbf7f;--neu:#a9b8b2}
+:root{--bg:#ffffff;--ink:#0f1a17;--mut:#5b6b66;--line:#e3e9e6;--card:#f5f8f6;--g:#00463c;--lime:#e6f5c8;--coral:#ff6f59;--up:#2fbf7f;--neu:#a9b8b2;--amber:#f5b21b}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1412;--ink:#e9f1ed;--mut:#93a59f;--line:#22302b;--card:#14201c}}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Noto Sans KR",system-ui,sans-serif;overflow-x:clip}
 a{color:inherit}
-.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.band{padding:clamp(24px,4vw,56px) max(5vw,16px)}
 .wrap{max-width:1100px;margin:0 auto}
 .top{background:var(--g);color:#fff}
-.bar0{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.bar0{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
 .bar0 button{min-height:40px;font-size:14px;background:transparent;border:1px solid rgba(230,245,200,.4);color:var(--lime)}
-h1{font:900 clamp(32px,5vw,48px)/1.05 "Inter Tight","Noto Sans KR",sans-serif;margin:0 0 8px;letter-spacing:-.01em}
-.sub{color:var(--lime);opacity:.85;margin:0 0 22px;max-width:62ch}
+h1{font:900 clamp(30px,5vw,46px)/1.05 "Inter Tight","Noto Sans KR",sans-serif;margin:0 0 8px}
+.sub{color:var(--lime);opacity:.85;margin:0 0 20px;max-width:62ch;font-size:15px}
 form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;max-width:760px}
 input,textarea,select{font:16px "Noto Sans KR",sans-serif;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(230,245,200,.35);background:rgba(255,255,255,.08);color:#fff;width:100%}
 select option{color:#000}
@@ -27,122 +27,141 @@ input::placeholder,textarea::placeholder{color:rgba(230,245,200,.55)}
 input:focus,textarea:focus,select:focus,button:focus-visible,summary:focus-visible{outline:3px solid var(--lime);outline-offset:2px}
 button{font:700 16px "Noto Sans KR",sans-serif;min-height:48px;padding:0 22px;border-radius:10px;border:0;background:var(--lime);color:var(--g);cursor:pointer}
 button:disabled{opacity:.5;cursor:wait}
-details.opt{grid-column:1/-1;color:var(--lime);font-size:14px}
 details summary{cursor:pointer;min-height:36px;display:flex;align-items:center}
-.optg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:6px}
+details.opt{grid-column:1/-1;color:var(--lime);font-size:14px}
+.optg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:6px}
 .optg label{display:grid;gap:4px;font-size:13px}.optg .full{grid-column:1/-1}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .chip{background:transparent;border:1px solid rgba(230,245,200,.4);color:var(--lime);min-height:34px;padding:0 12px;font-size:14px;font-weight:500}
-.status{margin-top:16px;color:var(--lime);font-size:15px;min-height:24px}
-.err{background:#3a0d05;color:#ffd6cf;padding:12px 16px;border-radius:10px;margin-top:14px;max-width:760px;display:none;white-space:pre-wrap}
-.setup{background:rgba(0,0,0,.25);border-radius:14px;padding:18px;margin-top:20px;max-width:760px;display:none}
+.status{margin-top:14px;color:var(--lime);font-size:15px;min-height:24px}
+.err{background:#3a0d05;color:#ffd6cf;padding:12px 16px;border-radius:10px;margin-top:12px;max-width:760px;display:none;white-space:pre-wrap}
+.setup{background:rgba(0,0,0,.25);border-radius:14px;padding:18px;margin-bottom:18px;max-width:760px;display:none}
 .setup h3{margin:0 0 6px;font-size:18px}.setup p{margin:0 0 12px;color:var(--lime);font-size:15px}
 .setup .rowk{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
 .setup label{display:grid;gap:4px;font-size:13px;color:var(--lime);margin-top:10px}
-/* fact sheet */
-.facts{margin-top:24px;background:rgba(0,0,0,.22);border-radius:16px;padding:18px;display:none}
+.panel{margin-top:18px;background:rgba(0,0,0,.22);border-radius:16px;padding:16px 18px;display:none}
+.mk{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--lime);align-items:center}
+.mk b{color:#fff}
+.reg{padding:2px 10px;border-radius:999px;font-weight:700;color:#032a1a}
+.reg.up{background:var(--up)}.reg.side{background:var(--amber)}.reg.dn{background:var(--coral);color:#3a0d05}
 .fh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.fh b{font:800 24px "Inter Tight","Noto Sans KR"}.fh .px{font:800 26px "Inter Tight";white-space:nowrap}
-.fh .chg.up{color:var(--up)}.fh .chg.dn{color:var(--coral)}
-.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px 16px;margin:14px 0}
-.fg div{font-size:13px;color:var(--lime)}.fg span{display:block;font:700 17px "Inter Tight","Noto Sans KR";color:#fff;font-variant-numeric:tabular-nums}
+.fh b{font:800 22px "Inter Tight","Noto Sans KR"}.fh .px{font:800 24px "Inter Tight";white-space:nowrap}
+.chg.up{color:var(--up)}.chg.dn{color:var(--coral)}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px 14px;margin:12px 0}
+.fg div{font-size:12px;color:var(--lime)}.fg span{display:block;font:700 16px "Inter Tight","Noto Sans KR";color:#fff;font-variant-numeric:tabular-nums}
 .facts ul{margin:6px 0 0;padding-left:18px;font-size:14px;color:var(--lime)}
-.src{font-size:12px;color:var(--lime);opacity:.75;margin-top:10px;overflow-wrap:anywhere}
-.src a{margin-right:8px}
-/* board */
-.board{margin-top:20px;background:rgba(0,0,0,.22);border-radius:16px;padding:6px 0}
+.src{font-size:12px;color:var(--lime);opacity:.75;margin-top:8px;overflow-wrap:anywhere}.src a{margin-right:8px}
+/* 점수 */
+.score{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center}
+.sc{text-align:center;min-width:150px}
+.sc .n{font:900 72px/1 "Inter Tight"}.sc .l{font-weight:700;font-size:18px;margin-top:6px}
+.sc.buy .n,.sc.buy .l{color:var(--up)}.sc.watch .n,.sc.watch .l{color:var(--amber)}.sc.out .n,.sc.out .l{color:var(--coral)}
+.veto{background:#3a0d05;color:#ffd6cf;border-radius:10px;padding:8px 12px;font-size:14px;margin-top:10px}
+.wt{display:grid;gap:6px}
+.wr{display:grid;grid-template-columns:96px minmax(0,1fr) 64px;gap:10px;align-items:center;font-size:14px}
+.wr .t{height:10px;border-radius:5px;background:rgba(255,255,255,.12);overflow:hidden}.wr .t i{display:block;height:100%}
+.wr span:last-child{text-align:right;font-variant-numeric:tabular-nums;color:var(--lime);white-space:nowrap}
+.legend{font-size:12px;color:var(--lime);opacity:.75;margin-top:8px}
+/* 위원 */
+.board{margin-top:18px;background:rgba(0,0,0,.22);border-radius:16px;padding:4px 0}
 .bh{display:flex;justify-content:space-between;gap:12px;padding:10px 18px;font-size:14px;color:var(--lime);opacity:.85;flex-wrap:wrap}
-.row{display:grid;grid-template-columns:64px minmax(0,1fr) 112px;gap:14px;align-items:start;padding:16px 18px;border-top:1px solid rgba(230,245,200,.12)}
-.avw{text-align:center}.av{width:60px;height:60px;border-radius:50%;overflow:hidden;box-shadow:inset 0 -5px 0 rgba(0,0,0,.2),0 0 0 3px rgba(230,245,200,.25);margin:0 auto}.av svg{width:100%;height:100%;display:block}.mz{font-size:11px;color:var(--lime);opacity:.8;margin-top:4px;line-height:1.2;word-break:keep-all}
-.row:hover .av svg{animation:hop .5s steps(2)}@keyframes hop{50%{transform:translateY(-3px)}}
-.nm{font-weight:700;font-size:17px}.nm small{font-weight:400;color:var(--lime);opacity:.7;margin-left:6px;font-size:13px}
-.hd{margin-top:2px}
-.why{margin-top:6px;font-size:14px;color:var(--lime)}
-.pc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:10px}
-.pc h4{margin:0 0 2px;font-size:13px;font-weight:700}
-.pc .pro h4{color:var(--up)}.pc .con h4{color:var(--coral)}
-.pc ul{margin:0;padding-left:16px;font-size:14px;color:#fff;opacity:.92;line-height:1.45}
-.more{margin-top:6px;font-size:13px;color:var(--lime);opacity:.85}.more summary{min-height:32px}.more div{margin-top:2px}
+.row{display:grid;grid-template-columns:72px minmax(0,1fr) 96px;gap:14px;align-items:start;padding:16px 18px;border-top:1px solid rgba(230,245,200,.12)}
+.av{width:68px;height:68px;border-radius:14px;overflow:hidden;background:#f6eadb;box-shadow:0 0 0 3px rgba(230,245,200,.25)}
+.av img{width:100%;height:100%;display:block;image-rendering:pixelated}
+.nm{font-weight:700;font-size:17px}.nm small{font-weight:400;color:var(--lime);opacity:.75;margin-left:6px;font-size:13px}
+.q{font-size:13px;color:var(--lime);opacity:.7}
+.hd{margin-top:4px}
+.pc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:8px}
+.pc h4{margin:0 0 2px;font-size:13px}.pc .pro h4{color:var(--up)}.pc .con h4{color:var(--coral)}
+.pc ul{margin:0;padding-left:16px;font-size:14px;opacity:.92;line-height:1.45}
+.more{margin-top:6px;font-size:13px;color:var(--lime)}.more summary{min-height:32px}
+.ck{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:6px;padding:3px 0;border-top:1px dashed rgba(230,245,200,.15)}
+.ck .m{font-weight:900;text-align:center}.ck .m.p{color:var(--up)}.ck .m.f{color:var(--coral)}.ck .m.u{color:var(--neu)}
+.ck em{font-style:normal;opacity:.7;white-space:nowrap}
 .sig{text-align:right}
 .pill{display:inline-block;padding:3px 12px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap}
 .p-buy{background:var(--up);color:#032a1a}.p-sell{background:var(--coral);color:#3a0d05}.p-neu{background:var(--neu);color:#1b2522}.p-wait{background:rgba(255,255,255,.1);color:var(--lime)}
-.cf{font-size:13px;color:var(--lime);margin-top:6px;white-space:nowrap}
-.mtr{height:5px;border-radius:3px;background:rgba(255,255,255,.12);margin-top:4px;overflow:hidden}.mtr i{display:block;height:100%;background:var(--lime)}
+.pts{font:800 22px "Inter Tight";margin-top:6px}.pts small{font-size:12px;opacity:.7}
+.sigm{display:none}
 .dots::after{content:"분석 중";animation:blink 1.2s infinite}@keyframes blink{50%{opacity:.35}}
-.tally{display:flex;gap:18px;padding:12px 18px 8px;border-top:1px solid rgba(230,245,200,.12);font-size:14px;color:var(--lime);flex-wrap:wrap}
-.tally b{font:800 22px "Inter Tight";color:#fff;margin-right:4px}
-/* lower */
-h2{font:800 clamp(24px,3vw,32px)/1.15 "Inter Tight","Noto Sans KR";margin:0 0 6px}
-.flow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;max-width:1100px;margin:0 auto}
+/* 아래 */
+h2{font:800 clamp(22px,3vw,30px)/1.15 "Inter Tight","Noto Sans KR";margin:0 0 6px}
+.flow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;max-width:1100px;margin:0 auto}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
 .tag{font-size:13px;color:var(--mut);font-weight:500}
-.big{font:900 clamp(36px,6vw,56px)/1 "Inter Tight","Noto Sans KR";margin:6px 0 10px;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:15px;margin-top:10px}
+td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.pick td{font-weight:700}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px;margin:12px 0}
 .kv dt{color:var(--mut)}.kv dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
-ul.w{padding-left:18px;margin:8px 0 0;font-size:15px}
-.pm .big.buy{color:var(--up)}.pm .big.sell{color:var(--coral)}.pm .big.hold{color:var(--mut)}
-.cases{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:14px}
-.case{border-radius:12px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);font-size:15px}
+.case{border-radius:12px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);font-size:15px;margin-top:10px}
 .case h4{margin:0 0 4px;font-size:14px}.case.pro h4{color:#1d9a64}.case.con h4{color:#d9472f}
-.steps{display:grid;gap:8px;margin-top:14px}
-.step{display:grid;grid-template-columns:80px 1fr;gap:10px;font-size:15px;padding:10px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
-.step b{color:var(--mut);font-weight:500}
 .empty{color:var(--mut);font-size:15px}
 .note{font-size:13px;color:var(--mut);max-width:1100px;margin:20px auto 0}
-@media(max-width:760px){.flow{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:600px){form{grid-template-columns:minmax(0,1fr)}.row{grid-template-columns:56px minmax(0,1fr);gap:10px;padding:14px}.av{width:52px;height:52px}.sig{grid-column:2;grid-row:1;text-align:left;display:none}.sig.m{display:flex}.cases{grid-template-columns:minmax(0,1fr)}.pc{gap:8px}.step{grid-template-columns:minmax(0,1fr)}}
-.sigm{display:none}
-@media(max-width:600px){.sig{display:none}.sigm{display:flex;gap:10px;align-items:center;margin-top:4px}.sigm .cf{margin:0}}
-@media(prefers-reduced-motion:reduce){.dots::after,.row:hover .av svg{animation:none}}
+@media(max-width:760px){.flow{grid-template-columns:minmax(0,1fr)}.score{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){form{grid-template-columns:minmax(0,1fr)}.row{grid-template-columns:56px minmax(0,1fr);gap:10px;padding:14px}.av{width:56px;height:56px}.sig{display:none}.sigm{display:flex;gap:10px;align-items:center;margin-top:4px}.sigm .pts{margin:0;font-size:18px}.wr{grid-template-columns:80px minmax(0,1fr) 58px}}
+@media(prefers-reduced-motion:reduce){.dots::after{animation:none}}
+
+.hero{display:none;margin-top:18px;background:#fff;color:#0f1a17;border-radius:18px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.hh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.hh b{font:800 20px "Inter Tight","Noto Sans KR"}.hh .px{font:800 20px "Inter Tight";white-space:nowrap}
+.hs{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;margin:14px 0}
+.ring{width:104px;height:104px;border-radius:50%;display:grid;place-items:center;font:900 40px "Inter Tight";background:conic-gradient(var(--c) calc(var(--v)*1%),#e8eeeb 0)}
+.ring span{width:84px;height:84px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.band2{font:900 26px "Noto Sans KR";color:var(--c)}
+.vd{margin-top:4px;font-size:15px}
+.veto{background:#fde6e1;color:#8a2412;border-radius:10px;padding:8px 12px;font-size:14px;margin-top:8px}
+.pg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;border-top:1px solid #e3e9e6;padding-top:12px}
+.pg div{font-size:12px;color:#5b6b66}.pg span{display:block;font:800 17px "Inter Tight","Noto Sans KR";color:#0f1a17;white-space:nowrap;font-variant-numeric:tabular-nums}
+.mline{font-size:13px;color:#5b6b66;margin-top:10px}
+.board{display:none}
+details.ag{border-top:1px solid rgba(230,245,200,.12)}
+details.ag>summary{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 16px;list-style:none}
+details.ag>summary::-webkit-details-marker{display:none}
+details.ag .av{width:52px;height:52px;border-radius:12px;overflow:hidden;background:#f6eadb}
+details.ag .av img{width:100%;height:100%;display:block}
+.an{font-weight:700;font-size:16px}.an small{font-weight:400;font-size:12px;color:var(--lime);opacity:.75;margin-left:4px}
+.al{font-size:14px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ar{text-align:right}.ar b{display:block;font:800 18px "Inter Tight";margin-top:2px}
+.ab{padding:0 16px 14px 80px}
+.xs{display:grid;gap:10px}
+details.x{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 16px}
+details.x>summary{font-weight:700;min-height:48px}
+details.x .in{padding-bottom:14px;font-size:15px}
+@media(max-width:600px){.pg{grid-template-columns:repeat(3,minmax(0,1fr))}.ab{padding-left:16px}.hs{grid-template-columns:auto minmax(0,1fr)}.ring{width:88px;height:88px;font-size:32px}.ring span{width:70px;height:70px}.band2{font-size:22px}}
 </style>
 </head>
 <body>
 <section class="band top"><div class="wrap">
-  <div class="bar0"><span style="color:var(--lime);font-size:14px">Gemini 무료 API</span><button type="button" id="openSet">설정</button></div>
-  <h1>AI 투자위원회</h1>
-  <p class="sub">종목을 검색하면 최신 데이터를 수집한 뒤, 버핏·멍거·그레이엄·린치·드러켄밀러의 투자 철학으로 각각 찬성과 반대 근거를 따지고, 리스크 매니저와 포트폴리오 매니저가 최종 방향을 정합니다.</p>
+  <div class="bar0"><span style="color:var(--lime);font-size:14px">스윙 투자 심사</span><button type="button" id="openSet">설정</button></div>
 
   <div class="setup" id="setup">
     <h3>Gemini API 키 설정</h3>
-    <p>무료 키는 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a>에서 1분이면 발급돼요. 키는 이 기기의 브라우저에만 저장되고 저장소나 다른 곳으로 보내지지 않아요.</p>
+    <p>무료 키는 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a>에서 발급해요. 키는 이 기기의 브라우저에만 저장돼요.</p>
     <div class="rowk"><input id="key" type="password" placeholder="AIza로 시작하는 키" autocomplete="off"><button type="button" id="saveKey">저장</button></div>
-    <label>모델<select id="model"><option value="gemini-flash-latest">gemini-flash-latest (기본)</option></select></label>
-    <label style="display:flex;gap:8px;align-items:center;margin-top:12px"><input type="checkbox" id="useSearch" style="width:auto" checked> 구글 검색으로 실시간 시세·뉴스 수집 (권장)</label>
+    <label>분석 모드<select id="mode"><option value="eco">절약 · 1회에 API 약 5번</option><option value="full">정밀 · 위원별 따로, 약 11번</option></select></label>
+    <label>모델<select id="model"><option value="gemini-flash-latest">gemini-flash-latest</option></select></label>
+    <label>1회 매매 허용 손실 (계좌 대비 %)<input id="riskPct" inputmode="decimal" value="1"></label>
   </div>
 
+  <h1>AI 투자위원회</h1>
+  <p class="sub">투자 대가 7인이 채점하고, 결론과 매매 계획만 보여드려요.</p>
   <form id="f">
-    <input id="tk" placeholder="종목명 또는 티커 (예: TSLA, 삼성전자, 005930)" autocomplete="off" required>
+    <input id="tk" placeholder="종목명 또는 티커 (예: NVDA, 삼성전자)" autocomplete="off" required>
     <button id="go" type="submit">위원회 소집</button>
-    <details class="opt"><summary>내 상황 입력 (선택 · 최종 비중 결정에 반영)</summary>
-      <div class="optg">
-        <label>현재 보유 비중 %<input id="hold" inputmode="decimal" placeholder="예: 20"></label>
-        <label>현금 비중 %<input id="cash" inputmode="decimal" placeholder="예: 50"></label>
-        <label>평균 매수가<input id="avg" inputmode="decimal" placeholder="예: 210"></label>
-        <label>투자 기간<select id="horizon"><option>1년 이상</option><option>3~12개월</option><option>3개월 이내</option></select></label>
-        <label class="full">메모 (내가 아는 추가 정보)<textarea id="memo" rows="2" placeholder="예: 다음 주 실적 발표 예정"></textarea></label>
-      </div>
-    </details>
   </form>
   <div class="chips" id="recent"></div>
   <div class="status" id="status" aria-live="polite"></div>
   <div class="err" id="err"></div>
 
-  <div class="facts" id="facts"></div>
-
-  <div class="board">
-    <div class="bh"><span id="bt">위원회 대기 중</span><span>신호 · 확신도</span></div>
-    <div id="rows"></div>
-    <div class="tally" id="tally"></div>
-  </div>
+  <div class="hero" id="hero"></div>
+  <div class="board" id="board"><div class="bh"><span>7인 위원 의견</span><span>눌러서 이유 보기</span></div><div id="rows"></div></div>
 </div></section>
 
-<section class="band"><div class="flow">
-  <div class="card" id="risk"><div class="tag">2단계 · 리스크 매니저</div><h2>위험 한도</h2><p class="empty">다섯 명의 의견이 모이면 포지션 한도와 경고를 정합니다.</p></div>
-  <div class="card pm" id="pm"><div class="tag">3단계 · 포트폴리오 매니저</div><h2>최종 결정</h2><p class="empty">찬성 논리와 반대 논리를 저울질해 매수·매도·보유 방향과 실행 계획을 제시합니다.</p></div>
-</div>
-<p class="note">각 위원은 실제 인물이 아니라 해당 투자자의 공개된 투자 철학을 따르는 AI 분석가입니다. 결과는 참고용이며 투자 권유가 아닙니다. 수치는 구글 검색 결과를 AI가 정리한 것이라 틀릴 수 있으니 출처를 확인하세요.</p>
+<section class="band"><div class="wrap" id="extra"></div>
+<p class="note">각 위원은 실제 투자자 본인이 아니라 공개된 투자 철학을 바탕으로 한 AI 분석 역할입니다. 점수는 채점 기준 충족도이며 상승 확률이 아닙니다. 수치는 검색 결과를 AI가 정리한 것이라 틀릴 수 있어요. 투자 권유가 아닙니다.</p>
 </section>
-
 <script src="app.js"></script>
 </body>
 </html>

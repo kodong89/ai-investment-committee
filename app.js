@@ -1,399 +1,443 @@
-// AI 투자위원회 — Gemini API를 브라우저에서 직접 호출 (키는 localStorage에만 저장)
+// AI 투자위원회 v2 — 투자 대가 7인 스윙 투자 심사
+// 원칙: AI는 각 채점 항목을 판정(pass/fail/unknown)만 하고, 점수·가중합·거부권·손절·손익비는 코드가 계산한다.
 {
 const API = "https://generativelanguage.googleapis.com/v1beta";
 const $ = id => document.getElementById(id);
 const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const clamp = (n, a, b) => Math.max(a, Math.min(b, Number(n) || 0));
+const num = v => { if (v === null || v === undefined || v === "") return null; const n = typeof v === "number" ? v : parseFloat(String(v).replace(/[^0-9.\-]/g, "")); return Number.isFinite(n) ? n : null; };
+const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 };
 
-// ── 위원 (투자 철학) ─────────────────────────────────────────
+// ── 판정 기준표 ────────────────────────────────────────────
+// 점수 = 충족 항목 배점 합 ÷ 판정 가능 항목 배점 합 × 100, 자료가 부족하면 50점 쪽으로 당김
+// rule(F,T,M,P)가 true/false를 돌려주면 AI 판정 대신 코드 판정 사용 (null이면 AI 판정)
+const gt = (a, b) => (a == null || b == null) ? null : a > b;
 const AG = [
-  { id: "buffett", n: "워런 버핏", s: "경제적 해자", c: "#c0634a", m: "버",
-    p: `워런 버핏의 투자 철학:
-- 이해할 수 있는 사업(능력의 범위)만 산다.
-- 지속 가능한 경제적 해자: 브랜드, 네트워크 효과, 전환비용, 원가우위.
-- 높은 ROE(15% 이상 꾸준히), 낮은 부채, 안정적이고 예측 가능한 이익과 잉여현금흐름.
-- 정직하고 주주친화적인 경영진, 합리적인 자본배분.
-- 내재가치(미래 현금흐름의 현재가치)보다 충분히 싸야 한다. 훌륭한 기업을 적정 가격에.
-- 10년 동안 시장이 문을 닫아도 마음 편히 들고 갈 수 있는가.` },
-  { id: "munger", n: "찰리 멍거", s: "좋은 기업, 합리적 가격", c: "#6a4fd8", m: "멍",
-    p: `찰리 멍거의 투자 철학:
-- 뒤집어 생각하라: 이 회사를 망하게 할 요인은 무엇인가부터 본다.
-- 사업의 질이 최우선. 높은 자본수익률, 가격 결정력, 재투자 기회.
-- 여러 학문의 정신 모델(심리학, 경제학, 인센티브)로 본다. 경영진 인센티브를 확인한다.
-- 어리석음을 피하는 것이 똑똑해지려는 것보다 낫다. 과도한 레버리지, 유행, 복잡함을 싫어한다.
-- 매우 까다로워서 대부분은 패스한다. 확실한 기회에만 크게 집중 투자한다.` },
-  { id: "graham", n: "벤 그레이엄", s: "안전마진", c: "#3459b8", m: "그",
-    p: `벤저민 그레이엄의 투자 철학:
-- 안전마진: 내재가치보다 크게 싸게 사야 한다.
-- 정량 기준: PER 15 이하, PBR 1.5 이하(또는 PER×PBR 22.5 이하), 유동비율 2 이상, 부채가 순유동자산보다 적을 것.
-- 최근 10년 적자 없음, 꾸준한 배당, 이익 성장.
-- 그레이엄 넘버 = √(22.5 × EPS × BPS)와 현재가를 비교한다.
-- 미래 성장 스토리나 시장의 흥분에 돈을 지불하지 않는다. "미스터 마켓"의 감정을 이용한다.` },
-  { id: "lynch", n: "피터 린치", s: "PEG · 성장 범주", c: "#2f8a4e", m: "린",
-    p: `피터 린치의 투자 철학:
-- 먼저 기업을 6개 범주로 분류한다: 저성장주, 대형우량주(스탈워트), 고성장주, 경기순환주, 턴어라운드주, 자산주. 범주마다 판단 기준이 다르다.
-- PEG(PER ÷ 이익성장률)가 1 이하면 매력적, 2 이상이면 비싸다.
-- 2분 안에 설명할 수 있는 단순한 스토리. 일상에서 보이는 제품.
-- 재고, 부채, 현금, 내부자 매수, 자사주 매입을 확인한다.
-- 텐배거(10배) 가능성이 있는가. 너무 유명하고 모두가 아는 종목은 경계한다.` },
-  { id: "druck", n: "스탠리 드러켄밀러", s: "매크로 · 비대칭", c: "#b08a22", m: "드",
-    p: `스탠리 드러켄밀러의 투자 철학:
-- 유동성이 시장을 움직인다: 연준 정책, 금리 방향, 달러, 신용 환경을 먼저 본다.
-- 현재가 아니라 18~24개월 뒤를 본다. 이익 추정치의 변곡점을 찾는다.
-- 가격 추세와 모멘텀을 존중한다. 차트가 펀더멘털과 어긋나면 이유를 따진다.
-- 비대칭 베팅: 손실은 작게 자르고, 확신이 클 때는 크게 건다.
-- 틀렸다고 판단되면 즉시 생각을 바꾼다. 원금 보존이 먼저다.` }
+  { id: "druck", n: "스탠리 드러켄밀러", role: "시장 방향", w: 25, color: "#b08a22",
+    q: "좋은 기업인지를 떠나, 지금 돈이 이 종목으로 들어오고 있는가?",
+    p: "유동성·금리·달러가 시장을 움직인다고 보고, 18~24개월 앞의 변곡점과 지금의 자금 흐름을 본다. 추세를 존중하고 비대칭 베팅을 한다.",
+    checks: [
+      { id: "regime", t: "시장 국면이 우호적(상승장)", pts: 20, rule: (F, T, M) => M?.regime ? M.regime === "상승장" : null },
+      { id: "sector", t: "섹터가 시장 주도 업종", pts: 20 },
+      { id: "rs", t: "3개월 수익률이 지수보다 강함", pts: 20, rule: (F, T) => gt(num(T.return_3m_pct), num(T.index_return_3m_pct)) },
+      { id: "flow", t: "기관·외국인 수급 또는 거래대금 증가", pts: 15 },
+      { id: "catalyst", t: "1~3개월 내 상승 촉매", pts: 15 },
+      { id: "rates", t: "금리·달러 환경이 우호적", pts: 10 } ] },
+  { id: "minervini", n: "마크 미너비니", role: "매수 타점", w: 20, color: "#2a2f3a",
+    q: "지금이 손실 위험은 작고 상승 여력은 큰 매수 타점인가?",
+    p: "트렌드 템플릿(주가>50일>150일>200일선, 200일선 상승), 변동성 축소 패턴(VCP), 거래량 마른 뒤 돌파, 초기 눌림목을 본다. 이격이 큰 추격 매수는 피한다.",
+    checks: [
+      { id: "trend", t: "추세 정렬: 주가>50일>150일>200일선", pts: 25, rule: (F, T) => { const p = num(F.price), a = num(T.ma50), b = num(T.ma150), c = num(T.ma200); return (p && a && b && c) ? (p > a && a > b && b > c) : null; } },
+      { id: "range", t: "52주 저점 +30% 이상, 고점 -25% 이내", pts: 15, rule: (F, T) => { const p = num(F.price), h = num(T.high_52w), l = num(T.low_52w); return (p && h && l) ? (p >= l * 1.3 && p >= h * 0.75) : null; } },
+      { id: "vcp", t: "변동성 축소(가격 폭이 점점 좁아짐)", pts: 15 },
+      { id: "volume", t: "거래량 감소 후 돌파 시 증가", pts: 15 },
+      { id: "spot", t: "돌파 직후 또는 초기 눌림목 (과열 이격 아님)", pts: 20, rule: (F, T) => { const p = num(F.price), a = num(T.ma50); return (p && a) ? (p / a - 1 <= 0.15 && p >= a * 0.97) : null; } },
+      { id: "pivot", t: "가까운 곳에 명확한 손절 기준(지지선)", pts: 10, rule: (F, T, M, P) => P?.riskPct != null ? P.riskPct <= 0.08 : null } ] },
+  { id: "lynch", n: "피터 린치", role: "성장성", w: 15, color: "#2f8a4e",
+    q: "앞으로 실적이 시장의 기대보다 빠르게 성장할 수 있는가?",
+    p: "기업을 저성장·우량·고성장·경기순환·턴어라운드·자산주로 분류하고 범주에 맞게 판단한다. PEG를 중시하고 2분 안에 설명되는 스토리를 좋아한다.",
+    checks: [
+      { id: "rev", t: "매출 성장률 10% 이상", pts: 20, rule: F => num(F.revenue_growth_pct) == null ? null : num(F.revenue_growth_pct) >= 10 },
+      { id: "eps", t: "EPS 성장률 15% 이상 또는 가속", pts: 25, rule: F => num(F.eps_growth_pct) == null ? null : num(F.eps_growth_pct) >= 15 },
+      { id: "peg", t: "PEG 1.5 이하", pts: 20, rule: F => num(F.peg) == null ? null : num(F.peg) > 0 && num(F.peg) <= 1.5 },
+      { id: "guide", t: "실적 전망·가이던스 상향", pts: 20 },
+      { id: "industry", t: "산업 자체가 성장 중", pts: 15 } ] },
+  { id: "buffett", n: "워런 버핏", role: "기업 경쟁력", w: 10, color: "#c0634a",
+    q: "지금 매수해서 5년을 보유해도 괜찮은 기업인가?",
+    p: "이해 가능한 사업, 지속 가능한 경제적 해자, 높은 자본수익률, 꾸준한 잉여현금흐름, 경영진의 합리적 자본 배분을 본다.",
+    checks: [
+      { id: "moat", t: "경제적 해자(브랜드·네트워크·전환비용·원가우위)", pts: 25 },
+      { id: "roic", t: "ROIC 또는 ROE 15% 이상", pts: 20, rule: F => { const v = num(F.roic_pct) ?? num(F.roe_pct); return v == null ? null : v >= 15; } },
+      { id: "fcf", t: "잉여현금흐름 흑자·증가", pts: 20 },
+      { id: "stable", t: "이익의 지속성(최근 수년 적자 없음)", pts: 15 },
+      { id: "debt", t: "부채 관리 양호", pts: 10, rule: F => num(F.debt_to_equity_pct) == null ? null : num(F.debt_to_equity_pct) <= 100 },
+      { id: "alloc", t: "자본 배분(자사주·배당·M&A) 합리적", pts: 10 } ] },
+  { id: "munger", n: "찰리 멍거", role: "실패 가능성", w: 10, color: "#6a4fd8",
+    q: "이 종목에 투자하면 어떤 이유로 큰돈을 잃을 수 있는가?",
+    p: "뒤집어 생각한다. 망하는 길부터 찾고, 인센티브와 경영진 신뢰를 따지며, 과도한 기대·레버리지·복잡함을 피한다. 각 항목은 '그 위험이 없으면 통과'다.",
+    checks: [
+      { id: "thesis", t: "투자 논리가 하나의 가정에만 의존하지 않음", pts: 20 },
+      { id: "lever", t: "과도한 부채 없음", pts: 20, rule: F => num(F.debt_to_equity_pct) == null ? null : num(F.debt_to_equity_pct) <= 150 },
+      { id: "mgmt", t: "경영진 신뢰 문제(회계·소송·내부자 대량매도) 없음", pts: 20 },
+      { id: "hype", t: "시장 기대가 과열되지 않음", pts: 20 },
+      { id: "simple", t: "사업 구조가 단순하고 이해 가능", pts: 20 } ] },
+  { id: "graham", n: "벤저민 그레이엄", role: "안전마진", w: 10, color: "#3459b8",
+    q: "현재 가격은 기업 가치 대비 충분히 매력적인가?",
+    p: "내재가치 대비 할인(안전마진), PER·PBR의 절대·역사적 수준, 순부채, 유동비율을 본다. 성장 스토리에 값을 치르지 않는다.",
+    checks: [
+      { id: "per", t: "PER이 자기 역사·업종 평균 이하", pts: 25 },
+      { id: "pbr", t: "PBR 3배 이하 또는 업종 대비 낮음", pts: 15, rule: F => num(F.pbr) == null ? null : num(F.pbr) <= 3 },
+      { id: "netdebt", t: "순부채가 낮거나 순현금", pts: 20 },
+      { id: "current", t: "유동비율 1.5 이상", pts: 15, rule: F => num(F.current_ratio) == null ? null : num(F.current_ratio) >= 1.5 },
+      { id: "intrinsic", t: "그레이엄 넘버·내재가치 대비 할인", pts: 25, rule: F => { const e = num(F.eps), b = num(F.bps), p = num(F.price); return (e > 0 && b > 0 && p) ? p <= Math.sqrt(22.5 * e * b) : null; } } ] },
+  { id: "ptj", n: "폴 튜더 존스", role: "리스크 관리 · 거부권", w: 10, color: "#1f3a5f",
+    q: "판단이 틀렸을 때 감당해야 할 손실은 얼마인가?",
+    p: "손익비, 변동성, 갭 하락, 시장 급락, 실적 발표 위험을 먼저 본다. 원금 보존이 최우선이며 중대한 위험이 있으면 거부권을 행사한다.",
+    checks: [
+      { id: "rr", t: "손익비 2:1 이상", pts: 25, rule: (F, T, M, P) => P?.rr == null ? null : P.rr >= 2 },
+      { id: "earn", t: "실적 발표가 5거래일 이내가 아님", pts: 20, rule: F => { const d = daysTo(F.next_earnings_date); return d == null ? null : !(d >= 0 && d <= 7); } },
+      { id: "vol", t: "변동성 적정(ATR 5% 이하)", pts: 15, rule: (F, T, M, P) => P?.atrPct == null ? null : P.atrPct <= 0.05 },
+      { id: "crash", t: "시장 급락 위험 낮음(VIX 25 미만)", pts: 20, rule: (F, T, M) => num(M?.vix) == null ? null : num(M.vix) < 25 },
+      { id: "event", t: "증자·소송·규제 등 갭 하락 이벤트 위험 낮음", pts: 20 } ] }
 ];
-// ── 픽셀 캐릭터 (각 투자 철학을 상징하는 오리지널 마스코트) ──
-const SPR = {
- buffett:{name:"해자 비버",pal:{d:"#5a3317",b:"#a8642e",l:"#d79b62",k:"#1a1a1a",w:"#fffaf0",n:"#3a2010"},rows:[
-  "..dd....dd..",
-  ".dbbd..dbbd.",
-  ".dbbbbbbbbd.",
-  "dbbbbbbbbbbd",
-  "dbbkbbbbkbbd",
-  "dbbbbllbbbbd",
-  "dbbbllllbbbd",
-  ".dbblnnlbbd.",
-  ".dbbllllbbd.",
-  "..dbbwwbbd..",
-  "...dbwwbd...",
-  "....dddd...."]},
- munger:{name:"역발상 부엉이",pal:{g:"#36266e",l:"#c9b8f0",y:"#ffd84a",k:"#1a1a1a",o:"#f08a24",w:"#ffffff"},rows:[
-  ".g........g.",
-  ".gg......gg.",
-  ".gggggggggg.",
-  "gwwwwggwwwwg",
-  "gwkkwggwkkwg",
-  "gwwwwoowwwwg",
-  ".gggggoggggg",
-  ".gllllllllg.",
-  ".glglllglgl.",
-  ".gllllllllg.",
-  "..gggggggg..",
-  "...oo..oo..."]},
- graham:{name:"안전마진 거북이",pal:{T:"#1f5f3a",t:"#3f9a5c",s:"#b9d98a",k:"#1a1a1a",w:"#ffffff"},rows:[
-  "...TTTTTT...",
-  "..TtTttTtT..",
-  ".TtssssssTt.",
-  ".Tsssssssst.",
-  "TssksssskssT",
-  "TssssssssssT",
-  "TsssskkssssT",
-  ".TssssssssT.",
-  "..TTssssTT..",
-  ".TtTtTTtTtT.",
-  "TtTtTtTtTtTt",
-  ".TTTTTTTTTT."]},
- lynch:{name:"텐배거 다람쥐",pal:{r:"#d9772b",c:"#f7dcb4",k:"#1a1a1a",w:"#ffffff",a:"#8a5a2b",A:"#5b3a1a"},rows:[
-  "..r......r..",
-  ".rrr....rrr.",
-  ".rrrrrrrrrr.",
-  "rrrrrrrrrrrr",
-  "rrkrrrrrrkrr",
-  "rrrrrccrrrrr",
-  "rrrrckkcrrrr",
-  ".rrccccccrr.",
-  ".rcccwwcccr.",
-  "..rccccccrAA",
-  "...rrrrrr.aa",
-  "..........aa"]},
- druck:{name:"매크로 독수리",pal:{h:"#f4f1e8",e:"#6b4423",y:"#f5b21b",k:"#1a1a1a",r:"#c0392b"},rows:[
-  "...hhhhhh...",
-  "..hhhhhhhh..",
-  ".hhhhhhhhhh.",
-  ".hkkhhhhkkh.",
-  ".hhkhhhhkhh.",
-  ".hhhhyyyhhh.",
-  "..hhhyyyyh..",
-  "..hhhhyyhh..",
-  ".eehhhhhhee.",
-  "eeeeehheeeee",
-  "eeeeeeeeeeee",
-  ".eeeeeeeeee."]}
-};
-function sprite(id){const s=SPR[id];let r="";s.rows.forEach((row,y)=>[...row].forEach((ch,x)=>{const c=s.pal[ch];if(c)r+=`<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${c}"/>`}));return `<svg viewBox="-2 -2 16 16" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`}
-
-const SIG = { bullish: ["사자", "p-buy"], bearish: ["팔자", "p-sell"], neutral: ["중립", "p-neu"] };
+const AGI = Object.fromEntries(AG.map(a => [a.id, a]));
+function daysTo(s) { if (!s) return null; const d = new Date(s); if (isNaN(d)) return null; return Math.round((d - new Date()) / 864e5); }
 
 // ── 설정 ───────────────────────────────────────────────────
-let cfg = store.get("aic-cfg", { key: "", model: "gemini-flash-latest", search: true });
-function showSetup(force) { $("setup").style.display = (force || !cfg.key) ? "block" : "none"; }
-$("key").value = cfg.key; $("useSearch").checked = cfg.search !== false;
-showSetup();
+let cfg = Object.assign({ key: "", model: "gemini-flash-latest", mode: "eco" }, store.get("aic-cfg", {}));
+$("key").value = cfg.key; $("mode").value = cfg.mode;
+const saveCfg = () => store.set("aic-cfg", cfg);
+$("setup").style.display = cfg.key ? "none" : "block";
 $("openSet").addEventListener("click", () => { const s = $("setup"); s.style.display = s.style.display === "block" ? "none" : "block"; if (cfg.key) loadModels(); });
-$("saveKey").addEventListener("click", async () => {
-  cfg.key = $("key").value.trim(); store.set("aic-cfg", cfg);
-  if (cfg.key) { await loadModels(); setStatus("키 저장 완료. 종목을 검색해 보세요."); $("setup").style.display = "none"; }
-});
-$("model").addEventListener("change", () => { cfg.model = $("model").value; store.set("aic-cfg", cfg); });
-$("useSearch").addEventListener("change", () => { cfg.search = $("useSearch").checked; store.set("aic-cfg", cfg); });
+$("saveKey").addEventListener("click", async () => { cfg.key = $("key").value.trim(); saveCfg(); if (cfg.key) { await loadModels(); setStatus("키 저장 완료. 종목을 검색해 보세요."); $("setup").style.display = "none"; } });
+$("model").addEventListener("change", () => { cfg.model = $("model").value; saveCfg(); });
+$("mode").addEventListener("change", () => { cfg.mode = $("mode").value; saveCfg(); });
+$("riskPct").value = cfg.riskPct ?? 1; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
 
 async function loadModels() {
   try {
     const r = await fetch(`${API}/models?pageSize=200`, { headers: { "x-goog-api-key": cfg.key } });
     if (!r.ok) return;
-    const j = await r.json();
-    const ids = (j.models || [])
-      .filter(m => (m.supportedGenerationMethods || []).includes("generateContent"))
-      .map(m => m.name.replace(/^models\//, ""))
-      .filter(n => /^gemini/.test(n) && !/(image|tts|live|audio|embedding|robotics|translate)/.test(n));
+    const ids = ((await r.json()).models || []).filter(m => (m.supportedGenerationMethods || []).includes("generateContent"))
+      .map(m => m.name.replace(/^models\//, "")).filter(n => /^gemini/.test(n) && !/(image|tts|live|audio|embedding|robotics|translate)/.test(n));
     const list = ["gemini-flash-latest", ...ids.filter(n => n !== "gemini-flash-latest")];
-    $("model").innerHTML = list.map(n => `<option value="${esc(n)}">${esc(n)}${n === "gemini-flash-latest" ? " (기본)" : ""}</option>`).join("");
+    $("model").innerHTML = list.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join("");
     if (!list.includes(cfg.model)) cfg.model = list[0];
-    $("model").value = cfg.model;
-    return list;
-  } catch (e) { /* 무시 */ }
+    $("model").value = cfg.model; return list;
+  } catch (e) {}
 }
 
-// ── Gemini 호출 ────────────────────────────────────────────
+// ── Gemini ────────────────────────────────────────────────
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-function setStatus(t) { $("status").textContent = t || ""; }
-function showErr(m) { const e = $("err"); e.textContent = m || ""; e.style.display = m ? "block" : "none"; }
-
+const setStatus = t => { $("status").textContent = t || ""; };
+const showErr = m => { const e = $("err"); e.textContent = m || ""; e.style.display = m ? "block" : "none"; };
 function parseJSON(t) {
-  if (!t) throw new Error("빈 응답");
-  t = t.replace(/```json|```/g, "").trim();
+  t = String(t || "").replace(/```json|```/g, "").trim();
   try { return JSON.parse(t); } catch (e) {}
   const a = t.indexOf("{"), b = t.lastIndexOf("}");
   if (a >= 0 && b > a) return JSON.parse(t.slice(a, b + 1));
-  throw new Error("JSON 해석 실패");
+  throw new Error("AI 응답을 해석하지 못했어요");
 }
-
-async function gemini(prompt, { search = false, json = true, label = "" } = {}) {
-  const body = {
-    contents: [{ role: "user", parts: [{ text: prompt }] }],
-    generationConfig: { temperature: 0.4 }
-  };
-  if (search) body.tools = [{ google_search: {} }];
-  else if (json) body.generationConfig.responseMimeType = "application/json";
-
-  for (let attempt = 0; attempt < 4; attempt++) {
+async function gemini(prompt, { search = false, label = "" } = {}) {
+  const body = { contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3 } };
+  if (search) body.tools = [{ google_search: {} }]; else body.generationConfig.responseMimeType = "application/json";
+  for (let i = 0; i < 4; i++) {
     const r = await fetch(`${API}/models/${encodeURIComponent(cfg.model)}:generateContent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": cfg.key },
-      body: JSON.stringify(body)
-    });
+      method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": cfg.key }, body: JSON.stringify(body) });
     if (r.status === 429 || r.status === 503) {
-      let wait = 20;
-      try { const j = await r.json(); const d = JSON.stringify(j).match(/"retryDelay":"(\d+)/); if (d) wait = Math.min(60, +d[1] + 2); } catch (e) {}
-      for (let s = wait; s > 0; s--) { setStatus(`${label} · 무료 한도 대기 중 ${s}초…`); await sleep(1000); }
+      let wait = 20, daily = false;
+      try { const s = JSON.stringify(await r.json()); const d = s.match(/"retryDelay":"(\d+)/); if (d) wait = Math.min(60, +d[1] + 2); daily = /PerDay/i.test(s); } catch (e) {}
+      if (daily) { const e = new Error("오늘 무료 호출 한도를 다 썼어요. 한도는 한국시간 오후 4~5시쯤 초기화돼요. 설정에서 다른 모델을 고르면 별도 한도로 계속 쓸 수 있어요."); e.status = 429; throw e; }
+      for (let s = wait; s > 0; s--) { setStatus(`${label} · 무료 한도 대기 ${s}초`); await sleep(1000); }
       continue;
     }
-    if (!r.ok) {
-      let msg = `HTTP ${r.status}`;
-      try { const j = await r.json(); msg = j.error?.message || msg; } catch (e) {}
-      const err = new Error(msg); err.status = r.status; throw err;
-    }
-    const j = await r.json();
-    const cand = j.candidates?.[0];
-    const text = (cand?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("");
-    const sources = (cand?.groundingMetadata?.groundingChunks || []).map(c => c.web).filter(w => w && /^https:\/\//.test(w.uri));
-    return { data: json ? parseJSON(text) : text, sources };
+    if (!r.ok) { let m = `HTTP ${r.status}`; try { m = (await r.json()).error?.message || m; } catch (e) {} const e = new Error(m); e.status = r.status; throw e; }
+    const j = await r.json(), c = j.candidates?.[0];
+    const text = (c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("");
+    const sources = (c?.groundingMetadata?.groundingChunks || []).map(x => x.web).filter(w => w && /^https:\/\//.test(w.uri));
+    return { data: parseJSON(text), sources };
   }
-  const e = new Error("무료 한도를 계속 초과했어요. 1~2분 뒤 다시 시도해 주세요."); e.status = 429; throw e;
+  const e = new Error("무료 한도 초과가 계속돼요. 1~2분 뒤 다시 시도해 주세요."); e.status = 429; throw e;
+}
+const today = () => new Date().toISOString().slice(0, 10);
+
+// ── 1. 시장 위험 판단 (6시간 캐시) ─────────────────────────
+async function getMarket() {
+  const c = store.get("aic-market", null);
+  if (c && Date.now() - c.t < 6 * 3600e3) return c.v;
+  const r = await gemini(`오늘은 ${today()}. 구글 검색으로 현재 주식시장 국면을 판단하라.
+나스닥·S&P500·코스피가 50일·200일 이동평균 위/아래인지, VIX, 달러인덱스 추세, 미국 10년물 금리, 최근 1개월 주도 섹터.
+regime은 지수가 200일선 위·50일선 위면 "상승장", 200일선 아래·50일선 아래면 "하락장", 그 외 "횡보장".
+설명 없이 JSON 하나만:
+{"as_of":"날짜","regime":"상승장|횡보장|하락장","nasdaq":"50일선 위/아래, 200일선 위/아래 한 줄","sp500":"한 줄","kospi":"한 줄","vix":숫자,"dxy":"상승|횡보|하락","us10y":숫자,"leading_sectors":["섹터1","섹터2","섹터3"],"summary":"시장 한 줄 요약(30자)"}`, { search: true, label: "시장 위험 판단" });
+  const v = { ...r.data, sources: r.sources };
+  store.set("aic-market", { t: Date.now(), v });
+  return v;
 }
 
-// ── 사용자 상황 ────────────────────────────────────────────
-function userCtx() {
-  const f = [["현재 보유 비중(%)", $("hold").value], ["현금 비중(%)", $("cash").value], ["평균 매수가", $("avg").value], ["투자 기간", $("horizon").value], ["메모", $("memo").value]]
-    .filter(x => String(x[1]).trim()).map(x => `- ${x[0]}: ${String(x[1]).trim()}`).join("\n");
-  return f ? `사용자 상황:\n${f}` : "사용자 상황: 별도 입력 없음";
-}
-
-// ── 1단계: 데이터 수집 ──────────────────────────────────────
-const FACT_SCHEMA = `{"name":"회사명","ticker":"티커","market":"거래소","currency":"USD|KRW 등","price":숫자,"change_pct":숫자,"as_of":"가격 기준 시각","market_cap":"시가총액(단위 포함)","per":숫자|null,"fwd_per":숫자|null,"pbr":숫자|null,"roe_pct":숫자|null,"op_margin_pct":숫자|null,"debt_to_equity_pct":숫자|null,"current_ratio":숫자|null,"revenue_growth_pct":숫자|null,"eps_growth_pct":숫자|null,"eps":숫자|null,"bps":숫자|null,"dividend_yield_pct":숫자|null,"high_52w":숫자|null,"low_52w":숫자|null,"trend":"최근 3~6개월 주가 흐름 한 줄","business":"무엇으로 돈을 버는지 한 줄","news":["최근 뉴스/실적 1","2","3"],"macro":["이 종목에 영향 주는 금리·유동성·업황 1","2"]}`;
-
-const NUM_KEYS = ["price","per","fwd_per","pbr","roe_pct","op_margin_pct","debt_to_equity_pct","revenue_growth_pct","eps_growth_pct","eps","bps","dividend_yield_pct","high_52w","low_52w"];
+// ── 2. 종목 데이터 수집 ───────────────────────────────────
+const FUND = `{"name":"회사명","ticker":"티커","market":"거래소","currency":"USD|KRW","sector":"섹터","price":숫자,"change_pct":숫자,"as_of":"가격 기준일","market_cap":"시총(단위 포함)","per":숫자,"fwd_per":숫자,"per_hist_avg":숫자,"pbr":숫자,"roe_pct":숫자,"roic_pct":숫자,"op_margin_pct":숫자,"debt_to_equity_pct":숫자,"net_debt":"순부채(음수면 순현금, 단위 포함)","current_ratio":숫자,"fcf":"최근 연간 FCF(단위 포함)","fcf_trend":"증가|감소|흑자 유지|적자","revenue_growth_pct":숫자,"eps_growth_pct":숫자,"eps_growth_next_pct":숫자,"peg":숫자,"eps":숫자,"bps":숫자,"guidance":"최근 가이던스·컨센서스 변화 한 줄","next_earnings_date":"YYYY-MM-DD","business":"사업 한 줄","news":["최근 뉴스1","2","3"],"corporate_actions":"증자·M&A·소송·상폐 위험 한 줄(없으면 '특이사항 없음')"}`;
+const TECH = `{"ma20":숫자,"ma50":숫자,"ma150":숫자,"ma200":숫자,"ma200_rising":true|false,"high_52w":숫자,"low_52w":숫자,"rsi14":숫자,"atr14":숫자,"support":숫자,"resistance":숫자,"swing_low":숫자,"volume_trend":"최근 거래량 흐름 한 줄","return_1m_pct":숫자,"return_3m_pct":숫자,"index_return_3m_pct":숫자,"sector_strength":"섹터 상대강도 한 줄","flow":"기관·외국인·정치인 공시·옵션 등 수급 한 줄","pattern":"돌파|눌림목|박스권|추세 이탈|과열 중 하나와 설명"}`;
+const KEYF = ["price", "per", "pbr", "roe_pct", "revenue_growth_pct", "eps_growth_pct", "peg", "eps", "bps", "next_earnings_date"];
+const KEYT = ["ma50", "ma150", "ma200", "high_52w", "low_52w", "atr14", "support", "resistance", "return_3m_pct", "index_return_3m_pct"];
 const isEmpty = v => v === null || v === undefined || v === "" || v === "null";
 
-async function gatherFacts(tk) {
-  const today = new Date().toISOString().slice(0, 10);
-  const prompt = `오늘은 ${today}이다. 종목 "${tk}"의 최신 투자 지표를 구글 검색으로 찾아라.
-참고처: 한국 종목은 네이버 금융·한국거래소·FnGuide, 미국 종목은 Yahoo Finance·stockanalysis.com·macrotrends·회사 IR.
-- 가격은 최근 종가 기준. 재무 지표는 최근 4분기 합산(TTM) 또는 최근 연간 기준.
-- 검색으로 찾은 값만 넣고, 정말 못 찾은 값만 null. 퍼센트는 숫자만(예: 15.2).
-설명 없이 아래 JSON 하나만 출력:
-${FACT_SCHEMA}`;
-  let r, live = false;
-  if (cfg.search !== false) {
-    try { r = await gemini(prompt, { search: true, label: "데이터 수집" }); live = true; }
-    catch (e) { if (e.status === 401 || e.status === 403) throw e; }
-  }
-  if (!r) r = await gemini(prompt.replace("구글 검색으로 찾아라", "알고 있는 가장 최근 값으로 정리하라(as_of에 기준 시점 명시)").replace("검색으로 찾은 값만 넣고, 정말 못 찾은 값만 null.", "아는 값을 넣고 모르면 null."), { label: "데이터 수집" });
-
-  // 빈 지표가 많으면 그 항목만 한 번 더 검색
-  const missing = NUM_KEYS.filter(k => isEmpty(r.data[k]));
-  if (live && missing.length >= 3) {
-    setStatus(`1/4 · 빠진 지표 ${missing.length}개 추가 검색 중…`);
+async function getStock(tk) {
+  const src = `한국 종목은 네이버 금융·FnGuide·한국거래소, 미국 종목은 Yahoo Finance·stockanalysis.com·finviz·회사 IR 참고.`;
+  const f = await gemini(`오늘은 ${today()}. 종목 "${tk}"의 최신 펀더멘털을 구글 검색으로 찾아라. ${src}
+가격은 최근 종가, 재무는 최근 4분기(TTM) 기준. 퍼센트는 숫자만. 찾은 값만 넣고 못 찾으면 null.
+설명 없이 JSON 하나만:
+${FUND}`, { search: true, label: "펀더멘털 수집" });
+  setStatus("2/5 · 차트·수급 지표 수집 중…");
+  const t = await gemini(`오늘은 ${today()}. 종목 "${f.data.name || tk}"(${f.data.ticker || ""})의 기술적 지표를 구글 검색으로 찾아라. ${src}
+이동평균은 일봉 종가 기준, ATR은 14일, 지지·저항은 최근 3개월 일봉 기준 가장 가까운 가격대, index_return_3m_pct는 해당 시장 대표 지수(미국 S&P500, 한국 코스피)의 3개월 수익률.
+찾은 값만 넣고 못 찾으면 null. 설명 없이 JSON 하나만:
+${TECH}`, { search: true, label: "기술적 지표 수집" });
+  const F = f.data, T = t.data, sources = [...f.sources, ...t.sources];
+  const miss = [...KEYF.filter(k => isEmpty(F[k])), ...KEYT.filter(k => isEmpty(T[k]))];
+  if (miss.length >= 4) {
+    setStatus(`2/5 · 빠진 지표 ${miss.length}개 추가 검색 중…`);
     try {
-      const r2 = await gemini(`종목 "${r.data.name || tk}"(${r.data.ticker || ""})의 다음 지표만 구글 검색으로 찾아라: ${missing.join(", ")}.
-PER = 주가/EPS, PBR = 주가/BPS, ROE = 순이익/자본처럼 다른 값으로 계산 가능하면 계산해서 채워라. 퍼센트는 숫자만.
-설명 없이 {"키":값} 형태의 JSON 하나만 출력. 못 찾으면 null.`, { search: true, label: "추가 검색" });
-      for (const k of missing) if (!isEmpty(r2.data[k])) r.data[k] = r2.data[k];
-      r.sources = [...(r.sources || []), ...(r2.sources || [])];
+      const r = await gemini(`종목 "${F.name || tk}"(${F.ticker || ""})의 다음 값만 구글 검색으로 찾아라: ${miss.join(", ")}.
+다른 값으로 계산 가능하면 계산해서 채워라(PER=주가/EPS, PBR=주가/BPS, PEG=PER/EPS성장률). 퍼센트는 숫자만. 설명 없이 {"키":값} JSON 하나만, 못 찾으면 null.`, { search: true, label: "추가 검색" });
+      for (const k of miss) if (!isEmpty(r.data[k])) (KEYF.includes(k) ? F : T)[k] = r.data[k];
+      sources.push(...r.sources);
     } catch (e) {}
   }
-  return { ...r, live };
+  // 코드 보완 계산
+  if (isEmpty(F.peg) && num(F.per) && num(F.eps_growth_pct) > 0) F.peg = +(num(F.per) / num(F.eps_growth_pct)).toFixed(2);
+  return { F, T, sources };
 }
 
-const fmt = (v, suf = "") => (v === null || v === undefined || v === "") ? "—" : (typeof v === "number" ? v.toLocaleString("ko-KR", { maximumFractionDigits: 2 }) : v) + suf;
-
-function renderFacts(F, sources, live) {
-  const up = Number(F.change_pct) >= 0;
-  const items = [["시가총액", F.market_cap], ["PER", fmt(F.per, "배")], ["선행 PER", fmt(F.fwd_per, "배")], ["PBR", fmt(F.pbr, "배")], ["ROE", fmt(F.roe_pct, "%")], ["영업이익률", fmt(F.op_margin_pct, "%")],
-    ["부채비율", fmt(F.debt_to_equity_pct, "%")], ["매출 성장", fmt(F.revenue_growth_pct, "%")], ["EPS 성장", fmt(F.eps_growth_pct, "%")], ["배당수익률", fmt(F.dividend_yield_pct, "%")], ["52주 고가", fmt(F.high_52w)], ["52주 저가", fmt(F.low_52w)]];
-  $("facts").style.display = "block";
-  $("facts").innerHTML = `
-    <div class="fh"><b>${esc(F.name)} <span style="font-size:15px;opacity:.7">${esc(F.ticker)} · ${esc(F.market)}</span></b>
-      <span><span class="px">${esc(fmt(F.price))} ${esc(F.currency)}</span> <span class="chg ${up ? "up" : "dn"}">${F.change_pct == null ? "" : (up ? "+" : "") + esc(fmt(F.change_pct, "%"))}</span></span></div>
-    <div style="font-size:13px;color:var(--lime);opacity:.8">${live ? "구글 검색 기준" : "검색 미사용 · AI가 아는 과거 데이터"} · ${esc(F.as_of || "")}</div>
-    <div class="fg">${items.map(([k, v]) => `<div>${k}<span>${esc(v ?? "—")}</span></div>`).join("")}</div>
-    <div style="font-size:14px">${esc(F.business || "")}${F.trend ? " · " + esc(F.trend) : ""}</div>
-    <ul>${(F.news || []).slice(0, 3).map(n => `<li>${esc(n)}</li>`).join("")}</ul>
-    ${sources?.length ? `<div class="src">출처 ${sources.slice(0, 6).map(s => `<a href="${esc(s.uri)}" target="_blank" rel="noopener">${esc(s.title || "링크")}</a>`).join("")}</div>` : ""}`;
+// ── 3. 매매 계획 (코드 계산) ───────────────────────────────
+function makePlan(F, T) {
+  const entry = num(F.price);
+  if (!entry) return null;
+  let atr = num(T.atr14), atrEst = false;
+  if (!atr) { const h = num(T.high_52w), l = num(T.low_52w); atr = (h && l) ? (h - l) / 16 : entry * 0.03; atrEst = true; }
+  const atrStop = entry - 2 * atr;
+  const base = [num(T.support), num(T.swing_low)].filter(v => v && v < entry).sort((a, b) => b - a)[0];
+  const supStop = base ? base - 0.5 * atr : null;
+  // 지지선 손절이 ATR 손절보다 가깝고(손실 작고) 진입가 아래면 지지선 방식 채택, 아니면 2ATR
+  const useSup = supStop != null && supStop > atrStop && supStop < entry;
+  const stop = useSup ? supStop : atrStop;
+  const risk = entry - stop;
+  const res = num(T.resistance);
+  const target = (res && res > entry) ? res : null;
+  const rr = target ? (target - entry) / risk : null;
+  const target2R = entry + 2 * risk;
+  const riskPct = risk / entry;
+  const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 1, 0.1, 5);
+  const size = clamp(acct / 100 / riskPct * 100, 0, 25);
+  return { entry, atr, atrEst, atrPct: atr / entry, atrStop, supStop, useSup, stop, riskPct, target, rr, target2R, size, acct, base };
 }
 
-// ── 2단계: 위원 분석 ────────────────────────────────────────
-let results = {}, state = {};
+// ── 4. 위원 분석 ──────────────────────────────────────────
+function userCtx() {
+  return "";
+}
+const checkSpec = a => a.checks.map(c => `  - ${c.id}: ${c.t}`).join("\n");
+const AGENT_OUT = a => `{"checks":{${a.checks.map(c => `"${c.id}":{"r":"pass|fail|unknown","n":"근거 15자 이내"}`).join(",")}},"headline":"결론 한 문장 30자 이내","pros":["찬성 근거 25자 이내","찬성2"],"cons":["반대 근거 25자 이내","반대2"]${a.id === "ptj" ? ',"veto":true|false,"veto_reason":"거부 사유 한 줄 또는 빈 문자열"' : ""}}`;
+const RULES = `규칙:
+- 각 항목을 데이터에 대입해 pass(충족)/fail(미충족)/unknown(자료 부족)으로 판정. 추측으로 pass 주지 말 것.
+- 스윙 투자(수일~수개월) 관점의 위원회임을 감안하되, 자기 철학의 기준은 엄격히 지킬 것.
+- 찬성·반대 근거는 각 2개, 짧은 구절, 수치 포함. "자료 없음"은 근거에 쓰지 말 것.
+- 결론이 반대여도 찬성 근거를, 찬성이어도 반대 근거를 반드시 쓸 것.`;
+function ctxBlock(tk, S, M, P) {
+  return `종목: ${tk}
+펀더멘털: ${JSON.stringify(S.F)}
+기술적 지표: ${JSON.stringify(S.T)}
+시장 국면: ${JSON.stringify({ ...M, sources: undefined })}
+코드가 계산한 매매 계획: ${P ? JSON.stringify({ 진입: r2(P.entry), 손절: r2(P.stop), 손절폭_pct: r2(P.riskPct * 100), 목표_저항선: r2(P.target), 손익비: r2(P.rr), ATR_pct: r2(P.atrPct * 100) }) : "계산 불가"}
+${userCtx()}`;
+}
+const r2 = v => v == null ? null : Math.round(v * 100) / 100;
+
+async function analyzeFull(tk, S, M, P, onEach) {
+  const out = {};
+  for (let i = 0; i < AG.length; i++) {
+    const a = AG[i]; onEach(a.id, "run", i);
+    try {
+      out[a.id] = (await gemini(`너는 AI 투자위원회 위원이며 "${a.n}"의 공개된 투자 철학을 따르는 분석 역할이다(실제 인물 아님). 한국어.
+역할: ${a.role}. 핵심 질문: ${a.q}
+철학: ${a.p}
+${ctxBlock(tk, S, M, P)}
+
+채점 항목:
+${checkSpec(a)}
+${RULES}
+JSON 하나만 출력:
+${AGENT_OUT(a)}`, { label: a.n })).data;
+      onEach(a.id, "done", i, out[a.id]);
+    } catch (e) { onEach(a.id, "fail", i); if (e.status === 401 || e.status === 403 || /한도를 다 썼/.test(e.message)) throw e; }
+  }
+  return out;
+}
+async function analyzeEco(tk, S, M, P, onEach) {
+  AG.forEach((a, i) => onEach(a.id, "run", i));
+  const spec = AG.map(a => `## ${a.id} — ${a.n} (${a.role})
+핵심 질문: ${a.q}
+철학: ${a.p}
+채점 항목:
+${checkSpec(a)}
+출력 형식: ${AGENT_OUT(a)}`).join("\n\n");
+  const r = (await gemini(`너는 AI 투자위원회의 7명 위원 역할을 각각 독립적으로 수행한다. 각 위원은 공개된 투자 철학을 따르는 분석 역할이며 실제 인물이 아니다. 한국어.
+위원끼리 의견을 맞추지 말고, 각자 자기 기준으로만 판단하라. 서로 결론이 갈려도 된다.
+${ctxBlock(tk, S, M, P)}
+
+${spec}
+
+${RULES}
+JSON 하나만 출력: {"agents":{${AG.map(a => `"${a.id}":{...}`).join(",")}}}`, { label: "7인 위원 분석" })).data;
+  const out = r.agents || r;
+  AG.forEach((a, i) => onEach(a.id, out[a.id] ? "done" : "fail", i, out[a.id]));
+  return out;
+}
+
+// ── 점수 계산 (코드) ───────────────────────────────────────
+function scoreAgent(a, res, S, M, P) {
+  let got = 0, known = 0, total = 0;
+  const items = a.checks.map(c => {
+    total += c.pts;
+    let r = res?.checks?.[c.id]?.r || "unknown", n = res?.checks?.[c.id]?.n || "", by = "AI";
+    if (c.rule) { const v = c.rule(S.F, S.T, M, P); if (v === true || v === false) { r = v ? "pass" : "fail"; by = "코드"; } }
+    if (r !== "unknown") known += c.pts;
+    if (r === "pass") got += c.pts;
+    return { ...c, r, n, by };
+  });
+  const raw = known ? got / known * 100 : 50, cov = known / total;
+  const score = Math.round(50 + (raw - 50) * cov); // 자료가 적을수록 50점으로 수렴
+  const sig = score >= 65 ? "bullish" : score < 45 ? "bearish" : "neutral";
+  return { score, cov, items, sig };
+}
+function finalVerdict(scores, S, M, P, ptjRes) {
+  let total = 0; for (const a of AG) total += (scores[a.id]?.score ?? 50) * a.w / 100;
+  total = Math.round(total);
+  const veto = [];
+  if (P?.rr != null && P.rr < 1.5) veto.push(`손익비 ${P.rr.toFixed(2)}:1로 1.5 미만`);
+  const d = daysTo(S.F.next_earnings_date); if (d != null && d >= 0 && d <= 3) veto.push(`실적 발표 ${d}일 전 · 갭 위험`);
+  if (M?.regime === "하락장") veto.push("시장이 하락장");
+  if (num(M?.vix) > 30) veto.push(`VIX ${num(M.vix)} · 시장 급락 위험`);
+  if (ptjRes?.veto && ptjRes.veto_reason) veto.push(ptjRes.veto_reason);
+  const capped = veto.length ? Math.min(total, 64) : total;
+  const band = capped >= 80 ? ["매수 검토", "buy"] : capped >= 65 ? ["관심 종목", "watch"] : ["매수 제외", "out"];
+  return { raw: total, score: capped, veto, band };
+}
+
+// ── 렌더링: 결론 카드 → 위원 7줄 → 접힌 상세 ───────────────
+const SIG = { bullish: ["찬성", "p-buy"], bearish: ["반대", "p-sell"], neutral: ["유보", "p-neu"] };
+const fmt = (v, s = "") => v === null || v === undefined || v === "" ? "—" : (typeof v === "number" ? v.toLocaleString("ko-KR", { maximumFractionDigits: 2 }) : v) + s;
+const pct = v => (v * 100).toFixed(1) + "%";
+let R = {};
+
+function renderHero() {
+  const S = R.S, P = R.P, V = R.verdict, M = R.M, D = R.D;
+  if (!S) { $("hero").style.display = "none"; return; }
+  const F = S.F, up = num(F.change_pct) >= 0;
+  const col = !V ? "#a9b8b2" : V.band[1] === "buy" ? "#1d9a64" : V.band[1] === "watch" ? "#d99a00" : "#d9472f";
+  $("hero").style.display = "block";
+  $("hero").innerHTML = `<div class="hh"><b>${esc(F.name || R.tk)} <span style="font-size:13px;color:#5b6b66">${esc(F.ticker || "")}</span></b>
+      <span class="px">${esc(fmt(num(F.price)))} ${esc(F.currency || "")} <span style="color:${up ? "#1d9a64" : "#d9472f"};font-size:15px">${F.change_pct == null ? "" : (up ? "+" : "") + esc(fmt(num(F.change_pct), "%"))}</span></span></div>
+    <div class="hs" style="--c:${col};--v:${V ? V.score : 0}">
+      <div class="ring"><span>${V ? V.score : "…"}</span></div>
+      <div><div class="band2">${V ? V.band[0] : "심사 중"}</div>
+        <div class="vd">${D ? esc(D.verdict) : V ? "80점 이상 매수 검토 · 65~79 관심 · 65 미만 제외" : "위원들이 채점하고 있어요"}</div>
+        ${V?.veto.length ? `<div class="veto">리스크 거부권 · ${esc(V.veto.join(" / "))}</div>` : ""}</div></div>
+    ${P ? `<div class="pg"><div>진입<span>${fmt(r2(P.entry))}</span></div><div>손절<span>${fmt(r2(P.stop))}</span><em style="font-style:normal;font-size:12px;color:#d9472f">-${pct(P.riskPct)}</em></div>
+      <div>목표<span>${fmt(r2(P.target ?? P.target2R))}</span><em style="font-style:normal;font-size:12px;color:#1d9a64">+${pct(((P.target ?? P.target2R) - P.entry) / P.entry)}</em></div>
+      <div>손익비<span style="color:${P.rr == null ? "inherit" : P.rr >= 2 ? "#1d9a64" : "#d9472f"}">${P.rr == null ? "2.0R" : P.rr.toFixed(1) + " : 1"}</span></div>
+      <div>권장 비중<span>${P.size.toFixed(1)}%</span></div></div>` : ""}
+    ${M ? `<div class="mline">시장 ${esc(M.regime || "—")} · VIX ${esc(fmt(num(M.vix)))} · 주도 ${esc((M.leading_sectors || []).slice(0, 2).join(", "))}${F.next_earnings_date ? ` · 다음 실적 ${esc(F.next_earnings_date)}` : ""}</div>` : ""}`;
+}
+
 function agentRow(a) {
-  const r = results[a.id], st = state[a.id];
-  const s = r ? (SIG[r.signal] || SIG.neutral) : null, cf = r ? clamp(r.confidence, 0, 100) : 0;
-  const sigBox = r ? `<span class="pill ${s[1]}">${s[0]}</span><div class="cf">확신 ${cf}%</div>` : `<span class="pill p-wait">—</span>`;
-  return `<div class="row">
-    <div class="avw"><div class="av" style="background:${a.c}">${sprite(a.id)}</div><div class="mz">${SPR[a.id].name}</div></div>
-    <div><div class="nm">${a.n}<small>${a.s}</small></div>
-      ${r ? `<div class="sigm">${sigBox}</div>
-        <div class="hd">${esc(r.headline)}</div>
-        <div class="pc"><div class="pro"><h4>찬성</h4><ul>${(r.pros || []).slice(0, 2).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
-          <div class="con"><h4>반대</h4><ul>${(r.cons || []).slice(0, 2).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></div>
-        ${(r.change_mind || (r.missing || []).length) ? `<details class="more"><summary>더보기</summary>${r.change_mind ? `<div>의견이 바뀌는 조건 · ${esc(r.change_mind)}</div>` : ""}${(r.missing || []).length ? `<div>부족했던 자료 · ${esc(r.missing.join(", "))}</div>` : ""}</details>` : ""}`
-      : `<div class="hd" style="opacity:.6">${st === "run" ? '<span class="dots"></span>' : st === "fail" ? "분석 실패" : "대기"}</div>`}
-    </div>
-    <div class="sig">${sigBox}${r ? `<div class="mtr"><i style="width:${cf}%"></i></div>` : ""}</div>
-  </div>`;
+  const res = R.agents?.[a.id], sc = R.scores?.[a.id], st = R.state?.[a.id];
+  const s = sc ? SIG[sc.sig] : null;
+  const marks = { pass: ["p", "○"], fail: ["f", "×"], unknown: ["u", "?"] };
+  const line = res?.headline ? esc(res.headline) : st === "run" ? '<span class="dots"></span>' : st === "fail" ? "분석 실패 · 50점 처리" : `<span style="opacity:.6">${a.q}</span>`;
+  return `<details class="ag"><summary>
+      <div class="av"><img src="img/${a.id}.png" alt="${a.n}" width="52" height="52" loading="lazy"></div>
+      <div><div class="an">${a.n}<small>${a.role} ${a.w}%</small></div><div class="al">${line}</div></div>
+      <div class="ar">${sc && res ? `<span class="pill ${s[1]}">${s[0]}</span><b>${sc.score}</b>` : ""}</div>
+    </summary>
+    ${res && sc ? `<div class="ab">
+      <div class="pc"><div class="pro"><h4>찬성</h4><ul>${(res.pros || []).slice(0, 2).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+        <div class="con"><h4>반대</h4><ul>${(res.cons || []).slice(0, 2).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></div>
+      <details class="more"><summary>채점표 · 자료 충족 ${Math.round(sc.cov * 100)}%</summary>
+        ${sc.items.map(c => `<div class="ck"><span class="m ${marks[c.r][0]}">${marks[c.r][1]}</span><span>${esc(c.t)}${c.n ? ` · <span style="opacity:.75">${esc(c.n)}</span>` : ""}</span><em>${c.pts}점·${c.by}</em></div>`).join("")}
+      </details></div>` : ""}
+  </details>`;
 }
-function paint() {
+const paint = () => {
+  if (!R.state || !Object.keys(R.state).length) { $("board").style.display = "none"; return; }
+  $("board").style.display = "block";
+  const open = [...document.querySelectorAll("details.ag")].map(d => d.open);
   $("rows").innerHTML = AG.map(agentRow).join("");
-  const v = Object.values(results), cnt = k => v.filter(r => r.signal === k).length;
-  $("tally").innerHTML = v.length ? `<span><b>${cnt("bullish")}</b>사자</span><span><b>${cnt("neutral")}</b>중립</span><span><b>${cnt("bearish")}</b>팔자</span>` : "";
+  document.querySelectorAll("details.ag").forEach((d, i) => { if (open[i]) d.open = true; });
+};
+
+function renderExtra() {
+  const S = R.S, P = R.P, D = R.D, M = R.M, V = R.verdict;
+  if (!S) { $("extra").innerHTML = ""; return; }
+  const F = S.F, T = S.T, f = v => v == null ? "—" : v.toLocaleString("ko-KR", { maximumFractionDigits: 2 });
+  const sec = [];
+  if (D) sec.push(["찬반 토론", `<div class="case pro"><h4>상승 논리의 약점</h4>${esc(D.bull_rebuttal)}</div><div class="case con"><h4>하락 시나리오</h4>${esc(D.bear_scenario)}</div>
+    <dl class="kv"><dt>매수 실행 조건</dt><dd>${esc(D.entry_trigger)}</dd><dt>계획 폐기 조건</dt><dd>${esc(D.invalidation)}</dd><dt>확인할 일정</dt><dd>${esc(D.watch)}</dd></dl>`]);
+  if (V) sec.push(["점수 계산", `<table><tbody>${AG.map(a => { const sc = R.scores[a.id]?.score ?? 50; return `<tr><td>${a.n}</td><td class="r">${sc}점 × ${a.w}%</td><td class="r">${(sc * a.w / 100).toFixed(1)}</td></tr>`; }).join("")}
+    <tr class="pick"><td>합계</td><td></td><td class="r">${V.raw}${V.veto.length ? ` → ${V.score} (거부권)` : ""}</td></tr></tbody></table>`]);
+  if (P) sec.push(["손절 방식 비교", `<table><tbody>
+    <tr class="${P.useSup ? "" : "pick"}"><td>2 ATR${P.atrEst ? " (추정)" : ""}</td><td class="r">${f(P.atrStop)}</td><td class="r">-${pct((P.entry - P.atrStop) / P.entry)}</td></tr>
+    <tr class="${P.useSup ? "pick" : ""}"><td>지지선${P.base ? " " + f(P.base) : ""} − 0.5 ATR</td><td class="r">${f(P.supStop)}</td><td class="r">${P.supStop ? "-" + pct((P.entry - P.supStop) / P.entry) : "—"}</td></tr></tbody></table>
+    <p class="tag">더 가까운 쪽(손실이 작은 쪽)을 씁니다. 권장 비중 = 허용 손실 ${P.acct}% ÷ 손절폭, 최대 25%. 저항선이 없으면 목표는 손절폭의 2배(2R)입니다.</p>`]);
+  const items = [["PER", fmt(num(F.per), "배")], ["PEG", fmt(num(F.peg))], ["ROE", fmt(num(F.roe_pct), "%")], ["매출 성장", fmt(num(F.revenue_growth_pct), "%")], ["EPS 성장", fmt(num(F.eps_growth_pct), "%")],
+    ["50일선", fmt(num(T.ma50))], ["200일선", fmt(num(T.ma200))], ["ATR", fmt(num(T.atr14))], ["3개월 수익률", fmt(num(T.return_3m_pct), "%")], ["지수 3개월", fmt(num(T.index_return_3m_pct), "%")]];
+  sec.push(["종목 데이터 · 출처", `<dl class="kv">${items.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+    <ul class="w">${(F.news || []).slice(0, 3).map(n => `<li>${esc(n)}</li>`).join("")}</ul>
+    ${M ? `<p class="tag">시장: ${esc(M.summary || "")} (${esc(M.as_of || "")}, 6시간마다 갱신)</p>` : ""}
+    ${S.sources?.length ? `<p class="tag" style="overflow-wrap:anywhere">${S.sources.slice(0, 8).map(x => `<a href="${esc(x.uri)}" target="_blank" rel="noopener">${esc(x.title || "링크")}</a>`).join(" · ")}</p>` : ""}`]);
+  $("extra").innerHTML = `<div class="xs">${sec.map(([t, b]) => `<details class="x"><summary>${t}</summary><div class="in">${b}</div></details>`).join("")}</div>`;
 }
-paint();
+const renderAll = () => { renderHero(); paint(); renderExtra(); };
 
-async function runAgent(a, tk, facts) {
-  const prompt = `너는 AI 투자위원회의 위원이며, 아래 투자 철학을 그대로 따르는 분석가다. 실제 인물을 사칭하지 말고 그 관점으로만 판단한다. 한국어.
-
-${a.p}
-
-분석 종목: ${tk}
-수집된 데이터(JSON):
-${JSON.stringify(facts)}
-${userCtx()}
-
-지시:
-- 위 철학의 기준을 데이터 수치에 대입해 판단하라.
-- 찬성·반대 근거는 각각 정확히 2개, 각 25자 이내의 짧은 구절로. 수치가 있으면 넣어라. (예: "ROE 25%로 높은 수익성", "PER 60배로 안전마진 없음")
-- 반대 근거는 사업·가격·재무·매크로의 실제 우려만 써라. "자료 없음", "데이터 부족"은 절대 찬성·반대 근거에 쓰지 말고 missing에만 적어라.
-- 결론이 팔자여도 찬성 근거를, 사자여도 반대 근거를 반드시 써라.
-
-아래 JSON 하나만 출력:
-{"signal":"bullish|bearish|neutral","confidence":0~100 정수,"headline":"결론 한 문장(30자 이내, 구어체)","pros":["찬성1","찬성2"],"cons":["반대1","반대2"],"change_mind":"의견이 바뀌는 조건(25자 이내)","missing":["판단에 필요했지만 없던 지표"]}`;
-  return (await gemini(prompt, { label: a.n })).data;
-}
-
-// ── 3단계: 리스크 · 최종 ────────────────────────────────────
-function summaryText() {
-  return AG.filter(a => results[a.id]).map(a => {
-    const r = results[a.id];
-    return `- ${a.n}(${a.s}): ${r.signal}, 확신 ${r.confidence}% / 결론: ${r.headline} / 찬성: ${(r.pros || []).join("; ")} / 반대: ${(r.cons || []).join("; ")}`;
-  }).join("\n");
-}
-
-async function runRisk(tk, facts) {
-  return (await gemini(`너는 헤지펀드 리스크 매니저다. 종목 ${tk}의 위험 한도를 정한다. 한국어.
-데이터: ${JSON.stringify(facts)}
-${userCtx()}
-위원 의견:
-${summaryText()}
-기준: 52주 고저 범위와 업종으로 연변동성 추정, 위원 의견이 갈릴수록 한도 축소, 단일 종목 최대 25%, 사용자의 기존 보유·현금 비중 고려.
-JSON 하나만 출력:
-{"risk_level":"낮음|보통|높음|매우 높음","volatility":"추정 연변동성 예: 약 45%","max_position_pct":0~25 숫자,"consensus":"의견 일치도(15자 이내)","warnings":["경고1(25자 이내)","경고2(25자 이내)"]}`, { label: "리스크 매니저" })).data;
+// ── 5. 찬반 토론 ──────────────────────────────────────────
+async function runDebate(tk, S, M, P) {
+  const lines = AG.map(a => { const r = R.agents?.[a.id] || {}, s = R.scores[a.id]; return `- ${a.n}(${a.role}, 가중치 ${a.w}%): ${s.score}점 ${SIG[s.sig][0]} / ${r.headline || ""} / 찬성: ${(r.pros || []).join("; ")} / 반대: ${(r.cons || []).join("; ")}`; }).join("\n");
+  return (await gemini(`너는 AI 투자위원회 의장이다. 스윙 투자(수일~수개월) 관점의 최종 심사. 한국어.
+${ctxBlock(tk, S, M, P)}
+위원 점수와 의견:
+${lines}
+코드가 계산한 최종 점수: ${R.verdict.score}점 (${R.verdict.band[0]})${R.verdict.veto.length ? `, 거부권: ${R.verdict.veto.join(", ")}` : ""}
+지시: 점수와 판정은 바꾸지 말고, 가장 강한 상승 논리를 반박하고, 구체적인 하락 시나리오를 제시하라. 모두 짧게.
+JSON 하나만:
+{"verdict":"최종 결론 한 문장(50자 이내)","bull_rebuttal":"상승 논리의 약점 한 줄(40자)","bear_scenario":"하락 시나리오 한 줄(40자)","entry_trigger":"매수 실행 조건(20자)","invalidation":"계획 폐기 조건(20자)","watch":"확인할 일정·지표(20자)"}`, { label: "찬반 토론" })).data;
 }
 
-async function runPM(tk, facts, risk) {
-  return (await gemini(`너는 포트폴리오 매니저로 최종 결정을 내린다. 종목 ${tk}. 한국어.
-데이터: ${JSON.stringify(facts)}
-${userCtx()}
-위원 의견:
-${summaryText()}
-리스크 매니저: ${risk ? JSON.stringify(risk) : "평가 없음 — 한도 10% 가정"}
-규칙: 목표 비중은 max_position_pct 이하. 위원 확신도를 가중해 판단. 사용자 보유 비중·평균 매수가가 있으면 그 대비 행동을 제시.
-JSON 하나만 출력:
-{"action":"매수|분할 매수|보유|비중 축소|매도|관망","target_weight_pct":숫자,"conviction":0~100,"summary":"최종 결정 이유 한 문장(50자 이내)","bull_case":"찬성 핵심 한 줄(35자 이내)","bear_case":"반대 핵심 한 줄(35자 이내)","plan":{"진입":"20자 이내","손절":"20자 이내","재검토":"20자 이내"}}`, { label: "포트폴리오 매니저" })).data;
-}
-
-function renderRisk(r) {
-  $("risk").innerHTML = `<div class="tag">2단계 · 리스크 매니저</div><h2>위험 한도</h2>
-    <div class="big">${esc(clamp(r.max_position_pct, 0, 25))}%</div><div class="tag">이 종목 최대 비중</div>
-    <dl class="kv"><dt>위험 수준</dt><dd>${esc(r.risk_level)}</dd><dt>추정 변동성</dt><dd>${esc(r.volatility)}</dd><dt>의견 일치도</dt><dd>${esc(r.consensus)}</dd></dl>
-    <ul class="w">${(r.warnings || []).slice(0, 2).map(w => `<li>${esc(w)}</li>`).join("")}</ul>`;
-}
-function renderPM(p, risk) {
-  const a = String(p.action || ""), cls = /매수/.test(a) ? "buy" : /매도|축소/.test(a) ? "sell" : "hold";
-  const hold = $("hold").value.trim(), plan = p.plan || {};
-  $("pm").innerHTML = `<div class="tag">3단계 · 포트폴리오 매니저</div><h2>최종 결정</h2>
-    <div class="big ${cls}">${esc(a)}</div>
-    <dl class="kv"><dt>목표 비중</dt><dd>${esc(p.target_weight_pct)}%${hold ? ` (현재 ${esc(hold)}%)` : ""}</dd><dt>확신도</dt><dd>${esc(clamp(p.conviction, 0, 100))}%</dd>${risk ? `<dt>리스크 한도</dt><dd>${esc(risk.max_position_pct)}%</dd>` : ""}</dl>
-    <p style="margin:8px 0 0">${esc(p.summary)}</p>
-    <div class="cases"><div class="case pro"><h4>찬성 핵심</h4>${esc(p.bull_case)}</div><div class="case con"><h4>반대 핵심</h4>${esc(p.bear_case)}</div></div>
-    <div class="steps">${["진입", "손절", "재검토"].filter(k => plan[k]).map(k => `<div class="step"><b>${k}</b><span>${esc(plan[k])}</span></div>`).join("")}</div>`;
-}
-function resetLower() {
-  $("risk").innerHTML = `<div class="tag">2단계 · 리스크 매니저</div><h2>위험 한도</h2><p class="empty">위원 의견을 기다리는 중…</p>`;
-  $("pm").innerHTML = `<div class="tag">3단계 · 포트폴리오 매니저</div><h2>최종 결정</h2><p class="empty">대기 중…</p>`;
-}
-
-// ── 전체 흐름 ──────────────────────────────────────────────
+// ── 전체 흐름 ────────────────────────────────────────────
 let busy = false;
+function resetUI() { renderAll(); }
 async function convene(tk) {
   if (busy) return;
-  if (!cfg.key) { showSetup(true); showErr("먼저 Gemini API 키를 저장해 주세요."); return; }
-  busy = true; $("go").disabled = true; showErr(""); results = {}; state = {};
-  $("facts").style.display = "none"; resetLower(); paint();
-  const rec = { tk, at: new Date().toISOString() };
+  if (!cfg.key) { $("setup").style.display = "block"; showErr("먼저 Gemini API 키를 저장해 주세요."); return; }
+  busy = true; $("go").disabled = true; showErr(""); resetUI();
+  R = { tk, at: new Date().toISOString(), agents: {}, scores: {}, state: {} }; renderAll();
   try {
-    setStatus("1/4 · 최신 시세·재무·뉴스 수집 중…");
-    let fr;
-    try { fr = await gatherFacts(tk); }
+    setStatus("1/5 · 시장 위험 판단 중…");
+    let M = null; try { M = await getMarket(); } catch (e) { if (e.status === 404) throw e; if (/한도를 다 썼/.test(e.message)) throw e; }
+    R.M = M;
+
+    setStatus("2/5 · 펀더멘털 수집 중…");
+    let S;
+    try { S = await getStock(tk); }
     catch (e) {
-      if (e.status === 404) { const list = await loadModels(); if (list?.length) { cfg.model = list.find(n => /flash/.test(n) && !/lite/.test(n)) || list[0]; store.set("aic-cfg", cfg); fr = await gatherFacts(tk); } else throw e; }
-      else throw e;
+      if (e.status !== 404) throw e;
+      const list = await loadModels(); if (!list?.length) throw e;
+      cfg.model = list.find(n => /flash/.test(n) && !/lite/.test(n)) || list[0]; saveCfg(); S = await getStock(tk);
     }
-    rec.facts = fr.data; rec.sources = fr.sources; rec.live = fr.live;
-    renderFacts(fr.data, fr.sources, fr.live);
+    R.S = S;
+    const P = makePlan(S.F, S.T); R.P = P; renderAll();
 
-    for (let i = 0; i < AG.length; i++) {
-      const a = AG[i]; state[a.id] = "run"; paint();
-      setStatus(`2/4 · ${a.n} 관점 분석 중 (${i + 1}/5)`);
-      try { results[a.id] = await runAgent(a, tk, fr.data); state[a.id] = "done"; }
-      catch (e) { state[a.id] = "fail"; if (e.status === 401 || e.status === 403) throw e; }
+    setStatus(cfg.mode === "full" ? "3/5 · 위원별 독립 분석 중…" : "3/5 · 7인 위원 독립 분석 중…");
+    const onEach = (id, st, i, res) => {
+      R.state[id] = st;
+      if (res) { R.agents[id] = res; R.scores[id] = scoreAgent(AGI[id], res, S, M, P); }
+      if (cfg.mode === "full" && st === "run") setStatus(`3/5 · ${AGI[id].n} 분석 중 (${i + 1}/7)`);
       paint();
-    }
-    $("bt").textContent = `${fr.data.name || tk} · 위원 의견 ${Object.keys(results).length}/5`;
-    if (!Object.keys(results).length) throw new Error("위원 분석을 받지 못했어요.");
-    rec.results = results;
+    };
+    await (cfg.mode === "full" ? analyzeFull : analyzeEco)(tk, S, M, P, onEach);
+    for (const a of AG) if (!R.scores[a.id]) R.scores[a.id] = scoreAgent(a, null, S, M, P);
+    paint();
 
-    setStatus("3/4 · 리스크 매니저 검토 중…");
-    let risk = null;
-    try { risk = await runRisk(tk, fr.data); renderRisk(risk); rec.risk = risk; } catch (e) {}
-    setStatus("4/4 · 포트폴리오 매니저 최종 결정 중…");
-    const pm = await runPM(tk, fr.data, risk); renderPM(pm, risk); rec.pm = pm;
+    setStatus("4/5 · 가중 점수 · 거부권 계산 중…");
+    R.verdict = finalVerdict(R.scores, S, M, P, R.agents.ptj); renderAll();
+
+    setStatus("5/5 · 찬반 토론 · 최종 심사 중…");
+    try { R.D = await runDebate(tk, S, M, P); } catch (e) {}
+    renderAll();
     setStatus(`완료 · ${new Date().toLocaleString("ko-KR")}`);
-    saveHistory(rec);
+    saveHistory();
   } catch (e) {
     setStatus("");
     showErr(e.status === 400 && /API key/i.test(e.message) ? "API 키가 올바르지 않아요. 설정에서 다시 확인해 주세요." :
@@ -401,24 +445,18 @@ async function convene(tk) {
   } finally { busy = false; $("go").disabled = false; }
 }
 
-// ── 기록 (이 기기에만 저장, 다시 볼 때 API 호출 안 함) ─────────
-function saveHistory(rec) { const h = store.get("aic-hist", []).filter(x => x.tk !== rec.tk); h.unshift(rec); store.set("aic-hist", h.slice(0, 12)); drawRecent(); }
+// ── 기록 (이 기기 저장 · 다시 볼 때 API 호출 없음) ─────────
+function saveHistory() { const h = store.get("aic-hist2", []).filter(x => x.tk !== R.tk); h.unshift(R); store.set("aic-hist2", h.slice(0, 15)); drawRecent(); }
 function drawRecent() {
-  const h = store.get("aic-hist", []);
-  $("recent").innerHTML = h.map((x, i) => `<button type="button" class="chip" data-i="${i}">${esc(x.tk)} · ${esc(new Date(x.at).toLocaleDateString("ko-KR", { month: "numeric", day: "numeric" }))}</button>`).join("");
+  $("recent").innerHTML = store.get("aic-hist2", []).map((x, i) => `<button type="button" class="chip" data-i="${i}">${esc(x.S?.F?.name || x.tk)} ${x.verdict ? x.verdict.score + "점" : ""} · ${esc(new Date(x.at).toLocaleDateString("ko-KR", { month: "numeric", day: "numeric" }))}</button>`).join("");
 }
 $("recent").addEventListener("click", e => {
   const b = e.target.closest(".chip"); if (!b || busy) return;
-  const x = store.get("aic-hist", [])[+b.dataset.i]; if (!x) return;
-  $("tk").value = x.tk; showErr("");
-  results = x.results || {}; state = {}; paint();
-  if (x.facts) renderFacts(x.facts, x.sources, x.live);
-  $("bt").textContent = `${x.facts?.name || x.tk} · 저장된 분석`;
-  x.risk ? renderRisk(x.risk) : resetLower();
-  if (x.pm) renderPM(x.pm, x.risk);
+  const x = store.get("aic-hist2", [])[+b.dataset.i]; if (!x) return;
+  R = x; $("tk").value = x.tk; showErr(""); renderAll();
   setStatus(`저장된 분석 · ${new Date(x.at).toLocaleString("ko-KR")} (새로 분석하려면 위원회 소집)`);
 });
 $("f").addEventListener("submit", e => { e.preventDefault(); const t = $("tk").value.trim(); if (t) convene(t); });
-drawRecent();
+paint(); drawRecent();
 if (cfg.key) loadModels();
 }
