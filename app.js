@@ -138,18 +138,37 @@ function userCtx() {
 // ── 1단계: 데이터 수집 ──────────────────────────────────────
 const FACT_SCHEMA = `{"name":"회사명","ticker":"티커","market":"거래소","currency":"USD|KRW 등","price":숫자,"change_pct":숫자,"as_of":"가격 기준 시각","market_cap":"시가총액(단위 포함)","per":숫자|null,"fwd_per":숫자|null,"pbr":숫자|null,"roe_pct":숫자|null,"op_margin_pct":숫자|null,"debt_to_equity_pct":숫자|null,"current_ratio":숫자|null,"revenue_growth_pct":숫자|null,"eps_growth_pct":숫자|null,"eps":숫자|null,"bps":숫자|null,"dividend_yield_pct":숫자|null,"high_52w":숫자|null,"low_52w":숫자|null,"trend":"최근 3~6개월 주가 흐름 한 줄","business":"무엇으로 돈을 버는지 한 줄","news":["최근 뉴스/실적 1","2","3"],"macro":["이 종목에 영향 주는 금리·유동성·업황 1","2"]}`;
 
+const NUM_KEYS = ["price","per","fwd_per","pbr","roe_pct","op_margin_pct","debt_to_equity_pct","revenue_growth_pct","eps_growth_pct","eps","bps","dividend_yield_pct","high_52w","low_52w"];
+const isEmpty = v => v === null || v === undefined || v === "" || v === "null";
+
 async function gatherFacts(tk) {
   const today = new Date().toISOString().slice(0, 10);
-  const prompt = `오늘은 ${today}이다. 종목 "${tk}"에 대해 구글 검색으로 가장 최신 데이터를 찾아라.
-한국 종목이면 한국거래소 기준 원화로, 미국 종목이면 달러로. 모르는 값은 null. 추측한 숫자를 넣지 마라.
+  const prompt = `오늘은 ${today}이다. 종목 "${tk}"의 최신 투자 지표를 구글 검색으로 찾아라.
+참고처: 한국 종목은 네이버 금융·한국거래소·FnGuide, 미국 종목은 Yahoo Finance·stockanalysis.com·macrotrends·회사 IR.
+- 가격은 최근 종가 기준. 재무 지표는 최근 4분기 합산(TTM) 또는 최근 연간 기준.
+- 검색으로 찾은 값만 넣고, 정말 못 찾은 값만 null. 퍼센트는 숫자만(예: 15.2).
 설명 없이 아래 JSON 하나만 출력:
 ${FACT_SCHEMA}`;
+  let r, live = false;
   if (cfg.search !== false) {
-    try { return { ...(await gemini(prompt, { search: true, label: "데이터 수집" })), live: true }; }
-    catch (e) { if (e.status === 401 || e.status === 403) throw e; /* 검색 실패 → 검색 없이 진행 */ }
+    try { r = await gemini(prompt, { search: true, label: "데이터 수집" }); live = true; }
+    catch (e) { if (e.status === 401 || e.status === 403) throw e; }
   }
-  const r = await gemini(prompt.replace("구글 검색으로 가장 최신 데이터를 찾아라", "알고 있는 가장 최근 데이터를 정리하라(as_of에 기준 시점 명시)"), { label: "데이터 수집" });
-  return { ...r, live: false };
+  if (!r) r = await gemini(prompt.replace("구글 검색으로 찾아라", "알고 있는 가장 최근 값으로 정리하라(as_of에 기준 시점 명시)").replace("검색으로 찾은 값만 넣고, 정말 못 찾은 값만 null.", "아는 값을 넣고 모르면 null."), { label: "데이터 수집" });
+
+  // 빈 지표가 많으면 그 항목만 한 번 더 검색
+  const missing = NUM_KEYS.filter(k => isEmpty(r.data[k]));
+  if (live && missing.length >= 3) {
+    setStatus(`1/4 · 빠진 지표 ${missing.length}개 추가 검색 중…`);
+    try {
+      const r2 = await gemini(`종목 "${r.data.name || tk}"(${r.data.ticker || ""})의 다음 지표만 구글 검색으로 찾아라: ${missing.join(", ")}.
+PER = 주가/EPS, PBR = 주가/BPS, ROE = 순이익/자본처럼 다른 값으로 계산 가능하면 계산해서 채워라. 퍼센트는 숫자만.
+설명 없이 {"키":값} 형태의 JSON 하나만 출력. 못 찾으면 null.`, { search: true, label: "추가 검색" });
+      for (const k of missing) if (!isEmpty(r2.data[k])) r.data[k] = r2.data[k];
+      r.sources = [...(r.sources || []), ...(r2.sources || [])];
+    } catch (e) {}
+  }
+  return { ...r, live };
 }
 
 const fmt = (v, suf = "") => (v === null || v === undefined || v === "") ? "—" : (typeof v === "number" ? v.toLocaleString("ko-KR", { maximumFractionDigits: 2 }) : v) + suf;
@@ -180,10 +199,9 @@ function agentRow(a) {
     <div><div class="nm">${a.n}<small>${a.s}</small></div>
       ${r ? `<div class="sigm">${sigBox}</div>
         <div class="hd">${esc(r.headline)}</div>
-        <div class="why">${esc(r.verdict_reason)}</div>
-        <div class="pc"><div class="pro"><h4>찬성 근거 · 사야 하는 이유</h4><ul>${(r.pros || []).slice(0, 4).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
-          <div class="con"><h4>반대 근거 · 망설이는 이유</h4><ul>${(r.cons || []).slice(0, 4).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></div>
-        ${r.change_mind ? `<div class="chg2">의견이 바뀌는 조건 · ${esc(r.change_mind)}</div>` : ""}`
+        <div class="pc"><div class="pro"><h4>찬성</h4><ul>${(r.pros || []).slice(0, 2).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+          <div class="con"><h4>반대</h4><ul>${(r.cons || []).slice(0, 2).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></div>
+        ${(r.change_mind || (r.missing || []).length) ? `<details class="more"><summary>더보기</summary>${r.change_mind ? `<div>의견이 바뀌는 조건 · ${esc(r.change_mind)}</div>` : ""}${(r.missing || []).length ? `<div>부족했던 자료 · ${esc(r.missing.join(", "))}</div>` : ""}</details>` : ""}`
       : `<div class="hd" style="opacity:.6">${st === "run" ? '<span class="dots"></span>' : st === "fail" ? "분석 실패" : "대기"}</div>`}
     </div>
     <div class="sig">${sigBox}${r ? `<div class="mtr"><i style="width:${cf}%"></i></div>` : ""}</div>
@@ -207,12 +225,13 @@ ${JSON.stringify(facts)}
 ${userCtx()}
 
 지시:
-- 반드시 위 철학의 기준을 데이터 수치에 하나하나 대입해 판단하라. 근거에는 가능한 한 실제 수치를 넣어라.
-- 찬성 근거(사야 하는 이유)와 반대 근거(사지 말아야 하는 이유)를 둘 다 정직하게 써라. 결론이 팔자여도 찬성 근거를, 사자여도 반대 근거를 반드시 써라.
-- 데이터가 없는 항목은 '자료 없음'이라고 밝히고 그만큼 확신도를 낮춰라.
+- 위 철학의 기준을 데이터 수치에 대입해 판단하라.
+- 찬성·반대 근거는 각각 정확히 2개, 각 25자 이내의 짧은 구절로. 수치가 있으면 넣어라. (예: "ROE 25%로 높은 수익성", "PER 60배로 안전마진 없음")
+- 반대 근거는 사업·가격·재무·매크로의 실제 우려만 써라. "자료 없음", "데이터 부족"은 절대 찬성·반대 근거에 쓰지 말고 missing에만 적어라.
+- 결론이 팔자여도 찬성 근거를, 사자여도 반대 근거를 반드시 써라.
 
 아래 JSON 하나만 출력:
-{"signal":"bullish|bearish|neutral","confidence":0~100 정수,"headline":"이 관점의 결론 한 문장(40자 이내, 구어체)","verdict_reason":"왜 이 결론인지 2문장","pros":["찬성 근거1","2","3"],"cons":["반대 근거1","2","3"],"change_mind":"어떤 조건이면 의견을 바꿀지 한 줄"}`;
+{"signal":"bullish|bearish|neutral","confidence":0~100 정수,"headline":"결론 한 문장(30자 이내, 구어체)","pros":["찬성1","찬성2"],"cons":["반대1","반대2"],"change_mind":"의견이 바뀌는 조건(25자 이내)","missing":["판단에 필요했지만 없던 지표"]}`;
   return (await gemini(prompt, { label: a.n })).data;
 }
 
@@ -232,7 +251,7 @@ ${userCtx()}
 ${summaryText()}
 기준: 52주 고저 범위와 업종으로 연변동성 추정, 위원 의견이 갈릴수록 한도 축소, 단일 종목 최대 25%, 사용자의 기존 보유·현금 비중 고려.
 JSON 하나만 출력:
-{"risk_level":"낮음|보통|높음|매우 높음","volatility":"추정 연변동성 예: 약 45%","max_position_pct":0~25 숫자,"consensus":"의견 일치도 한 줄","warnings":["경고1","경고2","경고3"]}`, { label: "리스크 매니저" })).data;
+{"risk_level":"낮음|보통|높음|매우 높음","volatility":"추정 연변동성 예: 약 45%","max_position_pct":0~25 숫자,"consensus":"의견 일치도(15자 이내)","warnings":["경고1(25자 이내)","경고2(25자 이내)"]}`, { label: "리스크 매니저" })).data;
 }
 
 async function runPM(tk, facts, risk) {
@@ -244,14 +263,14 @@ ${summaryText()}
 리스크 매니저: ${risk ? JSON.stringify(risk) : "평가 없음 — 한도 10% 가정"}
 규칙: 목표 비중은 max_position_pct 이하. 위원 확신도를 가중해 판단. 사용자 보유 비중·평균 매수가가 있으면 그 대비 행동을 제시.
 JSON 하나만 출력:
-{"action":"매수|분할 매수|보유|비중 축소|매도|관망","target_weight_pct":숫자,"conviction":0~100,"summary":"최종 결정 이유 2~3문장","bull_case":"위원들의 찬성 논리를 종합한 2문장","bear_case":"위원들의 반대 논리를 종합한 2문장","plan":{"진입":"가격대·방식","손절":"조건","재검토":"다시 볼 이벤트·지표"}}`, { label: "포트폴리오 매니저" })).data;
+{"action":"매수|분할 매수|보유|비중 축소|매도|관망","target_weight_pct":숫자,"conviction":0~100,"summary":"최종 결정 이유 한 문장(50자 이내)","bull_case":"찬성 핵심 한 줄(35자 이내)","bear_case":"반대 핵심 한 줄(35자 이내)","plan":{"진입":"20자 이내","손절":"20자 이내","재검토":"20자 이내"}}`, { label: "포트폴리오 매니저" })).data;
 }
 
 function renderRisk(r) {
   $("risk").innerHTML = `<div class="tag">2단계 · 리스크 매니저</div><h2>위험 한도</h2>
     <div class="big">${esc(clamp(r.max_position_pct, 0, 25))}%</div><div class="tag">이 종목 최대 비중</div>
     <dl class="kv"><dt>위험 수준</dt><dd>${esc(r.risk_level)}</dd><dt>추정 변동성</dt><dd>${esc(r.volatility)}</dd><dt>의견 일치도</dt><dd>${esc(r.consensus)}</dd></dl>
-    <ul class="w">${(r.warnings || []).slice(0, 4).map(w => `<li>${esc(w)}</li>`).join("")}</ul>`;
+    <ul class="w">${(r.warnings || []).slice(0, 2).map(w => `<li>${esc(w)}</li>`).join("")}</ul>`;
 }
 function renderPM(p, risk) {
   const a = String(p.action || ""), cls = /매수/.test(a) ? "buy" : /매도|축소/.test(a) ? "sell" : "hold";
@@ -260,7 +279,7 @@ function renderPM(p, risk) {
     <div class="big ${cls}">${esc(a)}</div>
     <dl class="kv"><dt>목표 비중</dt><dd>${esc(p.target_weight_pct)}%${hold ? ` (현재 ${esc(hold)}%)` : ""}</dd><dt>확신도</dt><dd>${esc(clamp(p.conviction, 0, 100))}%</dd>${risk ? `<dt>리스크 한도</dt><dd>${esc(risk.max_position_pct)}%</dd>` : ""}</dl>
     <p style="margin:8px 0 0">${esc(p.summary)}</p>
-    <div class="cases"><div class="case pro"><h4>왜 찬성하나</h4>${esc(p.bull_case)}</div><div class="case con"><h4>왜 반대하나</h4>${esc(p.bear_case)}</div></div>
+    <div class="cases"><div class="case pro"><h4>찬성 핵심</h4>${esc(p.bull_case)}</div><div class="case con"><h4>반대 핵심</h4>${esc(p.bear_case)}</div></div>
     <div class="steps">${["진입", "손절", "재검토"].filter(k => plan[k]).map(k => `<div class="step"><b>${k}</b><span>${esc(plan[k])}</span></div>`).join("")}</div>`;
 }
 function resetLower() {
