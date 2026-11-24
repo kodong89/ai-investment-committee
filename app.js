@@ -171,35 +171,39 @@ function weekRange() {
   return { from: days[0], to: days[4], days };
 }
 async function getWeekly() {
-  const wr = weekRange(), c = store.get("aic-week", null);
+  const wr = weekRange(), c = store.get("aic-week2", null);
   if (c && c.from === wr.from && Date.now() - c.t < 24 * 3600e3) return c.v;
   const r = await gemini(`${wr.from}(월)부터 ${wr.to}(금)까지 한 주의 주식시장 주요 일정을 구글 검색(인베스팅닷컴 경제 캘린더, 연준·한국은행 일정, 실적 발표 캘린더 등)으로 찾아라.
 포함: 미국 FOMC·연준 의장 발언·CPI·PCE·고용보고서·GDP·소매판매·ISM, 한국 금통위·수출입·옵션만기, 중국·일본 중앙은행 등 시장에 큰 영향을 주는 것, 그리고 시가총액 상위 주요 기업 실적 발표(미국·한국).
-시간은 한국시간(KST) 기준 HH:MM, 모르면 빈 문자열. 중요도는 "상" 또는 "중"만, "하"는 빼라. 하루 최대 6개. 휴장일이면 그것도 적어라.
+시간은 한국시간(KST) 기준 HH:MM, 모르면 빈 문자열. 하루 최대 8개. 휴장일이면 그것도 적어라.
+stars는 주식시장 영향력 1~3:
+ 3 = FOMC 금리 결정·연준 의장 기자회견, 미국 CPI, 미국 고용보고서(비농업), 한국 금통위 금리 결정, 엔비디아·애플급 초대형 실적, 미국 증시 휴장
+ 2 = PCE, GDP, ISM, 소매판매, PPI, FOMC 의사록, 연준 위원 발언, 주요 대형주 실적, 옵션만기, BOJ·ECB 결정
+ 1 = 그 외 참고할 지표·실적
 설명 없이 JSON 하나만:
-{"days":[{"date":"YYYY-MM-DD","events":[{"time":"HH:MM","country":"미국|한국|중국|일본|유럽","title":"일정 이름(20자 이내)","imp":"상|중","note":"예상치나 의미(20자 이내)"}]}]}`, { search: true, label: "이번 주 일정" });
+{"days":[{"date":"YYYY-MM-DD","events":[{"time":"HH:MM","country":"미국|한국|중국|일본|유럽","title":"일정 이름(20자 이내)","stars":1|2|3,"note":"예상치나 의미(20자 이내)"}]}]}`, { search: true, label: "이번 주 일정" });
   const v = { ...wr, days: r.data.days || [], sources: r.sources };
-  store.set("aic-week", { from: wr.from, t: Date.now(), v });
+  store.set("aic-week2", { from: wr.from, t: Date.now(), v });
   return v;
 }
 function renderWeek() {
-  const W = R.W || store.get("aic-week", null)?.v;
+  const W = R.W || store.get("aic-week2", null)?.v;
   const el = $("week");
   if (!W || !W.days) { el.style.display = "none"; return; }
   const today = ymd(kstNow()), dn = ["일", "월", "화", "수", "목", "금", "토"];
   const ed = R.S?.F?.next_earnings_date, myName = R.S?.F?.name;
   const byDate = Object.fromEntries((W.days || []).map(d => [d.date, d.events || []]));
-  const wasOpen = el.dataset.init ? el.open : window.innerWidth >= 900; el.dataset.init = 1;
-  el.style.display = "block"; el.open = wasOpen;
-  el.innerHTML = `<summary>이번 주 일정 <span>${W.from.slice(5).replace("-", ".")}~${W.to.slice(5).replace("-", ".")} · 한국시간</span></summary>
+  el.style.display = "block";
+  el.innerHTML = `<div class="wh2">이번 주 일정 <span>${W.from.slice(5).replace("-", ".")}~${W.to.slice(5).replace("-", ".")} · 한국시간</span></div>
     ${weekDays(W).map(date => {
-      const d = new Date(date + "T00:00:00Z"), ev = [...(byDate[date] || [])].sort((a, b) => (a.time || "99").localeCompare(b.time || "99"));
-      if (ed === date && myName) ev.unshift({ time: "", country: "", title: `${myName} 실적 발표`, imp: "내 종목", note: "검색한 종목" });
+      const d = new Date(date + "T00:00:00Z"), ev = [...(byDate[date] || [])].map(e => ({ ...e, st: clamp(Math.round(num(e.stars) ?? (e.imp === "상" ? 3 : e.imp === "중" ? 2 : 1)), 1, 3) }))
+        .sort((a, b) => b.st - a.st || (a.time || "99").localeCompare(b.time || "99"));
+      if (ed === date && myName) ev.unshift({ time: "", country: "", title: `${myName} 실적 발표`, st: 3, mine: true, note: "검색한 종목" });
       const cls = date === today ? "today" : date < today ? "past" : "";
       return `<div class="wd ${cls}"><div class="wdl">${d.getUTCMonth() + 1}/${d.getUTCDate()}<small>${dn[d.getUTCDay()]}${date === today ? " · 오늘" : ""}</small></div>
-        <div class="wev">${ev.length ? ev.map(e => `<div class="we ${e.imp === "상" ? "hi" : e.imp === "내 종목" ? "mine" : ""}"><span class="wt">${esc(e.time || "")}</span><span><b>${esc(e.title)}</b>${e.country ? ` <small>${esc(e.country)}</small>` : ""}${e.note ? `<br><small>${esc(e.note)}</small>` : ""}</span></div>`).join("") : `<div class="we none">주요 일정 없음</div>`}</div></div>`;
+        <div class="wev">${ev.length ? ev.map(e => `<div class="we s${e.st} ${e.mine ? "mine" : ""}"><span class="stars">${"★".repeat(e.st)}<i>${"★".repeat(3 - e.st)}</i></span><span class="wt">${esc(e.time || "")}</span><span><b>${esc(e.title)}</b>${e.country ? ` <small>${esc(e.country)}</small>` : ""}${e.note ? `<br><small>${esc(e.note)}</small>` : ""}</span></div>`).join("") : `<div class="we none">주요 일정 없음</div>`}</div></div>`;
     }).join("")}
-    <div class="wfoot">굵게: 중요 · 노랑: 내 종목 실적</div>`;
+    <div class="wfoot">★ 시장 영향력 (최대 3개) · 영향 큰 순 · 노랑: 내 종목 실적</div>`;
 }
 function weekDays(W) { return W.from ? [...Array(5)].map((_, i) => { const d = new Date(W.from + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + i); return ymd(d); }) : []; }
 

@@ -135,15 +135,16 @@ details.x .in{padding-bottom:14px;font-size:15px}
 .grid .hero{margin-top:0}
 @media(min-width:900px){.grid{grid-template-columns:minmax(0,1fr) 260px;align-items:start}.side{position:sticky;top:16px}}
 .week{display:none;background:rgba(0,0,0,.22);border-radius:14px;padding:4px 12px 8px;font-size:13px}
-.week>summary{font-weight:700;font-size:14px;min-height:40px;display:flex;justify-content:space-between;gap:8px;align-items:center}
-.week>summary span{font-weight:400;font-size:11px;color:var(--lime);opacity:.75}
+.wh2{font-weight:700;font-size:15px;min-height:40px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.wh2 span{font-weight:400;font-size:11px;color:var(--lime);opacity:.75}
 .wd{display:grid;grid-template-columns:38px minmax(0,1fr);gap:6px;padding:6px 0;border-top:1px solid rgba(230,245,200,.12)}
 .wd.past{opacity:.4}.wd.today .wdl{color:var(--lime)}
 .wdl{font:800 14px "Inter Tight","Noto Sans KR";line-height:1.2}.wdl small{display:block;font:500 11px "Noto Sans KR";opacity:.75}
 .wev{display:grid;gap:3px}
-.we{display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px;font-size:12.5px;line-height:1.35}
-.we b{font-weight:400;opacity:.8}.we.hi b{font-weight:700;color:#fff;opacity:1}.we.hi .wt{color:var(--amber)}
-.we.mine b{color:var(--amber);font-weight:800;opacity:1}
+.we{display:grid;grid-template-columns:34px 34px minmax(0,1fr);gap:4px;font-size:13px;line-height:1.35}
+.stars{color:var(--amber);font-size:10px;letter-spacing:-1px;padding-top:2px;white-space:nowrap}.stars i{font-style:normal;color:rgba(230,245,200,.18)}
+.we.s3 b{font-weight:800;color:#fff;opacity:1}.we.s2 b{font-weight:600;opacity:.95}.we.s1 b{opacity:.7}
+.we b{font-weight:400;opacity:.8}.we.mine b{color:var(--amber);font-weight:800;opacity:1}
 .we small{font-size:11px;color:var(--lime);opacity:.7}
 .wt{font-variant-numeric:tabular-nums;color:var(--lime);opacity:.85}
 .we.none{display:block;opacity:.45}
@@ -179,7 +180,7 @@ details.x .in{padding-bottom:14px;font-size:15px}
       <div class="hero" id="hero"></div>
       <div class="board" id="board"><div class="bh"><span>7인 위원 의견</span><span>눌러서 채점표 보기</span></div><div id="rows"></div></div>
     </div>
-    <aside class="side"><details class="week" id="week"></details></aside>
+    <aside class="side"><div class="week" id="week"></div></aside>
   </div>
 </div></section>
 
