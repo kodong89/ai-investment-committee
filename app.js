@@ -16,7 +16,17 @@ const store = {
 // rule(F,T,M,P)가 true/false를 돌려주면 AI 판정 대신 코드 판정 사용 (null이면 AI 판정)
 const gt = (a, b) => (a == null || b == null) ? null : a > b;
 const AG = [
-  { id: "druck", n: "스탠리 드러켄밀러", role: "시장 방향", w: 25, color: "#b08a22",
+  { id: "mine", n: "내 매매법", role: "추세 · 진입 신호", w: 25, color: "#00463c", gate: "trend",
+    q: "내 차트 기준(EMA 리본·CCI·거래량·매물대)으로 지금 들어갈 자리인가?",
+    p: "EMA 10·20·50·200 리본으로 추세 방향을 보고(게이트), CCI(20)가 -100 아래에서 올라오는 반등 또는 0선·+100 상향 돌파를 진입 신호로 쓴다. 거래량이 20일 평균보다 늘어야 신호를 믿고, 위쪽 매물대(PVP)까지 여유가 있어야 한다. 손절은 ATR, 추세가 꺾이면(EMA20 종가 이탈) 청산한다. 하락 추세에서 나온 CCI 반등은 역추세라 신뢰하지 않는다.",
+    checks: [
+      { id: "ribbon", t: "추세 게이트: 주가 > EMA20 > EMA50, EMA10 > EMA20", pts: 25, rule: (F, T) => { const p = num(F.price), e10 = num(T.ema10), e20 = num(T.ema20), e50 = num(T.ema50); return (p && e10 && e20 && e50) ? (p > e20 && e20 > e50 && e10 > e20) : null; } },
+      { id: "e200", t: "주가가 EMA200 위", pts: 10, rule: (F, T) => gt(num(F.price), num(T.ema200)) },
+      { id: "cci", t: "CCI(20) 신호: -100 상향 반등 또는 0·+100 상향 돌파", pts: 25, rule: (F, T) => { const c = num(T.cci20), p = num(T.cci20_prev); if (c == null || p == null) return null; return (p < -100 && c >= -100) || (p < 0 && c >= 0) || (p < 100 && c >= 100) || (c > p && c > -100 && c < 100 && p < c - 30); } },
+      { id: "vol", t: "거래량이 20일 평균의 1.2배 이상", pts: 15, rule: (F, T) => { const v = num(T.volume_recent), a = num(T.avg_volume_20); return (v && a) ? v >= a * 1.2 : null; } },
+      { id: "pvp", t: "위쪽 매물대(PVP)까지 손절폭 2배 이상 여유", pts: 15, rule: (F, T, M, P) => { const poc = num(T.overhead_poc), e = P?.entry, r = P ? P.entry - P.stop : null; if (!e || !r) return null; if (!poc || poc <= e) return true; return (poc - e) >= 2 * r; } },
+      { id: "liq", t: "거래대금 충분 (미국 2천만$·한국 100억원 이상)", pts: 10, rule: (F, T) => { const v = num(T.avg_volume_20), p = num(F.price); if (!v || !p) return null; return /KRW|원/.test(F.currency || "") ? v * p >= 1e10 : v * p >= 2e7; } } ] },
+  { id: "druck", n: "스탠리 드러켄밀러", role: "시장 방향", w: 20, color: "#b08a22",
     q: "좋은 기업인지를 떠나, 지금 돈이 이 종목으로 들어오고 있는가?",
     p: "유동성·금리·달러가 시장을 움직인다고 보고, 18~24개월 앞의 변곡점과 지금의 자금 흐름을 본다. 추세를 존중하고 비대칭 베팅을 한다.",
     checks: [
@@ -26,17 +36,34 @@ const AG = [
       { id: "flow", t: "기관·외국인 수급 또는 거래대금 증가", pts: 15 },
       { id: "catalyst", t: "1~3개월 내 상승 촉매", pts: 15 },
       { id: "rates", t: "금리·달러 환경이 우호적", pts: 10 } ] },
-  { id: "minervini", n: "마크 미너비니", role: "매수 타점", w: 20, color: "#2a2f3a",
-    q: "지금이 손실 위험은 작고 상승 여력은 큰 매수 타점인가?",
-    p: "트렌드 템플릿(주가>50일>150일>200일선, 200일선 상승), 변동성 축소 패턴(VCP), 거래량 마른 뒤 돌파, 초기 눌림목을 본다. 이격이 큰 추격 매수는 피한다.",
+  { id: "raschke", n: "린다 라쉬키", role: "눌림목 타이밍", w: 15, color: "#8a6d3b",
+    q: "강한 추세 속에서 지금 쉬어가는 눌림 자리인가?",
+    p: "ADX로 추세 강도를 확인하고, 강한 추세에서 20 EMA 부근까지 눌렸다가 다시 고개를 드는 자리(Holy Grail)를 노린다. 며칠~몇 주 보유하며 모멘텀이 꺾이면 빠르게 정리한다. 과열 구간 추격은 피한다.",
     checks: [
-      { id: "trend", t: "추세 정렬: 주가>50일>150일>200일선", pts: 25, rule: (F, T) => { const p = num(F.price), a = num(T.ma50), b = num(T.ma150), c = num(T.ma200); return (p && a && b && c) ? (p > a && a > b && b > c) : null; } },
-      { id: "range", t: "52주 저점 +30% 이상, 고점 -25% 이내", pts: 15, rule: (F, T) => { const p = num(F.price), h = num(T.high_52w), l = num(T.low_52w); return (p && h && l) ? (p >= l * 1.3 && p >= h * 0.75) : null; } },
-      { id: "vcp", t: "변동성 축소(가격 폭이 점점 좁아짐)", pts: 15 },
-      { id: "volume", t: "거래량 감소 후 돌파 시 증가", pts: 15 },
-      { id: "spot", t: "돌파 직후 또는 초기 눌림목 (과열 이격 아님)", pts: 20, rule: (F, T) => { const p = num(F.price), a = num(T.ma50); return (p && a) ? (p / a - 1 <= 0.15 && p >= a * 0.97) : null; } },
-      { id: "pivot", t: "가까운 곳에 명확한 손절 기준(지지선)", pts: 10, rule: (F, T, M, P) => P?.riskPct != null ? P.riskPct <= 0.08 : null } ] },
-  { id: "lynch", n: "피터 린치", role: "성장성", w: 15, color: "#2f8a4e",
+      { id: "adx", t: "ADX(14) 25 이상 · 추세가 강함", pts: 25, rule: (F, T) => num(T.adx14) == null ? null : num(T.adx14) >= 25 },
+      { id: "pull", t: "주가가 20 EMA 부근(-2%~+4%)으로 눌림", pts: 25, rule: (F, T) => { const p = num(F.price), e = num(T.ema20); return (p && e) ? (p >= e * 0.98 && p <= e * 1.04) : null; } },
+      { id: "mom", t: "최근 1개월 상승 탄력 유지", pts: 15, rule: (F, T) => num(T.return_1m_pct) == null ? null : num(T.return_1m_pct) > 0 },
+      { id: "bar", t: "눌림 후 반등 캔들 · 전일 고가 돌파", pts: 20 },
+      { id: "hot", t: "단기 과열 아님 (CCI 200 미만)", pts: 15, rule: (F, T) => num(T.cci20) == null ? null : num(T.cci20) < 200 } ] },
+  { id: "kullamagi", n: "크리스티안 쿨라매기", role: "돌파 · 청산 규칙", w: 15, color: "#7a2e2e",
+    q: "시장 주도주가 박스권을 거래량과 함께 돌파하는가?",
+    p: "1~3개월 가장 강한 주도주만 본다. 2주~2개월 횡보하며 수렴한 박스를 거래량과 함께 돌파할 때(또는 실적 갭 상승 EP) 진입하고, 당일 저점에 손절. 3~5일 안에 1/3~1/2 익절, 나머지는 10·20 EMA 종가 이탈 때 청산한다.",
+    checks: [
+      { id: "leader", t: "주도주: 3개월 +30% 이상 또는 지수보다 크게 강함", pts: 25, rule: (F, T) => { const r = num(T.return_3m_pct), i = num(T.index_return_3m_pct); if (r == null) return null; return r >= 30 || (i != null && r - i >= 20); } },
+      { id: "base", t: "2주~2개월 박스권 횡보·수렴", pts: 20 },
+      { id: "brk", t: "박스 상단을 거래량과 함께 돌파 (또는 실적 갭 상승)", pts: 25 },
+      { id: "ema", t: "주가 > 10 EMA > 20 EMA", pts: 15, rule: (F, T) => { const p = num(F.price), a = num(T.ema10), b = num(T.ema20); return (p && a && b) ? (p > a && a > b) : null; } },
+      { id: "cat", t: "강한 재료(실적·신제품·산업 테마)", pts: 15 } ] },
+  { id: "ptj", n: "폴 튜더 존스", role: "리스크 관리 · 거부권", w: 15, color: "#1f3a5f",
+    q: "판단이 틀렸을 때 감당해야 할 손실은 얼마인가?",
+    p: "손익비, 변동성, 갭 하락, 시장 급락, 실적 발표 위험을 먼저 본다. 원금 보존이 최우선이며 중대한 위험이 있으면 거부권을 행사한다.",
+    checks: [
+      { id: "rr", t: "손익비 2:1 이상", pts: 25, rule: (F, T, M, P) => P?.rr == null ? null : P.rr >= 2 },
+      { id: "earn", t: "실적 발표가 5거래일 이내가 아님", pts: 20, rule: F => { const d = daysTo(F.next_earnings_date); return d == null ? null : !(d >= 0 && d <= 7); } },
+      { id: "vol", t: "변동성 적정(ATR 5% 이하)", pts: 15, rule: (F, T, M, P) => P?.atrPct == null ? null : P.atrPct <= 0.05 },
+      { id: "crash", t: "시장 급락 위험 낮음(VIX 25 미만)", pts: 20, rule: (F, T, M) => num(M?.vix) == null ? null : num(M.vix) < 25 },
+      { id: "event", t: "증자·소송·규제 등 갭 하락 이벤트 위험 낮음", pts: 20 } ] },
+  { id: "lynch", n: "피터 린치", role: "성장성", w: 10, color: "#2f8a4e",
     q: "앞으로 실적이 시장의 기대보다 빠르게 성장할 수 있는가?",
     p: "기업을 저성장·우량·고성장·경기순환·턴어라운드·자산주로 분류하고 범주에 맞게 판단한다. PEG를 중시하고 2분 안에 설명되는 스토리를 좋아한다.",
     checks: [
@@ -45,17 +72,7 @@ const AG = [
       { id: "peg", t: "PEG 1.5 이하", pts: 20, rule: F => num(F.peg) == null ? null : num(F.peg) > 0 && num(F.peg) <= 1.5 },
       { id: "guide", t: "실적 전망·가이던스 상향", pts: 20 },
       { id: "industry", t: "산업 자체가 성장 중", pts: 15 } ] },
-  { id: "buffett", n: "워런 버핏", role: "기업 경쟁력", w: 10, color: "#c0634a",
-    q: "지금 매수해서 5년을 보유해도 괜찮은 기업인가?",
-    p: "이해 가능한 사업, 지속 가능한 경제적 해자, 높은 자본수익률, 꾸준한 잉여현금흐름, 경영진의 합리적 자본 배분을 본다.",
-    checks: [
-      { id: "moat", t: "경제적 해자(브랜드·네트워크·전환비용·원가우위)", pts: 25 },
-      { id: "roic", t: "ROIC 또는 ROE 15% 이상", pts: 20, rule: F => { const v = num(F.roic_pct) ?? num(F.roe_pct); return v == null ? null : v >= 15; } },
-      { id: "fcf", t: "잉여현금흐름 흑자·증가", pts: 20 },
-      { id: "stable", t: "이익의 지속성(최근 수년 적자 없음)", pts: 15 },
-      { id: "debt", t: "부채 관리 양호", pts: 10, rule: F => num(F.debt_to_equity_pct) == null ? null : num(F.debt_to_equity_pct) <= 100 },
-      { id: "alloc", t: "자본 배분(자사주·배당·M&A) 합리적", pts: 10 } ] },
-  { id: "munger", n: "찰리 멍거", role: "실패 가능성", w: 10, color: "#6a4fd8",
+  { id: "munger", n: "찰리 멍거", role: "큰 실패 위험 · 경고", w: 0, warnOnly: true, color: "#6a4fd8",
     q: "이 종목에 투자하면 어떤 이유로 큰돈을 잃을 수 있는가?",
     p: "뒤집어 생각한다. 망하는 길부터 찾고, 인센티브와 경영진 신뢰를 따지며, 과도한 기대·레버리지·복잡함을 피한다. 각 항목은 '그 위험이 없으면 통과'다.",
     checks: [
@@ -63,32 +80,14 @@ const AG = [
       { id: "lever", t: "과도한 부채 없음", pts: 20, rule: F => num(F.debt_to_equity_pct) == null ? null : num(F.debt_to_equity_pct) <= 150 },
       { id: "mgmt", t: "경영진 신뢰 문제(회계·소송·내부자 대량매도) 없음", pts: 20 },
       { id: "hype", t: "시장 기대가 과열되지 않음", pts: 20 },
-      { id: "simple", t: "사업 구조가 단순하고 이해 가능", pts: 20 } ] },
-  { id: "graham", n: "벤저민 그레이엄", role: "안전마진", w: 10, color: "#3459b8",
-    q: "현재 가격은 기업 가치 대비 충분히 매력적인가?",
-    p: "내재가치 대비 할인(안전마진), PER·PBR의 절대·역사적 수준, 순부채, 유동비율을 본다. 성장 스토리에 값을 치르지 않는다.",
-    checks: [
-      { id: "per", t: "PER이 자기 역사·업종 평균 이하", pts: 25 },
-      { id: "pbr", t: "PBR 3배 이하 또는 업종 대비 낮음", pts: 15, rule: F => num(F.pbr) == null ? null : num(F.pbr) <= 3 },
-      { id: "netdebt", t: "순부채가 낮거나 순현금", pts: 20 },
-      { id: "current", t: "유동비율 1.5 이상", pts: 15, rule: F => num(F.current_ratio) == null ? null : num(F.current_ratio) >= 1.5 },
-      { id: "intrinsic", t: "그레이엄 넘버·내재가치 대비 할인", pts: 25, rule: F => { const e = num(F.eps), b = num(F.bps), p = num(F.price); return (e > 0 && b > 0 && p) ? p <= Math.sqrt(22.5 * e * b) : null; } } ] },
-  { id: "ptj", n: "폴 튜더 존스", role: "리스크 관리 · 거부권", w: 10, color: "#1f3a5f",
-    q: "판단이 틀렸을 때 감당해야 할 손실은 얼마인가?",
-    p: "손익비, 변동성, 갭 하락, 시장 급락, 실적 발표 위험을 먼저 본다. 원금 보존이 최우선이며 중대한 위험이 있으면 거부권을 행사한다.",
-    checks: [
-      { id: "rr", t: "손익비 2:1 이상", pts: 25, rule: (F, T, M, P) => P?.rr == null ? null : P.rr >= 2 },
-      { id: "earn", t: "실적 발표가 5거래일 이내가 아님", pts: 20, rule: F => { const d = daysTo(F.next_earnings_date); return d == null ? null : !(d >= 0 && d <= 7); } },
-      { id: "vol", t: "변동성 적정(ATR 5% 이하)", pts: 15, rule: (F, T, M, P) => P?.atrPct == null ? null : P.atrPct <= 0.05 },
-      { id: "crash", t: "시장 급락 위험 낮음(VIX 25 미만)", pts: 20, rule: (F, T, M) => num(M?.vix) == null ? null : num(M.vix) < 25 },
-      { id: "event", t: "증자·소송·규제 등 갭 하락 이벤트 위험 낮음", pts: 20 } ] }
+      { id: "simple", t: "사업 구조가 단순하고 이해 가능", pts: 20 } ] }
 ];
 const AGI = Object.fromEntries(AG.map(a => [a.id, a]));
 function daysTo(s) { if (!s) return null; const d = new Date(s); if (isNaN(d)) return null; return Math.round((d - new Date()) / 864e5); }
 
 // ── 설정 ───────────────────────────────────────────────────
 let cfg = Object.assign({ key: "", model: "gemini-flash-latest", mode: "eco" }, store.get("aic-cfg", {}));
-if ((cfg.v || 0) < 2) { cfg.riskPct = 1.5; cfg.maxPos = 30; cfg.v = 2; store.set("aic-cfg", cfg); }
+if ((cfg.v || 0) < 3) { cfg.riskPct = 1; cfg.maxPos = 30; cfg.v = 3; store.set("aic-cfg", cfg); }
 $("key").value = cfg.key; $("mode").value = cfg.mode;
 const saveCfg = () => store.set("aic-cfg", cfg);
 $("setup").style.display = cfg.key ? "none" : "block";
@@ -96,7 +95,7 @@ $("openSet").addEventListener("click", () => { const s = $("setup"); s.style.dis
 $("saveKey").addEventListener("click", async () => { cfg.key = $("key").value.trim(); saveCfg(); if (cfg.key) { await loadModels(); setStatus("키 저장 완료. 종목을 검색해 보세요."); $("setup").style.display = "none"; } });
 $("model").addEventListener("change", () => { cfg.model = $("model").value; saveCfg(); });
 $("mode").addEventListener("change", () => { cfg.mode = $("mode").value; saveCfg(); });
-$("riskPct").value = cfg.riskPct ?? 1.5; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
+$("riskPct").value = cfg.riskPct ?? 1; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
 $("maxPos").value = cfg.maxPos ?? 30; $("maxPos").addEventListener("change", () => { cfg.maxPos = $("maxPos").value; saveCfg(); });
 
 async function loadModels() {
@@ -227,10 +226,10 @@ function renderWeek() {
 function weekDays(W) { return W.from ? [...Array(5)].map((_, i) => { const d = new Date(W.from + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + i); return ymd(d); }) : []; }
 
 // ── 2. 종목 데이터 수집 ───────────────────────────────────
-const FUND = `{"name":"회사명","ticker":"티커","market":"거래소","currency":"USD|KRW","sector":"섹터","price":숫자,"change_pct":숫자,"as_of":"가격 기준일","market_cap":"시총(단위 포함)","per":숫자,"fwd_per":숫자,"per_hist_avg":숫자,"pbr":숫자,"roe_pct":숫자,"roic_pct":숫자,"op_margin_pct":숫자,"debt_to_equity_pct":숫자,"net_debt":"순부채(음수면 순현금, 단위 포함)","current_ratio":숫자,"fcf":"최근 연간 FCF(단위 포함)","fcf_trend":"증가|감소|흑자 유지|적자","revenue_growth_pct":숫자,"eps_growth_pct":숫자,"eps_growth_next_pct":숫자,"peg":숫자,"eps":숫자,"bps":숫자,"guidance":"최근 가이던스·컨센서스 변화 한 줄","next_earnings_date":"YYYY-MM-DD","business":"사업 한 줄","news":["최근 뉴스1","2","3"],"corporate_actions":"증자·M&A·소송·상폐 위험 한 줄(없으면 '특이사항 없음')"}`;
-const TECH = `{"ma20":숫자,"ma50":숫자,"ma150":숫자,"ma200":숫자,"ma200_rising":true|false,"high_52w":숫자,"low_52w":숫자,"rsi14":숫자,"atr14":숫자,"support":숫자,"resistance":숫자,"swing_low":숫자,"volume_trend":"최근 거래량 흐름 한 줄","return_1m_pct":숫자,"return_3m_pct":숫자,"index_return_3m_pct":숫자,"sector_strength":"섹터 상대강도 한 줄","flow":"기관·외국인·정치인 공시·옵션 등 수급 한 줄","pattern":"돌파|눌림목|박스권|추세 이탈|과열 중 하나와 설명"}`;
+const FUND = `{"name":"회사명","ticker":"티커","market":"거래소","currency":"USD|KRW","sector":"섹터","price":숫자,"change_pct":숫자,"as_of":"가격 기준일","market_cap":"시총(단위 포함)","per":숫자,"fwd_per":숫자,"per_hist_avg":숫자,"pbr":숫자,"roe_pct":숫자,"roic_pct":숫자,"op_margin_pct":숫자,"debt_to_equity_pct":숫자,"net_debt":"순부채(음수면 순현금, 단위 포함)","current_ratio":숫자,"fcf":"최근 연간 FCF(단위 포함)","fcf_trend":"증가|감소|흑자 유지|적자","revenue_growth_pct":숫자,"eps_growth_pct":숫자,"eps_growth_next_pct":숫자,"peg":숫자,"eps":숫자,"bps":숫자,"guidance":"최근 가이던스·컨센서스 변화 한 줄","next_earnings_date":"YYYY-MM-DD","business":"사업 한 줄","news":["최근 뉴스1","2","3"],"corporate_actions":"증자·M&A·소송·상폐 위험 한 줄(없으면 '특이사항 없음')","is_leveraged_etf":true|false}`;
+const TECH = `{"ema10":숫자,"ema20":숫자,"ema50":숫자,"ema200":숫자,"adx14":숫자,"cci20":숫자,"cci20_prev":"3거래일 전 CCI(20) 숫자","volume_recent":"최근 거래일 거래량 숫자(주)","avg_volume_20":"20일 평균 거래량 숫자(주)","overhead_poc":"현재가 위쪽에서 가장 거래가 많이 쌓인 매물대 가격(최근 6개월, 없으면 null)","ma50":숫자,"high_52w":숫자,"low_52w":숫자,"rsi14":숫자,"atr14":숫자,"support":숫자,"resistance":숫자,"swing_low":숫자,"volume_trend":"최근 거래량 흐름 한 줄","return_1m_pct":숫자,"return_3m_pct":숫자,"index_return_3m_pct":숫자,"sector_strength":"섹터 상대강도 한 줄","flow":"기관·외국인·정치인 공시·옵션 등 수급 한 줄","pattern":"돌파|눌림목|박스권|추세 이탈|과열 중 하나와 설명"}`;
 const KEYF = ["price", "per", "pbr", "roe_pct", "revenue_growth_pct", "eps_growth_pct", "peg", "eps", "bps", "next_earnings_date"];
-const KEYT = ["ma50", "ma150", "ma200", "high_52w", "low_52w", "atr14", "support", "resistance", "return_3m_pct", "index_return_3m_pct"];
+const KEYT = ["ema10", "ema20", "ema50", "ema200", "cci20", "cci20_prev", "adx14", "atr14", "support", "avg_volume_20", "return_3m_pct", "return_1m_pct"];
 const isEmpty = v => v === null || v === undefined || v === "" || v === "null";
 
 async function getStock(tk) {
@@ -243,7 +242,7 @@ ${FUND}`, { search: true, label: "펀더멘털 수집" });
   let t = { data: {}, sources: [] };
   try {
   t = await gemini(`오늘은 ${today()}. 종목 "${f.data.name || tk}"(${f.data.ticker || ""})의 기술적 지표를 구글 검색으로 찾아라. ${src}
-이동평균은 일봉 종가 기준, ATR은 14일, 지지·저항은 최근 3개월 일봉 기준 가장 가까운 가격대, index_return_3m_pct는 해당 시장 대표 지수(미국 S&P500, 한국 코스피)의 3개월 수익률.
+이동평균은 일봉 종가 기준 EMA(지수이동평균), CCI는 20일, ATR은 14일, 지지·저항은 최근 3개월 일봉 기준 가장 가까운 가격대, index_return_3m_pct는 해당 시장 대표 지수(미국 S&P500, 한국 코스피)의 3개월 수익률.
 찾은 값만 넣고 못 찾으면 null. 설명 없이 JSON 하나만:
 ${TECH}`, { search: true, label: "기술적 지표 수집" });
   } catch (e) { if (/한도를 다 썼/.test(e.message) || e.status === 401 || e.status === 403) throw e; }
@@ -274,17 +273,19 @@ function makePlan(F, T) {
   const supStop = base ? base - 0.5 * atr : null;
   // 지지선 손절이 ATR 손절보다 가깝고(손실 작고) 진입가 아래면 지지선 방식 채택, 아니면 2ATR
   const useSup = supStop != null && supStop > atrStop && supStop < entry;
-  const stop = useSup ? supStop : atrStop;
+  const lev = F.is_leveraged_etf === true || /3x|2x|레버리지|leveraged|ultra|bull|bear/i.test(String(F.name || ""));
+  const stop = lev ? entry * 0.93 : (useSup ? supStop : atrStop);
   const risk = entry - stop;
-  const res = num(T.resistance);
+  const poc = num(T.overhead_poc);
+  const res = [num(T.resistance), poc].filter(v => v && v > entry).sort((a, b) => a - b)[0] ?? null;
   const target = (res && res > entry) ? res : null;
   const rr = target ? (target - entry) / risk : null;
   const target2R = entry + 2 * risk;
   const riskPct = risk / entry;
-  const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 1.5, 0.1, 5);
+  const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 1, 0.1, 5);
   const cap = clamp(num($("maxPos").value) ?? num(cfg.maxPos) ?? 30, 5, 100);
   const size = clamp(acct / 100 / riskPct * 100, 0, cap);
-  return { entry, atr, atrEst, atrPct: atr / entry, atrStop, supStop, useSup, stop, riskPct, target, rr, target2R, size, acct, cap, base };
+  return { entry, atr, atrEst, atrPct: atr / entry, atrStop, supStop, useSup, stop, riskPct, target, rr, target2R, size, acct, cap, base, lev, exitEma: num(T.ema20) };
 }
 
 // ── 4. 위원 분석 ──────────────────────────────────────────
@@ -361,9 +362,11 @@ function scoreAgent(a, res, S, M, P) {
     return { ...c, r, n, by };
   });
   const raw = known ? got / known * 100 : 50, cov = known / total;
-  const score = Math.round(50 + (raw - 50) * cov); // 자료가 적을수록 50점으로 수렴
+  let score = Math.round(50 + (raw - 50) * cov); // 자료가 적을수록 50점으로 수렴
+  const gateFail = a.gate && items[0].r === "fail";
+  if (gateFail) score = Math.min(score, 40); // 추세 게이트 탈락이면 최대 40점
   const sig = score >= 65 ? "bullish" : score < 45 ? "bearish" : "neutral";
-  return { score, cov, items, sig };
+  return { score, cov, items, sig, gateFail };
 }
 function finalVerdict(scores, S, M, P, ptjRes) {
   let total = 0; for (const a of AG) total += (scores[a.id]?.score ?? 50) * a.w / 100;
@@ -375,8 +378,10 @@ function finalVerdict(scores, S, M, P, ptjRes) {
   if (num(M?.vix) > 30) veto.push(`VIX ${num(M.vix)} · 시장 급락 위험`);
   if (ptjRes?.veto && ptjRes.veto_reason) veto.push(ptjRes.veto_reason);
   const capped = veto.length ? Math.min(total, 64) : total;
+  const warn = [];
+  for (const a of AG) if (a.warnOnly && scores[a.id] && scores[a.id].score < 45) warn.push(`${a.n.split(" ").pop()} 경고 · ${R.agents?.[a.id]?.cons?.[0] || "큰 손실 위험 요인 있음"}`);
   const band = capped >= 80 ? ["매수 검토", "buy"] : capped >= 65 ? ["관심 종목", "watch"] : ["매수 제외", "out"];
-  return { raw: total, score: capped, veto, band };
+  return { raw: total, score: capped, veto, band, warn };
 }
 
 // ── 렌더링: 결론 카드 → 위원 7줄 → 접힌 상세 ───────────────
@@ -397,11 +402,13 @@ function renderHero() {
       <div class="ring"><span>${V ? V.score : "…"}</span></div>
       <div><div class="band2">${V ? V.band[0] : "심사 중"}</div>
         <div class="vd">${D ? esc(D.verdict) : V ? "80점 이상 매수 검토 · 65~79 관심 · 65 미만 제외" : "위원들이 채점하고 있어요"}</div>
-        ${V?.veto.length ? `<div class="veto">리스크 거부권 · ${esc(V.veto.join(" / "))}</div>` : ""}</div></div>
+        ${V?.veto.length ? `<div class="veto">리스크 거부권 · ${esc(V.veto.join(" / "))}</div>` : ""}
+        ${V?.warn?.length ? `<div class="veto" style="background:#fff4d6;color:#7a5200">${esc(V.warn.join(" / "))}</div>` : ""}</div></div>
     ${P ? `<div class="pg"><div>진입<span>${fmt(r2(P.entry))}</span></div><div>손절<span>${fmt(r2(P.stop))}</span><em style="font-style:normal;font-size:12px;color:#d9472f">-${pct(P.riskPct)}</em></div>
       <div>목표<span>${fmt(r2(P.target ?? P.target2R))}</span><em style="font-style:normal;font-size:12px;color:#1d9a64">+${pct(((P.target ?? P.target2R) - P.entry) / P.entry)}</em></div>
       <div>손익비<span style="color:${P.rr == null ? "inherit" : P.rr >= 2 ? "#1d9a64" : "#d9472f"}">${P.rr == null ? "2.0R" : P.rr.toFixed(1) + " : 1"}</span></div>
       <div>권장 비중<span>${P.size.toFixed(1)}%</span></div></div>` : ""}
+    ${P ? `<div class="mline" style="color:#0f1a17"><b>청산 규칙</b> · ${P.lev ? `레버리지 ETF: -7% 손절, 최대 2주 보유` : `${fmt(r2(P.target2R))}(2R)에서 절반 익절 · 나머지는 EMA20${P.exitEma ? "(" + fmt(r2(P.exitEma)) + ")" : ""} 종가 이탈 시 청산`}</div>` : ""}
     ${M ? `<div class="mline">시장 ${esc(M.regime || "—")} · VIX ${esc(fmt(num(M.vix)))} · 주도 ${esc((M.leading_sectors || []).slice(0, 2).join(", "))}${F.next_earnings_date ? ` · 다음 실적 ${esc(F.next_earnings_date)}` : ""}</div>` : ""}`;
 }
 
@@ -412,7 +419,7 @@ function agentRow(a) {
   const line = res?.headline ? esc(res.headline) : st === "run" ? '<span class="dots"></span>' : st === "fail" ? "분석 실패 · 50점 처리" : `<span style="opacity:.6">${a.q}</span>`;
   return `<details class="ag"><summary>
       <div class="av"><img src="img/${a.id}.png" alt="${a.n}" width="52" height="52" loading="lazy"></div>
-      <div><div class="an">${a.n}<small>${a.role} ${a.w}%</small></div><div class="al">${line}</div>${res?.pros?.[0] ? `<div class="ln p"><i>찬</i>${esc(res.pros[0])}</div>` : ""}${res?.cons?.[0] ? `<div class="ln c"><i>반</i>${esc(res.cons[0])}</div>` : ""}</div>
+      <div><div class="an">${a.n}<small>${a.role}${a.warnOnly ? "" : " " + a.w + "%"}</small></div><div class="al">${line}</div>${res?.pros?.[0] ? `<div class="ln p"><i>찬</i>${esc(res.pros[0])}</div>` : ""}${res?.cons?.[0] ? `<div class="ln c"><i>반</i>${esc(res.cons[0])}</div>` : ""}</div>
       <div class="ar">${sc && res ? `<span class="pill ${s[1]}">${s[0]}</span><b>${sc.score}</b>` : ""}</div>
     </summary>
     ${res && sc ? `<div class="ab">
@@ -437,14 +444,14 @@ function renderExtra() {
   const sec = [];
   if (D) sec.push(["찬반 토론", `<div class="case pro"><h4>상승 논리의 약점</h4>${esc(D.bull_rebuttal)}</div><div class="case con"><h4>하락 시나리오</h4>${esc(D.bear_scenario)}</div>
     <dl class="kv"><dt>매수 실행 조건</dt><dd>${esc(D.entry_trigger)}</dd><dt>계획 폐기 조건</dt><dd>${esc(D.invalidation)}</dd><dt>확인할 일정</dt><dd>${esc(D.watch)}</dd></dl>`]);
-  if (V) sec.push(["점수 계산", `<table><tbody>${AG.map(a => { const sc = R.scores[a.id]?.score ?? 50; return `<tr><td>${a.n}</td><td class="r">${sc}점 × ${a.w}%</td><td class="r">${(sc * a.w / 100).toFixed(1)}</td></tr>`; }).join("")}
+  if (V) sec.push(["점수 계산", `<table><tbody>${AG.map(a => { const sc = R.scores[a.id]?.score ?? 50; return a.warnOnly ? `<tr><td>${a.n}</td><td class="r">${sc}점 · 경고 전용</td><td class="r">—</td></tr>` : `<tr><td>${a.n}</td><td class="r">${sc}점 × ${a.w}%</td><td class="r">${(sc * a.w / 100).toFixed(1)}</td></tr>`; }).join("")}
     <tr class="pick"><td>합계</td><td></td><td class="r">${V.raw}${V.veto.length ? ` → ${V.score} (거부권)` : ""}</td></tr></tbody></table>`]);
   if (P) sec.push(["손절 방식 비교", `<table><tbody>
     <tr class="${P.useSup ? "" : "pick"}"><td>2 ATR${P.atrEst ? " (추정)" : ""}</td><td class="r">${f(P.atrStop)}</td><td class="r">-${pct((P.entry - P.atrStop) / P.entry)}</td></tr>
     <tr class="${P.useSup ? "pick" : ""}"><td>지지선${P.base ? " " + f(P.base) : ""} − 0.5 ATR</td><td class="r">${f(P.supStop)}</td><td class="r">${P.supStop ? "-" + pct((P.entry - P.supStop) / P.entry) : "—"}</td></tr></tbody></table>
     <p class="tag">더 가까운 쪽(손실이 작은 쪽)을 씁니다. 권장 비중 = 허용 손실 ${P.acct}% ÷ 손절폭, 종목당 최대 ${P.cap ?? 25}%. 집중 투자는 갭 하락 시 손절가보다 더 잃을 수 있어요. 저항선이 없으면 목표는 손절폭의 2배(2R)입니다.</p>`]);
   const items = [["PER", fmt(num(F.per), "배")], ["PEG", fmt(num(F.peg))], ["ROE", fmt(num(F.roe_pct), "%")], ["매출 성장", fmt(num(F.revenue_growth_pct), "%")], ["EPS 성장", fmt(num(F.eps_growth_pct), "%")],
-    ["50일선", fmt(num(T.ma50))], ["200일선", fmt(num(T.ma200))], ["ATR", fmt(num(T.atr14))], ["3개월 수익률", fmt(num(T.return_3m_pct), "%")], ["지수 3개월", fmt(num(T.index_return_3m_pct), "%")]];
+    ["EMA 10/20", `${fmt(num(T.ema10))} / ${fmt(num(T.ema20))}`], ["EMA 50/200", `${fmt(num(T.ema50))} / ${fmt(num(T.ema200))}`], ["CCI(20)", fmt(num(T.cci20))], ["ADX(14)", fmt(num(T.adx14))], ["거래량/20일 평균", (num(T.volume_recent) && num(T.avg_volume_20)) ? (num(T.volume_recent) / num(T.avg_volume_20)).toFixed(2) + "배" : "—"], ["위쪽 매물대", fmt(num(T.overhead_poc))], ["ATR", fmt(num(T.atr14))], ["3개월 수익률", fmt(num(T.return_3m_pct), "%")], ["지수 3개월", fmt(num(T.index_return_3m_pct), "%")]];
   sec.push(["종목 데이터 · 출처", `<dl class="kv">${items.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
     <ul class="w">${(F.news || []).slice(0, 3).map(n => `<li>${esc(n)}</li>`).join("")}</ul>
     ${M ? `<p class="tag">시장: ${esc(M.summary || "")} (${esc(M.as_of || "")}, 6시간마다 갱신)</p>` : ""}
