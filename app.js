@@ -484,7 +484,7 @@ function renderMarketCard() {
     <div class="mgrid">${mk("us", "미국", M.regime_us, ["나스닥", "S&P500"])}${mk("kr", "한국", M.regime_kr, ["코스피", "코스닥"])}</div>
     <div class="mmac">VIX <b>${esc(fmt(num(M.vix)))}</b> ${vixTag(num(M.vix))} · 달러 <b>${esc(M.dxy || "—")}</b> · 미 10년물 <b>${esc(fmt(num(M.us10y), "%"))}</b> · 원달러 <b>${esc(fmt(num(M.usdkrw)))}</b></div>`;
 }
-const renderAll = () => { renderHero(); renderMarketCard(); renderWeek(); paint(); renderExtra(); };
+const renderAll = () => { renderHero(); renderMarketCard(); renderWeek(); paint(); renderExtra(); document.dispatchEvent(new Event("aic:render")); };
 
 // ── 5. 찬반 토론 ──────────────────────────────────────────
 async function runDebate(tk, S, M, P) {
@@ -595,4 +595,9 @@ renderMarketCard();
 $("f").addEventListener("submit", e => { e.preventDefault(); const t = $("tk").value.trim(); if (t) convene(t); });
 paint();
 if (cfg.key) loadModels();
+
+// ── 추가 기능(features.js)에 필요한 것만 공개 ──
+window.AIC = { gemini, store, esc, num, clamp, fmt, getMarket, regimeFor, isKR, STRAT, setStatus, showErr, cfg, today,
+  get R() { return R; }, get busy() { return busy; }, set busy(v) { busy = v; },
+  convene: t => { $("tk").value = t; return convene(t); }, hist: () => store.get(HKEY, []) };
 }

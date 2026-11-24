@@ -165,6 +165,54 @@ details.x .in{padding-bottom:14px;font-size:15px}
 .sec{font-size:13px;color:var(--lime);opacity:.85;margin-top:6px}
 .mmac{font-size:13px;color:var(--lime);margin-top:10px}.mmac b{color:#fff}
 @media(max-width:600px){.mgrid{grid-template-columns:minmax(0,1fr)}.mkt{padding:6px 14px 14px}}
+
+.tabs{display:flex;gap:6px;margin:4px 0 18px;overflow-x:auto}
+.tabs button{flex:none;min-height:42px;padding:0 16px;font-size:15px;background:rgba(255,255,255,.08);color:var(--lime);font-weight:700}
+.tabs button.on{background:var(--lime);color:var(--g)}
+.tools{display:none;margin-top:16px;gap:12px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.tool{background:rgba(0,0,0,.22);border-radius:16px;padding:14px 16px;display:grid;gap:10px;align-content:start}
+.tt{font-weight:800;font-size:17px}.tt small{display:block;font-weight:400;font-size:12px;color:var(--lime);opacity:.8}
+.trow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.trow label{display:grid;gap:4px;font-size:13px;color:var(--lime)}
+.tout:empty{display:none}
+.rc{background:#fff;color:#0f1a17;border-radius:14px;padding:14px 16px;font-size:15px}
+.rc h4{margin:10px 0 4px;font-size:14px;color:#5b6b66}.rc h4:first-child{margin-top:0}
+.rc ul{margin:0;padding-left:18px}
+.dec{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.dec b{font:900 24px "Noto Sans KR"}
+.tag2{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:700;background:#e8eeeb;color:#0f1a17}
+.tag2.g{background:#d6f3e4;color:#14633f}.tag2.r{background:#fde1db;color:#8a2412}.tag2.y{background:#fff1c7;color:#7a5200}
+.blunt{background:#0f1a17;color:#fff;border-radius:10px;padding:10px 12px;margin-top:10px;font-weight:700}
+.alert{background:#fde1db;color:#8a2412;border-radius:10px;padding:10px 12px;margin-bottom:8px;font-weight:700}
+.opts{display:grid;gap:6px}.opt{border:1px solid #e3e9e6;border-radius:10px;padding:8px 10px;font-size:14px}.opt.pick{border-color:#1d9a64;background:#f0faf5}
+.np{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;text-align:left;background:#fff;color:#0f1a17;border-radius:14px;padding:12px 14px;margin-top:8px;font:400 15px "Noto Sans KR";min-height:64px}
+.np .rk{font:900 22px "Inter Tight";color:#00463c}.np small{color:#5b6b66;font-size:13px}
+.np .st{color:#d99a00;font-size:13px;white-space:nowrap}
+/* 포트폴리오 */
+.pf{background:#0c0f14;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.pfh{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#151a22;font-size:13px;color:#9aa4b2}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.pfh .sw{margin-left:auto;display:flex;gap:4px}.pfh .sw button{min-height:28px;padding:0 10px;font-size:12px;background:#232a35;color:#9aa4b2}.pfh .sw button.on{background:#f5d35b;color:#1a1400}
+.pfb2{display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px;padding:18px;align-items:center}
+.donut{position:relative;width:200px;height:200px;margin:0 auto}
+.donut svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut .c{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#fff}
+.donut .c small{display:block;color:#9aa4b2;font-size:13px}.donut .c b{font:900 40px "Inter Tight"}
+.pl{display:grid;gap:8px}
+.pi{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;gap:10px;align-items:center;background:#151a22;border-radius:12px;padding:10px 12px;color:#fff}
+.pi.cash{border:2px solid #f5d35b}
+.pi .lg{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:900 16px "Inter Tight";color:#fff}
+.pi .nm2{font-weight:800;font-size:16px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.pi .pb{height:6px;border-radius:3px;background:#2a313c;margin-top:6px;overflow:hidden}.pi .pb i{display:block;height:100%}
+.pi .w{font:800 18px "Inter Tight";white-space:nowrap}
+.pi .d{font:700 14px "Inter Tight";white-space:nowrap;min-width:56px;text-align:right}
+.sg{font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:#3a414d;color:#cfd6df}.sg.b{background:#1f5c40;color:#b9f0d4}.sg.s{background:#5c2a22;color:#ffc7bc}
+.pfe{margin-top:14px;background:rgba(0,0,0,.22);border-radius:14px;padding:4px 14px 12px;color:var(--lime)}
+.pfe summary{font-weight:700;min-height:44px}
+.pr{display:grid;grid-template-columns:minmax(0,1fr) 90px 44px;gap:8px;margin-top:8px}
+.pr .x{min-height:44px;padding:0;background:transparent;border:1px solid rgba(230,245,200,.35);color:var(--lime)}
+.pfb{display:flex;justify-content:space-between;gap:8px;margin-top:10px}
+.wide{width:100%;margin-top:14px}
+@media(max-width:760px){.tools{grid-template-columns:minmax(0,1fr)}.pfb2{grid-template-columns:minmax(0,1fr)}.donut{width:180px;height:180px}}
 </style>
 </head>
 <body>
@@ -178,12 +226,18 @@ details.x .in{padding-bottom:14px;font-size:15px}
     <label>분석 모드<select id="mode"><option value="eco">절약 · 1회에 API 약 5번</option><option value="full">정밀 · 위원별 따로, 약 11번</option></select></label>
     <label>모델<select id="model"><option value="gemini-flash-latest">gemini-flash-latest</option></select></label>
     <div class="histw"><div style="font-size:13px;color:var(--lime);margin:14px 0 6px">지난 분석 · 눌러서 다시 보기 (API 사용 안 함)</div><div id="hist"></div></div>
-    <label>1회 매매 허용 손실 (계좌 대비 %)<input id="riskPct" inputmode="decimal" value="1.5"></label>
+    <label>1회 매매 허용 손실 (계좌 대비 %)<input id="riskPct" inputmode="decimal" value="1"></label>
     <label>종목당 최대 비중 % (최대 4종목 기준)<input id="maxPos" inputmode="decimal" value="30"></label>
   </div>
 
   <h1>AI 투자위원회</h1>
-  <p class="sub">투자 대가 7인이 채점하고, 결론과 매매 계획만 보여드려요.</p>
+  <nav class="tabs" id="tabs">
+    <button type="button" data-t="ana" class="on">종목 분석</button>
+    <button type="button" data-t="news">수혜주 찾기</button>
+    <button type="button" data-t="pf">내 포트폴리오</button>
+  </nav>
+
+  <div id="tab-ana">
   <form id="f">
     <input id="tk" placeholder="종목명 또는 티커 (예: NVDA, 삼성전자)" autocomplete="off" required>
     <button id="go" type="submit">위원회 소집</button>
@@ -196,8 +250,41 @@ details.x .in{padding-bottom:14px;font-size:15px}
       <div class="hero" id="hero"></div>
       <div class="mkt" id="mkt"></div>
       <div class="board" id="board"><div class="bh"><span>7인 위원 의견</span><span>눌러서 채점표 보기</span></div><div id="rows"></div></div>
+      <div class="tools" id="tools">
+        <div class="tool">
+          <div class="tt">내 매수 근거 검증 <small>무조건 동의하지 않는 리스크 분석가</small></div>
+          <textarea id="vText" rows="3" placeholder="왜 사려고 하나요? 예: CCI가 -100을 뚫고 올라왔고 AI 수요가 계속 늘 것 같아서"></textarea>
+          <button type="button" id="vGo">검증하기</button>
+          <div class="tout" id="vOut"></div>
+        </div>
+        <div class="tool">
+          <div class="tt">보유 종목 점검 <small>빠질 때 보유·추가 매수·손절 판단</small></div>
+          <div class="trow"><label>평균 매수가<input id="hAvg" inputmode="decimal" placeholder="예: 30.5"></label><label>계좌 내 비중 %<input id="hW" inputmode="decimal" placeholder="예: 20"></label></div>
+          <button type="button" id="hGo">점검하기</button>
+          <div class="tout" id="hOut"></div>
+        </div>
+      </div>
     </div>
     <aside class="side"><div class="week" id="week"></div></aside>
+  </div>
+  </div>
+
+  <div id="tab-news" hidden>
+    <form id="nf">
+      <input id="nText" placeholder="뉴스나 이슈 (예: 미국 전력망 투자 확대, 엔비디아 실적 서프라이즈)" autocomplete="off" required>
+      <button id="nGo" type="submit">수혜주 찾기</button>
+    </form>
+    <div class="status" id="nStatus"></div>
+    <div id="nOut"></div>
+  </div>
+
+  <div id="tab-pf" hidden>
+    <div class="pf" id="pfCard"></div>
+    <details class="pfe" id="pfEdit"><summary>보유 종목 편집</summary><div id="pfRows"></div>
+      <div class="pfb"><button type="button" id="pfAdd" class="mini">+ 종목 추가</button><button type="button" id="pfSave">저장</button></div></details>
+    <button type="button" id="pfGo" class="wide">포트폴리오 점검</button>
+    <div class="status" id="pfStatus"></div>
+    <div id="pfOut"></div>
   </div>
 </div></section>
 
@@ -205,5 +292,6 @@ details.x .in{padding-bottom:14px;font-size:15px}
 <p class="note">각 위원은 실제 투자자 본인이 아니라 공개된 투자 철학을 바탕으로 한 AI 분석 역할입니다. 점수는 채점 기준 충족도이며 상승 확률이 아닙니다. 수치는 검색 결과를 AI가 정리한 것이라 틀릴 수 있어요. 투자 권유가 아닙니다.</p>
 </section>
 <script src="app.js"></script>
+<script src="features.js"></script>
 </body>
 </html>
