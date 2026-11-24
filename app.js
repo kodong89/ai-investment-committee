@@ -487,7 +487,6 @@ async function convene(tk) {
     try { R.D = await runDebate(tk, S, M, P); } catch (e) {}
     renderAll();
     setStatus(`완료 · ${new Date().toLocaleString("ko-KR")}`);
-    saveHistory();
   } catch (e) {
     setStatus("");
     showErr(e.status === 400 && /API key/i.test(e.message) ? "API 키가 올바르지 않아요. 설정에서 다시 확인해 주세요." :
@@ -495,18 +494,9 @@ async function convene(tk) {
   } finally { busy = false; $("go").disabled = false; }
 }
 
-// ── 기록 (이 기기 저장 · 다시 볼 때 API 호출 없음) ─────────
-function saveHistory() { const h = store.get("aic-hist2", []).filter(x => x.tk !== R.tk); h.unshift(R); store.set("aic-hist2", h.slice(0, 15)); drawRecent(); }
-function drawRecent() {
-  $("recent").innerHTML = store.get("aic-hist2", []).map((x, i) => `<button type="button" class="chip" data-i="${i}">${esc(x.S?.F?.name || x.tk)} ${x.verdict ? x.verdict.score + "점" : ""} · ${esc(new Date(x.at).toLocaleDateString("ko-KR", { month: "numeric", day: "numeric" }))}</button>`).join("");
-}
-$("recent").addEventListener("click", e => {
-  const b = e.target.closest(".chip"); if (!b || busy) return;
-  const x = store.get("aic-hist2", [])[+b.dataset.i]; if (!x) return;
-  R = x; $("tk").value = x.tk; showErr(""); renderAll();
-  setStatus(`저장된 분석 · ${new Date(x.at).toLocaleString("ko-KR")} (새로 분석하려면 위원회 소집)`);
-});
+// 검색 기록은 남기지 않음 (예전 기록 삭제)
+try { localStorage.removeItem("aic-hist"); localStorage.removeItem("aic-hist2"); } catch (e) {}
 $("f").addEventListener("submit", e => { e.preventDefault(); const t = $("tk").value.trim(); if (t) convene(t); });
-paint(); drawRecent();
+paint();
 if (cfg.key) loadModels();
 }
