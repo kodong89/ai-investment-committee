@@ -95,7 +95,8 @@ $("openSet").addEventListener("click", () => { const s = $("setup"); s.style.dis
 $("saveKey").addEventListener("click", async () => { cfg.key = $("key").value.trim(); saveCfg(); if (cfg.key) { await loadModels(); setStatus("키 저장 완료. 종목을 검색해 보세요."); $("setup").style.display = "none"; } });
 $("model").addEventListener("change", () => { cfg.model = $("model").value; saveCfg(); });
 $("mode").addEventListener("change", () => { cfg.mode = $("mode").value; saveCfg(); });
-$("riskPct").value = cfg.riskPct ?? 1; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
+$("riskPct").value = cfg.riskPct ?? 2; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
+$("maxPos").value = cfg.maxPos ?? 40; $("maxPos").addEventListener("change", () => { cfg.maxPos = $("maxPos").value; saveCfg(); });
 
 async function loadModels() {
   try {
@@ -252,9 +253,10 @@ function makePlan(F, T) {
   const rr = target ? (target - entry) / risk : null;
   const target2R = entry + 2 * risk;
   const riskPct = risk / entry;
-  const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 1, 0.1, 5);
-  const size = clamp(acct / 100 / riskPct * 100, 0, 25);
-  return { entry, atr, atrEst, atrPct: atr / entry, atrStop, supStop, useSup, stop, riskPct, target, rr, target2R, size, acct, base };
+  const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 2, 0.1, 5);
+  const cap = clamp(num($("maxPos").value) ?? num(cfg.maxPos) ?? 40, 5, 100);
+  const size = clamp(acct / 100 / riskPct * 100, 0, cap);
+  return { entry, atr, atrEst, atrPct: atr / entry, atrStop, supStop, useSup, stop, riskPct, target, rr, target2R, size, acct, cap, base };
 }
 
 // ── 4. 위원 분석 ──────────────────────────────────────────
@@ -413,7 +415,7 @@ function renderExtra() {
   if (P) sec.push(["손절 방식 비교", `<table><tbody>
     <tr class="${P.useSup ? "" : "pick"}"><td>2 ATR${P.atrEst ? " (추정)" : ""}</td><td class="r">${f(P.atrStop)}</td><td class="r">-${pct((P.entry - P.atrStop) / P.entry)}</td></tr>
     <tr class="${P.useSup ? "pick" : ""}"><td>지지선${P.base ? " " + f(P.base) : ""} − 0.5 ATR</td><td class="r">${f(P.supStop)}</td><td class="r">${P.supStop ? "-" + pct((P.entry - P.supStop) / P.entry) : "—"}</td></tr></tbody></table>
-    <p class="tag">더 가까운 쪽(손실이 작은 쪽)을 씁니다. 권장 비중 = 허용 손실 ${P.acct}% ÷ 손절폭, 최대 25%. 저항선이 없으면 목표는 손절폭의 2배(2R)입니다.</p>`]);
+    <p class="tag">더 가까운 쪽(손실이 작은 쪽)을 씁니다. 권장 비중 = 허용 손실 ${P.acct}% ÷ 손절폭, 종목당 최대 ${P.cap ?? 25}%. 집중 투자는 갭 하락 시 손절가보다 더 잃을 수 있어요. 저항선이 없으면 목표는 손절폭의 2배(2R)입니다.</p>`]);
   const items = [["PER", fmt(num(F.per), "배")], ["PEG", fmt(num(F.peg))], ["ROE", fmt(num(F.roe_pct), "%")], ["매출 성장", fmt(num(F.revenue_growth_pct), "%")], ["EPS 성장", fmt(num(F.eps_growth_pct), "%")],
     ["50일선", fmt(num(T.ma50))], ["200일선", fmt(num(T.ma200))], ["ATR", fmt(num(T.atr14))], ["3개월 수익률", fmt(num(T.return_3m_pct), "%")], ["지수 3개월", fmt(num(T.index_return_3m_pct), "%")]];
   sec.push(["종목 데이터 · 출처", `<dl class="kv">${items.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
