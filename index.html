@@ -214,6 +214,15 @@ details.x .in{padding-bottom:14px;font-size:15px}
 .pr .x{min-height:44px;padding:0;background:transparent;border:1px solid rgba(230,245,200,.35);color:var(--lime)}
 .pfb{display:flex;justify-content:space-between;gap:8px;margin-top:10px}
 .wide{width:100%;margin-top:14px}
+.pfl{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(230,245,200,.12);color:#fff;font-size:15px}
+.pfl small{display:block;color:var(--lime);opacity:.75;font-size:12px}
+.pfform{display:grid;gap:8px;margin-top:12px;background:rgba(255,255,255,.05);border-radius:12px;padding:12px}
+.pfform label{display:grid;gap:4px;font-size:13px;color:var(--lime)}.pfform label small{opacity:.7}
+.ft{font-weight:800;color:#fff}
+.pnl{font-weight:700}.pnl.up{color:#2fbf7f}.pnl.dn{color:#ff6f59}
+.tot{display:flex;flex-wrap:wrap;gap:6px 16px;padding:0 18px 4px;font-size:14px;color:#cfd6df}.tot b{color:#fff}
+.pi{cursor:pointer}
+.crit{margin:0;padding-left:18px;font-size:14px}.crit li{margin:3px 0}
 .over{margin:12px 18px 0;background:#3a1612;color:#ffc7bc;border:1px solid #ff6f59;border-radius:10px;padding:9px 12px;font-size:14px;font-weight:700}
 .pl{max-height:none}
 @media(max-width:760px){.tools{grid-template-columns:minmax(0,1fr)}.pfb2{grid-template-columns:minmax(0,1fr)}.donut{width:180px;height:180px}}
@@ -279,11 +288,15 @@ details.x .in{padding-bottom:14px;font-size:15px}
   <div id="tab-pf" hidden>
     <div class="pf" id="pfCard"></div>
     <details class="pfe" id="pfEdit"><summary>보유 종목 편집</summary>
-      <div class="pr ph"><span>종목</span><span>보유 주수</span><span></span></div>
-      <div id="pfRows"></div>
-      <div class="pfb"><button type="button" id="pfAdd" class="mini">+ 종목 추가</button></div>
-      <div class="trow" style="margin-top:12px"><label>원화 현금 (원)<input id="pfKRW" inputmode="numeric" placeholder="예: 5000000"></label><label>달러 현금 ($)<input id="pfUSD" inputmode="decimal" placeholder="예: 1200"></label></div>
-      <button type="button" id="pfSave" class="wide">저장하고 시세 불러오기</button></details>
+      <div id="pfList"></div>
+      <div class="pfform">
+        <div class="ft" id="fTitle">종목 추가</div>
+        <label>종목<input id="fT" placeholder="예: TSLA, 삼성전자" autocomplete="off"></label>
+        <div class="trow"><label>보유 주수<input id="fQ" inputmode="decimal" placeholder="예: 40"></label><label>평균 매수가 <small>(미국 $ · 한국 원)</small><input id="fA" inputmode="decimal" placeholder="예: 230.5"></label></div>
+        <div class="pfb"><button type="button" id="fCancel" class="mini" hidden>취소</button><button type="button" id="fSave">추가</button></div>
+      </div>
+      <div class="trow" style="margin-top:14px"><label>원화 현금 (원)<input id="pfKRW" inputmode="numeric" placeholder="예: 5000000"></label><label>달러 현금 ($)<input id="pfUSD" inputmode="decimal" placeholder="예: 1200"></label></div>
+    </details>
     <button type="button" id="pfGo" class="wide">포트폴리오 점검</button>
     <div class="status" id="pfStatus"></div>
     <div id="pfOut"></div>
