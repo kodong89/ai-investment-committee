@@ -92,7 +92,8 @@ $("nOut").addEventListener("click", e => { const b = e.target.closest(".np"); if
 { const n = store.get("aic-news", null); if (n) { $("nText").value = n.q; renderNews(n.d); $("nStatus").textContent = `지난 검색 · ${new Date(n.at).toLocaleString("ko-KR")}`; } }
 
 // ── 4. 내 포트폴리오 (보유 주수 → 시세로 비중 자동 계산) ──────
-const COLORS = ["#e25b4b", "#f0a033", "#6a4fd8", "#3a6fd1"], CASH = "#f5d35b";
+const COLORS = ["#e25b4b", "#f0a033", "#6a4fd8", "#3a6fd1", "#2fbf7f", "#e05fa8", "#20a4c4", "#9a7b4f", "#8fb339", "#c0392b"], CASH = "#f5d35b";
+const MAXIN = 10, RULE_N = 4;
 let pf = store.get("aic-pf2", { items: [{ t: "", q: "" }], krw: "", usd: "", px: null }), pfView = "now";
 const savePF = () => store.set("aic-pf2", pf);
 const opt = () => store.get("aic-pfopt2", null);
@@ -101,12 +102,12 @@ const keyOf = t => String(t || "").trim().toLowerCase();
 
 function pfRowsHTML() {
   $("pfRows").innerHTML = pf.items.map((h, i) => `<div class="pr"><input data-i="${i}" data-k="t" value="${esc(h.t)}" placeholder="종목 ${i + 1} (예: TSLA, 삼성전자)"><input data-i="${i}" data-k="q" value="${esc(h.q)}" inputmode="numeric" placeholder="주"><button type="button" class="x" data-del="${i}">×</button></div>`).join("");
-  $("pfAdd").style.display = pf.items.length >= 4 ? "none" : "";
+  $("pfAdd").style.display = pf.items.length >= MAXIN ? "none" : "";
   $("pfKRW").value = pf.krw ?? ""; $("pfUSD").value = pf.usd ?? "";
 }
 $("pfRows").addEventListener("input", e => { const t = e.target; if (t.dataset.i != null) pf.items[+t.dataset.i][t.dataset.k] = t.value; });
 $("pfRows").addEventListener("click", e => { const d = e.target.dataset.del; if (d != null) { pf.items.splice(+d, 1); if (!pf.items.length) pf.items.push({ t: "", q: "" }); pfRowsHTML(); } });
-$("pfAdd").addEventListener("click", () => { if (pf.items.length < 4) { pf.items.push({ t: "", q: "" }); pfRowsHTML(); } });
+$("pfAdd").addEventListener("click", () => { if (pf.items.length < MAXIN) { pf.items.push({ t: "", q: "" }); pfRowsHTML(); } });
 const holdings = () => pf.items.filter(h => String(h.t).trim() && num(h.q) > 0);
 
 // 시세·환율 불러오기 (API 1회)
@@ -126,7 +127,7 @@ function calc() {
   const H = holdings(), px = pf.px, fx = px?.fx || 1400;
   const rows = H.map((h, i) => { const p = px?.map?.[keyOf(h.t)]; const price = num(p?.price), usd = /USD|\$/.test(p?.currency || "");
     const unit = price ? price * (usd ? fx : 1) : null;
-    return { t: h.t, q: num(h.q), name: p?.name || h.t, ticker: p?.ticker || h.t, price, cur: usd ? "$" : "원", unit, val: unit ? unit * num(h.q) : null, c: COLORS[i % 4] }; });
+    return { t: h.t, q: num(h.q), name: p?.name || h.t, ticker: p?.ticker || h.t, price, cur: usd ? "$" : "원", unit, val: unit ? unit * num(h.q) : null, c: COLORS[i % COLORS.length] }; });
   const cash = (num(pf.krw) || 0) + (num(pf.usd) || 0) * fx;
   const total = rows.reduce((a, r) => a + (r.val || 0), 0) + cash;
   for (const r of rows) r.now = total && r.val != null ? r.val / total * 100 : null;
@@ -153,7 +154,7 @@ function renderPF() {
   const C0 = calc(), o = opt(), H = C0.rows, showSug = pfView === "sug" && o;
   const dots = `<span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span>&nbsp;내 포트폴리오`;
   $("pfGo").style.display = H.length && pf.px ? "" : "none";
-  if (!H.length) { $("pfCard").innerHTML = `<div class="pfh">${dots}</div><div style="padding:28px 18px;color:#9aa4b2">아래 "보유 종목 편집"에서 종목과 <b>보유 주수</b>, 현금을 넣어 주세요. 비중은 시세로 자동 계산돼요. 최대 4종목.</div>`; $("pfEdit").open = true; renderPFOut(null); return; }
+  if (!H.length) { $("pfCard").innerHTML = `<div class="pfh">${dots}</div><div style="padding:28px 18px;color:#9aa4b2">아래 "보유 종목 편집"에서 종목과 <b>보유 주수</b>, 현금을 넣어 주세요. 비중은 시세로 자동 계산돼요. 최대 10종목까지 넣을 수 있어요.</div>`; $("pfEdit").open = true; renderPFOut(null); return; }
   if (!pf.px) { $("pfCard").innerHTML = `<div class="pfh">${dots}</div><div style="padding:28px 18px;color:#9aa4b2">"저장하고 시세 불러오기"를 누르면 비중이 계산돼요.</div>`; renderPFOut(null); return; }
   const sug = r => { const x = o?.holdings?.find(h => keyOf(h.input || h.ticker) === keyOf(r.t)); return x ? num(x.suggest_pct) : null; };
   for (const r of H) { r.sug = sug(r); r.tq = (r.sug != null && r.unit) ? Math.floor(r.sug / 100 * C0.total / r.unit) : null; }
@@ -172,6 +173,7 @@ function renderPF() {
       <div><div class="nm2">현금</div><div class="sub2">${won(C0.cash)}${num(pf.usd) ? ` (달러 $${f2(num(pf.usd))} 포함)` : ""}</div><div class="pb"><i style="width:${clamp(val(null, true), 0, 100)}%;background:${CASH}"></i></div></div>
       <span class="w">${f2(Math.round(val(null, true) * 10) / 10)}%</span>${o ? dlt(cashSug, C0.cashPct, null) : "<span></span>"}</div>`;
   $("pfCard").innerHTML = `<div class="pfh">${dots}${o ? `<span class="sw"><button type="button" data-v="now" class="${pfView === "now" ? "on" : ""}">현재</button><button type="button" data-v="sug" class="${pfView === "sug" ? "on" : ""}">제안</button></span>` : ""}</div>
+    ${H.length > RULE_N ? `<div class="over">매매규칙 ${RULE_N}종목 초과 · 지금 ${H.length}종목이에요. 포트폴리오 점검을 누르면 ${RULE_N}종목 이내로 줄이는 방법을 제안해요.</div>` : ""}
     <div class="pfb2"><div class="donut"><svg viewBox="0 0 100 100"><circle r="42" cx="50" cy="50" fill="none" stroke="#1d232c" stroke-width="14"/>${arcs}</svg>
       <div class="c"><div><small>현금</small><b>${f2(Math.round(val(null, true)))}%</b><small>총 ${won(C0.total)}</small></div></div></div>
       <div class="pl">${H.map(row).join("")}${cashRow}</div></div>
@@ -186,7 +188,7 @@ function renderPFOut(o) {
   if (!o) { if (!$("pfOut").querySelector(".alert")) $("pfOut").innerHTML = ""; return; }
   $("pfOut").innerHTML = `<div class="rc" style="margin-top:14px">
     <h4>리밸런싱 전략</h4><div>${esc(o.strategy)}</div>
-    <h4>종목별 판단</h4><div class="opts">${(o.holdings || []).map(h => `<div class="opt"><b>${esc(h.name || h.ticker)}</b> <span class="tag2 ${tagCls(h.signal || "")}">${esc(h.signal)}</span> ${f2(num(h.current_pct))}% → <b>${f2(num(h.suggest_pct))}%</b><br><small style="color:#5b6b66">${esc(h.sector || "")} · ${esc(h.reason)}</small></div>`).join("")}</div>
+    <h4>종목별 판단</h4><div class="opts">${(o.holdings || []).slice().sort((a, b) => num(b.suggest_pct) - num(a.suggest_pct)).map(h => `<div class="opt" ${num(h.suggest_pct) === 0 ? 'style="border-color:#ff6f59;background:#fff5f3"' : ""}><b>${esc(h.name || h.ticker)}</b>${num(h.suggest_pct) === 0 ? ' <span class="tag2 r">정리</span>' : ""} <span class="tag2 ${tagCls(h.signal || "")}">${esc(h.signal)}</span> ${f2(num(h.current_pct))}% → <b>${f2(num(h.suggest_pct))}%</b><br><small style="color:#5b6b66">${esc(h.sector || "")} · ${esc(h.reason)}</small></div>`).join("")}</div>
     <h4>업종 쏠림</h4><div>${esc(o.concentration)}</div>
     <h4>종목 간 상관관계</h4><div>${esc(o.correlation)}</div>
     <h4>주요 위험</h4><ul>${(o.risks || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>
@@ -207,12 +209,14 @@ ${RULES()}
 장 흐름: 미국 ${M?.regime_us || "미상"}, 한국 ${M?.regime_kr || "미상"} (상승장: 정상 매매 최대 4종목 / 횡보장: 주식 합계 50% 이하·최대 2종목 / 하락장: 신규 매수 중지·현금 확대). VIX ${M?.vix ?? "미상"}.
 현재 보유(시세 기준 비중): ${C0.rows.map(r => `${r.t} ${r.q}주 ${r.now == null ? "비중 미상" : r.now.toFixed(1) + "%"}`).join(", ")}, 현금 ${C0.cashPct.toFixed(1)}%
 ${past.length ? "위원회 최근 분석: " + past.join(" / ") : ""}
-규칙: 제안 비중은 종목당 ${cap}% 이하, 주식+현금 합계 100%. 매수 근거가 약하거나 추세가 꺾인 종목은 줄이고, 업종이 겹치면 한쪽을 줄여라.
+규칙: 제안 비중은 종목당 ${cap}% 이하, 주식+현금 합계 100%. 매수 근거가 약하거나 추세가 꺾인 종목은 줄이고, 업종이 겹치면 한쪽을 줄여라.${C0.rows.length > RULE_N ? ` 현재 ${C0.rows.length}종목으로 매매규칙(최대 ${RULE_N}종목)을 넘었다. 반드시 suggest_pct가 0보다 큰 종목이 ${RULE_N}개 이하가 되게 하고, 정리할 종목은 suggest_pct 0으로 두고 reason에 정리 이유를 써라. 남길 종목은 추세·실적이 가장 강한 것으로 고르고 업종이 겹치지 않게 하라. strategy에 어떤 종목부터 정리할지 순서를 써라.` : ""}
 설명 없이 JSON 하나만:
 {"holdings":[{"input":"사용자가 입력한 그대로","ticker":"티커","name":"회사명(짧게)","sector":"업종","signal":"사자|중립|팔자","current_pct":숫자,"suggest_pct":숫자,"reason":"비중 조정 이유(30자)"}],"cash_suggest_pct":숫자,"concentration":"업종 쏠림 평가 한 줄","correlation":"종목 간 상관관계·분산 수준 한 줄","risks":["주요 위험1(30자)","2"],"volatility":"예상 변동성 한 줄","strategy":"개선된 포트폴리오와 리밸런싱 순서 2문장"}`, { search: true, label: "포트폴리오 점검" })).data;
     let tot = 0;
     for (const h of d.holdings || []) { if (!h.input) h.input = h.ticker; const r = C0.rows.find(x => keyOf(x.t) === keyOf(h.input) || keyOf(x.ticker) === keyOf(h.ticker)); if (r) { h.input = r.t; h.current_pct = r.now != null ? Math.round(r.now * 10) / 10 : h.current_pct; }
       h.suggest_pct = clamp(Math.round(num(h.suggest_pct) ?? num(h.current_pct) ?? 0), 0, cap); tot += h.suggest_pct; }
+    const keep = (d.holdings || []).filter(h => h.suggest_pct > 0).sort((a, b) => b.suggest_pct - a.suggest_pct);
+    for (const h of keep.slice(RULE_N)) { tot -= h.suggest_pct; h.suggest_pct = 0; h.signal = "팔자"; h.reason = "4종목 규칙 · " + (h.reason || "정리 대상"); }
     if (tot > 100) { const k = 100 / tot; tot = 0; for (const h of d.holdings) { h.suggest_pct = Math.floor(h.suggest_pct * k); tot += h.suggest_pct; } }
     d.cash_suggest_pct = 100 - tot; d.at = Date.now();
     store.set("aic-pfopt2", d); pfView = "sug"; renderPF();
