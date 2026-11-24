@@ -1,0 +1,26 @@
+name: 장 흐름 데이터 갱신
+on:
+  schedule:
+    - cron: "17 7 * * 1-5"    # 한국 장 마감 후 (KST 16:17)
+    - cron: "43 21 * * 1-5"   # 미국 장 마감 후 (KST 06:43)
+    - cron: "11 1 * * 1-5"    # 한국 장중 (KST 10:11)
+  workflow_dispatch:
+  push:
+    paths: ["scripts/market.py", ".github/workflows/market.yml"]
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install yfinance
+      - run: python scripts/market.py
+      - name: 변경 시 커밋
+        run: |
+          git config user.name "market-bot"
+          git config user.email "market-bot@users.noreply.github.com"
+          git add market.json
+          git diff --cached --quiet || (git commit -m "장 흐름 데이터 갱신" && git push)

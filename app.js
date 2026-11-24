@@ -166,7 +166,33 @@ async function gemini(prompt, { search = false, urls = false, label = "", raw = 
 const today = () => new Date().toISOString().slice(0, 10);
 
 // ── 1. 시장 위험 판단 (6시간 캐시) ─────────────────────────
+// 장 흐름 숫자: GitHub Actions가 Yahoo 일봉으로 직접 계산한 market.json을 우선 사용
+let MJ = null;
+async function loadMarketJson() {
+  try { const r = await fetch("market.json?t=" + Math.floor(Date.now() / 6e5)); if (!r.ok) return null; const j = await r.json();
+    return (j.indices || []).some(x => x.close != null) ? j : null; } catch (e) { return null; }
+}
+function mergeMarket(J, T) {
+  const ok = (J.indices || []).filter(x => !x.error);
+  return { ...(T || {}), indices: J.indices, regime_us: J.regime_us, regime_kr: J.regime_kr, regime: J.regime_us || J.regime_kr,
+    vix: J.vix, dxy: J.dxy, us10y: J.us10y, usdkrw: J.usdkrw, as_of: ok.map(x => x.date).sort().pop() || "", updated: J.updated, computed: true };
+}
 async function getMarket() {
+  MJ = await loadMarketJson() || MJ;
+  if (!MJ) return getMarketAI(); // 계산 데이터가 없을 때만 AI 검색 숫자 사용
+  let T = store.get("aic-mtext", null);
+  if (!T || Date.now() - T.t > 6 * 3600e3) {
+    try {
+      const nums = (MJ.indices || []).filter(x => !x.error).map(x => `${x.name} ${x.close} (50일선 ${x.ma50} ${x.above50 ? "위" : "아래"}, 200일선 ${x.ma200} ${x.above200 ? "위" : "아래"}, 1주 ${x.chg_1w_pct}%)`).join(" / ");
+      const r = await gemini(`오늘은 ${today()}. 아래는 코드로 계산한 정확한 지수 데이터다. 이 숫자를 바꾸지 말고, 구글 검색으로 최근 1개월 미국·한국 주도 섹터와 장 흐름 한 줄 요약만 써라.
+${nums} · VIX ${MJ.vix} · 미 10년물 ${MJ.us10y}% · 원달러 ${MJ.usdkrw}
+설명 없이 JSON 하나만: {"leading_us":["섹터1","섹터2"],"leading_kr":["섹터1","섹터2"],"summary":"장 흐름 한 줄 요약(30자)"}`, { search: true, label: "장 흐름 요약" });
+      T = { t: Date.now(), v: r.data }; store.set("aic-mtext", T);
+    } catch (e) { if (/한도를 다 썼/.test(e.message)) throw e; }
+  }
+  return mergeMarket(MJ, T?.v);
+}
+async function getMarketAI() {
   const c = store.get("aic-market3", null);
   if (c && Date.now() - c.t < 6 * 3600e3) return c.v;
   const r = await gemini(`오늘은 ${today()}. 구글 검색으로 현재 주식시장 흐름을 정리하라.
@@ -487,7 +513,7 @@ function renderMarketCard() {
       <table class="mi"><tbody>${(M.indices || []).filter(x => names.includes(x.name)).map(x => `<tr><td>${esc(x.name)}${x.close != null ? `<br><small style="opacity:.75">${esc(fmt(num(x.close)))}</small>` : ""}</td><td>50일선 ${o(x.above50)}</td><td>200일선 ${o(x.above200)}${x.gap200 != null ? `<br><small style="opacity:.75">${x.gap200 >= 0 ? "+" : ""}${x.gap200.toFixed(1)}%</small>` : ""}</td><td class="r ${num(x.chg_1w_pct) >= 0 ? "ok" : "no"}">${x.chg_1w_pct == null ? "—" : (num(x.chg_1w_pct) >= 0 ? "+" : "") + num(x.chg_1w_pct).toFixed(1) + "%"}</td></tr>`).join("")}</tbody></table>
       <div class="sec">주도 ${esc(((key === "us" ? M.leading_us : M.leading_kr) || []).slice(0, 3).join(" · ") || "—")}</div></div>`; };
   el.style.display = "block";
-  el.innerHTML = `<div class="wh2">장 흐름 <span>${esc(M.as_of || "")} · 이동평균선(SMA) 기준 · 6시간마다 갱신</span></div>
+  el.innerHTML = `<div class="wh2">장 흐름 <span>${esc(M.as_of || "")} 종가 · ${M.computed ? "일봉으로 직접 계산한 이동평균선" : "AI 검색 추정(부정확할 수 있음)"}</span></div>
     <div class="msum">${esc(M.summary || "")}</div>
     <div class="mgrid">${mk("us", "미국", M.regime_us, ["나스닥", "S&P500"])}${mk("kr", "한국", M.regime_kr, ["코스피", "코스닥"])}</div>
     <div class="mmac">VIX <b>${esc(fmt(num(M.vix)))}</b> ${vixTag(num(M.vix))} · 달러 <b>${esc(M.dxy || "—")}</b> · 미 10년물 <b>${esc(fmt(num(M.us10y), "%"))}</b> · 원달러 <b>${esc(fmt(num(M.usdkrw)))}</b></div>`;
@@ -600,6 +626,7 @@ $("hist").addEventListener("click", e => {
 });
 drawHist();
 renderMarketCard();
+loadMarketJson().then(j => { if (j) { MJ = j; const T = store.get("aic-mtext", null); if (!R.M) { R.M = mergeMarket(j, T?.v); renderMarketCard(); } } });
 $("f").addEventListener("submit", e => { e.preventDefault(); const t = $("tk").value.trim(); if (t) convene(t); });
 paint();
 if (cfg.key) loadModels();
