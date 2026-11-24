@@ -153,31 +153,51 @@ const holdings = () => pf.items.filter(h => String(h.t).trim() && num(h.q) > 0);
 const PX_HINT = `종목명은 사용자가 증권사 앱에서 보는 이름이라 길거나 줄여 쓴 이름일 수 있다. 일반 주식뿐 아니라 ETF·레버리지 ETF도 있다.
 예: "디렉시온 테슬라 2X" = TSLL(미국), "PROSHARES QQQ 3X" = TQQQ(미국), "TIGER 삼성전자단일종목레버리지" = 한국 ETF(코드에 영문이 섞인 6자리일 수 있음, 예 0195R0).
 미국은 Yahoo Finance·stockanalysis.com, 한국은 네이버 금융·KRX에서 확인하라.`;
-async function fetchPx(list, label) {
-  return (await A.gemini(`오늘은 ${A.today()}. 구글 검색으로 아래 번호별 종목의 가장 최근 가격과 원달러 환율을 찾아라.
+async function fetchPx(list, label, raw) {
+  return (await A.gemini(`오늘은 ${A.today()}. 구글 검색으로 아래 번호별 종목의 정확한 티커(또는 한국 종목코드)와 가장 최근 가격, 원달러 환율을 찾아라.
 ${PX_HINT}
 ${list.map((t, i) => `${i + 1}. ${t}`).join("\n")}
-한국 종목은 원화, 미국 종목은 달러. 찾은 값만, 못 찾으면 price는 null. 번호(no)를 반드시 그대로 써라.
+한국 종목은 원화, 미국 종목은 달러. 가격을 못 찾아도 티커·종목코드는 반드시 채워라. 못 찾은 가격만 null. 번호(no)를 반드시 그대로 써라.
 설명 없이 JSON 하나만:
-{"usdkrw":숫자,"items":[{"no":번호,"name":"정식 이름(짧게)","ticker":"티커 또는 종목코드","currency":"USD|KRW","price":숫자,"leveraged":true|false}]}`, { search: true, label })).data;
+{"usdkrw":숫자,"items":[{"no":번호,"name":"정식 이름(짧게)","ticker":"티커 또는 종목코드","currency":"USD|KRW","price":숫자,"leveraged":true|false}]}`, { search: true, label, raw })).data;
+}
+// 티커를 알면 시세 페이지를 직접 읽게 함 (url_context)
+const quoteUrls = x => { const t = String(x.ticker || "").trim().toUpperCase(); if (!t) return [];
+  return /KRW/.test(x.currency || "") || /^\d{4}[0-9A-Z]{2}$/.test(t)
+    ? [`https://m.stock.naver.com/domestic/stock/${t}/total`, `https://finance.naver.com/item/main.naver?code=${t}`]
+    : [`https://stockanalysis.com/etf/${t.toLowerCase()}/`, `https://stockanalysis.com/stocks/${t.toLowerCase()}/`, `https://finance.yahoo.com/quote/${t}/`]; };
+async function fetchByUrl(cands, raw) {
+  return (await A.gemini(`아래 웹페이지들을 직접 열어서 각 종목의 현재가(또는 최근 종가)를 읽어라. 페이지에 없는 값은 지어내지 말고 null.
+${cands.map((c, i) => `${i + 1}. ${c.name || c.ticker} (${c.ticker}): ${quoteUrls(c).join(" , ")}`).join("\n")}
+설명 없이 JSON 하나만: {"items":[{"no":번호,"price":숫자,"currency":"USD|KRW"}]}`, { urls: true, search: true, label: "시세 페이지 확인", raw })).data;
 }
 async function loadPrices() {
   const H = holdings(); if (!H.length) { pf.px = null; return; }
   $("pfStatus").textContent = "보유 종목 시세와 환율을 불러오는 중…";
-  const d = await fetchPx(H.map(h => h.t), "시세 불러오기");
-  const map = {};
-  const put = (list, items) => { for (const x of items || []) { const i = (num(x.no) || 0) - 1; if (list[i] != null && num(x.price)) map[keyOf(list[i])] = x; } };
-  put(H.map(h => h.t), d.items);
-  // 못 찾은 종목만 한 번 더
-  const miss = H.map(h => h.t).filter(t => !map[keyOf(t)]);
-  if (miss.length) {
-    $("pfStatus").textContent = `${miss.join(", ")} 시세를 다시 찾는 중…`;
-    try { const d2 = await fetchPx(miss, "시세 다시 찾기"); put(miss, d2.items); if (!num(d.usdkrw)) d.usdkrw = d2.usdkrw; } catch (e) {}
+  const list = H.map(h => h.t), map = {}, log = [], meta = {};
+  const r1 = {}; let d = {};
+  try { d = await fetchPx(list, "시세 불러오기", r1); } catch (e) { log.push(`1차 검색 오류: ${e.message}`); if (/한도|API key|403/.test(e.message)) throw e; }
+  log.push(`1차 응답: ${(r1.text || "").slice(0, 600)}`);
+  const items = d.items || [];
+  // 번호 → 순서 → 이름·티커 순으로 짝짓기
+  const findFor = (t, i) => items.find(x => num(x.no) === i + 1) || (items.length === list.length ? items[i] : null)
+    || items.find(x => [x.name, x.ticker].some(v => v && (keyOf(t).includes(keyOf(v)) || keyOf(v).includes(keyOf(t)))));
+  list.forEach((t, i) => { const x = findFor(t, i); if (x) { meta[keyOf(t)] = x; if (num(x.price)) map[keyOf(t)] = x; } });
+  // 못 찾은 종목: 티커가 있으면 시세 페이지를 직접 읽음
+  let miss = list.filter(t => !map[keyOf(t)]);
+  const cands = miss.map(t => ({ t, ...(meta[keyOf(t)] || {}) })).filter(c => c.ticker);
+  if (cands.length) {
+    $("pfStatus").textContent = `${cands.map(c => c.ticker).join(", ")} 시세 페이지를 직접 확인하는 중…`;
+    const r2 = {};
+    try { const d2 = await fetchByUrl(cands, r2);
+      cands.forEach((c, i) => { const x = (d2.items || []).find(y => num(y.no) === i + 1) || (d2.items || [])[i]; if (x && num(x.price)) map[keyOf(c.t)] = { ...c, price: num(x.price), currency: x.currency || c.currency }; });
+    } catch (e) { log.push(`페이지 확인 오류: ${e.message}`); }
+    log.push(`페이지 확인 응답: ${(r2.text || "").slice(0, 400)}`);
   }
-  pf.px = { at: Date.now(), fx: num(d.usdkrw) || 1400, map };
+  miss = list.filter(t => !map[keyOf(t)]);
+  pf.px = { at: Date.now(), fx: num(d.usdkrw) || pf.px?.fx || 1400, map, log, miss: miss.map(t => `${t} → ${meta[keyOf(t)]?.ticker || "티커 못 찾음"}`) };
   for (const h of pf.items) { const x = map[keyOf(h.t)], c = x?.currency; if (!h.curAuto || !c) continue;
     const real = /KRW|원/.test(c) ? "KRW" : "USD", r = num(h.avg) && num(x.price) ? num(x.price) / num(h.avg) : null;
-    // 입력한 평단이 실제 통화 기준으로 말이 되는 범위(0.2~5배)일 때만 통화를 바꿈
     if (real !== h.cur && (r == null || (r > 0.2 && r < 5))) h.cur = real;
     h.curAuto = false; }
   savePF();
@@ -232,6 +252,7 @@ function renderPF() {
       <div class="c"><div><small>현금</small><b>${f2(Math.round(val(null, true)))}%</b><small>총 ${won(C0.total)}</small></div></div></div>
       <div class="pl">${H.map(row).join("")}${cashRow}</div></div>
     <div class="tot">평가금액 <b>${won(C0.total - C0.cash)}</b>${C0.cost ? `<span>매수금액 <b>${won(C0.cost)}</b></span><span>평가손익 <b class="pnl ${C0.pnl >= 0 ? "up" : "dn"}">${wonS(C0.pnl)} (${sgn(C0.pnlPct)}${Math.abs(C0.pnlPct).toFixed(1)}%)</b></span>` : ""}${C0.noAvg ? `<span style="color:#9aa4b2">평단 미입력 ${C0.noAvg}종목은 손익 제외</span>` : ""}</div>
+    ${C0.missing.length && pf.px?.log ? `<details style="margin:0 18px 8px;font-size:12px;color:#9aa4b2"><summary style="min-height:32px">시세를 못 찾은 이유 보기</summary><div style="white-space:pre-wrap;overflow-wrap:anywhere;background:#151a22;border-radius:8px;padding:8px;margin-top:4px">${esc([...(pf.px.miss || []).map(x => "· " + x), "", ...pf.px.log].join("\n"))}</div></details>` : ""}
     <div style="padding:4px 18px 12px;font-size:12px;color:#9aa4b2">시세 ${esc(new Date(pf.px.at).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }))} · 환율 ${f2(C0.fx)}원 <button type="button" id="pfRefresh" class="mini" style="min-height:30px">시세 새로고침</button>${C0.missing.length ? ` · <span style="color:#ff6f59">${esc(C0.missing.map(r => r.t).join(", "))} 시세를 못 찾았어요. 종목을 눌러 현재가를 직접 넣거나 티커(예: TSLL)로 바꿔 보세요</span>` : ""}</div>`;
   renderPFOut(o);
 }

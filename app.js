@@ -122,9 +122,9 @@ function parseJSON(t) {
   if (a >= 0 && b > a) return JSON.parse(t.slice(a, b + 1));
   throw new Error("AI 응답을 해석하지 못했어요");
 }
-async function gemini(prompt, { search = false, label = "" } = {}) {
+async function gemini(prompt, { search = false, urls = false, label = "", raw = null } = {}) {
   const body = { contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3 } };
-  if (search) body.tools = [{ google_search: {} }]; else body.generationConfig.responseMimeType = "application/json";
+  if (search || urls) { body.tools = []; if (search) body.tools.push({ google_search: {} }); if (urls) body.tools.push({ url_context: {} }); } else body.generationConfig.responseMimeType = "application/json";
   for (let i = 0; i < 4; i++) {
     let r;
     try {
@@ -152,6 +152,7 @@ async function gemini(prompt, { search = false, label = "" } = {}) {
     const j = await r.json(), c = j.candidates?.[0];
     const text = (c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("");
     const sources = (c?.groundingMetadata?.groundingChunks || []).map(x => x.web).filter(w => w && /^https:\/\//.test(w.uri));
+    if (raw) raw.text = text;
     try { return { data: parseJSON(text), sources }; }
     catch (e) {
       if (i >= 2) { const er = new Error(`${label}: AI 응답 형식 오류${c?.finishReason && c.finishReason !== "STOP" ? " (" + c.finishReason + ")" : ""}`); er.status = 0; throw er; }
