@@ -127,8 +127,16 @@ async function gemini(prompt, { search = false, label = "" } = {}) {
   const body = { contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3 } };
   if (search) body.tools = [{ google_search: {} }]; else body.generationConfig.responseMimeType = "application/json";
   for (let i = 0; i < 4; i++) {
-    const r = await fetch(`${API}/models/${encodeURIComponent(cfg.model)}:generateContent`, {
-      method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": cfg.key }, body: JSON.stringify(body) });
+    let r;
+    try {
+      r = await fetch(`${API}/models/${encodeURIComponent(cfg.model)}:generateContent`, {
+        method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": cfg.key }, body: JSON.stringify(body) });
+    } catch (netErr) {
+      // 네트워크 끊김(Safari "Load failed", Chrome "Failed to fetch"): 잠시 후 재시도
+      if (i >= 3) { const e = new Error(`${label}: 인터넷 연결이 끊겼어요. 분석 중에는 화면을 켜 둔 채 이 페이지에 머물러 주세요.`); e.status = 0; throw e; }
+      for (let s = 3 * (i + 1); s > 0; s--) { setStatus(`${label} · 연결이 끊겨 다시 시도 ${s}초`); await sleep(1000); }
+      continue;
+    }
     if (r.status === 429 || r.status === 503) {
       let wait = 20, daily = false;
       try { const s = JSON.stringify(await r.json()); const d = s.match(/"retryDelay":"(\d+)/); if (d) wait = Math.min(60, +d[1] + 2); daily = /PerDay/i.test(s); } catch (e) {}
@@ -464,7 +472,8 @@ function resetUI() { renderAll(); }
 async function convene(tk) {
   if (busy) return;
   if (!cfg.key) { $("setup").style.display = "block"; showErr("먼저 Gemini API 키를 저장해 주세요."); return; }
-  busy = true; $("go").disabled = true; showErr(""); resetUI();
+  busy = true; $("go").disabled = true; showErr("");
+  let lock = null; try { lock = await navigator.wakeLock?.request("screen"); } catch (e) {} resetUI();
   R = { tk, at: new Date().toISOString(), agents: {}, scores: {}, state: {} }; renderAll();
   try {
     setStatus("1/5 · 시장 위험 판단 중…");
@@ -510,7 +519,7 @@ async function convene(tk) {
     setStatus("");
     showErr(e.status === 400 && /API key/i.test(e.message) ? "API 키가 올바르지 않아요. 설정에서 다시 확인해 주세요." :
       e.status === 403 ? "이 키로는 해당 모델을 쓸 수 없어요. 설정에서 다른 모델을 골라 주세요." : `오류: ${e.message}`);
-  } finally { busy = false; $("go").disabled = false; }
+  } finally { busy = false; $("go").disabled = false; try { lock?.release(); } catch (e) {} }
 }
 
 // 검색 기록은 남기지 않음 (예전 기록 삭제)
