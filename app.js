@@ -136,13 +136,24 @@ async function gemini(prompt, { search = false, label = "" } = {}) {
       for (let s = wait; s > 0; s--) { setStatus(`${label} · 무료 한도 대기 ${s}초`); await sleep(1000); }
       continue;
     }
-    if (!r.ok) { let m = `HTTP ${r.status}`; try { m = (await r.json()).error?.message || m; } catch (e) {} const e = new Error(m); e.status = r.status; throw e; }
+    if (!r.ok) {
+      let m = `HTTP ${r.status}`; try { m = (await r.json()).error?.message || m; } catch (e) {}
+      // 검색 도구를 이 모델/키에서 못 쓰면 검색 없이 다시
+      if (r.status === 400 && body.tools && /search|grounding|tool/i.test(m)) { delete body.tools; body.generationConfig.responseMimeType = "application/json"; body.contents[0].parts[0].text += "\n(검색을 쓸 수 없으면 알고 있는 가장 최근 값으로 답하라)"; continue; }
+      const e = new Error(m); e.status = r.status; throw e;
+    }
     const j = await r.json(), c = j.candidates?.[0];
     const text = (c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("");
     const sources = (c?.groundingMetadata?.groundingChunks || []).map(x => x.web).filter(w => w && /^https:\/\//.test(w.uri));
-    return { data: parseJSON(text), sources };
+    try { return { data: parseJSON(text), sources }; }
+    catch (e) {
+      if (i >= 2) { const er = new Error(`${label}: AI 응답 형식 오류${c?.finishReason && c.finishReason !== "STOP" ? " (" + c.finishReason + ")" : ""}`); er.status = 0; throw er; }
+      setStatus(`${label} · 응답 형식 오류, 다시 요청 중…`);
+      if (!/반드시 유효한 JSON/.test(body.contents[0].parts[0].text)) body.contents[0].parts[0].text += "\n\n반드시 유효한 JSON 하나만 출력하라. 앞뒤 설명, 코드블록 금지.";
+      continue;
+    }
   }
-  const e = new Error("무료 한도 초과가 계속돼요. 1~2분 뒤 다시 시도해 주세요."); e.status = 429; throw e;
+  const e = new Error(`${label}: 무료 한도 초과 또는 응답 오류가 계속돼요. 1~2분 뒤 다시 시도해 주세요.`); e.status = 429; throw e;
 }
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -221,10 +232,13 @@ async function getStock(tk) {
 설명 없이 JSON 하나만:
 ${FUND}`, { search: true, label: "펀더멘털 수집" });
   setStatus("2/5 · 차트·수급 지표 수집 중…");
-  const t = await gemini(`오늘은 ${today()}. 종목 "${f.data.name || tk}"(${f.data.ticker || ""})의 기술적 지표를 구글 검색으로 찾아라. ${src}
+  let t = { data: {}, sources: [] };
+  try {
+  t = await gemini(`오늘은 ${today()}. 종목 "${f.data.name || tk}"(${f.data.ticker || ""})의 기술적 지표를 구글 검색으로 찾아라. ${src}
 이동평균은 일봉 종가 기준, ATR은 14일, 지지·저항은 최근 3개월 일봉 기준 가장 가까운 가격대, index_return_3m_pct는 해당 시장 대표 지수(미국 S&P500, 한국 코스피)의 3개월 수익률.
 찾은 값만 넣고 못 찾으면 null. 설명 없이 JSON 하나만:
 ${TECH}`, { search: true, label: "기술적 지표 수집" });
+  } catch (e) { if (/한도를 다 썼/.test(e.message) || e.status === 401 || e.status === 403) throw e; }
   const F = f.data, T = t.data, sources = [...f.sources, ...t.sources];
   const miss = [...KEYF.filter(k => isEmpty(F[k])), ...KEYT.filter(k => isEmpty(T[k]))];
   if (miss.length >= 4) {
@@ -466,6 +480,7 @@ async function convene(tk) {
       const list = await loadModels(); if (!list?.length) throw e;
       cfg.model = list.find(n => /flash/.test(n) && !/lite/.test(n)) || list[0]; saveCfg(); S = await getStock(tk);
     }
+    if (!S.F || (!S.F.name && !num(S.F.price))) throw new Error(`"${tk}" 종목 데이터를 찾지 못했어요. 정확한 티커(예: IREN)나 회사명으로 다시 검색해 보세요.`);
     R.S = S;
     const P = makePlan(S.F, S.T); R.P = P; renderAll();
 
@@ -476,7 +491,11 @@ async function convene(tk) {
       if (cfg.mode === "full" && st === "run") setStatus(`3/5 · ${AGI[id].n} 분석 중 (${i + 1}/7)`);
       paint();
     };
-    await (cfg.mode === "full" ? analyzeFull : analyzeEco)(tk, S, M, P, onEach);
+    if (cfg.mode === "full") await analyzeFull(tk, S, M, P, onEach);
+    else {
+      try { await analyzeEco(tk, S, M, P, onEach); }
+      catch (e) { if (/한도를 다 썼/.test(e.message) || e.status === 401 || e.status === 403) throw e; setStatus("3/5 · 한 번에 분석 실패 → 위원별로 다시 분석 중…"); await analyzeFull(tk, S, M, P, onEach); }
+    }
     for (const a of AG) if (!R.scores[a.id]) R.scores[a.id] = scoreAgent(a, null, S, M, P);
     paint();
 
