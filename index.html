@@ -152,6 +152,19 @@ details.x .in{padding-bottom:14px;font-size:15px}
 .hrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;width:100%;min-height:44px;padding:8px 12px;margin-top:6px;border-radius:10px;background:rgba(255,255,255,.08);color:#fff;font:400 15px "Noto Sans KR";text-align:left}
 .hrow small{font-size:12px;color:var(--lime);opacity:.75;white-space:nowrap}
 .mini{min-height:34px;padding:0 12px;font-size:13px;background:transparent;border:1px solid rgba(230,245,200,.45);color:var(--lime);margin-left:6px}
+.mkt{display:none;margin-top:16px;background:rgba(0,0,0,.22);border-radius:16px;padding:6px 18px 14px}
+.msum{font-size:15px;margin-bottom:10px}
+.mgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.mcol{background:rgba(255,255,255,.05);border-radius:12px;padding:12px;border:1px solid transparent}
+.mcol.focus{border-color:var(--lime)}
+.mt{font-weight:800;font-size:16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.mt small{font-weight:400;font-size:11px;color:var(--lime)}
+.rg{padding:2px 10px;border-radius:999px;font-size:13px;font-weight:800;color:#032a1a}.rg.up{background:var(--up)}.rg.side{background:var(--amber)}.rg.dn{background:var(--coral);color:#3a0d05}
+.ms{font-size:14px;margin:6px 0 4px;color:var(--lime)}.ms b{color:#fff}
+.mi{font-size:13px;margin-top:4px}.mi td{padding:4px 4px;border-bottom:1px solid rgba(230,245,200,.1)}
+.ok{color:var(--up);font-weight:700}.no{color:var(--coral);font-weight:700}
+.sec{font-size:13px;color:var(--lime);opacity:.85;margin-top:6px}
+.mmac{font-size:13px;color:var(--lime);margin-top:10px}.mmac b{color:#fff}
+@media(max-width:600px){.mgrid{grid-template-columns:minmax(0,1fr)}.mkt{padding:6px 14px 14px}}
 </style>
 </head>
 <body>
@@ -181,6 +194,7 @@ details.x .in{padding-bottom:14px;font-size:15px}
   <div class="grid">
     <div class="main">
       <div class="hero" id="hero"></div>
+      <div class="mkt" id="mkt"></div>
       <div class="board" id="board"><div class="bh"><span>7인 위원 의견</span><span>눌러서 채점표 보기</span></div><div id="rows"></div></div>
     </div>
     <aside class="side"><div class="week" id="week"></div></aside>

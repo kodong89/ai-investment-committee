@@ -30,7 +30,7 @@ const AG = [
     q: "좋은 기업인지를 떠나, 지금 돈이 이 종목으로 들어오고 있는가?",
     p: "유동성·금리·달러가 시장을 움직인다고 보고, 18~24개월 앞의 변곡점과 지금의 자금 흐름을 본다. 추세를 존중하고 비대칭 베팅을 한다.",
     checks: [
-      { id: "regime", t: "시장 국면이 우호적(상승장)", pts: 20, rule: (F, T, M) => M?.regime ? M.regime === "상승장" : null },
+      { id: "regime", t: "시장 국면이 우호적(상승장)", pts: 20, rule: (F, T, M) => { const g = regimeFor(F, M); return g ? g === "상승장" : null; } },
       { id: "sector", t: "섹터가 시장 주도 업종", pts: 20 },
       { id: "rs", t: "3개월 수익률이 지수보다 강함", pts: 20, rule: (F, T) => gt(num(T.return_3m_pct), num(T.index_return_3m_pct)) },
       { id: "flow", t: "기관·외국인 수급 또는 거래대금 증가", pts: 15 },
@@ -166,18 +166,26 @@ const today = () => new Date().toISOString().slice(0, 10);
 
 // ── 1. 시장 위험 판단 (6시간 캐시) ─────────────────────────
 async function getMarket() {
-  const c = store.get("aic-market", null);
+  const c = store.get("aic-market2", null);
   if (c && Date.now() - c.t < 6 * 3600e3) return c.v;
-  const r = await gemini(`오늘은 ${today()}. 구글 검색으로 현재 주식시장 국면을 판단하라.
-나스닥·S&P500·코스피가 50일·200일 이동평균 위/아래인지, VIX, 달러인덱스 추세, 미국 10년물 금리, 최근 1개월 주도 섹터.
-regime은 지수가 200일선 위·50일선 위면 "상승장", 200일선 아래·50일선 아래면 "하락장", 그 외 "횡보장".
+  const r = await gemini(`오늘은 ${today()}. 구글 검색으로 현재 주식시장 흐름을 정리하라.
+각 지수가 50일·200일 이동평균 위인지, 최근 1주일 등락률. VIX, 달러인덱스 추세, 미국 10년물 금리, 원달러 환율, 최근 1개월 미국·한국 주도 섹터.
 설명 없이 JSON 하나만:
-{"as_of":"날짜","regime":"상승장|횡보장|하락장","nasdaq":"50일선 위/아래, 200일선 위/아래 한 줄","sp500":"한 줄","kospi":"한 줄","vix":숫자,"dxy":"상승|횡보|하락","us10y":숫자,"leading_sectors":["섹터1","섹터2","섹터3"],"summary":"시장 한 줄 요약(30자)"}`, { search: true, label: "시장 위험 판단" });
+{"as_of":"날짜","indices":[{"name":"나스닥","above50":true|false,"above200":true|false,"chg_1w_pct":숫자},{"name":"S&P500",...},{"name":"코스피",...},{"name":"코스닥",...}],"vix":숫자,"dxy":"상승|횡보|하락","us10y":숫자,"usdkrw":숫자,"leading_us":["섹터1","섹터2"],"leading_kr":["섹터1","섹터2"],"summary":"장 흐름 한 줄 요약(30자)"}`, { search: true, label: "장 흐름 확인" });
   const v = { ...r.data, sources: r.sources };
-  store.set("aic-market", { t: Date.now(), v });
+  // 국면은 코드로 판정: 50일·200일선 모두 위 = 상승장, 모두 아래 = 하락장, 그 외 횡보장
+  const reg = names => { const xs = (v.indices || []).filter(x => names.includes(x.name)); if (!xs.length) return null;
+    const up = xs.filter(x => x.above50 === true && x.above200 === true).length, dn = xs.filter(x => x.above50 === false && x.above200 === false).length;
+    return up === xs.length ? "상승장" : dn === xs.length ? "하락장" : "횡보장"; };
+  v.regime_us = reg(["나스닥", "S&P500"]); v.regime_kr = reg(["코스피", "코스닥"]);
+  v.regime = v.regime_us || v.regime_kr;
+  store.set("aic-market2", { t: Date.now(), v });
   return v;
 }
-
+const isKR = F => /KRW|원/.test(F?.currency || "") || /KRX|KOSPI|KOSDAQ|코스피|코스닥/i.test(F?.market || "");
+const regimeFor = (F, M) => M ? (isKR(F) ? (M.regime_kr || M.regime) : (M.regime_us || M.regime)) : null;
+const STRAT = { "상승장": ["정상 매매", "최대 4종목 · 돌파와 눌림목 모두"], "횡보장": ["비중 절반", "최대 2종목 · 눌림목 위주, 돌파 추격 자제"], "하락장": ["신규 매수 중지", "현금 확보 · 보유 종목은 손절 기준 엄수"] };
+const vixTag = v => v == null ? "—" : v < 20 ? "안정" : v < 25 ? "주의" : v < 30 ? "경계" : "공포";
 
 // ── 이번 주 주요 일정 (하루 1회 검색, 캐시) ─────────────────
 function kstNow() { return new Date(Date.now() + 9 * 3600e3); } // UTC 기준 필드로 KST 날짜를 다룸
@@ -374,7 +382,7 @@ function finalVerdict(scores, S, M, P, ptjRes) {
   const veto = [];
   if (P?.rr != null && P.rr < 1.5) veto.push(`손익비 ${P.rr.toFixed(2)}:1로 1.5 미만`);
   const d = daysTo(S.F.next_earnings_date); if (d != null && d >= 0 && d <= 3) veto.push(`실적 발표 ${d}일 전 · 갭 위험`);
-  if (M?.regime === "하락장") veto.push("시장이 하락장");
+  if (regimeFor(S.F, M) === "하락장") veto.push(`${isKR(S.F) ? "한국" : "미국"} 시장이 하락장`);
   if (num(M?.vix) > 30) veto.push(`VIX ${num(M.vix)} · 시장 급락 위험`);
   if (ptjRes?.veto && ptjRes.veto_reason) veto.push(ptjRes.veto_reason);
   const capped = veto.length ? Math.min(total, 64) : total;
@@ -409,7 +417,7 @@ function renderHero() {
       <div>손익비<span style="color:${P.rr == null ? "inherit" : P.rr >= 2 ? "#1d9a64" : "#d9472f"}">${P.rr == null ? "2.0R" : P.rr.toFixed(1) + " : 1"}</span></div>
       <div>권장 비중<span>${P.size.toFixed(1)}%</span></div></div>` : ""}
     ${P ? `<div class="mline" style="color:#0f1a17"><b>청산 규칙</b> · ${P.lev ? `레버리지 ETF: -7% 손절, 최대 2주 보유` : `${fmt(r2(P.target2R))}(2R)에서 절반 익절 · 나머지는 EMA20${P.exitEma ? "(" + fmt(r2(P.exitEma)) + ")" : ""} 종가 이탈 시 청산`}</div>` : ""}
-    ${M ? `<div class="mline">시장 ${esc(M.regime || "—")} · VIX ${esc(fmt(num(M.vix)))} · 주도 ${esc((M.leading_sectors || []).slice(0, 2).join(", "))}${F.next_earnings_date ? ` · 다음 실적 ${esc(F.next_earnings_date)}` : ""}</div>` : ""}`;
+    ${F.next_earnings_date ? `<div class="mline">다음 실적 발표 ${esc(F.next_earnings_date)}</div>` : ""}`;
 }
 
 function agentRow(a) {
@@ -454,11 +462,29 @@ function renderExtra() {
     ["EMA 10/20", `${fmt(num(T.ema10))} / ${fmt(num(T.ema20))}`], ["EMA 50/200", `${fmt(num(T.ema50))} / ${fmt(num(T.ema200))}`], ["CCI(20)", fmt(num(T.cci20))], ["ADX(14)", fmt(num(T.adx14))], ["거래량/20일 평균", (num(T.volume_recent) && num(T.avg_volume_20)) ? (num(T.volume_recent) / num(T.avg_volume_20)).toFixed(2) + "배" : "—"], ["위쪽 매물대", fmt(num(T.overhead_poc))], ["ATR", fmt(num(T.atr14))], ["3개월 수익률", fmt(num(T.return_3m_pct), "%")], ["지수 3개월", fmt(num(T.index_return_3m_pct), "%")]];
   sec.push(["종목 데이터 · 출처", `<dl class="kv">${items.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
     <ul class="w">${(F.news || []).slice(0, 3).map(n => `<li>${esc(n)}</li>`).join("")}</ul>
-    ${M ? `<p class="tag">시장: ${esc(M.summary || "")} (${esc(M.as_of || "")}, 6시간마다 갱신)</p>` : ""}
+    
     ${S.sources?.length ? `<p class="tag" style="overflow-wrap:anywhere">${S.sources.slice(0, 8).map(x => `<a href="${esc(x.uri)}" target="_blank" rel="noopener">${esc(x.title || "링크")}</a>`).join(" · ")}</p>` : ""}`]);
   $("extra").innerHTML = `<div class="xs">${sec.map(([t, b]) => `<details class="x"><summary>${t}</summary><div class="in">${b}</div></details>`).join("")}</div>`;
 }
-const renderAll = () => { renderHero(); renderWeek(); paint(); renderExtra(); };
+
+function renderMarketCard() {
+  const M = R.M || store.get("aic-market2", null)?.v, el = $("mkt");
+  if (!M || !M.indices) { el.style.display = "none"; return; }
+  const F = R.S?.F, focus = F ? (isKR(F) ? "kr" : "us") : null;
+  const badge = g => `<span class="rg ${g === "상승장" ? "up" : g === "하락장" ? "dn" : "side"}">${esc(g || "—")}</span>`;
+  const o = v => v === true ? '<span class="ok">위</span>' : v === false ? '<span class="no">아래</span>' : "—";
+  const mk = (key, label, g, names) => { const st = STRAT[g] || ["—", ""];
+    return `<div class="mcol ${focus === key ? "focus" : ""}"><div class="mt">${label} ${badge(g)}${focus === key ? '<small>내 종목 시장</small>' : ""}</div>
+      <div class="ms"><b>${st[0]}</b> · ${st[1]}</div>
+      <table class="mi"><tbody>${(M.indices || []).filter(x => names.includes(x.name)).map(x => `<tr><td>${esc(x.name)}</td><td>50일 ${o(x.above50)}</td><td>200일 ${o(x.above200)}</td><td class="r ${num(x.chg_1w_pct) >= 0 ? "ok" : "no"}">${x.chg_1w_pct == null ? "—" : (num(x.chg_1w_pct) >= 0 ? "+" : "") + num(x.chg_1w_pct).toFixed(1) + "%"}</td></tr>`).join("")}</tbody></table>
+      <div class="sec">주도 ${esc(((key === "us" ? M.leading_us : M.leading_kr) || []).slice(0, 3).join(" · ") || "—")}</div></div>`; };
+  el.style.display = "block";
+  el.innerHTML = `<div class="wh2">장 흐름 <span>${esc(M.as_of || "")} · 1주 등락 · 6시간마다 갱신</span></div>
+    <div class="msum">${esc(M.summary || "")}</div>
+    <div class="mgrid">${mk("us", "미국", M.regime_us, ["나스닥", "S&P500"])}${mk("kr", "한국", M.regime_kr, ["코스피", "코스닥"])}</div>
+    <div class="mmac">VIX <b>${esc(fmt(num(M.vix)))}</b> ${vixTag(num(M.vix))} · 달러 <b>${esc(M.dxy || "—")}</b> · 미 10년물 <b>${esc(fmt(num(M.us10y), "%"))}</b> · 원달러 <b>${esc(fmt(num(M.usdkrw)))}</b></div>`;
+}
+const renderAll = () => { renderHero(); renderMarketCard(); renderWeek(); paint(); renderExtra(); };
 
 // ── 5. 찬반 토론 ──────────────────────────────────────────
 async function runDebate(tk, S, M, P) {
@@ -484,9 +510,9 @@ async function convene(tk, force) {
   let lock = null; try { lock = await navigator.wakeLock?.request("screen"); } catch (e) {} resetUI();
   R = { tk, at: new Date().toISOString(), agents: {}, scores: {}, state: {} }; renderAll();
   try {
-    setStatus("1/5 · 시장 위험 판단 중…");
+    setStatus("1/5 · 장 흐름 확인 중…");
     let M = null; try { M = await getMarket(); } catch (e) { if (e.status === 404) throw e; if (/한도를 다 썼/.test(e.message)) throw e; }
-    R.M = M;
+    R.M = M; renderMarketCard();
     try { setStatus("1/5 · 이번 주 일정 확인 중…"); R.W = await getWeekly(); renderWeek(); } catch (e) { if (/한도를 다 썼/.test(e.message)) throw e; }
 
     setStatus("2/5 · 펀더멘털 수집 중…");
@@ -565,6 +591,7 @@ $("hist").addEventListener("click", e => {
   $("setup").style.display = "none"; showSaved(x, "저장된 분석"); window.scrollTo({ top: 0, behavior: "smooth" });
 });
 drawHist();
+renderMarketCard();
 $("f").addEventListener("submit", e => { e.preventDefault(); const t = $("tk").value.trim(); if (t) convene(t); });
 paint();
 if (cfg.key) loadModels();
