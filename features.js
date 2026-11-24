@@ -104,10 +104,20 @@ const wonS = v => sgn(v) + won(Math.abs(v));
 const px$ = (v, cur) => cur === "$" ? "$" + f2(v) : f2(v) + "원";
 const keyOf = t => String(t || "").trim().toLowerCase();
 
-let editIdx = null;
+let editIdx = null, fCur = "USD", curTouched = false;
+const guessCur = t => { t = String(t).trim(); return /^\d{6}$|^\d{4}[A-Z]\d$/i.test(t) || /^(TIGER|KODEX|ACE|SOL|RISE|PLUS|HANARO|KIWOOM|ARIRANG|KOSEF|TIMEFOLIO|KoAct)\b/i.test(t) || /^(삼성|현대|기아|SK|LG|카카오|네이버|NAVER|한화|포스코|POSCO|셀트리온|두산|HD|에코프로|한국|신한|KB|하나|우리)/i.test(t) ? "KRW" : "USD"; };
+function setCur(c) {
+  fCur = c;
+  for (const b of document.querySelectorAll("#fCur button")) b.classList.toggle("on", b.dataset.c === c);
+  const u = c === "USD" ? "$" : "원";
+  $("fAL").textContent = `평균 매수가 (${u})`; $("fPL").textContent = `현재가 (${u})`;
+  $("fA").placeholder = c === "USD" ? "예: 230.5" : "예: 60000"; $("fP").placeholder = c === "USD" ? "예: 9.72" : "예: 5245";
+}
+$("fCur").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { curTouched = true; setCur(b.dataset.c); } });
+$("fT").addEventListener("input", () => { if (!curTouched) setCur(guessCur($("fT").value)); });
 function pfRowsHTML() {
   const H = pf.items.filter(h => String(h.t).trim());
-  $("pfList").innerHTML = H.length ? pf.items.map((h, i) => String(h.t).trim() ? `<div class="pfl"><span>${esc(pf.px?.map?.[keyOf(h.t)]?.name || h.t)}<small>${f2(num(h.q))}주 · 평단 ${num(h.avg) ? f2(num(h.avg)) : "미입력"}</small></span>
+  $("pfList").innerHTML = H.length ? pf.items.map((h, i) => String(h.t).trim() ? `<div class="pfl"><span>${esc(pf.px?.map?.[keyOf(h.t)]?.name || h.t)}<small>${f2(num(h.q))}주 · 평단 ${num(h.avg) ? px$(num(h.avg), (h.cur || guessCur(h.t)) === "USD" ? "$" : "원") : "미입력"}</small></span>
       <button type="button" class="mini" data-ed="${i}">수정</button><button type="button" class="mini" data-del="${i}">삭제</button></div>` : "").join("")
     : `<p style="margin:6px 0;font-size:14px;opacity:.75">아직 종목이 없어요. 아래에서 하나씩 추가하세요.</p>`;
   const full = H.length >= MAXIN && editIdx == null;
@@ -115,8 +125,8 @@ function pfRowsHTML() {
   $("fSave").textContent = editIdx != null ? "수정 저장" : "추가"; $("fCancel").hidden = editIdx == null;
   $("pfKRW").value = pf.krw ?? ""; $("pfUSD").value = pf.usd ?? "";
 }
-function startEdit(i) { editIdx = i; const h = pf.items[i]; $("fT").value = h.t; $("fQ").value = h.q; $("fA").value = h.avg ?? ""; $("fP").value = h.px ?? ""; $("fC").value = h.cur || "USD"; $("pfEdit").open = true; pfRowsHTML(); $("fQ").focus(); }
-function resetForm() { editIdx = null; $("fT").value = $("fQ").value = $("fA").value = $("fP").value = ""; pfRowsHTML(); }
+function startEdit(i) { editIdx = i; const h = pf.items[i]; $("fT").value = h.t; $("fQ").value = h.q; $("fA").value = h.avg ?? ""; $("fP").value = h.px ?? ""; curTouched = !h.curAuto; setCur(h.cur || (/KRW/.test(pf.px?.map?.[keyOf(h.t)]?.currency || "") ? "KRW" : guessCur(h.t))); $("pfEdit").open = true; pfRowsHTML(); $("fQ").focus(); }
+function resetForm() { editIdx = null; curTouched = false; setCur("USD"); $("fT").value = $("fQ").value = $("fA").value = $("fP").value = ""; pfRowsHTML(); }
 $("pfList").addEventListener("click", e => {
   const ed = e.target.dataset.ed, del = e.target.dataset.del;
   if (ed != null) startEdit(+ed);
@@ -127,7 +137,7 @@ $("fSave").addEventListener("click", () => lock($("fSave"), async () => {
   const t = $("fT").value.trim(), q = num($("fQ").value), avg = num($("fA").value), mp = num($("fP").value);
   if (!t || !q) { $("pfStatus").textContent = "종목과 보유 주수를 넣어 주세요."; return; }
   pf.items = pf.items.filter(h => String(h.t).trim());
-  const item = { t, q: String(q), avg: avg ? String(avg) : "", px: mp ? String(mp) : "", cur: $("fC").value };
+  const item = { t, q: String(q), avg: avg ? String(avg) : "", px: mp ? String(mp) : "", cur: fCur, curAuto: !curTouched };
   if (editIdx != null) pf.items[editIdx] = item; else {
     const j = pf.items.findIndex(h => keyOf(h.t) === keyOf(t));
     if (j >= 0) pf.items[j] = item; else if (pf.items.length < MAXIN) pf.items.push(item);
@@ -165,15 +175,21 @@ async function loadPrices() {
     try { const d2 = await fetchPx(miss, "시세 다시 찾기"); put(miss, d2.items); if (!num(d.usdkrw)) d.usdkrw = d2.usdkrw; } catch (e) {}
   }
   pf.px = { at: Date.now(), fx: num(d.usdkrw) || 1400, map };
+  for (const h of pf.items) { const x = map[keyOf(h.t)], c = x?.currency; if (!h.curAuto || !c) continue;
+    const real = /KRW|원/.test(c) ? "KRW" : "USD", r = num(h.avg) && num(x.price) ? num(x.price) / num(h.avg) : null;
+    // 입력한 평단이 실제 통화 기준으로 말이 되는 범위(0.2~5배)일 때만 통화를 바꿈
+    if (real !== h.cur && (r == null || (r > 0.2 && r < 5))) h.cur = real;
+    h.curAuto = false; }
   savePF();
 }
 function calc() {
   const H = holdings(), px = pf.px, fx = px?.fx || 1400;
-  const rows = H.map((h, i) => { const p = px?.map?.[keyOf(h.t)]; const manual = !num(p?.price) && num(h.px); const price = num(p?.price) || num(h.px), usd = manual ? h.cur === "USD" : /USD|\$/.test(p?.currency || "");
+  const rows = H.map((h, i) => { const p = px?.map?.[keyOf(h.t)]; const manual = !num(p?.price) && num(h.px); const price = num(p?.price) || num(h.px);
+    const itemUsd = (h.cur || guessCur(h.t)) === "USD", usd = manual ? itemUsd : (p?.currency ? /USD|\$/.test(p.currency) : itemUsd);
     const unit = price ? price * (usd ? fx : 1) : null;
-    const avg = num(h.avg), cost = avg ? avg * (usd ? fx : 1) * num(h.q) : null, val = unit ? unit * num(h.q) : null;
+    const avg = num(h.avg), avgUnit = avg ? avg * (itemUsd ? fx : 1) : null, cost = avgUnit ? avgUnit * num(h.q) : null, val = unit ? unit * num(h.q) : null;
     return { i: pf.items.indexOf(h), t: h.t, q: num(h.q), avg, name: p?.name || h.t, ticker: p?.ticker || h.t, price, cur: usd ? "$" : "원", unit, val, cost,
-      pnl: cost != null && val != null ? val - cost : null, pnlPct: avg && price ? (price / avg - 1) * 100 : null, manual, lev: p?.leveraged === true || /2x|3x|레버리지|leverag|ultra/i.test(h.t + " " + (p?.name || "")), c: COLORS[i % COLORS.length] }; });
+      pnl: cost != null && val != null ? val - cost : null, pnlPct: avgUnit && unit ? (unit / avgUnit - 1) * 100 : null, avgCur: itemUsd ? "$" : "원", manual, lev: p?.leveraged === true || /2x|3x|레버리지|leverag|ultra/i.test(h.t + " " + (p?.name || "")), c: COLORS[i % COLORS.length] }; });
   const cash = (num(pf.krw) || 0) + (num(pf.usd) || 0) * fx;
   const total = rows.reduce((a, r) => a + (r.val || 0), 0) + cash;
   for (const r of rows) r.now = total && r.val != null ? r.val / total * 100 : null;
@@ -203,7 +219,7 @@ function renderPF() {
   const row = r => { const sig = signalOf(r.t, o);
     return `<div class="pi" data-i="${r.i}" title="눌러서 수정"><span class="lg" style="background:${r.c}">${esc(String(r.name).slice(0, 1).toUpperCase())}</span>
       <div><div class="nm2">${esc(r.name)}${sig ? `<span class="sg ${sig[1]}">${esc(sig[0])}</span>` : ""}${r.lev ? `<span class="sg" style="background:#4a3a10;color:#ffd977">레버리지</span>` : ""}${r.lev && r.pnlPct != null && r.pnlPct <= -7 ? `<span class="sg s">규칙상 손절 -7%</span>` : ""}</div>
-        <div class="sub2">${f2(r.q)}주 · ${r.avg ? `${px$(r.avg, r.cur)} → ` : "평단 미입력 · "}${r.price ? px$(r.price, r.cur) + (r.manual ? " (직접 입력)" : "") : "시세 없음 · 눌러서 현재가 입력"}${r.val != null ? ` · ${won(r.val)}` : ""}</div>
+        <div class="sub2">${f2(r.q)}주 · ${r.avg ? `${px$(r.avg, r.avgCur)} → ` : "평단 미입력 · "}${r.price ? px$(r.price, r.cur) + (r.manual ? " (직접 입력)" : "") : "시세 없음 · 눌러서 현재가 입력"}${r.val != null ? ` · ${won(r.val)}` : ""}</div>
         ${r.pnl != null ? `<div class="sub2"><span class="pnl ${r.pnl >= 0 ? "up" : "dn"}">${sgn(r.pnlPct)}${Math.abs(r.pnlPct).toFixed(1)}% · ${wonS(r.pnl)}</span></div>` : ""}
         <div class="pb"><i style="width:${clamp(val(r), 0, 100)}%;background:${r.c}"></i></div></div>
       <span class="w">${r.now == null ? "—" : f2(Math.round(val(r) * 10) / 10) + "%"}</span>${o ? dlt(r.sug, r.now, r.tq != null ? r.tq - r.q : null) : "<span></span>"}</div>`; };
@@ -276,4 +292,5 @@ ${past.length ? "위원회 최근 분석: " + past.join(" / ") : ""}
 }));
 try { localStorage.removeItem("aic-pf"); localStorage.removeItem("aic-pfopt"); } catch (e) {}
 renderPF();
+setCur("USD");
 }

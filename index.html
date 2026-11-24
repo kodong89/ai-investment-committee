@@ -219,6 +219,7 @@ details.x .in{padding-bottom:14px;font-size:15px}
 .pfform{display:grid;gap:8px;margin-top:12px;background:rgba(255,255,255,.05);border-radius:12px;padding:12px}
 .pfform label{display:grid;gap:4px;font-size:13px;color:var(--lime)}.pfform label small{opacity:.7}
 .ft{font-weight:800;color:#fff}
+.cur{display:grid;grid-template-columns:1fr 1fr;gap:6px}.cur button{min-height:44px;font-size:15px;background:rgba(255,255,255,.08);color:var(--lime);border:1px solid rgba(230,245,200,.25)}.cur button.on{background:var(--lime);color:var(--g);border-color:var(--lime)}
 .fmore{font-size:13px;color:var(--lime)}.fmore summary{min-height:36px}
 .pnl{font-weight:700}.pnl.up{color:#2fbf7f}.pnl.dn{color:#ff6f59}
 .tot{display:flex;flex-wrap:wrap;gap:6px 16px;padding:0 18px 4px;font-size:14px;color:#cfd6df}.tot b{color:#fff}
@@ -293,9 +294,10 @@ details.x .in{padding-bottom:14px;font-size:15px}
       <div class="pfform">
         <div class="ft" id="fTitle">종목 추가</div>
         <label>종목<input id="fT" placeholder="예: TSLA, 삼성전자" autocomplete="off"></label>
-        <div class="trow"><label>보유 주수<input id="fQ" inputmode="decimal" placeholder="예: 40"></label><label>평균 매수가 <small>(미국 $ · 한국 원)</small><input id="fA" inputmode="decimal" placeholder="예: 230.5"></label></div>
+        <div class="cur" id="fCur"><button type="button" data-c="USD" class="on">미국 · 달러 $</button><button type="button" data-c="KRW">한국 · 원화 ₩</button></div>
+        <div class="trow"><label>보유 주수<input id="fQ" inputmode="decimal" placeholder="예: 40"></label><label><span id="fAL">평균 매수가 ($)</span><input id="fA" inputmode="decimal" placeholder="예: 230.5"></label></div>
         <details class="fmore"><summary>시세를 못 찾을 때만: 현재가 직접 입력</summary>
-          <div class="trow"><label>현재가<input id="fP" inputmode="decimal" placeholder="예: 9.72"></label><label>통화<select id="fC"><option value="USD">달러 ($)</option><option value="KRW">원</option></select></label></div></details>
+          <label><span id="fPL">현재가 ($)</span><input id="fP" inputmode="decimal" placeholder="예: 9.72"></label></details>
         <div class="pfb"><button type="button" id="fCancel" class="mini" hidden>취소</button><button type="button" id="fSave">추가</button></div>
       </div>
       <div class="trow" style="margin-top:14px"><label>원화 현금 (원)<input id="pfKRW" inputmode="numeric" placeholder="예: 5000000"></label><label>달러 현금 ($)<input id="pfUSD" inputmode="decimal" placeholder="예: 1200"></label></div>
