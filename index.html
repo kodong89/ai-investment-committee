@@ -149,6 +149,9 @@ details.x .in{padding-bottom:14px;font-size:15px}
 .we.none{display:block;opacity:.5}
 .wfoot{font-size:12px;color:var(--lime);opacity:.6;margin-top:8px}
 @media(max-width:600px){.week{padding:6px 14px 12px}.wd{grid-template-columns:44px minmax(0,1fr);gap:8px}.we{grid-template-columns:38px 42px minmax(0,1fr);font-size:14px}}
+.hrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;width:100%;min-height:44px;padding:8px 12px;margin-top:6px;border-radius:10px;background:rgba(255,255,255,.08);color:#fff;font:400 15px "Noto Sans KR";text-align:left}
+.hrow small{font-size:12px;color:var(--lime);opacity:.75;white-space:nowrap}
+.mini{min-height:34px;padding:0 12px;font-size:13px;background:transparent;border:1px solid rgba(230,245,200,.45);color:var(--lime);margin-left:6px}
 </style>
 </head>
 <body>
@@ -161,6 +164,7 @@ details.x .in{padding-bottom:14px;font-size:15px}
     <div class="rowk"><input id="key" type="password" placeholder="AIza로 시작하는 키" autocomplete="off"><button type="button" id="saveKey">저장</button></div>
     <label>분석 모드<select id="mode"><option value="eco">절약 · 1회에 API 약 5번</option><option value="full">정밀 · 위원별 따로, 약 11번</option></select></label>
     <label>모델<select id="model"><option value="gemini-flash-latest">gemini-flash-latest</option></select></label>
+    <div class="histw"><div style="font-size:13px;color:var(--lime);margin:14px 0 6px">지난 분석 · 눌러서 다시 보기 (API 사용 안 함)</div><div id="hist"></div></div>
     <label>1회 매매 허용 손실 (계좌 대비 %)<input id="riskPct" inputmode="decimal" value="1.5"></label>
     <label>종목당 최대 비중 % (최대 4종목 기준)<input id="maxPos" inputmode="decimal" value="30"></label>
   </div>

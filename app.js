@@ -469,8 +469,9 @@ JSON 하나만:
 // ── 전체 흐름 ────────────────────────────────────────────
 let busy = false;
 function resetUI() { renderAll(); }
-async function convene(tk) {
+async function convene(tk, force) {
   if (busy) return;
+  if (!force) { const x = findToday(tk); if (x) { showSaved(x, "오늘 이미 분석한 결과예요"); return; } }
   if (!cfg.key) { $("setup").style.display = "block"; showErr("먼저 Gemini API 키를 저장해 주세요."); return; }
   busy = true; $("go").disabled = true; showErr("");
   let lock = null; try { lock = await navigator.wakeLock?.request("screen"); } catch (e) {} resetUI();
@@ -515,6 +516,7 @@ async function convene(tk) {
     try { R.D = await runDebate(tk, S, M, P); } catch (e) {}
     renderAll();
     setStatus(`완료 · ${new Date().toLocaleString("ko-KR")}`);
+    saveHistory();
   } catch (e) {
     setStatus("");
     showErr(e.status === 400 && /API key/i.test(e.message) ? "API 키가 올바르지 않아요. 설정에서 다시 확인해 주세요." :
@@ -522,8 +524,40 @@ async function convene(tk) {
   } finally { busy = false; $("go").disabled = false; try { lock?.release(); } catch (e) {} }
 }
 
-// 검색 기록은 남기지 않음 (예전 기록 삭제)
+// ── 지난 분석 (설정 안에서만 보기 · 다시 볼 때 API 호출 없음) ──
 try { localStorage.removeItem("aic-hist"); localStorage.removeItem("aic-hist2"); } catch (e) {}
+const HKEY = "aic-hist3";
+const kstDay = iso => new Date(new Date(iso).getTime() + 9 * 3600e3).toISOString().slice(0, 10);
+const keyOf = t => String(t || "").trim().toLowerCase();
+function saveHistory() {
+  const k = keyOf(R.tk), tick = keyOf(R.S?.F?.ticker);
+  const h = store.get(HKEY, []).filter(x => !(keyOf(x.tk) === k || (tick && keyOf(x.S?.F?.ticker) === tick)));
+  h.unshift(R); store.set(HKEY, h.slice(0, 20)); drawHist();
+}
+function findToday(tk) {
+  const k = keyOf(tk), d = kstDay(new Date().toISOString());
+  return store.get(HKEY, []).find(x => kstDay(x.at) === d && [x.tk, x.S?.F?.ticker, x.S?.F?.name].some(v => keyOf(v) === k));
+}
+function showSaved(x, note) {
+  R = x; $("tk").value = x.tk; showErr(""); renderAll();
+  $("status").innerHTML = `${esc(note)} · ${esc(new Date(x.at).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }))} <button type="button" id="redo" class="mini">새로 분석</button>`;
+  $("redo").addEventListener("click", () => convene(x.tk, true));
+}
+function drawHist() {
+  const h = store.get(HKEY, []);
+  $("hist").innerHTML = h.length ? h.map((x, i) => {
+    const v = x.verdict; const c = !v ? "" : v.band[1] === "buy" ? "#2fbf7f" : v.band[1] === "watch" ? "#f5b21b" : "#ff6f59";
+    return `<button type="button" class="hrow" data-i="${i}"><span><b>${esc(x.S?.F?.name || x.tk)}</b> <small>${esc(x.S?.F?.ticker || "")}</small></span>
+      <span style="color:${c};font-weight:700">${v ? v.score + "점 " + v.band[0] : "—"}</span><small>${esc(new Date(x.at).toLocaleDateString("ko-KR", { month: "numeric", day: "numeric" }))}</small></button>`;
+  }).join("") + `<button type="button" id="clearHist" class="mini" style="margin-top:8px">기록 모두 지우기</button>` : `<p style="margin:0;font-size:14px;opacity:.7">아직 분석한 종목이 없어요.</p>`;
+  $("clearHist")?.addEventListener("click", () => { store.set(HKEY, []); drawHist(); });
+}
+$("hist").addEventListener("click", e => {
+  const b = e.target.closest(".hrow"); if (!b || busy) return;
+  const x = store.get(HKEY, [])[+b.dataset.i]; if (!x) return;
+  $("setup").style.display = "none"; showSaved(x, "저장된 분석"); window.scrollTo({ top: 0, behavior: "smooth" });
+});
+drawHist();
 $("f").addEventListener("submit", e => { e.preventDefault(); const t = $("tk").value.trim(); if (t) convene(t); });
 paint();
 if (cfg.key) loadModels();
