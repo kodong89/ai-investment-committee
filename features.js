@@ -115,8 +115,8 @@ function pfRowsHTML() {
   $("fSave").textContent = editIdx != null ? "수정 저장" : "추가"; $("fCancel").hidden = editIdx == null;
   $("pfKRW").value = pf.krw ?? ""; $("pfUSD").value = pf.usd ?? "";
 }
-function startEdit(i) { editIdx = i; const h = pf.items[i]; $("fT").value = h.t; $("fQ").value = h.q; $("fA").value = h.avg ?? ""; $("pfEdit").open = true; pfRowsHTML(); $("fQ").focus(); }
-function resetForm() { editIdx = null; $("fT").value = $("fQ").value = $("fA").value = ""; pfRowsHTML(); }
+function startEdit(i) { editIdx = i; const h = pf.items[i]; $("fT").value = h.t; $("fQ").value = h.q; $("fA").value = h.avg ?? ""; $("fP").value = h.px ?? ""; $("fC").value = h.cur || "USD"; $("pfEdit").open = true; pfRowsHTML(); $("fQ").focus(); }
+function resetForm() { editIdx = null; $("fT").value = $("fQ").value = $("fA").value = $("fP").value = ""; pfRowsHTML(); }
 $("pfList").addEventListener("click", e => {
   const ed = e.target.dataset.ed, del = e.target.dataset.del;
   if (ed != null) startEdit(+ed);
@@ -124,41 +124,56 @@ $("pfList").addEventListener("click", e => {
 });
 $("fCancel").addEventListener("click", resetForm);
 $("fSave").addEventListener("click", () => lock($("fSave"), async () => {
-  const t = $("fT").value.trim(), q = num($("fQ").value), avg = num($("fA").value);
+  const t = $("fT").value.trim(), q = num($("fQ").value), avg = num($("fA").value), mp = num($("fP").value);
   if (!t || !q) { $("pfStatus").textContent = "종목과 보유 주수를 넣어 주세요."; return; }
   pf.items = pf.items.filter(h => String(h.t).trim());
-  const item = { t, q: String(q), avg: avg ? String(avg) : "" };
+  const item = { t, q: String(q), avg: avg ? String(avg) : "", px: mp ? String(mp) : "", cur: $("fC").value };
   if (editIdx != null) pf.items[editIdx] = item; else {
     const j = pf.items.findIndex(h => keyOf(h.t) === keyOf(t));
     if (j >= 0) pf.items[j] = item; else if (pf.items.length < MAXIN) pf.items.push(item);
   }
   savePF(); store.set("aic-pfopt2", null); pfView = "now"; resetForm();
-  if (!pf.px?.map?.[keyOf(t)]) { try { await loadPrices(); } catch (er) { $("pfOut").innerHTML = errHTML(er); } }
+  if (!pf.px?.map?.[keyOf(t)] && !mp) { try { await loadPrices(); } catch (er) { $("pfOut").innerHTML = errHTML(er); } }
   $("pfStatus").textContent = `${t} 저장했어요.`; renderPF();
 }));
 for (const id of ["pfKRW", "pfUSD"]) $(id).addEventListener("change", () => { pf.krw = $("pfKRW").value.replace(/[^0-9.]/g, ""); pf.usd = $("pfUSD").value.replace(/[^0-9.]/g, ""); savePF(); renderPF(); });
 const holdings = () => pf.items.filter(h => String(h.t).trim() && num(h.q) > 0);
 
 // 시세·환율 불러오기 (API 1회)
+const PX_HINT = `종목명은 사용자가 증권사 앱에서 보는 이름이라 길거나 줄여 쓴 이름일 수 있다. 일반 주식뿐 아니라 ETF·레버리지 ETF도 있다.
+예: "디렉시온 테슬라 2X" = TSLL(미국), "PROSHARES QQQ 3X" = TQQQ(미국), "TIGER 삼성전자단일종목레버리지" = 한국 ETF(코드에 영문이 섞인 6자리일 수 있음, 예 0195R0).
+미국은 Yahoo Finance·stockanalysis.com, 한국은 네이버 금융·KRX에서 확인하라.`;
+async function fetchPx(list, label) {
+  return (await A.gemini(`오늘은 ${A.today()}. 구글 검색으로 아래 번호별 종목의 가장 최근 가격과 원달러 환율을 찾아라.
+${PX_HINT}
+${list.map((t, i) => `${i + 1}. ${t}`).join("\n")}
+한국 종목은 원화, 미국 종목은 달러. 찾은 값만, 못 찾으면 price는 null. 번호(no)를 반드시 그대로 써라.
+설명 없이 JSON 하나만:
+{"usdkrw":숫자,"items":[{"no":번호,"name":"정식 이름(짧게)","ticker":"티커 또는 종목코드","currency":"USD|KRW","price":숫자,"leveraged":true|false}]}`, { search: true, label })).data;
+}
 async function loadPrices() {
   const H = holdings(); if (!H.length) { pf.px = null; return; }
   $("pfStatus").textContent = "보유 종목 시세와 환율을 불러오는 중…";
-  const d = (await A.gemini(`오늘은 ${A.today()}. 구글 검색으로 다음 종목들의 가장 최근 종가와 원달러 환율을 찾아라: ${H.map(h => h.t).join(", ")}.
-한국 종목은 원화, 미국 종목은 달러. 찾은 값만, 못 찾으면 price는 null.
-설명 없이 JSON 하나만:
-{"usdkrw":숫자,"items":[{"input":"사용자가 입력한 그대로","name":"회사명(짧게)","ticker":"티커","currency":"USD|KRW","price":숫자}]}`, { search: true, label: "시세 불러오기" })).data;
+  const d = await fetchPx(H.map(h => h.t), "시세 불러오기");
   const map = {};
-  for (const x of d.items || []) map[keyOf(x.input || x.ticker)] = x;
+  const put = (list, items) => { for (const x of items || []) { const i = (num(x.no) || 0) - 1; if (list[i] != null && num(x.price)) map[keyOf(list[i])] = x; } };
+  put(H.map(h => h.t), d.items);
+  // 못 찾은 종목만 한 번 더
+  const miss = H.map(h => h.t).filter(t => !map[keyOf(t)]);
+  if (miss.length) {
+    $("pfStatus").textContent = `${miss.join(", ")} 시세를 다시 찾는 중…`;
+    try { const d2 = await fetchPx(miss, "시세 다시 찾기"); put(miss, d2.items); if (!num(d.usdkrw)) d.usdkrw = d2.usdkrw; } catch (e) {}
+  }
   pf.px = { at: Date.now(), fx: num(d.usdkrw) || 1400, map };
   savePF();
 }
 function calc() {
   const H = holdings(), px = pf.px, fx = px?.fx || 1400;
-  const rows = H.map((h, i) => { const p = px?.map?.[keyOf(h.t)]; const price = num(p?.price), usd = /USD|\$/.test(p?.currency || "");
+  const rows = H.map((h, i) => { const p = px?.map?.[keyOf(h.t)]; const manual = !num(p?.price) && num(h.px); const price = num(p?.price) || num(h.px), usd = manual ? h.cur === "USD" : /USD|\$/.test(p?.currency || "");
     const unit = price ? price * (usd ? fx : 1) : null;
     const avg = num(h.avg), cost = avg ? avg * (usd ? fx : 1) * num(h.q) : null, val = unit ? unit * num(h.q) : null;
     return { i: pf.items.indexOf(h), t: h.t, q: num(h.q), avg, name: p?.name || h.t, ticker: p?.ticker || h.t, price, cur: usd ? "$" : "원", unit, val, cost,
-      pnl: cost != null && val != null ? val - cost : null, pnlPct: avg && price ? (price / avg - 1) * 100 : null, c: COLORS[i % COLORS.length] }; });
+      pnl: cost != null && val != null ? val - cost : null, pnlPct: avg && price ? (price / avg - 1) * 100 : null, manual, lev: p?.leveraged === true || /2x|3x|레버리지|leverag|ultra/i.test(h.t + " " + (p?.name || "")), c: COLORS[i % COLORS.length] }; });
   const cash = (num(pf.krw) || 0) + (num(pf.usd) || 0) * fx;
   const total = rows.reduce((a, r) => a + (r.val || 0), 0) + cash;
   for (const r of rows) r.now = total && r.val != null ? r.val / total * 100 : null;
@@ -187,8 +202,8 @@ function renderPF() {
   const dlt = (s, n, dq) => s == null || n == null ? "<span></span>" : `<span class="d" style="color:${s - n > 0.5 ? "#2fbf7f" : s - n < -0.5 ? "#ff6f59" : "#9aa4b2"}">${s - n >= 0 ? "+" : ""}${(s - n).toFixed(0)}%p${dq != null && dq !== 0 ? `<br>${dq > 0 ? "+" : ""}${dq}주` : ""}</span>`;
   const row = r => { const sig = signalOf(r.t, o);
     return `<div class="pi" data-i="${r.i}" title="눌러서 수정"><span class="lg" style="background:${r.c}">${esc(String(r.name).slice(0, 1).toUpperCase())}</span>
-      <div><div class="nm2">${esc(r.name)}${sig ? `<span class="sg ${sig[1]}">${esc(sig[0])}</span>` : ""}</div>
-        <div class="sub2">${f2(r.q)}주 · ${r.avg ? `${px$(r.avg, r.cur)} → ` : "평단 미입력 · "}${r.price ? px$(r.price, r.cur) : "시세 없음"}${r.val != null ? ` · ${won(r.val)}` : ""}</div>
+      <div><div class="nm2">${esc(r.name)}${sig ? `<span class="sg ${sig[1]}">${esc(sig[0])}</span>` : ""}${r.lev ? `<span class="sg" style="background:#4a3a10;color:#ffd977">레버리지</span>` : ""}${r.lev && r.pnlPct != null && r.pnlPct <= -7 ? `<span class="sg s">규칙상 손절 -7%</span>` : ""}</div>
+        <div class="sub2">${f2(r.q)}주 · ${r.avg ? `${px$(r.avg, r.cur)} → ` : "평단 미입력 · "}${r.price ? px$(r.price, r.cur) + (r.manual ? " (직접 입력)" : "") : "시세 없음 · 눌러서 현재가 입력"}${r.val != null ? ` · ${won(r.val)}` : ""}</div>
         ${r.pnl != null ? `<div class="sub2"><span class="pnl ${r.pnl >= 0 ? "up" : "dn"}">${sgn(r.pnlPct)}${Math.abs(r.pnlPct).toFixed(1)}% · ${wonS(r.pnl)}</span></div>` : ""}
         <div class="pb"><i style="width:${clamp(val(r), 0, 100)}%;background:${r.c}"></i></div></div>
       <span class="w">${r.now == null ? "—" : f2(Math.round(val(r) * 10) / 10) + "%"}</span>${o ? dlt(r.sug, r.now, r.tq != null ? r.tq - r.q : null) : "<span></span>"}</div>`; };
@@ -201,7 +216,7 @@ function renderPF() {
       <div class="c"><div><small>현금</small><b>${f2(Math.round(val(null, true)))}%</b><small>총 ${won(C0.total)}</small></div></div></div>
       <div class="pl">${H.map(row).join("")}${cashRow}</div></div>
     <div class="tot">평가금액 <b>${won(C0.total - C0.cash)}</b>${C0.cost ? `<span>매수금액 <b>${won(C0.cost)}</b></span><span>평가손익 <b class="pnl ${C0.pnl >= 0 ? "up" : "dn"}">${wonS(C0.pnl)} (${sgn(C0.pnlPct)}${Math.abs(C0.pnlPct).toFixed(1)}%)</b></span>` : ""}${C0.noAvg ? `<span style="color:#9aa4b2">평단 미입력 ${C0.noAvg}종목은 손익 제외</span>` : ""}</div>
-    <div style="padding:4px 18px 12px;font-size:12px;color:#9aa4b2">시세 ${esc(new Date(pf.px.at).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }))} · 환율 ${f2(C0.fx)}원 <button type="button" id="pfRefresh" class="mini" style="min-height:30px">시세 새로고침</button>${C0.missing.length ? ` · <span style="color:#ff6f59">${esc(C0.missing.map(r => r.t).join(", "))} 시세를 못 찾았어요</span>` : ""}</div>`;
+    <div style="padding:4px 18px 12px;font-size:12px;color:#9aa4b2">시세 ${esc(new Date(pf.px.at).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }))} · 환율 ${f2(C0.fx)}원 <button type="button" id="pfRefresh" class="mini" style="min-height:30px">시세 새로고침</button>${C0.missing.length ? ` · <span style="color:#ff6f59">${esc(C0.missing.map(r => r.t).join(", "))} 시세를 못 찾았어요. 종목을 눌러 현재가를 직접 넣거나 티커(예: TSLL)로 바꿔 보세요</span>` : ""}</div>`;
   renderPFOut(o);
 }
 $("pfCard").addEventListener("click", e => {
