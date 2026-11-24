@@ -48,6 +48,76 @@ const AG = [
 - 비대칭 베팅: 손실은 작게 자르고, 확신이 클 때는 크게 건다.
 - 틀렸다고 판단되면 즉시 생각을 바꾼다. 원금 보존이 먼저다.` }
 ];
+// ── 픽셀 캐릭터 (각 투자 철학을 상징하는 오리지널 마스코트) ──
+const SPR = {
+ buffett:{name:"해자 비버",pal:{d:"#5a3317",b:"#a8642e",l:"#d79b62",k:"#1a1a1a",w:"#fffaf0",n:"#3a2010"},rows:[
+  "..dd....dd..",
+  ".dbbd..dbbd.",
+  ".dbbbbbbbbd.",
+  "dbbbbbbbbbbd",
+  "dbbkbbbbkbbd",
+  "dbbbbllbbbbd",
+  "dbbbllllbbbd",
+  ".dbblnnlbbd.",
+  ".dbbllllbbd.",
+  "..dbbwwbbd..",
+  "...dbwwbd...",
+  "....dddd...."]},
+ munger:{name:"역발상 부엉이",pal:{g:"#36266e",l:"#c9b8f0",y:"#ffd84a",k:"#1a1a1a",o:"#f08a24",w:"#ffffff"},rows:[
+  ".g........g.",
+  ".gg......gg.",
+  ".gggggggggg.",
+  "gwwwwggwwwwg",
+  "gwkkwggwkkwg",
+  "gwwwwoowwwwg",
+  ".gggggoggggg",
+  ".gllllllllg.",
+  ".glglllglgl.",
+  ".gllllllllg.",
+  "..gggggggg..",
+  "...oo..oo..."]},
+ graham:{name:"안전마진 거북이",pal:{T:"#1f5f3a",t:"#3f9a5c",s:"#b9d98a",k:"#1a1a1a",w:"#ffffff"},rows:[
+  "...TTTTTT...",
+  "..TtTttTtT..",
+  ".TtssssssTt.",
+  ".Tsssssssst.",
+  "TssksssskssT",
+  "TssssssssssT",
+  "TsssskkssssT",
+  ".TssssssssT.",
+  "..TTssssTT..",
+  ".TtTtTTtTtT.",
+  "TtTtTtTtTtTt",
+  ".TTTTTTTTTT."]},
+ lynch:{name:"텐배거 다람쥐",pal:{r:"#d9772b",c:"#f7dcb4",k:"#1a1a1a",w:"#ffffff",a:"#8a5a2b",A:"#5b3a1a"},rows:[
+  "..r......r..",
+  ".rrr....rrr.",
+  ".rrrrrrrrrr.",
+  "rrrrrrrrrrrr",
+  "rrkrrrrrrkrr",
+  "rrrrrccrrrrr",
+  "rrrrckkcrrrr",
+  ".rrccccccrr.",
+  ".rcccwwcccr.",
+  "..rccccccrAA",
+  "...rrrrrr.aa",
+  "..........aa"]},
+ druck:{name:"매크로 독수리",pal:{h:"#f4f1e8",e:"#6b4423",y:"#f5b21b",k:"#1a1a1a",r:"#c0392b"},rows:[
+  "...hhhhhh...",
+  "..hhhhhhhh..",
+  ".hhhhhhhhhh.",
+  ".hkkhhhhkkh.",
+  ".hhkhhhhkhh.",
+  ".hhhhyyyhhh.",
+  "..hhhyyyyh..",
+  "..hhhhyyhh..",
+  ".eehhhhhhee.",
+  "eeeeehheeeee",
+  "eeeeeeeeeeee",
+  ".eeeeeeeeee."]}
+};
+function sprite(id){const s=SPR[id];let r="";s.rows.forEach((row,y)=>[...row].forEach((ch,x)=>{const c=s.pal[ch];if(c)r+=`<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${c}"/>`}));return `<svg viewBox="-2 -2 16 16" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`}
+
 const SIG = { bullish: ["사자", "p-buy"], bearish: ["팔자", "p-sell"], neutral: ["중립", "p-neu"] };
 
 // ── 설정 ───────────────────────────────────────────────────
@@ -195,7 +265,7 @@ function agentRow(a) {
   const s = r ? (SIG[r.signal] || SIG.neutral) : null, cf = r ? clamp(r.confidence, 0, 100) : 0;
   const sigBox = r ? `<span class="pill ${s[1]}">${s[0]}</span><div class="cf">확신 ${cf}%</div>` : `<span class="pill p-wait">—</span>`;
   return `<div class="row">
-    <div class="av" style="background:${a.c}">${a.m}</div>
+    <div class="avw"><div class="av" style="background:${a.c}">${sprite(a.id)}</div><div class="mz">${SPR[a.id].name}</div></div>
     <div><div class="nm">${a.n}<small>${a.s}</small></div>
       ${r ? `<div class="sigm">${sigBox}</div>
         <div class="hd">${esc(r.headline)}</div>

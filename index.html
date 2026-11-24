@@ -52,8 +52,9 @@ details summary{cursor:pointer;min-height:36px;display:flex;align-items:center}
 /* board */
 .board{margin-top:20px;background:rgba(0,0,0,.22);border-radius:16px;padding:6px 0}
 .bh{display:flex;justify-content:space-between;gap:12px;padding:10px 18px;font-size:14px;color:var(--lime);opacity:.85;flex-wrap:wrap}
-.row{display:grid;grid-template-columns:48px minmax(0,1fr) 112px;gap:14px;align-items:start;padding:16px 18px;border-top:1px solid rgba(230,245,200,.12)}
-.av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:900 20px "Noto Sans KR";color:#fff;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.row{display:grid;grid-template-columns:64px minmax(0,1fr) 112px;gap:14px;align-items:start;padding:16px 18px;border-top:1px solid rgba(230,245,200,.12)}
+.avw{text-align:center}.av{width:60px;height:60px;border-radius:50%;overflow:hidden;box-shadow:inset 0 -5px 0 rgba(0,0,0,.2),0 0 0 3px rgba(230,245,200,.25);margin:0 auto}.av svg{width:100%;height:100%;display:block}.mz{font-size:11px;color:var(--lime);opacity:.8;margin-top:4px;line-height:1.2;word-break:keep-all}
+.row:hover .av svg{animation:hop .5s steps(2)}@keyframes hop{50%{transform:translateY(-3px)}}
 .nm{font-weight:700;font-size:17px}.nm small{font-weight:400;color:var(--lime);opacity:.7;margin-left:6px;font-size:13px}
 .hd{margin-top:2px}
 .why{margin-top:6px;font-size:14px;color:var(--lime)}
@@ -89,10 +90,10 @@ ul.w{padding-left:18px;margin:8px 0 0;font-size:15px}
 .empty{color:var(--mut);font-size:15px}
 .note{font-size:13px;color:var(--mut);max-width:1100px;margin:20px auto 0}
 @media(max-width:760px){.flow{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:600px){form{grid-template-columns:minmax(0,1fr)}.row{grid-template-columns:40px minmax(0,1fr);gap:10px;padding:14px}.av{width:40px;height:40px;font-size:17px}.sig{grid-column:2;grid-row:1;text-align:left;display:none}.sig.m{display:flex}.cases{grid-template-columns:minmax(0,1fr)}.pc{gap:8px}.step{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){form{grid-template-columns:minmax(0,1fr)}.row{grid-template-columns:56px minmax(0,1fr);gap:10px;padding:14px}.av{width:52px;height:52px}.sig{grid-column:2;grid-row:1;text-align:left;display:none}.sig.m{display:flex}.cases{grid-template-columns:minmax(0,1fr)}.pc{gap:8px}.step{grid-template-columns:minmax(0,1fr)}}
 .sigm{display:none}
 @media(max-width:600px){.sig{display:none}.sigm{display:flex;gap:10px;align-items:center;margin-top:4px}.sigm .cf{margin:0}}
-@media(prefers-reduced-motion:reduce){.dots::after{animation:none}}
+@media(prefers-reduced-motion:reduce){.dots::after,.row:hover .av svg{animation:none}}
 </style>
 </head>
 <body>
