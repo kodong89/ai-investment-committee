@@ -88,6 +88,7 @@ function daysTo(s) { if (!s) return null; const d = new Date(s); if (isNaN(d)) r
 
 // ── 설정 ───────────────────────────────────────────────────
 let cfg = Object.assign({ key: "", model: "gemini-flash-latest", mode: "eco" }, store.get("aic-cfg", {}));
+if ((cfg.v || 0) < 2) { cfg.riskPct = 1.5; cfg.maxPos = 30; cfg.v = 2; store.set("aic-cfg", cfg); }
 $("key").value = cfg.key; $("mode").value = cfg.mode;
 const saveCfg = () => store.set("aic-cfg", cfg);
 $("setup").style.display = cfg.key ? "none" : "block";
@@ -95,8 +96,8 @@ $("openSet").addEventListener("click", () => { const s = $("setup"); s.style.dis
 $("saveKey").addEventListener("click", async () => { cfg.key = $("key").value.trim(); saveCfg(); if (cfg.key) { await loadModels(); setStatus("키 저장 완료. 종목을 검색해 보세요."); $("setup").style.display = "none"; } });
 $("model").addEventListener("change", () => { cfg.model = $("model").value; saveCfg(); });
 $("mode").addEventListener("change", () => { cfg.mode = $("mode").value; saveCfg(); });
-$("riskPct").value = cfg.riskPct ?? 2; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
-$("maxPos").value = cfg.maxPos ?? 40; $("maxPos").addEventListener("change", () => { cfg.maxPos = $("maxPos").value; saveCfg(); });
+$("riskPct").value = cfg.riskPct ?? 1.5; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
+$("maxPos").value = cfg.maxPos ?? 30; $("maxPos").addEventListener("change", () => { cfg.maxPos = $("maxPos").value; saveCfg(); });
 
 async function loadModels() {
   try {
@@ -188,8 +189,9 @@ function renderWeek() {
   const today = ymd(kstNow()), dn = ["일", "월", "화", "수", "목", "금", "토"];
   const ed = R.S?.F?.next_earnings_date, myName = R.S?.F?.name;
   const byDate = Object.fromEntries((W.days || []).map(d => [d.date, d.events || []]));
-  el.style.display = "block";
-  el.innerHTML = `<div class="wh"><b>이번 주 주요 일정</b><span>${W.from.slice(5).replace("-", ".")} ~ ${W.to.slice(5).replace("-", ".")} · 한국시간</span></div>
+  const wasOpen = el.dataset.init ? el.open : window.innerWidth >= 900; el.dataset.init = 1;
+  el.style.display = "block"; el.open = wasOpen;
+  el.innerHTML = `<summary>이번 주 일정 <span>${W.from.slice(5).replace("-", ".")}~${W.to.slice(5).replace("-", ".")} · 한국시간</span></summary>
     ${weekDays(W).map(date => {
       const d = new Date(date + "T00:00:00Z"), ev = [...(byDate[date] || [])].sort((a, b) => (a.time || "99").localeCompare(b.time || "99"));
       if (ed === date && myName) ev.unshift({ time: "", country: "", title: `${myName} 실적 발표`, imp: "내 종목", note: "검색한 종목" });
@@ -197,7 +199,7 @@ function renderWeek() {
       return `<div class="wd ${cls}"><div class="wdl">${d.getUTCMonth() + 1}/${d.getUTCDate()}<small>${dn[d.getUTCDay()]}${date === today ? " · 오늘" : ""}</small></div>
         <div class="wev">${ev.length ? ev.map(e => `<div class="we ${e.imp === "상" ? "hi" : e.imp === "내 종목" ? "mine" : ""}"><span class="wt">${esc(e.time || "")}</span><span><b>${esc(e.title)}</b>${e.country ? ` <small>${esc(e.country)}</small>` : ""}${e.note ? `<br><small>${esc(e.note)}</small>` : ""}</span></div>`).join("") : `<div class="we none">주요 일정 없음</div>`}</div></div>`;
     }).join("")}
-    <div class="wfoot">진한 표시는 중요도 높음 · 하루 1회 갱신</div>`;
+    <div class="wfoot">굵게: 중요 · 노랑: 내 종목 실적</div>`;
 }
 function weekDays(W) { return W.from ? [...Array(5)].map((_, i) => { const d = new Date(W.from + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + i); return ymd(d); }) : []; }
 
@@ -253,8 +255,8 @@ function makePlan(F, T) {
   const rr = target ? (target - entry) / risk : null;
   const target2R = entry + 2 * risk;
   const riskPct = risk / entry;
-  const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 2, 0.1, 5);
-  const cap = clamp(num($("maxPos").value) ?? num(cfg.maxPos) ?? 40, 5, 100);
+  const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 1.5, 0.1, 5);
+  const cap = clamp(num($("maxPos").value) ?? num(cfg.maxPos) ?? 30, 5, 100);
   const size = clamp(acct / 100 / riskPct * 100, 0, cap);
   return { entry, atr, atrEst, atrPct: atr / entry, atrStop, supStop, useSup, stop, riskPct, target, rr, target2R, size, acct, cap, base };
 }
@@ -384,15 +386,14 @@ function agentRow(a) {
   const line = res?.headline ? esc(res.headline) : st === "run" ? '<span class="dots"></span>' : st === "fail" ? "분석 실패 · 50점 처리" : `<span style="opacity:.6">${a.q}</span>`;
   return `<details class="ag"><summary>
       <div class="av"><img src="img/${a.id}.png" alt="${a.n}" width="52" height="52" loading="lazy"></div>
-      <div><div class="an">${a.n}<small>${a.role} ${a.w}%</small></div><div class="al">${line}</div></div>
+      <div><div class="an">${a.n}<small>${a.role} ${a.w}%</small></div><div class="al">${line}</div>${res?.pros?.[0] ? `<div class="ln p"><i>찬</i>${esc(res.pros[0])}</div>` : ""}${res?.cons?.[0] ? `<div class="ln c"><i>반</i>${esc(res.cons[0])}</div>` : ""}</div>
       <div class="ar">${sc && res ? `<span class="pill ${s[1]}">${s[0]}</span><b>${sc.score}</b>` : ""}</div>
     </summary>
     ${res && sc ? `<div class="ab">
-      <div class="pc"><div class="pro"><h4>찬성</h4><ul>${(res.pros || []).slice(0, 2).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
-        <div class="con"><h4>반대</h4><ul>${(res.cons || []).slice(0, 2).map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></div>
-      <details class="more"><summary>채점표 · 자료 충족 ${Math.round(sc.cov * 100)}%</summary>
+      ${res.pros?.[1] ? `<div class="ln p"><i>찬</i>${esc(res.pros[1])}</div>` : ""}${res.cons?.[1] ? `<div class="ln c"><i>반</i>${esc(res.cons[1])}</div>` : ""}
+      <div class="more" style="margin-top:8px"><div style="font-weight:700;margin-bottom:2px">채점표 · 자료 충족 ${Math.round(sc.cov * 100)}%</div>
         ${sc.items.map(c => `<div class="ck"><span class="m ${marks[c.r][0]}">${marks[c.r][1]}</span><span>${esc(c.t)}${c.n ? ` · <span style="opacity:.75">${esc(c.n)}</span>` : ""}</span><em>${c.pts}점·${c.by}</em></div>`).join("")}
-      </details></div>` : ""}
+      </div></div>` : ""}
   </details>`;
 }
 const paint = () => {
