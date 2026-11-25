@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T23:20:39Z",
+ "updated": "2026-11-25T09:47:02Z",
  "source": "Yahoo Finance 일봉 종가 · 단순이동평균(SMA) 직접 계산",
  "indices": [
   {
@@ -35,39 +35,39 @@
   {
    "name": "코스피",
    "ticker": "^KS11",
-   "date": "2026-11-23",
-   "close": 4708.54,
-   "ma50": 6020.41,
-   "ma200": 6523.03,
+   "date": "2026-11-25",
+   "close": 4697.51,
+   "ma50": 5932.77,
+   "ma200": 6519.59,
    "above50": false,
    "above200": false,
-   "gap50": -21.79,
-   "gap200": -27.82,
+   "gap50": -20.82,
+   "gap200": -27.95,
    "ma200_rising": true,
-   "chg_1w_pct": -7.68,
-   "chg_1d_pct": -3.31
+   "chg_1w_pct": -7.3,
+   "chg_1d_pct": -6.16
   },
   {
    "name": "코스닥",
    "ticker": "^KQ11",
-   "date": "2026-11-23",
-   "close": 635.45,
-   "ma50": 773.04,
-   "ma200": 949.21,
+   "date": "2026-11-25",
+   "close": 650.64,
+   "ma50": 766.02,
+   "ma200": 944.3,
    "above50": false,
    "above200": false,
-   "gap50": -17.8,
-   "gap200": -33.05,
+   "gap50": -15.06,
+   "gap200": -31.1,
    "ma200_rising": false,
-   "chg_1w_pct": -4.54,
-   "chg_1d_pct": -1.58
+   "chg_1w_pct": -1.84,
+   "chg_1d_pct": -2.29
   }
  ],
  "regime_us": "하락장",
  "regime_kr": "하락장",
- "vix": 26.36,
- "usdkrw": 1340.93,
+ "vix": 29.06,
+ "usdkrw": 1344.6,
  "us10y": 4.9,
  "dxy": "상승",
- "dxy_value": 103.85
+ "dxy_value": 104.05
 }
