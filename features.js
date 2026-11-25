@@ -19,7 +19,7 @@ function ctx(R) {
 펀더멘털: ${JSON.stringify({ per: F.per, peg: F.peg, roe: F.roe_pct, 매출성장: F.revenue_growth_pct, eps성장: F.eps_growth_pct, 다음실적: F.next_earnings_date, 뉴스: F.news, 기업행동: F.corporate_actions })}
 차트: ${JSON.stringify({ ema10: T.ema10, ema20: T.ema20, ema50: T.ema50, ema200: T.ema200, cci20: T.cci20, adx14: T.adx14, atr14: T.atr14, 지지: T.support, 저항: T.resistance, 매물대: T.overhead_poc, 수익률1m: T.return_1m_pct, 수익률3m: T.return_3m_pct, 패턴: T.pattern })}
 시장 국면: ${A.regimeFor(F, R.M) || "알 수 없음"}
-위원회: ${V ? `${V.score}점 ${V.band[0]}${V.veto.length ? " · 거부권: " + V.veto.join(", ") : ""}` : "없음"} / 위원 요약: ${Object.entries(R.agents || {}).map(([k, a]) => `${k}:${R.scores?.[k]?.score ?? "-"}점 ${a.headline || ""}`).join(" | ")}
+위원회: ${V ? `${V.score}점 ${V.band[0]}${V.veto.length ? " · 거부권: " + V.veto.join(", ") : ""}${V.market ? " · " + V.market : ""}` : "없음"} / 위원 요약: ${Object.entries(R.agents || {}).map(([k, a]) => `${k}:${R.scores?.[k]?.score ?? "-"}점 ${a.headline || ""}`).join(" | ")}
 매매 계획: ${P ? `진입 ${f2(P.entry)}, 손절 ${f2(P.stop)}, 목표 ${f2(P.target ?? P.target2R)}, 손익비 ${P.rr == null ? "-" : P.rr.toFixed(2)}` : "없음"}`;
 }
 

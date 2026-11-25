@@ -416,14 +416,16 @@ function finalVerdict(scores, S, M, P, ptjRes) {
   const veto = [];
   if (P?.rr != null && P.rr < 1.5) veto.push(`손익비 ${P.rr.toFixed(2)}:1로 1.5 미만`);
   const d = daysTo(S.F.next_earnings_date); if (d != null && d >= 0 && d <= 3) veto.push(`실적 발표 ${d}일 전 · 갭 위험`);
-  if (regimeFor(S.F, M) === "하락장") veto.push(`${isKR(S.F) ? "한국" : "미국"} 시장이 하락장`);
+  const bear = regimeFor(S.F, M) === "하락장"; // 하락장은 상한 79점(관심까지만): 매수 검토는 막고 강한 종목은 관심으로 남김
   if (num(M?.vix) > 30) veto.push(`VIX ${num(M.vix)} · 시장 급락 위험`);
   if (ptjRes?.veto && ptjRes.veto_reason) veto.push(ptjRes.veto_reason);
-  const capped = veto.length ? Math.min(total, 64) : total;
+  let capped = veto.length ? Math.min(total, 64) : total;
+  if (bear) capped = Math.min(capped, 79);
+  const market = bear ? `${isKR(S.F) ? "한국" : "미국"} 시장 하락장 · 신규 매수 중지` : null;
   const warn = [];
   for (const a of AG) if (a.warnOnly && scores[a.id] && scores[a.id].score < 45) warn.push(`${a.n.split(" ").pop()} 경고 · ${R.agents?.[a.id]?.cons?.[0] || "큰 손실 위험 요인 있음"}`);
-  const band = capped >= 80 ? ["매수 검토", "buy"] : capped >= 65 ? ["관심 종목", "watch"] : ["매수 제외", "out"];
-  return { raw: total, score: capped, veto, band, warn };
+  const band = capped >= 80 ? ["매수 검토", "buy"] : capped >= 65 ? [bear ? "관심 · 시장 회복 대기" : "관심 종목", "watch"] : ["매수 제외", "out"];
+  return { raw: total, score: capped, veto, band, warn, market };
 }
 
 // ── 렌더링: 결론 카드 → 위원 7줄 → 접힌 상세 ───────────────
@@ -445,6 +447,7 @@ function renderHero() {
       <div><div class="band2">${V ? V.band[0] : "심사 중"}</div>
         <div class="vd">${D ? esc(D.verdict) : V ? "80점 이상 매수 검토 · 65~79 관심 · 65 미만 제외" : "위원들이 채점하고 있어요"}</div>
         ${V?.veto.length ? `<div class="veto">리스크 거부권 · ${esc(V.veto.join(" / "))}</div>` : ""}
+        ${V?.market ? `<div class="veto" style="background:#eef2f0;color:#33433e">${esc(V.market)} · 최대 79점(관심)까지${V.raw !== V.score ? ` · 시장 반영 전 ${V.raw}점` : ""}</div>` : ""}
         ${V?.warn?.length ? `<div class="veto" style="background:#fff4d6;color:#7a5200">${esc(V.warn.join(" / "))}</div>` : ""}</div></div>
     ${P ? `<div class="pg"><div>진입<span>${fmt(r2(P.entry))}</span></div><div>손절<span>${fmt(r2(P.stop))}</span><em style="font-style:normal;font-size:12px;color:#d9472f">-${pct(P.riskPct)}</em></div>
       <div>목표<span>${fmt(r2(P.target ?? P.target2R))}</span><em style="font-style:normal;font-size:12px;color:#1d9a64">+${pct(((P.target ?? P.target2R) - P.entry) / P.entry)}</em></div>
@@ -487,7 +490,7 @@ function renderExtra() {
   if (D) sec.push(["찬반 토론", `<div class="case pro"><h4>상승 논리의 약점</h4>${esc(D.bull_rebuttal)}</div><div class="case con"><h4>하락 시나리오</h4>${esc(D.bear_scenario)}</div>
     <dl class="kv"><dt>매수 실행 조건</dt><dd>${esc(D.entry_trigger)}</dd><dt>계획 폐기 조건</dt><dd>${esc(D.invalidation)}</dd><dt>확인할 일정</dt><dd>${esc(D.watch)}</dd></dl>`]);
   if (V) sec.push(["점수 계산", `<table><tbody>${AG.map(a => { const sc = R.scores[a.id]?.score ?? 50; return a.warnOnly ? `<tr><td>${a.n}</td><td class="r">${sc}점 · 경고 전용</td><td class="r">—</td></tr>` : `<tr><td>${a.n}</td><td class="r">${sc}점 × ${a.w}%</td><td class="r">${(sc * a.w / 100).toFixed(1)}</td></tr>`; }).join("")}
-    <tr class="pick"><td>합계</td><td></td><td class="r">${V.raw}${V.veto.length ? ` → ${V.score} (거부권)` : ""}</td></tr></tbody></table>`]);
+    <tr class="pick"><td>합계</td><td></td><td class="r">${V.raw}${V.raw !== V.score ? ` → ${V.score} (${V.veto.length ? "거부권" : "하락장 상한"})` : ""}</td></tr></tbody></table>`]);
   if (P) sec.push(["손절 방식 비교", `<table><tbody>
     <tr class="${P.useSup ? "" : "pick"}"><td>2 ATR${P.atrEst ? " (추정)" : ""}</td><td class="r">${f(P.atrStop)}</td><td class="r">-${pct((P.entry - P.atrStop) / P.entry)}</td></tr>
     <tr class="${P.useSup ? "pick" : ""}"><td>지지선${P.base ? " " + f(P.base) : ""} − 0.5 ATR</td><td class="r">${f(P.supStop)}</td><td class="r">${P.supStop ? "-" + pct((P.entry - P.supStop) / P.entry) : "—"}</td></tr></tbody></table>
