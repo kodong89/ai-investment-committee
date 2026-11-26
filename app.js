@@ -175,7 +175,7 @@ async function loadMarketJson() {
 function mergeMarket(J, T) {
   const ok = (J.indices || []).filter(x => !x.error);
   return { ...(T || {}), indices: J.indices, regime_us: J.regime_us, regime_kr: J.regime_kr, regime: J.regime_us || J.regime_kr,
-    vix: J.vix, dxy: J.dxy, us10y: J.us10y, usdkrw: J.usdkrw, as_of: ok.map(x => x.date).sort().pop() || "", updated: J.updated, computed: true };
+    vix: J.vix, dxy: J.dxy, us10y: J.us10y, usdkrw: J.usdkrw, evidence: J.evidence, tally: J.tally, turn: J.turn, as_of: ok.map(x => x.date).sort().pop() || "", updated: J.updated, computed: true };
 }
 async function getMarket() {
   MJ = await loadMarketJson() || MJ;
@@ -514,11 +514,25 @@ function renderMarketCard() {
     return `<div class="mcol ${focus === key ? "focus" : ""}"><div class="mt">${label} ${badge(g)}${focus === key ? '<small>내 종목 시장</small>' : ""}</div>
       <div class="ms"><b>${st[0]}</b> · ${st[1]}</div>
       <table class="mi"><tbody>${(M.indices || []).filter(x => names.includes(x.name)).map(x => `<tr><td>${esc(x.name)}${x.close != null ? `<br><small style="opacity:.75">${esc(fmt(num(x.close)))}</small>` : ""}</td><td>50일선 ${o(x.above50)}</td><td>200일선 ${o(x.above200)}${x.gap200 != null ? `<br><small style="opacity:.75">${x.gap200 >= 0 ? "+" : ""}${x.gap200.toFixed(1)}%</small>` : ""}</td><td class="r ${num(x.chg_1w_pct) >= 0 ? "ok" : "no"}">${x.chg_1w_pct == null ? "—" : (num(x.chg_1w_pct) >= 0 ? "+" : "") + num(x.chg_1w_pct).toFixed(1) + "%"}</td></tr>`).join("")}</tbody></table>
-      <div class="sec">주도 ${esc(((key === "us" ? M.leading_us : M.leading_kr) || []).slice(0, 3).join(" · ") || "—")}</div></div>`; };
+      <div class="sec">주도 ${esc(((key === "us" ? M.leading_us : M.leading_kr) || []).slice(0, 3).join(" · ") || "—")}</div>${evBlock(key)}</div>`; };
+  const ic = { up: ["▲", "ok"], down: ["▼", "no"], flat: ["–", "nf"] };
+  const evRow = e => `<div class="evr"><span class="${ic[e.signal]?.[1] || "nf"}">${ic[e.signal]?.[0] || "–"}</span><span>${esc(e.label)} <b>${esc(e.value)}</b><small>${esc(e.note)}</small></span></div>`;
+  function evBlock(key) {
+    const E = M.evidence?.[key], T = M.tally?.[key]; if (!E?.length || !T) return "";
+    const lead = T.lean.includes("하락") ? "down" : T.lean.includes("상승") ? "up" : null;
+    const key3 = E.filter(e => e.signal === (lead || "down")).slice(0, 3);
+    return `<div class="evb"><div class="evt"><b class="${lead === "up" ? "ok" : lead === "down" ? "no" : ""}">${esc(T.lean)}</b>
+        <span class="evbar"><i class="u" style="flex:${T.up}"></i><i class="f" style="flex:${T.flat}"></i><i class="d" style="flex:${T.down}"></i></span>
+        <small>상승 ${T.up} · 중립 ${T.flat} · 하락 ${T.down}</small></div>
+      ${key3.map(evRow).join("")}
+      <details class="evd"><summary>근거 ${E.length}개 전부 보기</summary>${E.map(evRow).join("")}</details>
+      ${M.turn?.[key]?.length ? `<div class="turn"><b>${lead === "up" ? "꺾이는 신호" : "돌아서는 신호"}</b>${M.turn[key].slice(0, 3).map(t => `<div>· ${esc(t)}</div>`).join("")}</div>` : ""}</div>`;
+  }
   el.style.display = "block";
   el.innerHTML = `<div class="wh2">장 흐름 <span>${esc(M.as_of || "")} 종가 · ${M.computed ? "일봉으로 직접 계산한 이동평균선" : "AI 검색 추정(부정확할 수 있음)"}</span></div>
     <div class="msum">${esc(M.summary || "")}</div>
     <div class="mgrid">${mk("us", "미국", M.regime_us, ["나스닥", "S&P500"])}${mk("kr", "한국", M.regime_kr, ["코스피", "코스닥"])}</div>
+    ${M.evidence ? `<div style="font-size:12px;color:var(--lime);opacity:.65;margin-top:8px">상승·하락 근거는 예측이 아니라 지금 숫자가 어느 쪽을 가리키는지예요. 모두 일봉 데이터로 코드가 계산했어요.</div>` : ""}
     <div class="mmac">VIX <b>${esc(fmt(num(M.vix)))}</b> ${vixTag(num(M.vix))} · 달러 <b>${esc(M.dxy || "—")}</b> · 미 10년물 <b>${esc(fmt(num(M.us10y), "%"))}</b> · 원달러 <b>${esc(fmt(num(M.usdkrw)))}</b></div>`;
 }
 const renderAll = () => { renderHero(); renderMarketCard(); renderWeek(); paint(); renderExtra(); document.dispatchEvent(new Event("aic:render")); };
