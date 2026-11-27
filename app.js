@@ -174,7 +174,7 @@ async function loadMarketJson() {
 }
 function newsTally(T, key) {
   const N = (T?.news || []).filter(n => n.market === key);
-  const w = n => (Math.max(1, Math.min(3, Number(n.impact) || 1))) * (n.priced === "이미 반영" ? 0.5 : 1) * (n.kind === "전망" ? 0.7 : 1);
+  const w = n => (Math.max(1, Math.min(3, Number(n.impact) || 1))) * (n.priced === "이미 반영" ? 0.5 : 1) * (n.kind === "전망" ? 0.7 : 1) * (/정책|수급/.test(n.type || "") ? 1.3 : 1);
   const up = N.filter(n => n.side === "up").reduce((a, n) => a + w(n), 0), down = N.filter(n => n.side === "down").reduce((a, n) => a + w(n), 0);
   return { n: N.length, up: Math.round(up * 10) / 10, down: Math.round(down * 10) / 10, lean: N.length ? (up - down >= 1.5 ? "상승 우세" : down - up >= 1.5 ? "하락 우세" : "혼조") : null };
 }
@@ -187,13 +187,16 @@ function overall(ind, news) {
 function mergeMarket(J, T) {
   const ok = (J.indices || []).filter(x => !x.error);
   return { ...(T || {}), indices: J.indices, regime_us: J.regime_us, regime_kr: J.regime_kr, regime: J.regime_us || J.regime_kr,
-    vix: J.vix, dxy: J.dxy, us10y: J.us10y, usdkrw: J.usdkrw, evidence: J.evidence, tally: J.tally, turn: J.turn, ntally: { us: newsTally(T, "us"), kr: newsTally(T, "kr") }, as_of: ok.map(x => x.date).sort().pop() || "", updated: J.updated, computed: true };
+    vix: J.vix, dxy: J.dxy, us10y: J.us10y, usdkrw: J.usdkrw, evidence: J.evidence, tally: J.tally, turn: J.turn, short: J.short, tally_short: J.tally_short, futures: J.futures, ntally: { us: newsTally(T, "us"), kr: newsTally(T, "kr") }, as_of: ok.map(x => x.date).sort().pop() || "", updated: J.updated, computed: true };
 }
 async function getMarket() {
   MJ = await loadMarketJson() || MJ;
   if (!MJ) return getMarketAI(); // 계산 데이터가 없을 때만 AI 검색 숫자 사용
   let T = store.get("aic-mtext2", null);
-  if (!T || Date.now() - T.t > 6 * 3600e3 || window.__forceNews) {
+  // 한국 장 시작 전(08:30)·마감 후(15:40)·미국 개장 전(22:40, 한국시간)을 지나면 뉴스를 새로 분석
+  const lastBoundary = () => { const now = Date.now(), k = new Date(now + 9 * 3600e3), day = Date.UTC(k.getUTCFullYear(), k.getUTCMonth(), k.getUTCDate()) - 9 * 3600e3;
+    const b = [-1, 0].flatMap(d => [[8, 30], [15, 40], [22, 40]].map(([h, m]) => day + d * 864e5 + (h * 60 + m) * 6e4)).filter(x => x <= now); return Math.max(...b); };
+  if (!T || Date.now() - T.t > 6 * 3600e3 || T.t < lastBoundary() || window.__forceNews) {
     window.__forceNews = false;
     try {
       const nums = (MJ.indices || []).filter(x => !x.error).map(x => `${x.name} ${x.close} (50일선 ${x.above50 ? "위" : "아래"}, 200일선 ${x.above200 ? "위" : "아래"}, 1주 ${x.chg_1w_pct}%)`).join(" / ");
@@ -202,10 +205,11 @@ async function getMarket() {
 규칙:
 - 실제 날짜가 있는 소식만. 확인된 사실과 전망·추측을 구분하라. 루머나 출처 불명은 넣지 마라.
 - 시장마다 상승 요인 2~4개, 하락 요인 2~4개. 이미 주가에 반영된 재료인지도 표시하라.
-- impact: 지수에 미칠 영향 1(작음)~3(큼).
+- impact: 지수에 미칠 영향 1(작음)~3(큼). 정부 증시 안정책(증안펀드 등)·외국인 수급 전환·지수선물 급변은 단기 영향이 크니 놓치지 마라.
+- 오늘 아침 소식(장 시작 전 뉴스)을 우선 확인하라.
 설명 없이 JSON 하나만:
 {"leading_us":["섹터1","섹터2"],"leading_kr":["섹터1","섹터2"],"summary":"장 흐름 한 줄 요약(30자)",
- "news":[{"market":"us|kr","side":"up|down","title":"소식 요약(25자)","why":"왜 상승·하락 요인인지(35자)","date":"MM-DD","impact":1|2|3,"kind":"확인된 사실|전망","priced":"미반영|일부 반영|이미 반영","source":"매체명"}],
+ "news":[{"market":"us|kr","side":"up|down","title":"소식 요약(25자)","why":"왜 상승·하락 요인인지(35자)","date":"MM-DD","impact":1|2|3,"type":"정책|수급|실적|거시|기업|지정학","kind":"확인된 사실|전망","priced":"미반영|일부 반영|이미 반영","source":"매체명"}],
  "outlook":{"us":{"view":"상승 우세|하락 우세|혼조","reason":"뉴스 관점 한 줄(40자)","watch":"앞으로 볼 일정·변수(30자)"},"kr":{"view":"...","reason":"...","watch":"..."}}}`, { search: true, label: "장 흐름·뉴스 분석" });
       T = { t: Date.now(), v: { ...r.data, news_sources: (r.sources || []).slice(0, 10) } }; store.set("aic-mtext2", T);
     } catch (e) { if (/한도를 다 썼/.test(e.message)) throw e; }
@@ -541,11 +545,14 @@ function renderMarketCard() {
     return `<div class="mcol ${focus === key ? "focus" : ""}"><div class="mt">${label} ${badge(g)}${focus === key ? '<small>내 종목 시장</small>' : ""}</div>
       <div class="ms"><b>${st[0]}</b> · ${st[1]}</div>
       <table class="mi"><tbody>${(M.indices || []).filter(x => names.includes(x.name)).map(x => `<tr><td>${esc(x.name)}${x.close != null ? `<br><small style="opacity:.75">${esc(fmt(num(x.close)))}</small>` : ""}</td><td>50일선 ${o(x.above50)}</td><td>200일선 ${o(x.above200)}${x.gap200 != null ? `<br><small style="opacity:.75">${x.gap200 >= 0 ? "+" : ""}${x.gap200.toFixed(1)}%</small>` : ""}</td><td class="r ${num(x.chg_1w_pct) >= 0 ? "ok" : "no"}">${x.chg_1w_pct == null ? "—" : (num(x.chg_1w_pct) >= 0 ? "+" : "") + num(x.chg_1w_pct).toFixed(1) + "%"}</td></tr>`).join("")}</tbody></table>
-      <div class="sec">주도 ${esc(((key === "us" ? M.leading_us : M.leading_kr) || []).slice(0, 3).join(" · ") || "—")}</div>${sumLine(key)}${evBlock(key)}${newsBlock(key)}</div>`; };
+      <div class="sec">주도 ${esc(((key === "us" ? M.leading_us : M.leading_kr) || []).slice(0, 3).join(" · ") || "—")}</div>${sumLine(key)}${evBlock(key, true)}${newsBlock(key)}${evBlock(key)}</div>`; };
   function sumLine(key) {
-    const it = M.tally?.[key]?.lean, nt = M.ntally?.[key]?.lean; if (!it && !nt) return "";
-    const o = overall(it, nt), cls = o.includes("상승") ? "ok" : o.includes("하락") ? "no" : "";
-    return `<div class="ovl"><span>종합</span><b class="${cls}">${esc(o)}</b><small>지표 ${esc(it || "—")} · 뉴스 ${esc(nt || "아직 없음")}</small></div>`;
+    const it = M.tally?.[key]?.lean, st = M.tally_short?.[key]?.lean, nt = M.ntally?.[key]?.lean; if (!it && !st) return "";
+    const c = o => o.includes("상승") ? "ok" : o.includes("하락") ? "no" : "";
+    const tr = it ? (it.includes("상승") ? "상승 추세" : it.includes("하락") ? "하락 추세" : "방향 탐색") : "—";
+    const sh = overall(st, nt), shTxt = sh.includes("상승") ? sh.replace("상승 우세", "반등·상승 우세") : sh;
+    return `<div class="ovl two"><span>1~3개월</span><b class="${c(tr)}">${esc(tr)}</b><small>추세 지표 ${esc(it || "—")}</small>
+      <span>1~2주</span><b class="${c(sh)}">${esc(shTxt)}</b><small>단기 지표 ${esc(st || "—")} · 뉴스 ${esc(nt || "아직 없음")}</small></div>`;
   }
   function newsBlock(key) {
     const N = (M.news || []).filter(n => n.market === key), O = M.outlook?.[key];
@@ -559,16 +566,17 @@ function renderMarketCard() {
   }
   const ic = { up: ["▲", "ok"], down: ["▼", "no"], flat: ["–", "nf"] };
   const evRow = e => `<div class="evr"><span class="${ic[e.signal]?.[1] || "nf"}">${ic[e.signal]?.[0] || "–"}</span><span>${esc(e.label)} <b>${esc(e.value)}</b><small>${esc(e.note)}</small></span></div>`;
-  function evBlock(key) {
-    const E = M.evidence?.[key], T = M.tally?.[key]; if (!E?.length || !T) return "";
+  function evBlock(key, short) {
+    const E = (short ? M.short : M.evidence)?.[key], T = (short ? M.tally_short : M.tally)?.[key]; if (!E?.length || !T) return "";
     const lead = T.lean.includes("하락") ? "down" : T.lean.includes("상승") ? "up" : null;
-    const key3 = E.filter(e => e.signal === (lead || "down")).slice(0, 3);
-    return `<div class="evb"><div class="evt"><b class="${lead === "up" ? "ok" : lead === "down" ? "no" : ""}">지표 · ${esc(T.lean)}</b>
+    let key3 = lead ? E.filter(e => e.signal === lead) : E.filter(e => e.signal !== "flat");
+    if (!key3.length) key3 = E; key3 = key3.slice(0, 3);
+    return `<div class="evb"><div class="evt"><b class="${lead === "up" ? "ok" : lead === "down" ? "no" : ""}">${short ? "단기 1~2주" : "추세 1~3개월"} · ${esc(T.lean)}</b>
         <span class="evbar"><i class="u" style="flex:${T.up}"></i><i class="f" style="flex:${T.flat}"></i><i class="d" style="flex:${T.down}"></i></span>
         <small>상승 ${T.up} · 중립 ${T.flat} · 하락 ${T.down}</small></div>
       ${key3.map(evRow).join("")}
       <details class="evd"><summary>근거 ${E.length}개 전부 보기</summary>${E.map(evRow).join("")}</details>
-      ${M.turn?.[key]?.length ? `<div class="turn"><b>${lead === "up" ? "꺾이는 신호" : "돌아서는 신호"}</b>${M.turn[key].slice(0, 3).map(t => `<div>· ${esc(t)}</div>`).join("")}</div>` : ""}</div>`;
+      ${!short && M.turn?.[key]?.length ? `<div class="turn"><b>${lead === "up" ? "꺾이는 신호" : "돌아서는 신호"}</b>${M.turn[key].slice(0, 3).map(t => `<div>· ${esc(t)}</div>`).join("")}</div>` : ""}</div>`;
   }
   el.style.display = "block";
   el.innerHTML = `<div class="wh2">장 흐름 <span>${esc(M.as_of || "")} 종가 · ${M.computed ? "일봉으로 직접 계산한 이동평균선" : "AI 검색 추정(부정확할 수 있음)"}</span></div>

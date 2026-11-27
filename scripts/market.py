@@ -5,6 +5,7 @@ import yfinance as yf
 
 INDICES = [("나스닥", "^IXIC", "us"), ("S&P500", "^GSPC", "us"), ("코스피", "^KS11", "kr"), ("코스닥", "^KQ11", "kr")]
 EXTRA = {"vix": "^VIX", "usdkrw": "KRW=X", "us10y": "^TNX", "dxy": "DX-Y.NYB"}
+FUTURES = [("S&P500 선물", "ES=F"), ("나스닥 선물", "NQ=F")]
 RATIO = {"breadth": ("RSP", "SPY"), "credit": ("HYG", "IEF"), "semis": ("SOXX", "SPY")}
 _cache = {}
 
@@ -68,6 +69,7 @@ def index_row(name, ticker):
         "gap50": round((close / ma50 - 1) * 100, 2), "gap200": round((close / ma200 - 1) * 100, 2),
         "ma200_rising": ma200 > sma(v, 200, -20), "ma50_over_200": ma50 > ma200,
         "rsi14": round(rsi(v), 1), "dd52": round((close / hi - 1) * 100, 1),
+        "gap20": round((close / sma(v, 20) - 1) * 100, 2), "chg_3d_pct": round(chg(v, 3), 2),
         "chg_1w_pct": round(chg(v, 5), 2), "chg_1d_pct": round(chg(v, 1), 2),
     }
 
@@ -106,13 +108,39 @@ def trend_evidence(r, prefix):
                   "up" if r["ma200_rising"] else "down", "장기 추세의 기울기"))
     out.append(ev(prefix + "cross", f"{r['name']} 50일선 vs 200일선", "골든크로스 구간" if r["ma50_over_200"] else "데드크로스 구간",
                   "up" if r["ma50_over_200"] else "down", "50일선이 200일선 위면 중기 상승 구조"))
-    rv = r["rsi14"]
-    out.append(ev(prefix + "rsi", f"{r['name']} RSI(14)", f"{rv:.0f}",
-                  "up" if rv < 30 else "down" if rv > 70 else "flat",
-                  "30 아래 과매도 = 기술적 반등 근거, 70 위 과열 = 조정 근거"))
-    dd = r["dd52"]
-    out.append(ev(prefix + "dd", f"{r['name']} 52주 고점 대비", f"{dd:+.1f}%",
-                  "down" if dd <= -20 else "flat" if dd <= -10 else "up", "-10% 조정, -20% 이하 약세장 기준"))
+    return out
+
+
+def short_evidence(r, fut=None, vix=None, krw=None):
+    """1~2주 단기 방향: 과매도·과열, 이격, 최근 3일, VIX 꺾임, 지수선물"""
+    out = []
+    if "error" in r:
+        return out
+    rv, dd, g20, c3 = r["rsi14"], r["dd52"], r["gap20"], r["chg_3d_pct"]
+    out.append(ev("rsi", f"{r['name']} RSI(14)", f"{rv:.0f}", "up" if rv < 35 else "down" if rv > 70 else "flat",
+                  "35 아래 과매도 = 반등 근거, 70 위 과열 = 조정 근거"))
+    out.append(ev("dd", f"{r['name']} 52주 고점 대비", f"{dd:+.1f}%", "up" if dd <= -25 else "flat",
+                  "-25% 이하로 낙폭이 과하면 기술적 반등이 잦음"))
+    out.append(ev("g20", f"{r['name']} 20일선 이격", f"{g20:+.1f}%", "up" if g20 <= -7 else "down" if g20 >= 7 else "flat",
+                  "20일선보다 7% 넘게 아래면 단기 반등, 위면 단기 과열"))
+    out.append(ev("c3", f"{r['name']} 최근 3일", f"{c3:+.1f}%", "up" if c3 >= 3 else "down" if c3 <= -3 else "flat",
+                  "단기 흐름이 어느 쪽으로 붙었는지"))
+    if vix and len(vix) > 25:
+        v, avg, top5 = vix[-1], sma(vix, 20), max(vix[-5:])
+        if v >= avg * 1.15 and v <= top5 * 0.9:
+            out.append(ev("vixturn", "VIX 꺾임", f"{v:.1f} (5일 고점 {top5:.1f})", "up", "공포가 정점을 지나 꺾이면 반등이 자주 나옴"))
+        elif v >= avg * 1.15:
+            out.append(ev("vixturn", "VIX 상승 중", f"{v:.1f} (20일 평균 {avg:.1f})", "down", "공포가 아직 커지는 중"))
+        else:
+            out.append(ev("vixturn", "VIX 흐름", f"{v:.1f} (20일 평균 {avg:.1f})", "flat", "공포 급등·꺾임 없음"))
+    fv = [(n, x) for n, x in (fut or []) if x is not None]
+    if fv:  # 두 선물은 하나의 근거로 묶음 (중복 가중 방지)
+        avg = sum(x for _, x in fv) / len(fv)
+        out.append(ev("fut", "미국 지수선물 (전일 대비)", " · ".join(f"{n.replace(' 선물', '')} {x:+.2f}%" for n, x in fv),
+                      "up" if avg >= 0.6 else "down" if avg <= -0.6 else "flat", "미국 휴장·장전에도 거래돼 밤사이 분위기를 보여줌"))
+    if krw and len(krw) > 4:
+        d = chg(krw, 3)
+        out.append(ev("krw3", "원달러 최근 3일", f"{d:+.1f}%", "up" if d <= -1 else "down" if d >= 1 else "flat", "원화 강세 전환은 외국인 복귀 신호"))
     return out
 
 
@@ -154,7 +182,7 @@ def main():
         us += trend_evidence(by.get(n, {"error": 1}), "us_" + ("ndx_" if n == "나스닥" else "spx_"))
     # S&P500은 추세·200일선 방향만 남겨 중복을 줄임
     us = [e for e in us if not (e["k"].startswith("us_spx_") and e["k"][7:] in ("cross", "rsi", "dd"))]
-    us += common
+    us += [e for e in common if e["k"] != "vix"]
     if br is not None:
         us.append(ev("breadth", "시장 폭 (동일가중 vs 시총가중, 20일)", f"{br:+.1f}%",
                      "up" if br > 0.5 else "down" if br < -1 else "flat", "+면 많은 종목이 함께 오름, -면 소수 대형주만 버팀"))
@@ -179,7 +207,15 @@ def main():
     if se is not None:
         kr.append(ev("semis", "반도체 업종 강도 (SOXX vs S&P, 20일)", f"{se:+.1f}%",
                      "up" if se > 1 else "down" if se < -1 else "flat", "코스피는 반도체 비중이 커서 영향이 큼"))
-    kr += [e for e in common if e["k"] == "vix"]
+    fut = []
+    for name, t in FUTURES:
+        fv = vals(t)
+        fut.append((name, chg(fv, 1) if len(fv) > 2 else None))
+        if fv:
+            out.setdefault("futures", []).append({"name": name, "last": round(fv[-1], 2), "chg_pct": round(chg(fv, 1), 2) if len(fv) > 2 else None,
+                                                  "date": closes(t)[-1][0]})
+    us_short = short_evidence(by.get("나스닥", {"error": 1}), fut, vix)
+    kr_short = short_evidence(by.get("코스피", {"error": 1}), fut, vix, krw)
 
     def tally(lst):
         u = sum(e["signal"] == "up" for e in lst); d = sum(e["signal"] == "down" for e in lst); f = len(lst) - u - d
@@ -201,12 +237,14 @@ def main():
 
     out["evidence"] = {"us": us, "kr": kr}
     out["tally"] = {"us": tally(us), "kr": tally(kr)}
+    out["short"] = {"us": us_short, "kr": kr_short}
+    out["tally_short"] = {"us": tally(us_short), "kr": tally(kr_short)}
     vix_turn = ["VIX 20 아래로 안정"] if vix and vix[-1] >= 20 else ["VIX 25 위로 급등 시 경계"]
     out["turn"] = {"us": turn(["나스닥", "S&P500"], vix_turn), "kr": turn(["코스피"], ["원달러 환율 안정", "미국 시장 상승 전환"])}
 
     with open("market.json", "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
-    print(json.dumps({k: out[k] for k in ("regime_us", "regime_kr", "tally", "turn")}, ensure_ascii=False))
+    print(json.dumps({k: out.get(k) for k in ("regime_us", "regime_kr", "tally", "tally_short", "futures")}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

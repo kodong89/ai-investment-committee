@@ -4,6 +4,7 @@ on:
     - cron: "17 7 * * 1-5"    # 한국 장 마감 후 (KST 16:17)
     - cron: "43 21 * * 1-5"   # 미국 장 마감 후 (KST 06:43)
     - cron: "11 1 * * 1-5"    # 한국 장중 (KST 10:11)
+    - cron: "3 23 * * 0-4"    # 한국 장 시작 전 (KST 08:03) · 밤사이 미국 선물 반영
   workflow_dispatch:
   push:
     paths: ["scripts/market.py", ".github/workflows/market.yml"]
