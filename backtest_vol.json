@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-28T14:21:42Z",
+ "updated": "2026-11-28T14:30:50Z",
  "period": "2023-11-29 ~ 2026-11-27",
  "rules": {
   "진입": "신호가 난 다음 날 시가 (라쉬키는 신호 봉 고가 돌파 시)",
@@ -180,6 +180,1327 @@
  ],
  "strategies": [
   {
+   "trades": 156,
+   "win_rate": 44.9,
+   "avg_win_r": 2.42,
+   "avg_loss_r": -0.82,
+   "expectancy_r": 0.631,
+   "profit_factor": 2.39,
+   "avg_days": 16.9,
+   "total_r": 98.5,
+   "equity_ret_pct": 154.4,
+   "mdd_pct": -8.9,
+   "best_r": 20.51,
+   "worst_r": -1.7,
+   "per_year": {
+    "2023": 11,
+    "2024": 66,
+    "2025": 55,
+    "2026": 24
+   },
+   "max_open": 14,
+   "over4_pct": 42.5,
+   "pf_1": {
+    "ret_pct": 89.7,
+    "cagr_pct": 23.9,
+    "mdd_pct": -6.6,
+    "taken": 97,
+    "skipped": 59,
+    "avg_invested_pct": 39
+   },
+   "pf_2": {
+    "ret_pct": 197.7,
+    "cagr_pct": 44.0,
+    "mdd_pct": -12.8,
+    "taken": 97,
+    "skipped": 59,
+    "avg_invested_pct": 73
+   },
+   "key": "vol_15",
+   "name": "조합 · 거래량 1.5배",
+   "desc": "[거래량 비교] 200일선 위 + 돌파 + 20일 평균의 1.5배 이상",
+   "us": {
+    "trades": 107,
+    "win_rate": 44.9,
+    "avg_win_r": 2.48,
+    "avg_loss_r": -0.8,
+    "expectancy_r": 0.673,
+    "profit_factor": 2.53,
+    "avg_days": 17.8,
+    "total_r": 72.0,
+    "equity_ret_pct": 97.9,
+    "mdd_pct": -7.1,
+    "best_r": 20.51,
+    "worst_r": -1.55,
+    "per_year": {
+     "2023": 8,
+     "2024": 46,
+     "2025": 37,
+     "2026": 16
+    },
+    "max_open": 10,
+    "over4_pct": 33.3,
+    "pf_1": {
+     "ret_pct": 86.8,
+     "cagr_pct": 24.2,
+     "mdd_pct": -4.8,
+     "taken": 72,
+     "skipped": 35,
+     "avg_invested_pct": 38
+    },
+    "pf_2": {
+     "ret_pct": 182.6,
+     "cagr_pct": 43.5,
+     "mdd_pct": -9.4,
+     "taken": 72,
+     "skipped": 35,
+     "avg_invested_pct": 70
+    }
+   },
+   "kr": {
+    "trades": 49,
+    "win_rate": 44.9,
+    "avg_win_r": 2.29,
+    "avg_loss_r": -0.89,
+    "expectancy_r": 0.541,
+    "profit_factor": 2.11,
+    "avg_days": 15.2,
+    "total_r": 26.5,
+    "equity_ret_pct": 28.5,
+    "mdd_pct": -7.5,
+    "best_r": 11.23,
+    "worst_r": -1.7,
+    "per_year": {
+     "2023": 3,
+     "2024": 20,
+     "2025": 18,
+     "2026": 8
+    },
+    "max_open": 4,
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 26.7,
+     "cagr_pct": 8.3,
+     "mdd_pct": -7.4,
+     "taken": 49,
+     "skipped": 0,
+     "avg_invested_pct": 26
+    },
+    "pf_2": {
+     "ret_pct": 53.0,
+     "cagr_pct": 15.3,
+     "mdd_pct": -14.4,
+     "taken": 49,
+     "skipped": 0,
+     "avg_invested_pct": 51
+    }
+   },
+   "hot": {
+    "trades": 139,
+    "win_rate": 47.5,
+    "avg_win_r": 2.48,
+    "avg_loss_r": -0.82,
+    "expectancy_r": 0.746,
+    "profit_factor": 2.73,
+    "avg_days": 17.7,
+    "total_r": 103.6,
+    "equity_ret_pct": 168.0,
+    "mdd_pct": -7.0,
+    "best_r": 20.51,
+    "worst_r": -1.7,
+    "per_year": {
+     "2023": 10,
+     "2024": 63,
+     "2025": 47,
+     "2026": 19
+    },
+    "max_open": 14,
+    "over4_pct": 42.4,
+    "pf_1": {
+     "ret_pct": 110.6,
+     "cagr_pct": 28.3,
+     "mdd_pct": -4.7,
+     "taken": 89,
+     "skipped": 50,
+     "avg_invested_pct": 40
+    },
+    "pf_2": {
+     "ret_pct": 263.9,
+     "cagr_pct": 54.0,
+     "mdd_pct": -9.2,
+     "taken": 89,
+     "skipped": 50,
+     "avg_invested_pct": 74
+    }
+   },
+   "faded": {
+    "trades": 17,
+    "win_rate": 23.5,
+    "avg_win_r": 1.43,
+    "avg_loss_r": -0.84,
+    "expectancy_r": -0.302,
+    "profit_factor": 0.53,
+    "avg_days": 10.9,
+    "total_r": -5.1,
+    "equity_ret_pct": -5.1,
+    "mdd_pct": -5.1,
+    "best_r": 1.65,
+    "worst_r": -1.02,
+    "per_year": {
+     "2023": 1,
+     "2024": 3,
+     "2025": 8,
+     "2026": 5
+    },
+    "max_open": 3,
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": -5.1,
+     "cagr_pct": -1.8,
+     "mdd_pct": -5.1,
+     "taken": 17,
+     "skipped": 0,
+     "avg_invested_pct": 19
+    },
+    "pf_2": {
+     "ret_pct": -9.5,
+     "cagr_pct": -3.5,
+     "mdd_pct": -9.5,
+     "taken": 17,
+     "skipped": 0,
+     "avg_invested_pct": 37
+    }
+   },
+   "by_symbol": {
+    "AMD": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "avg_win_r": 1.84,
+     "avg_loss_r": -0.64,
+     "expectancy_r": 1.016,
+     "profit_factor": 5.78,
+     "avg_days": 19.8,
+     "total_r": 6.1,
+     "equity_ret_pct": 6.2,
+     "mdd_pct": -0.7,
+     "best_r": 3.01,
+     "worst_r": -0.7,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.2,
+      "cagr_pct": 2.4,
+      "mdd_pct": -0.7,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 12.6,
+      "cagr_pct": 4.9,
+      "mdd_pct": -1.4,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "ANET": {
+     "trades": 6,
+     "win_rate": 16.7,
+     "avg_win_r": 1.12,
+     "avg_loss_r": -1.12,
+     "expectancy_r": -0.749,
+     "profit_factor": 0.2,
+     "avg_days": 10.2,
+     "total_r": -4.5,
+     "equity_ret_pct": -4.4,
+     "mdd_pct": -4.4,
+     "best_r": 1.12,
+     "worst_r": -1.3,
+     "per_year": {
+      "2024": 2,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -4.4,
+      "cagr_pct": -1.8,
+      "mdd_pct": -4.4,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -8.1,
+      "cagr_pct": -3.3,
+      "mdd_pct": -8.2,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "APP": {
+     "trades": 7,
+     "win_rate": 42.9,
+     "avg_win_r": 9.83,
+     "avg_loss_r": -0.98,
+     "expectancy_r": 3.652,
+     "profit_factor": 7.49,
+     "avg_days": 25.4,
+     "total_r": 25.6,
+     "equity_ret_pct": 26.5,
+     "mdd_pct": -1.0,
+     "best_r": 20.51,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 4,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 26.5,
+      "cagr_pct": 10.8,
+      "mdd_pct": -1.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 54.7,
+      "cagr_pct": 21.0,
+      "mdd_pct": -2.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "AVGO": {
+     "trades": 7,
+     "win_rate": 42.9,
+     "avg_win_r": 1.59,
+     "avg_loss_r": -0.71,
+     "expectancy_r": 0.278,
+     "profit_factor": 1.69,
+     "avg_days": 16.9,
+     "total_r": 1.9,
+     "equity_ret_pct": 1.9,
+     "mdd_pct": -2.8,
+     "best_r": 1.86,
+     "worst_r": -1.32,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.9,
+      "cagr_pct": 0.8,
+      "mdd_pct": -2.8,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": 2.4,
+      "cagr_pct": 1.0,
+      "mdd_pct": -5.6,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "AXON": {
+     "trades": 9,
+     "win_rate": 55.6,
+     "avg_win_r": 2.2,
+     "avg_loss_r": -0.8,
+     "expectancy_r": 0.869,
+     "profit_factor": 3.45,
+     "avg_days": 19.4,
+     "total_r": 7.8,
+     "equity_ret_pct": 7.9,
+     "mdd_pct": -1.2,
+     "best_r": 4.72,
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 1,
+      "2024": 5,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.9,
+      "cagr_pct": 4.6,
+      "mdd_pct": -1.2,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": 10.9,
+      "cagr_pct": 6.3,
+      "mdd_pct": -2.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
+    },
+    "CELH": {
+     "trades": 2,
+     "win_rate": 50.0,
+     "avg_win_r": 1.54,
+     "avg_loss_r": -0.3,
+     "expectancy_r": 0.616,
+     "profit_factor": 5.05,
+     "avg_days": 18.0,
+     "total_r": 1.2,
+     "equity_ret_pct": 1.2,
+     "mdd_pct": -0.3,
+     "best_r": 1.54,
+     "worst_r": -0.3,
+     "per_year": {
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.2,
+      "cagr_pct": 6.1,
+      "mdd_pct": -0.3,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 2.4,
+      "cagr_pct": 12.5,
+      "mdd_pct": -0.6,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "COIN": {
+     "trades": 3,
+     "win_rate": 100.0,
+     "avg_win_r": 2.11,
+     "avg_loss_r": 0,
+     "expectancy_r": 2.106,
+     "profit_factor": null,
+     "avg_days": 28.0,
+     "total_r": 6.3,
+     "equity_ret_pct": 6.5,
+     "mdd_pct": 0.0,
+     "best_r": 2.38,
+     "worst_r": 1.86,
+     "per_year": {
+      "2024": 2,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.5,
+      "cagr_pct": 4.5,
+      "mdd_pct": 0.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 13.2,
+      "cagr_pct": 9.1,
+      "mdd_pct": 0.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "CRWD": {
+     "trades": 8,
+     "win_rate": 75.0,
+     "avg_win_r": 1.15,
+     "avg_loss_r": -0.78,
+     "expectancy_r": 0.666,
+     "profit_factor": 4.42,
+     "avg_days": 17.9,
+     "total_r": 5.3,
+     "equity_ret_pct": 5.4,
+     "mdd_pct": -1.0,
+     "best_r": 2.84,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 1,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.4,
+      "cagr_pct": 1.8,
+      "mdd_pct": -1.0,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 10.3,
+      "cagr_pct": 3.5,
+      "mdd_pct": -2.0,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    },
+    "ENPH": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -1.012,
+     "profit_factor": 0.0,
+     "avg_days": 6.0,
+     "total_r": -1.0,
+     "equity_ret_pct": -1.0,
+     "mdd_pct": -1.0,
+     "best_r": -1.01,
+     "worst_r": -1.01,
+     "per_year": {
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -9.7,
+      "mdd_pct": -1.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.5,
+      "mdd_pct": -2.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "HD현대일렉트릭": {
+     "trades": 8,
+     "win_rate": 37.5,
+     "avg_win_r": 3.49,
+     "avg_loss_r": -0.75,
+     "expectancy_r": 0.841,
+     "profit_factor": 2.8,
+     "avg_days": 15.6,
+     "total_r": 6.7,
+     "equity_ret_pct": 6.6,
+     "mdd_pct": -3.7,
+     "best_r": 8.04,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 5,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.6,
+      "cagr_pct": 3.0,
+      "mdd_pct": -3.7,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 12.9,
+      "cagr_pct": 5.8,
+      "mdd_pct": -7.3,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "HOOD": {
+     "trades": 9,
+     "win_rate": 55.6,
+     "avg_win_r": 1.57,
+     "avg_loss_r": -0.96,
+     "expectancy_r": 0.443,
+     "profit_factor": 2.04,
+     "avg_days": 17.8,
+     "total_r": 4.0,
+     "equity_ret_pct": 4.0,
+     "mdd_pct": -3.7,
+     "best_r": 2.71,
+     "worst_r": -1.55,
+     "per_year": {
+      "2023": 1,
+      "2024": 5,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.0,
+      "cagr_pct": 1.4,
+      "mdd_pct": -3.7,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 7.9,
+      "cagr_pct": 2.8,
+      "mdd_pct": -7.3,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "MU": {
+     "trades": 5,
+     "win_rate": 60.0,
+     "avg_win_r": 3.12,
+     "avg_loss_r": -0.56,
+     "expectancy_r": 1.646,
+     "profit_factor": 8.34,
+     "avg_days": 22.6,
+     "total_r": 8.2,
+     "equity_ret_pct": 8.3,
+     "mdd_pct": -1.0,
+     "best_r": 6.34,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 8.3,
+      "cagr_pct": 4.2,
+      "mdd_pct": -1.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 16.2,
+      "cagr_pct": 8.0,
+      "mdd_pct": -2.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "NET": {
+     "trades": 4,
+     "win_rate": 25.0,
+     "avg_win_r": 1.55,
+     "avg_loss_r": -1.02,
+     "expectancy_r": -0.375,
+     "profit_factor": 0.51,
+     "avg_days": 13.2,
+     "total_r": -1.5,
+     "equity_ret_pct": -1.5,
+     "mdd_pct": -3.0,
+     "best_r": 1.55,
+     "worst_r": -1.43,
+     "per_year": {
+      "2024": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.5,
+      "cagr_pct": -0.6,
+      "mdd_pct": -3.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -3.0,
+      "cagr_pct": -1.2,
+      "mdd_pct": -5.9,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "NVDA": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "avg_win_r": 4.97,
+     "avg_loss_r": -0.62,
+     "expectancy_r": 3.11,
+     "profit_factor": 16.15,
+     "avg_days": 41.7,
+     "total_r": 9.3,
+     "equity_ret_pct": 9.5,
+     "mdd_pct": -0.6,
+     "best_r": 7.08,
+     "worst_r": -0.62,
+     "per_year": {
+      "2024": 1,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 9.5,
+      "cagr_pct": 3.4,
+      "mdd_pct": -0.6,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 16.1,
+      "cagr_pct": 5.8,
+      "mdd_pct": -1.2,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
+    },
+    "PLTR": {
+     "trades": 8,
+     "win_rate": 37.5,
+     "avg_win_r": 1.86,
+     "avg_loss_r": -0.9,
+     "expectancy_r": 0.134,
+     "profit_factor": 1.24,
+     "avg_days": 15.2,
+     "total_r": 1.1,
+     "equity_ret_pct": 1.0,
+     "mdd_pct": -2.8,
+     "best_r": 3.03,
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 6,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.0,
+      "cagr_pct": 0.4,
+      "mdd_pct": -2.8,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 1.9,
+      "cagr_pct": 0.7,
+      "mdd_pct": -5.5,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    },
+    "SHOP": {
+     "trades": 7,
+     "win_rate": 14.3,
+     "avg_win_r": 0.18,
+     "avg_loss_r": -0.6,
+     "expectancy_r": -0.485,
+     "profit_factor": 0.05,
+     "avg_days": 13.0,
+     "total_r": -3.4,
+     "equity_ret_pct": -3.4,
+     "mdd_pct": -3.4,
+     "best_r": 0.18,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 2,
+      "2025": 4,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.4,
+      "cagr_pct": -1.3,
+      "mdd_pct": -3.4,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -6.6,
+      "cagr_pct": -2.6,
+      "mdd_pct": -6.6,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "SK하이닉스": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "avg_win_r": 1.85,
+     "avg_loss_r": -0.54,
+     "expectancy_r": 1.053,
+     "profit_factor": 6.83,
+     "avg_days": 20.0,
+     "total_r": 6.3,
+     "equity_ret_pct": 6.4,
+     "mdd_pct": -1.1,
+     "best_r": 2.52,
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.4,
+      "cagr_pct": 3.3,
+      "mdd_pct": -1.1,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 12.7,
+      "cagr_pct": 6.4,
+      "mdd_pct": -1.7,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
+    },
+    "SMCI": {
+     "trades": 3,
+     "win_rate": 33.3,
+     "avg_win_r": 0.99,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -0.345,
+     "profit_factor": 0.49,
+     "avg_days": 11.3,
+     "total_r": -1.0,
+     "equity_ret_pct": -1.0,
+     "mdd_pct": -2.0,
+     "best_r": 0.99,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -0.6,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.1,
+      "cagr_pct": -1.3,
+      "mdd_pct": -4.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "SNOW": {
+     "trades": 7,
+     "win_rate": 28.6,
+     "avg_win_r": 1.61,
+     "avg_loss_r": -0.83,
+     "expectancy_r": -0.132,
+     "profit_factor": 0.78,
+     "avg_days": 11.1,
+     "total_r": -0.9,
+     "equity_ret_pct": -1.0,
+     "mdd_pct": -2.0,
+     "best_r": 1.65,
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 2,
+      "2025": 2,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -0.4,
+      "mdd_pct": -2.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -1.3,
+      "cagr_pct": -0.5,
+      "mdd_pct": -4.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "TSLA": {
+     "trades": 3,
+     "win_rate": 33.3,
+     "avg_win_r": 3.47,
+     "avg_loss_r": -1.01,
+     "expectancy_r": 0.483,
+     "profit_factor": 1.72,
+     "avg_days": 14.3,
+     "total_r": 1.5,
+     "equity_ret_pct": 1.4,
+     "mdd_pct": -2.0,
+     "best_r": 3.47,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.4,
+      "cagr_pct": 4.4,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 2.7,
+      "cagr_pct": 8.6,
+      "mdd_pct": -4.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "UBER": {
+     "trades": 6,
+     "win_rate": 16.7,
+     "avg_win_r": 0.13,
+     "avg_loss_r": -0.39,
+     "expectancy_r": -0.307,
+     "profit_factor": 0.06,
+     "avg_days": 11.5,
+     "total_r": -1.8,
+     "equity_ret_pct": -1.8,
+     "mdd_pct": -2.0,
+     "best_r": 0.13,
+     "worst_r": -0.57,
+     "per_year": {
+      "2024": 1,
+      "2025": 5
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.8,
+      "cagr_pct": -1.1,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -3.6,
+      "cagr_pct": -2.1,
+      "mdd_pct": -3.8,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "VST": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "avg_win_r": 4.06,
+     "avg_loss_r": -0.31,
+     "expectancy_r": 2.605,
+     "profit_factor": 26.37,
+     "avg_days": 30.7,
+     "total_r": 7.8,
+     "equity_ret_pct": 7.8,
+     "mdd_pct": -0.3,
+     "best_r": 7.55,
+     "worst_r": -0.31,
+     "per_year": {
+      "2023": 1,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.8,
+      "cagr_pct": 4.5,
+      "mdd_pct": -0.3,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 10.0,
+      "cagr_pct": 5.8,
+      "mdd_pct": -0.6,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "삼양식품": {
+     "trades": 9,
+     "win_rate": 55.6,
+     "avg_win_r": 3.2,
+     "avg_loss_r": -0.99,
+     "expectancy_r": 1.338,
+     "profit_factor": 4.05,
+     "avg_days": 17.6,
+     "total_r": 12.0,
+     "equity_ret_pct": 12.1,
+     "mdd_pct": -1.5,
+     "best_r": 11.23,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 3,
+      "2025": 4,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 12.1,
+      "cagr_pct": 4.0,
+      "mdd_pct": -1.5,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 24.1,
+      "cagr_pct": 7.7,
+      "mdd_pct": -3.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "알테오젠": {
+     "trades": 7,
+     "win_rate": 42.9,
+     "avg_win_r": 0.53,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -0.352,
+     "profit_factor": 0.39,
+     "avg_days": 11.3,
+     "total_r": -2.5,
+     "equity_ret_pct": -2.5,
+     "mdd_pct": -2.7,
+     "best_r": 1.16,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.5,
+      "cagr_pct": -1.4,
+      "mdd_pct": -2.7,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.9,
+      "cagr_pct": -2.8,
+      "mdd_pct": -5.3,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "에코프로": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -1.012,
+     "profit_factor": 0.0,
+     "avg_days": 3.5,
+     "total_r": -2.0,
+     "equity_ret_pct": -2.0,
+     "mdd_pct": -2.0,
+     "best_r": -1.01,
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.0,
+      "cagr_pct": -15.2,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.0,
+      "cagr_pct": -28.3,
+      "mdd_pct": -4.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "에코프로비엠": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -0.69,
+     "expectancy_r": -0.688,
+     "profit_factor": 0.0,
+     "avg_days": 12.5,
+     "total_r": -1.4,
+     "equity_ret_pct": -1.4,
+     "mdd_pct": -1.4,
+     "best_r": -0.36,
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.4,
+      "cagr_pct": -3.7,
+      "mdd_pct": -1.4,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.7,
+      "cagr_pct": -7.3,
+      "mdd_pct": -2.7,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "한미반도체": {
+     "trades": 8,
+     "win_rate": 50.0,
+     "avg_win_r": 2.69,
+     "avg_loss_r": -1.06,
+     "expectancy_r": 0.815,
+     "profit_factor": 2.53,
+     "avg_days": 15.2,
+     "total_r": 6.5,
+     "equity_ret_pct": 6.5,
+     "mdd_pct": -3.2,
+     "best_r": 3.84,
+     "worst_r": -1.7,
+     "per_year": {
+      "2024": 3,
+      "2025": 2,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.5,
+      "cagr_pct": 2.9,
+      "mdd_pct": -3.2,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 13.1,
+      "cagr_pct": 5.7,
+      "mdd_pct": -6.4,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "한화에어로스페이스": {
+     "trades": 7,
+     "win_rate": 42.9,
+     "avg_win_r": 1.4,
+     "avg_loss_r": -0.87,
+     "expectancy_r": 0.107,
+     "profit_factor": 1.22,
+     "avg_days": 15.4,
+     "total_r": 0.7,
+     "equity_ret_pct": 0.7,
+     "mdd_pct": -2.4,
+     "best_r": 3.76,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.7,
+      "cagr_pct": 0.3,
+      "mdd_pct": -2.4,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 1.2,
+      "cagr_pct": 0.5,
+      "mdd_pct": -4.7,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    }
+   },
+   "recent": [
+    {
+     "sym": "삼양식품",
+     "in": "2026-11-26",
+     "out": "2026-11-27",
+     "r": 0.055,
+     "days": 2,
+     "why": "보유 중(평가)",
+     "ret": 0.44,
+     "stop_pct": 8.0,
+     "market": "kr",
+     "group": "hot"
+    },
+    {
+     "sym": "PLTR",
+     "in": "2026-10-09",
+     "out": "2026-10-16",
+     "r": -1.016,
+     "days": 6,
+     "why": "손절",
+     "ret": -6.37,
+     "stop_pct": 6.27,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "CRWD",
+     "in": "2026-09-15",
+     "out": "2026-10-14",
+     "r": 1.424,
+     "days": 22,
+     "why": "EMA20 이탈",
+     "ret": 11.4,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "SNOW",
+     "in": "2026-10-12",
+     "out": "2026-10-14",
+     "r": -1.013,
+     "days": 3,
+     "why": "손절",
+     "ret": -7.88,
+     "stop_pct": 7.78,
+     "market": "us",
+     "group": "faded"
+    },
+    {
+     "sym": "HOOD",
+     "in": "2026-08-24",
+     "out": "2026-09-15",
+     "r": 0.988,
+     "days": 16,
+     "why": "손절",
+     "ret": 7.9,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "NVDA",
+     "in": "2026-08-28",
+     "out": "2026-09-10",
+     "r": -0.616,
+     "days": 9,
+     "why": "EMA20 이탈",
+     "ret": -3.95,
+     "stop_pct": 6.42,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "SNOW",
+     "in": "2026-09-04",
+     "out": "2026-09-10",
+     "r": -1.012,
+     "days": 4,
+     "why": "손절",
+     "ret": -8.1,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "faded"
+    },
+    {
+     "sym": "CRWD",
+     "in": "2026-08-28",
+     "out": "2026-09-02",
+     "r": -1.012,
+     "days": 4,
+     "why": "손절",
+     "ret": -8.1,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    }
+   ]
+  },
+  {
    "trades": 283,
    "win_rate": 43.8,
    "avg_win_r": 2.29,
@@ -188,7 +1509,7 @@
    "profit_factor": 2.41,
    "avg_days": 15.5,
    "total_r": 166.0,
-   "equity_ret_pct": 387.5,
+   "equity_ret_pct": 387.4,
    "mdd_pct": -10.6,
    "best_r": 20.51,
    "worst_r": -1.7,
@@ -1164,7 +2485,7 @@
      "avg_win_r": 2.53,
      "avg_loss_r": -1.26,
      "expectancy_r": 1.902,
-     "profit_factor": 10.04,
+     "profit_factor": 10.03,
      "avg_days": 27.0,
      "total_r": 11.4,
      "equity_ret_pct": 11.7,
@@ -1520,32 +2841,32 @@
    ]
   },
   {
-   "trades": 218,
-   "win_rate": 45.0,
+   "trades": 217,
+   "win_rate": 45.2,
    "avg_win_r": 2.28,
-   "avg_loss_r": -0.81,
-   "expectancy_r": 0.583,
-   "profit_factor": 2.31,
-   "avg_days": 16.4,
-   "total_r": 127.0,
-   "equity_ret_pct": 235.2,
+   "avg_loss_r": -0.8,
+   "expectancy_r": 0.587,
+   "profit_factor": 2.33,
+   "avg_days": 16.5,
+   "total_r": 127.4,
+   "equity_ret_pct": 236.6,
    "mdd_pct": -7.6,
    "best_r": 20.51,
    "worst_r": -1.7,
    "per_year": {
     "2023": 16,
-    "2024": 80,
+    "2024": 79,
     "2025": 80,
     "2026": 42
    },
    "max_open": 16,
-   "over4_pct": 53.5,
+   "over4_pct": 53.4,
    "pf_1": {
     "ret_pct": 112.4,
     "cagr_pct": 28.6,
     "mdd_pct": -8.5,
     "taken": 114,
-    "skipped": 104,
+    "skipped": 103,
     "avg_invested_pct": 42
    },
    "pf_2": {
@@ -1553,7 +2874,7 @@
     "cagr_pct": 52.5,
     "mdd_pct": -16.2,
     "taken": 114,
-    "skipped": 104,
+    "skipped": 103,
     "avg_invested_pct": 78
    },
    "key": "mine_combo",
@@ -1598,70 +2919,70 @@
     }
    },
    "kr": {
-    "trades": 66,
-    "win_rate": 42.4,
-    "avg_win_r": 2.43,
+    "trades": 65,
+    "win_rate": 43.1,
+    "avg_win_r": 2.41,
     "avg_loss_r": -0.87,
-    "expectancy_r": 0.529,
-    "profit_factor": 2.05,
+    "expectancy_r": 0.543,
+    "profit_factor": 2.1,
     "avg_days": 15.2,
-    "total_r": 34.9,
-    "equity_ret_pct": 39.3,
-    "mdd_pct": -9.1,
+    "total_r": 35.3,
+    "equity_ret_pct": 39.9,
+    "mdd_pct": -8.2,
     "best_r": 11.23,
     "worst_r": -1.7,
     "per_year": {
      "2023": 5,
-     "2024": 22,
+     "2024": 21,
      "2025": 26,
      "2026": 13
     },
     "max_open": 5,
-    "over4_pct": 0.8,
+    "over4_pct": 0.9,
     "pf_1": {
-     "ret_pct": 23.8,
-     "cagr_pct": 7.4,
-     "mdd_pct": -9.2,
-     "taken": 65,
+     "ret_pct": 24.3,
+     "cagr_pct": 7.5,
+     "mdd_pct": -8.2,
+     "taken": 64,
      "skipped": 1,
      "avg_invested_pct": 29
     },
     "pf_2": {
-     "ret_pct": 46.6,
-     "cagr_pct": 13.7,
-     "mdd_pct": -17.6,
-     "taken": 65,
+     "ret_pct": 48.4,
+     "cagr_pct": 14.1,
+     "mdd_pct": -16.0,
+     "taken": 64,
      "skipped": 1,
-     "avg_invested_pct": 56
+     "avg_invested_pct": 55
     }
    },
    "hot": {
-    "trades": 197,
-    "win_rate": 46.7,
-    "avg_win_r": 2.33,
+    "trades": 196,
+    "win_rate": 46.9,
+    "avg_win_r": 2.32,
     "avg_loss_r": -0.81,
-    "expectancy_r": 0.655,
-    "profit_factor": 2.52,
+    "expectancy_r": 0.66,
+    "profit_factor": 2.54,
     "avg_days": 17.0,
-    "total_r": 129.0,
-    "equity_ret_pct": 242.4,
-    "mdd_pct": -7.4,
+    "total_r": 129.4,
+    "equity_ret_pct": 243.8,
+    "mdd_pct": -6.5,
     "best_r": 20.51,
     "worst_r": -1.7,
     "per_year": {
      "2023": 15,
-     "2024": 74,
+     "2024": 73,
      "2025": 71,
      "2026": 37
     },
     "max_open": 14,
-    "over4_pct": 52.9,
+    "over4_pct": 52.7,
     "pf_1": {
      "ret_pct": 122.1,
      "cagr_pct": 30.6,
      "mdd_pct": -5.9,
      "taken": 107,
-     "skipped": 90,
+     "skipped": 89,
      "avg_invested_pct": 42
     },
     "pf_2": {
@@ -1669,7 +2990,7 @@
      "cagr_pct": 57.1,
      "mdd_pct": -11.6,
      "taken": 107,
-     "skipped": 90,
+     "skipped": 89,
      "avg_invested_pct": 77
     }
    },
@@ -2309,39 +3630,39 @@
      }
     },
     "SK하이닉스": {
-     "trades": 11,
-     "win_rate": 54.5,
-     "avg_win_r": 1.87,
-     "avg_loss_r": -0.83,
-     "expectancy_r": 0.645,
-     "profit_factor": 2.72,
-     "avg_days": 16.5,
-     "total_r": 7.1,
-     "equity_ret_pct": 7.2,
+     "trades": 10,
+     "win_rate": 60.0,
+     "avg_win_r": 1.77,
+     "avg_loss_r": -0.78,
+     "expectancy_r": 0.748,
+     "profit_factor": 3.4,
+     "avg_days": 17.2,
+     "total_r": 7.5,
+     "equity_ret_pct": 7.6,
      "mdd_pct": -2.1,
-     "best_r": 3.15,
+     "best_r": 2.52,
      "worst_r": -1.02,
      "per_year": {
       "2023": 2,
-      "2024": 5,
+      "2024": 4,
       "2025": 2,
       "2026": 2
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 7.2,
-      "cagr_pct": 2.7,
+      "ret_pct": 7.6,
+      "cagr_pct": 2.9,
       "mdd_pct": -2.1,
-      "taken": 11,
+      "taken": 10,
       "skipped": 0,
       "avg_invested_pct": 16
      },
      "pf_2": {
-      "ret_pct": 14.2,
-      "cagr_pct": 5.3,
+      "ret_pct": 15.7,
+      "cagr_pct": 5.8,
       "mdd_pct": -3.2,
-      "taken": 11,
+      "taken": 10,
       "skipped": 0,
       "avg_invested_pct": 28
      }
@@ -4193,6 +5514,1338 @@
    ]
   },
   {
+   "trades": 221,
+   "win_rate": 44.3,
+   "avg_win_r": 2.28,
+   "avg_loss_r": -0.81,
+   "expectancy_r": 0.561,
+   "profit_factor": 2.25,
+   "avg_days": 16.3,
+   "total_r": 123.9,
+   "equity_ret_pct": 224.9,
+   "mdd_pct": -9.5,
+   "best_r": 20.51,
+   "worst_r": -1.7,
+   "per_year": {
+    "2023": 16,
+    "2024": 79,
+    "2025": 82,
+    "2026": 44
+   },
+   "max_open": 16,
+   "over4_pct": 53.3,
+   "pf_1": {
+    "ret_pct": 108.2,
+    "cagr_pct": 27.8,
+    "mdd_pct": -9.5,
+    "taken": 116,
+    "skipped": 105,
+    "avg_invested_pct": 42
+   },
+   "pf_2": {
+    "ret_pct": 239.5,
+    "cagr_pct": 50.4,
+    "mdd_pct": -17.9,
+    "taken": 116,
+    "skipped": 105,
+    "avg_invested_pct": 78
+   },
+   "key": "mine_brk",
+   "name": "내 매매법 + 돌파 확인",
+   "desc": "[비교] 내 신호 중 신고가 5% 이내·20일 고가 돌파가 겹친 것만",
+   "us": {
+    "trades": 155,
+    "win_rate": 45.2,
+    "avg_win_r": 2.22,
+    "avg_loss_r": -0.78,
+    "expectancy_r": 0.575,
+    "profit_factor": 2.34,
+    "avg_days": 16.8,
+    "total_r": 89.1,
+    "equity_ret_pct": 133.4,
+    "mdd_pct": -9.2,
+    "best_r": 20.51,
+    "worst_r": -1.55,
+    "per_year": {
+     "2023": 11,
+     "2024": 58,
+     "2025": 55,
+     "2026": 31
+    },
+    "max_open": 13,
+    "over4_pct": 43.1,
+    "pf_1": {
+     "ret_pct": 81.4,
+     "cagr_pct": 22.5,
+     "mdd_pct": -8.4,
+     "taken": 95,
+     "skipped": 60,
+     "avg_invested_pct": 40
+    },
+    "pf_2": {
+     "ret_pct": 163.4,
+     "cagr_pct": 39.2,
+     "mdd_pct": -15.6,
+     "taken": 95,
+     "skipped": 60,
+     "avg_invested_pct": 73
+    }
+   },
+   "kr": {
+    "trades": 66,
+    "win_rate": 42.4,
+    "avg_win_r": 2.41,
+    "avg_loss_r": -0.86,
+    "expectancy_r": 0.528,
+    "profit_factor": 2.07,
+    "avg_days": 15.2,
+    "total_r": 34.8,
+    "equity_ret_pct": 39.2,
+    "mdd_pct": -8.2,
+    "best_r": 11.23,
+    "worst_r": -1.7,
+    "per_year": {
+     "2023": 5,
+     "2024": 21,
+     "2025": 27,
+     "2026": 13
+    },
+    "max_open": 5,
+    "over4_pct": 0.9,
+    "pf_1": {
+     "ret_pct": 23.7,
+     "cagr_pct": 7.4,
+     "mdd_pct": -8.2,
+     "taken": 65,
+     "skipped": 1,
+     "avg_invested_pct": 29
+    },
+    "pf_2": {
+     "ret_pct": 47.0,
+     "cagr_pct": 13.7,
+     "mdd_pct": -16.0,
+     "taken": 65,
+     "skipped": 1,
+     "avg_invested_pct": 56
+    }
+   },
+   "hot": {
+    "trades": 197,
+    "win_rate": 46.7,
+    "avg_win_r": 2.32,
+    "avg_loss_r": -0.81,
+    "expectancy_r": 0.652,
+    "profit_factor": 2.51,
+    "avg_days": 17.0,
+    "total_r": 128.4,
+    "equity_ret_pct": 240.4,
+    "mdd_pct": -6.5,
+    "best_r": 20.51,
+    "worst_r": -1.7,
+    "per_year": {
+     "2023": 15,
+     "2024": 73,
+     "2025": 71,
+     "2026": 38
+    },
+    "max_open": 14,
+    "over4_pct": 53.2,
+    "pf_1": {
+     "ret_pct": 122.1,
+     "cagr_pct": 30.6,
+     "mdd_pct": -5.9,
+     "taken": 107,
+     "skipped": 90,
+     "avg_invested_pct": 42
+    },
+    "pf_2": {
+     "ret_pct": 286.7,
+     "cagr_pct": 57.1,
+     "mdd_pct": -11.6,
+     "taken": 107,
+     "skipped": 90,
+     "avg_invested_pct": 77
+    }
+   },
+   "faded": {
+    "trades": 24,
+    "win_rate": 25.0,
+    "avg_win_r": 1.62,
+    "avg_loss_r": -0.79,
+    "expectancy_r": -0.187,
+    "profit_factor": 0.68,
+    "avg_days": 10.7,
+    "total_r": -4.5,
+    "equity_ret_pct": -4.5,
+    "mdd_pct": -5.9,
+    "best_r": 2.99,
+    "worst_r": -1.02,
+    "per_year": {
+     "2023": 1,
+     "2024": 6,
+     "2025": 11,
+     "2026": 6
+    },
+    "max_open": 3,
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": -4.6,
+     "cagr_pct": -1.6,
+     "mdd_pct": -5.9,
+     "taken": 24,
+     "skipped": 0,
+     "avg_invested_pct": 20
+    },
+    "pf_2": {
+     "ret_pct": -8.8,
+     "cagr_pct": -3.2,
+     "mdd_pct": -11.2,
+     "taken": 24,
+     "skipped": 0,
+     "avg_invested_pct": 39
+    }
+   },
+   "by_symbol": {
+    "AMD": {
+     "trades": 9,
+     "win_rate": 66.7,
+     "avg_win_r": 1.43,
+     "avg_loss_r": -0.87,
+     "expectancy_r": 0.666,
+     "profit_factor": 3.3,
+     "avg_days": 17.0,
+     "total_r": 6.0,
+     "equity_ret_pct": 6.1,
+     "mdd_pct": -1.0,
+     "best_r": 3.01,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 3,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.1,
+      "cagr_pct": 2.3,
+      "mdd_pct": -1.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 12.3,
+      "cagr_pct": 4.6,
+      "mdd_pct": -2.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "ANET": {
+     "trades": 10,
+     "win_rate": 40.0,
+     "avg_win_r": 1.81,
+     "avg_loss_r": -0.92,
+     "expectancy_r": 0.172,
+     "profit_factor": 1.31,
+     "avg_days": 15.3,
+     "total_r": 1.7,
+     "equity_ret_pct": 1.6,
+     "mdd_pct": -3.6,
+     "best_r": 3.75,
+     "worst_r": -1.3,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 3,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.6,
+      "cagr_pct": 0.6,
+      "mdd_pct": -3.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 1.6,
+      "cagr_pct": 0.6,
+      "mdd_pct": -7.1,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "APP": {
+     "trades": 7,
+     "win_rate": 42.9,
+     "avg_win_r": 9.83,
+     "avg_loss_r": -0.98,
+     "expectancy_r": 3.652,
+     "profit_factor": 7.49,
+     "avg_days": 25.4,
+     "total_r": 25.6,
+     "equity_ret_pct": 26.5,
+     "mdd_pct": -1.0,
+     "best_r": 20.51,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 4,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 26.5,
+      "cagr_pct": 10.8,
+      "mdd_pct": -1.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 54.7,
+      "cagr_pct": 21.0,
+      "mdd_pct": -2.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "AVGO": {
+     "trades": 9,
+     "win_rate": 55.6,
+     "avg_win_r": 1.7,
+     "avg_loss_r": -0.71,
+     "expectancy_r": 0.628,
+     "profit_factor": 3.0,
+     "avg_days": 20.6,
+     "total_r": 5.7,
+     "equity_ret_pct": 5.7,
+     "mdd_pct": -2.8,
+     "best_r": 1.87,
+     "worst_r": -1.32,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 4,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.7,
+      "cagr_pct": 2.3,
+      "mdd_pct": -2.8,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 9.4,
+      "cagr_pct": 3.7,
+      "mdd_pct": -5.6,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "AXON": {
+     "trades": 10,
+     "win_rate": 50.0,
+     "avg_win_r": 2.32,
+     "avg_loss_r": -0.73,
+     "expectancy_r": 0.795,
+     "profit_factor": 3.18,
+     "avg_days": 18.7,
+     "total_r": 8.0,
+     "equity_ret_pct": 8.0,
+     "mdd_pct": -1.6,
+     "best_r": 5.3,
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 1,
+      "2024": 6,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 8.0,
+      "cagr_pct": 4.7,
+      "mdd_pct": -1.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": 10.3,
+      "cagr_pct": 6.0,
+      "mdd_pct": -2.3,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
+    },
+    "CELH": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "avg_win_r": 2.26,
+     "avg_loss_r": -0.66,
+     "expectancy_r": 0.803,
+     "profit_factor": 3.44,
+     "avg_days": 17.5,
+     "total_r": 3.2,
+     "equity_ret_pct": 3.2,
+     "mdd_pct": -1.3,
+     "best_r": 2.99,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 1,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.2,
+      "cagr_pct": 2.0,
+      "mdd_pct": -1.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 6.4,
+      "cagr_pct": 4.0,
+      "mdd_pct": -2.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "COIN": {
+     "trades": 4,
+     "win_rate": 75.0,
+     "avg_win_r": 2.11,
+     "avg_loss_r": -1.01,
+     "expectancy_r": 1.327,
+     "profit_factor": 6.24,
+     "avg_days": 22.0,
+     "total_r": 5.3,
+     "equity_ret_pct": 5.4,
+     "mdd_pct": -1.0,
+     "best_r": 2.38,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 2,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.4,
+      "cagr_pct": 2.4,
+      "mdd_pct": -1.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 10.9,
+      "cagr_pct": 4.8,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "CRWD": {
+     "trades": 11,
+     "win_rate": 72.7,
+     "avg_win_r": 1.25,
+     "avg_loss_r": -0.86,
+     "expectancy_r": 0.673,
+     "profit_factor": 3.88,
+     "avg_days": 17.8,
+     "total_r": 7.4,
+     "equity_ret_pct": 7.6,
+     "mdd_pct": -1.5,
+     "best_r": 2.84,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 4,
+      "2025": 3,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.6,
+      "cagr_pct": 2.6,
+      "mdd_pct": -1.5,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 14.2,
+      "cagr_pct": 4.7,
+      "mdd_pct": -3.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "ENPH": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -1.012,
+     "profit_factor": 0.0,
+     "avg_days": 5.5,
+     "total_r": -2.0,
+     "equity_ret_pct": -2.0,
+     "mdd_pct": -2.0,
+     "best_r": -1.01,
+     "worst_r": -1.01,
+     "per_year": {
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.4,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.0,
+      "cagr_pct": -33.6,
+      "mdd_pct": -4.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "HD현대일렉트릭": {
+     "trades": 11,
+     "win_rate": 45.5,
+     "avg_win_r": 3.71,
+     "avg_loss_r": -0.68,
+     "expectancy_r": 1.32,
+     "profit_factor": 4.58,
+     "avg_days": 20.2,
+     "total_r": 14.5,
+     "equity_ret_pct": 15.0,
+     "mdd_pct": -4.0,
+     "best_r": 8.04,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 5,
+      "2025": 4,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 15.0,
+      "cagr_pct": 6.1,
+      "mdd_pct": -4.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 30.8,
+      "cagr_pct": 12.1,
+      "mdd_pct": -7.8,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    },
+    "HOOD": {
+     "trades": 10,
+     "win_rate": 60.0,
+     "avg_win_r": 1.96,
+     "avg_loss_r": -0.96,
+     "expectancy_r": 0.794,
+     "profit_factor": 3.06,
+     "avg_days": 21.3,
+     "total_r": 7.9,
+     "equity_ret_pct": 8.1,
+     "mdd_pct": -3.7,
+     "best_r": 3.95,
+     "worst_r": -1.55,
+     "per_year": {
+      "2023": 1,
+      "2024": 5,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 8.1,
+      "cagr_pct": 2.9,
+      "mdd_pct": -3.7,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 16.4,
+      "cagr_pct": 5.7,
+      "mdd_pct": -7.3,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "MU": {
+     "trades": 11,
+     "win_rate": 54.5,
+     "avg_win_r": 2.23,
+     "avg_loss_r": -0.83,
+     "expectancy_r": 0.836,
+     "profit_factor": 3.21,
+     "avg_days": 16.5,
+     "total_r": 9.2,
+     "equity_ret_pct": 9.3,
+     "mdd_pct": -3.0,
+     "best_r": 6.34,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 3,
+      "2026": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 9.3,
+      "cagr_pct": 3.6,
+      "mdd_pct": -3.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 18.2,
+      "cagr_pct": 6.8,
+      "mdd_pct": -6.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "NET": {
+     "trades": 9,
+     "win_rate": 44.4,
+     "avg_win_r": 1.16,
+     "avg_loss_r": -0.93,
+     "expectancy_r": -0.005,
+     "profit_factor": 0.99,
+     "avg_days": 14.3,
+     "total_r": -0.0,
+     "equity_ret_pct": -0.1,
+     "mdd_pct": -4.6,
+     "best_r": 2.95,
+     "worst_r": -1.43,
+     "per_year": {
+      "2023": 1,
+      "2024": 4,
+      "2025": 2,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.1,
+      "cagr_pct": -0.0,
+      "mdd_pct": -4.6,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -0.3,
+      "cagr_pct": -0.1,
+      "mdd_pct": -9.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "NVDA": {
+     "trades": 8,
+     "win_rate": 37.5,
+     "avg_win_r": 3.7,
+     "avg_loss_r": -0.67,
+     "expectancy_r": 0.965,
+     "profit_factor": 3.29,
+     "avg_days": 21.4,
+     "total_r": 7.7,
+     "equity_ret_pct": 7.7,
+     "mdd_pct": -2.3,
+     "best_r": 7.08,
+     "worst_r": -1.12,
+     "per_year": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 5
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.7,
+      "cagr_pct": 2.7,
+      "mdd_pct": -2.3,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 13.2,
+      "cagr_pct": 4.6,
+      "mdd_pct": -3.9,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
+    },
+    "PLTR": {
+     "trades": 10,
+     "win_rate": 30.0,
+     "avg_win_r": 1.86,
+     "avg_loss_r": -0.92,
+     "expectancy_r": -0.083,
+     "profit_factor": 0.87,
+     "avg_days": 14.9,
+     "total_r": -0.8,
+     "equity_ret_pct": -0.9,
+     "mdd_pct": -3.6,
+     "best_r": 3.03,
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 6,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.9,
+      "cagr_pct": -0.4,
+      "mdd_pct": -3.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -1.8,
+      "cagr_pct": -0.7,
+      "mdd_pct": -6.9,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    },
+    "SHOP": {
+     "trades": 9,
+     "win_rate": 22.2,
+     "avg_win_r": 1.97,
+     "avg_loss_r": -0.62,
+     "expectancy_r": -0.047,
+     "profit_factor": 0.9,
+     "avg_days": 14.4,
+     "total_r": -0.4,
+     "equity_ret_pct": -0.5,
+     "mdd_pct": -2.7,
+     "best_r": 3.75,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 4,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.5,
+      "cagr_pct": -0.2,
+      "mdd_pct": -2.7,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -2.8,
+      "cagr_pct": -1.0,
+      "mdd_pct": -5.3,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "SK하이닉스": {
+     "trades": 10,
+     "win_rate": 60.0,
+     "avg_win_r": 1.77,
+     "avg_loss_r": -0.78,
+     "expectancy_r": 0.748,
+     "profit_factor": 3.4,
+     "avg_days": 17.2,
+     "total_r": 7.5,
+     "equity_ret_pct": 7.6,
+     "mdd_pct": -2.1,
+     "best_r": 2.52,
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 2,
+      "2024": 4,
+      "2025": 2,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.6,
+      "cagr_pct": 2.9,
+      "mdd_pct": -2.1,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 15.7,
+      "cagr_pct": 5.8,
+      "mdd_pct": -3.2,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "SMCI": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "avg_win_r": 0.99,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -0.012,
+     "profit_factor": 0.98,
+     "avg_days": 9.8,
+     "total_r": -0.0,
+     "equity_ret_pct": -0.1,
+     "mdd_pct": -2.0,
+     "best_r": 0.99,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.1,
+      "cagr_pct": -0.0,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -0.2,
+      "cagr_pct": -0.1,
+      "mdd_pct": -4.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "SNOW": {
+     "trades": 9,
+     "win_rate": 22.2,
+     "avg_win_r": 1.61,
+     "avg_loss_r": -0.71,
+     "expectancy_r": -0.194,
+     "profit_factor": 0.65,
+     "avg_days": 10.6,
+     "total_r": -1.7,
+     "equity_ret_pct": -1.8,
+     "mdd_pct": -2.0,
+     "best_r": 1.65,
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 3,
+      "2025": 3,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.8,
+      "cagr_pct": -0.7,
+      "mdd_pct": -2.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -3.1,
+      "cagr_pct": -1.1,
+      "mdd_pct": -4.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "TSLA": {
+     "trades": 6,
+     "win_rate": 33.3,
+     "avg_win_r": 2.65,
+     "avg_loss_r": -0.7,
+     "expectancy_r": 0.415,
+     "profit_factor": 1.89,
+     "avg_days": 13.5,
+     "total_r": 2.5,
+     "equity_ret_pct": 2.4,
+     "mdd_pct": -2.0,
+     "best_r": 3.47,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 3,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.4,
+      "cagr_pct": 1.1,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 4.7,
+      "cagr_pct": 2.2,
+      "mdd_pct": -4.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "UBER": {
+     "trades": 9,
+     "win_rate": 11.1,
+     "avg_win_r": 0.13,
+     "avg_loss_r": -0.43,
+     "expectancy_r": -0.369,
+     "profit_factor": 0.04,
+     "avg_days": 9.8,
+     "total_r": -3.3,
+     "equity_ret_pct": -3.3,
+     "mdd_pct": -3.4,
+     "best_r": 0.13,
+     "worst_r": -0.75,
+     "per_year": {
+      "2024": 2,
+      "2025": 7
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.3,
+      "cagr_pct": -1.9,
+      "mdd_pct": -3.4,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -6.1,
+      "cagr_pct": -3.6,
+      "mdd_pct": -6.3,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
+    },
+    "VST": {
+     "trades": 4,
+     "win_rate": 75.0,
+     "avg_win_r": 2.78,
+     "avg_loss_r": -1.01,
+     "expectancy_r": 1.834,
+     "profit_factor": 8.23,
+     "avg_days": 25.0,
+     "total_r": 7.3,
+     "equity_ret_pct": 7.3,
+     "mdd_pct": -1.0,
+     "best_r": 7.55,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.3,
+      "cagr_pct": 4.2,
+      "mdd_pct": -1.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 9.0,
+      "cagr_pct": 5.2,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "삼양식품": {
+     "trades": 11,
+     "win_rate": 54.5,
+     "avg_win_r": 2.83,
+     "avg_loss_r": -0.95,
+     "expectancy_r": 1.113,
+     "profit_factor": 3.59,
+     "avg_days": 16.6,
+     "total_r": 12.2,
+     "equity_ret_pct": 12.3,
+     "mdd_pct": -2.5,
+     "best_r": 11.23,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 5,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 12.3,
+      "cagr_pct": 4.0,
+      "mdd_pct": -2.5,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 24.6,
+      "cagr_pct": 7.8,
+      "mdd_pct": -5.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "알테오젠": {
+     "trades": 9,
+     "win_rate": 33.3,
+     "avg_win_r": 0.53,
+     "avg_loss_r": -0.92,
+     "expectancy_r": -0.435,
+     "profit_factor": 0.29,
+     "avg_days": 10.9,
+     "total_r": -3.9,
+     "equity_ret_pct": -3.9,
+     "mdd_pct": -4.0,
+     "best_r": 1.16,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 5
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.9,
+      "cagr_pct": -2.0,
+      "mdd_pct": -4.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -7.7,
+      "cagr_pct": -4.0,
+      "mdd_pct": -7.8,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "에코프로": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -1.012,
+     "profit_factor": 0.0,
+     "avg_days": 3.5,
+     "total_r": -2.0,
+     "equity_ret_pct": -2.0,
+     "mdd_pct": -2.0,
+     "best_r": -1.01,
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.0,
+      "cagr_pct": -15.2,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.0,
+      "cagr_pct": -28.3,
+      "mdd_pct": -4.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "에코프로비엠": {
+     "trades": 3,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -0.62,
+     "expectancy_r": -0.619,
+     "profit_factor": 0.0,
+     "avg_days": 11.7,
+     "total_r": -1.9,
+     "equity_ret_pct": -1.8,
+     "mdd_pct": -1.8,
+     "best_r": -0.36,
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.8,
+      "cagr_pct": -4.4,
+      "mdd_pct": -1.8,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -3.7,
+      "cagr_pct": -8.7,
+      "mdd_pct": -3.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "한미반도체": {
+     "trades": 8,
+     "win_rate": 50.0,
+     "avg_win_r": 2.69,
+     "avg_loss_r": -1.06,
+     "expectancy_r": 0.815,
+     "profit_factor": 2.53,
+     "avg_days": 15.2,
+     "total_r": 6.5,
+     "equity_ret_pct": 6.5,
+     "mdd_pct": -3.2,
+     "best_r": 3.84,
+     "worst_r": -1.7,
+     "per_year": {
+      "2024": 3,
+      "2025": 2,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.5,
+      "cagr_pct": 2.9,
+      "mdd_pct": -3.2,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 13.1,
+      "cagr_pct": 5.7,
+      "mdd_pct": -6.4,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "한화에어로스페이스": {
+     "trades": 12,
+     "win_rate": 33.3,
+     "avg_win_r": 2.24,
+     "avg_loss_r": -0.89,
+     "expectancy_r": 0.155,
+     "profit_factor": 1.26,
+     "avg_days": 13.5,
+     "total_r": 1.9,
+     "equity_ret_pct": 1.7,
+     "mdd_pct": -4.6,
+     "best_r": 4.75,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 4,
+      "2025": 5,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.7,
+      "cagr_pct": 0.7,
+      "mdd_pct": -4.6,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 2.9,
+      "cagr_pct": 1.2,
+      "mdd_pct": -9.0,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    }
+   },
+   "recent": [
+    {
+     "sym": "삼양식품",
+     "in": "2026-11-26",
+     "out": "2026-11-27",
+     "r": 0.055,
+     "days": 2,
+     "why": "보유 중(평가)",
+     "ret": 0.44,
+     "stop_pct": 8.0,
+     "market": "kr",
+     "group": "hot"
+    },
+    {
+     "sym": "TSLA",
+     "in": "2026-10-27",
+     "out": "2026-11-04",
+     "r": -0.481,
+     "days": 7,
+     "why": "EMA20 이탈",
+     "ret": -3.26,
+     "stop_pct": 6.77,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "PLTR",
+     "in": "2026-10-09",
+     "out": "2026-10-16",
+     "r": -1.016,
+     "days": 6,
+     "why": "손절",
+     "ret": -6.37,
+     "stop_pct": 6.27,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "CRWD",
+     "in": "2026-09-15",
+     "out": "2026-10-14",
+     "r": 1.424,
+     "days": 22,
+     "why": "EMA20 이탈",
+     "ret": 11.4,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "NET",
+     "in": "2026-09-15",
+     "out": "2026-10-14",
+     "r": 0.073,
+     "days": 22,
+     "why": "EMA20 이탈",
+     "ret": 0.59,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "SNOW",
+     "in": "2026-10-12",
+     "out": "2026-10-14",
+     "r": -1.013,
+     "days": 3,
+     "why": "손절",
+     "ret": -7.88,
+     "stop_pct": 7.78,
+     "market": "us",
+     "group": "faded"
+    },
+    {
+     "sym": "ANET",
+     "in": "2026-10-07",
+     "out": "2026-10-13",
+     "r": -0.509,
+     "days": 5,
+     "why": "EMA20 이탈",
+     "ret": -3.31,
+     "stop_pct": 6.5,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "NVDA",
+     "in": "2026-09-29",
+     "out": "2026-10-12",
+     "r": -0.405,
+     "days": 10,
+     "why": "EMA20 이탈",
+     "ret": -2.11,
+     "stop_pct": 5.22,
+     "market": "us",
+     "group": "hot"
+    }
+   ]
+  },
+  {
    "trades": 293,
    "win_rate": 43.3,
    "avg_win_r": 2.26,
@@ -5534,493 +8187,494 @@
    ]
   },
   {
-   "trades": 222,
-   "win_rate": 44.1,
-   "avg_win_r": 2.28,
-   "avg_loss_r": -0.81,
-   "expectancy_r": 0.556,
-   "profit_factor": 2.23,
-   "avg_days": 16.2,
-   "total_r": 123.5,
-   "equity_ret_pct": 223.6,
-   "mdd_pct": -9.5,
+   "trades": 305,
+   "win_rate": 43.6,
+   "avg_win_r": 2.23,
+   "avg_loss_r": -0.75,
+   "expectancy_r": 0.55,
+   "profit_factor": 2.3,
+   "avg_days": 15.4,
+   "total_r": 167.8,
+   "equity_ret_pct": 397.1,
+   "mdd_pct": -12.9,
    "best_r": 20.51,
-   "worst_r": -1.7,
+   "worst_r": -1.76,
    "per_year": {
-    "2023": 16,
-    "2024": 80,
-    "2025": 82,
-    "2026": 44
+    "2023": 19,
+    "2024": 116,
+    "2025": 116,
+    "2026": 54
    },
-   "max_open": 16,
-   "over4_pct": 53.5,
+   "max_open": 19,
+   "over4_pct": 64.7,
    "pf_1": {
-    "ret_pct": 108.2,
-    "cagr_pct": 27.8,
-    "mdd_pct": -9.5,
-    "taken": 116,
-    "skipped": 106,
+    "ret_pct": 127.7,
+    "cagr_pct": 31.7,
+    "mdd_pct": -10.3,
+    "taken": 133,
+    "skipped": 172,
     "avg_invested_pct": 42
    },
    "pf_2": {
-    "ret_pct": 239.5,
-    "cagr_pct": 50.4,
-    "mdd_pct": -17.9,
-    "taken": 116,
-    "skipped": 106,
-    "avg_invested_pct": 78
+    "ret_pct": 313.2,
+    "cagr_pct": 60.7,
+    "mdd_pct": -19.5,
+    "taken": 133,
+    "skipped": 172,
+    "avg_invested_pct": 80
    },
-   "key": "mine_brk",
-   "name": "내 매매법 + 돌파 확인",
-   "desc": "[비교] 내 신호 중 신고가 5% 이내·20일 고가 돌파가 겹친 것만",
+   "key": "vol_0",
+   "name": "조합 · 거래량 조건 없음",
+   "desc": "[거래량 비교] 200일선 위 + 돌파, 거래량 무관",
    "us": {
-    "trades": 155,
-    "win_rate": 45.2,
-    "avg_win_r": 2.22,
-    "avg_loss_r": -0.78,
-    "expectancy_r": 0.575,
-    "profit_factor": 2.34,
-    "avg_days": 16.8,
-    "total_r": 89.1,
-    "equity_ret_pct": 133.4,
-    "mdd_pct": -9.2,
+    "trades": 228,
+    "win_rate": 43.4,
+    "avg_win_r": 2.19,
+    "avg_loss_r": -0.73,
+    "expectancy_r": 0.537,
+    "profit_factor": 2.29,
+    "avg_days": 15.4,
+    "total_r": 122.4,
+    "equity_ret_pct": 221.8,
+    "mdd_pct": -10.1,
     "best_r": 20.51,
-    "worst_r": -1.55,
+    "worst_r": -1.76,
     "per_year": {
-     "2023": 11,
-     "2024": 58,
-     "2025": 55,
-     "2026": 31
+     "2023": 14,
+     "2024": 89,
+     "2025": 87,
+     "2026": 38
     },
-    "max_open": 13,
-    "over4_pct": 43.1,
+    "max_open": 16,
+    "over4_pct": 54.4,
     "pf_1": {
-     "ret_pct": 81.4,
-     "cagr_pct": 22.5,
-     "mdd_pct": -8.4,
-     "taken": 95,
-     "skipped": 60,
-     "avg_invested_pct": 40
+     "ret_pct": 113.4,
+     "cagr_pct": 29.5,
+     "mdd_pct": -10.2,
+     "taken": 115,
+     "skipped": 113,
+     "avg_invested_pct": 42
     },
     "pf_2": {
-     "ret_pct": 163.4,
-     "cagr_pct": 39.2,
-     "mdd_pct": -15.6,
-     "taken": 95,
-     "skipped": 60,
-     "avg_invested_pct": 73
+     "ret_pct": 270.3,
+     "cagr_pct": 56.3,
+     "mdd_pct": -18.6,
+     "taken": 115,
+     "skipped": 113,
+     "avg_invested_pct": 78
     }
    },
    "kr": {
-    "trades": 67,
-    "win_rate": 41.8,
-    "avg_win_r": 2.43,
-    "avg_loss_r": -0.86,
-    "expectancy_r": 0.514,
-    "profit_factor": 2.02,
-    "avg_days": 15.1,
-    "total_r": 34.4,
-    "equity_ret_pct": 38.6,
-    "mdd_pct": -9.1,
+    "trades": 77,
+    "win_rate": 44.2,
+    "avg_win_r": 2.34,
+    "avg_loss_r": -0.79,
+    "expectancy_r": 0.59,
+    "profit_factor": 2.33,
+    "avg_days": 15.3,
+    "total_r": 45.4,
+    "equity_ret_pct": 54.5,
+    "mdd_pct": -6.6,
     "best_r": 11.23,
     "worst_r": -1.7,
     "per_year": {
      "2023": 5,
-     "2024": 22,
-     "2025": 27,
-     "2026": 13
+     "2024": 27,
+     "2025": 29,
+     "2026": 16
     },
     "max_open": 5,
-    "over4_pct": 0.8,
+    "over4_pct": 0.7,
     "pf_1": {
-     "ret_pct": 23.2,
-     "cagr_pct": 7.2,
-     "mdd_pct": -9.2,
-     "taken": 66,
-     "skipped": 1,
-     "avg_invested_pct": 29
+     "ret_pct": 38.4,
+     "cagr_pct": 11.5,
+     "mdd_pct": -6.6,
+     "taken": 75,
+     "skipped": 2,
+     "avg_invested_pct": 31
     },
     "pf_2": {
-     "ret_pct": 45.2,
-     "cagr_pct": 13.3,
-     "mdd_pct": -17.6,
-     "taken": 66,
-     "skipped": 1,
-     "avg_invested_pct": 56
+     "ret_pct": 83.2,
+     "cagr_pct": 22.4,
+     "mdd_pct": -12.9,
+     "taken": 75,
+     "skipped": 2,
+     "avg_invested_pct": 61
     }
    },
    "hot": {
-    "trades": 198,
-    "win_rate": 46.5,
-    "avg_win_r": 2.33,
-    "avg_loss_r": -0.81,
-    "expectancy_r": 0.646,
-    "profit_factor": 2.49,
-    "avg_days": 16.9,
-    "total_r": 128.0,
-    "equity_ret_pct": 239.0,
-    "mdd_pct": -7.4,
+    "trades": 277,
+    "win_rate": 45.8,
+    "avg_win_r": 2.26,
+    "avg_loss_r": -0.75,
+    "expectancy_r": 0.628,
+    "profit_factor": 2.54,
+    "avg_days": 15.9,
+    "total_r": 174.0,
+    "equity_ret_pct": 429.6,
+    "mdd_pct": -8.4,
     "best_r": 20.51,
-    "worst_r": -1.7,
+    "worst_r": -1.76,
     "per_year": {
-     "2023": 15,
-     "2024": 74,
-     "2025": 71,
-     "2026": 38
+     "2023": 18,
+     "2024": 108,
+     "2025": 104,
+     "2026": 47
     },
-    "max_open": 14,
-    "over4_pct": 53.4,
+    "max_open": 16,
+    "over4_pct": 62.4,
     "pf_1": {
-     "ret_pct": 122.1,
-     "cagr_pct": 30.6,
-     "mdd_pct": -5.9,
-     "taken": 107,
-     "skipped": 91,
-     "avg_invested_pct": 42
+     "ret_pct": 134.0,
+     "cagr_pct": 32.9,
+     "mdd_pct": -6.8,
+     "taken": 127,
+     "skipped": 150,
+     "avg_invested_pct": 43
     },
     "pf_2": {
-     "ret_pct": 286.7,
-     "cagr_pct": 57.1,
-     "mdd_pct": -11.6,
-     "taken": 107,
-     "skipped": 91,
-     "avg_invested_pct": 77
+     "ret_pct": 338.1,
+     "cagr_pct": 63.8,
+     "mdd_pct": -13.0,
+     "taken": 127,
+     "skipped": 150,
+     "avg_invested_pct": 80
     }
    },
    "faded": {
-    "trades": 24,
-    "win_rate": 25.0,
+    "trades": 28,
+    "win_rate": 21.4,
     "avg_win_r": 1.62,
-    "avg_loss_r": -0.79,
-    "expectancy_r": -0.187,
-    "profit_factor": 0.68,
-    "avg_days": 10.7,
-    "total_r": -4.5,
-    "equity_ret_pct": -4.5,
-    "mdd_pct": -5.9,
+    "avg_loss_r": -0.72,
+    "expectancy_r": -0.22,
+    "profit_factor": 0.61,
+    "avg_days": 10.2,
+    "total_r": -6.2,
+    "equity_ret_pct": -6.1,
+    "mdd_pct": -7.1,
     "best_r": 2.99,
     "worst_r": -1.02,
     "per_year": {
      "2023": 1,
-     "2024": 6,
-     "2025": 11,
-     "2026": 6
+     "2024": 8,
+     "2025": 12,
+     "2026": 7
     },
     "max_open": 3,
     "over4_pct": 0.0,
     "pf_1": {
-     "ret_pct": -4.6,
-     "cagr_pct": -1.6,
-     "mdd_pct": -5.9,
-     "taken": 24,
+     "ret_pct": -6.2,
+     "cagr_pct": -2.2,
+     "mdd_pct": -7.1,
+     "taken": 28,
      "skipped": 0,
-     "avg_invested_pct": 20
+     "avg_invested_pct": 19
     },
     "pf_2": {
-     "ret_pct": -8.8,
-     "cagr_pct": -3.2,
-     "mdd_pct": -11.2,
-     "taken": 24,
+     "ret_pct": -11.6,
+     "cagr_pct": -4.3,
+     "mdd_pct": -13.4,
+     "taken": 28,
      "skipped": 0,
-     "avg_invested_pct": 39
+     "avg_invested_pct": 37
     }
    },
    "by_symbol": {
     "AMD": {
-     "trades": 9,
-     "win_rate": 66.7,
-     "avg_win_r": 1.43,
-     "avg_loss_r": -0.87,
-     "expectancy_r": 0.666,
-     "profit_factor": 3.3,
-     "avg_days": 17.0,
-     "total_r": 6.0,
-     "equity_ret_pct": 6.1,
-     "mdd_pct": -1.0,
+     "trades": 10,
+     "win_rate": 60.0,
+     "avg_win_r": 1.51,
+     "avg_loss_r": -0.9,
+     "expectancy_r": 0.545,
+     "profit_factor": 2.51,
+     "avg_days": 16.1,
+     "total_r": 5.5,
+     "equity_ret_pct": 5.5,
+     "mdd_pct": -2.0,
      "best_r": 3.01,
      "worst_r": -1.01,
      "per_year": {
       "2023": 1,
       "2024": 3,
       "2025": 3,
-      "2026": 2
+      "2026": 3
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 6.1,
-      "cagr_pct": 2.3,
-      "mdd_pct": -1.0,
-      "taken": 9,
+      "ret_pct": 5.5,
+      "cagr_pct": 2.1,
+      "mdd_pct": -2.0,
+      "taken": 10,
       "skipped": 0,
       "avg_invested_pct": 13
      },
      "pf_2": {
-      "ret_pct": 12.3,
-      "cagr_pct": 4.6,
-      "mdd_pct": -2.0,
-      "taken": 9,
+      "ret_pct": 11.0,
+      "cagr_pct": 4.1,
+      "mdd_pct": -4.0,
+      "taken": 10,
       "skipped": 0,
       "avg_invested_pct": 27
      }
     },
     "ANET": {
-     "trades": 10,
-     "win_rate": 40.0,
-     "avg_win_r": 1.81,
-     "avg_loss_r": -0.92,
-     "expectancy_r": 0.172,
-     "profit_factor": 1.31,
-     "avg_days": 15.3,
-     "total_r": 1.7,
-     "equity_ret_pct": 1.6,
-     "mdd_pct": -3.6,
+     "trades": 15,
+     "win_rate": 53.3,
+     "avg_win_r": 1.62,
+     "avg_loss_r": -0.71,
+     "expectancy_r": 0.53,
+     "profit_factor": 2.59,
+     "avg_days": 17.7,
+     "total_r": 8.0,
+     "equity_ret_pct": 8.1,
+     "mdd_pct": -2.2,
      "best_r": 3.75,
-     "worst_r": -1.3,
+     "worst_r": -1.13,
      "per_year": {
       "2023": 1,
-      "2024": 3,
+      "2024": 8,
       "2025": 3,
       "2026": 3
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 1.6,
-      "cagr_pct": 0.6,
-      "mdd_pct": -3.6,
-      "taken": 10,
+      "ret_pct": 8.1,
+      "cagr_pct": 2.8,
+      "mdd_pct": -2.2,
+      "taken": 15,
       "skipped": 0,
-      "avg_invested_pct": 16
+      "avg_invested_pct": 15
      },
      "pf_2": {
-      "ret_pct": 1.6,
-      "cagr_pct": 0.6,
-      "mdd_pct": -7.1,
-      "taken": 10,
+      "ret_pct": 14.7,
+      "cagr_pct": 4.9,
+      "mdd_pct": -4.3,
+      "taken": 15,
       "skipped": 0,
       "avg_invested_pct": 28
      }
     },
     "APP": {
-     "trades": 7,
-     "win_rate": 42.9,
-     "avg_win_r": 9.83,
-     "avg_loss_r": -0.98,
-     "expectancy_r": 3.652,
-     "profit_factor": 7.49,
-     "avg_days": 25.4,
-     "total_r": 25.6,
-     "equity_ret_pct": 26.5,
-     "mdd_pct": -1.0,
+     "trades": 11,
+     "win_rate": 36.4,
+     "avg_win_r": 7.49,
+     "avg_loss_r": -0.89,
+     "expectancy_r": 2.157,
+     "profit_factor": 4.81,
+     "avg_days": 18.8,
+     "total_r": 23.7,
+     "equity_ret_pct": 24.2,
+     "mdd_pct": -2.0,
      "best_r": 20.51,
      "worst_r": -1.01,
      "per_year": {
-      "2024": 4,
-      "2025": 2,
-      "2026": 1
-     },
-     "max_open": 1,
-     "over4_pct": 0.0,
-     "pf_1": {
-      "ret_pct": 26.5,
-      "cagr_pct": 10.8,
-      "mdd_pct": -1.0,
-      "taken": 7,
-      "skipped": 0,
-      "avg_invested_pct": 13
-     },
-     "pf_2": {
-      "ret_pct": 54.7,
-      "cagr_pct": 21.0,
-      "mdd_pct": -2.0,
-      "taken": 7,
-      "skipped": 0,
-      "avg_invested_pct": 25
-     }
-    },
-    "AVGO": {
-     "trades": 9,
-     "win_rate": 55.6,
-     "avg_win_r": 1.7,
-     "avg_loss_r": -0.71,
-     "expectancy_r": 0.628,
-     "profit_factor": 3.0,
-     "avg_days": 20.6,
-     "total_r": 5.7,
-     "equity_ret_pct": 5.7,
-     "mdd_pct": -2.8,
-     "best_r": 1.87,
-     "worst_r": -1.32,
-     "per_year": {
-      "2023": 1,
-      "2024": 3,
+      "2024": 6,
       "2025": 4,
       "2026": 1
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 5.7,
-      "cagr_pct": 2.3,
-      "mdd_pct": -2.8,
-      "taken": 9,
+      "ret_pct": 24.2,
+      "cagr_pct": 9.9,
+      "mdd_pct": -2.0,
+      "taken": 11,
       "skipped": 0,
-      "avg_invested_pct": 16
+      "avg_invested_pct": 13
      },
      "pf_2": {
-      "ret_pct": 9.4,
-      "cagr_pct": 3.7,
-      "mdd_pct": -5.6,
-      "taken": 9,
-      "skipped": 0,
-      "avg_invested_pct": 28
-     }
-    },
-    "AXON": {
-     "trades": 10,
-     "win_rate": 50.0,
-     "avg_win_r": 2.32,
-     "avg_loss_r": -0.73,
-     "expectancy_r": 0.795,
-     "profit_factor": 3.18,
-     "avg_days": 18.7,
-     "total_r": 8.0,
-     "equity_ret_pct": 8.0,
-     "mdd_pct": -1.6,
-     "best_r": 5.3,
-     "worst_r": -1.02,
-     "per_year": {
-      "2023": 1,
-      "2024": 6,
-      "2025": 3
-     },
-     "max_open": 1,
-     "over4_pct": 0.0,
-     "pf_1": {
-      "ret_pct": 8.0,
-      "cagr_pct": 4.7,
-      "mdd_pct": -1.6,
-      "taken": 10,
-      "skipped": 0,
-      "avg_invested_pct": 18
-     },
-     "pf_2": {
-      "ret_pct": 10.3,
-      "cagr_pct": 6.0,
-      "mdd_pct": -2.3,
-      "taken": 10,
-      "skipped": 0,
-      "avg_invested_pct": 29
-     }
-    },
-    "CELH": {
-     "trades": 4,
-     "win_rate": 50.0,
-     "avg_win_r": 2.26,
-     "avg_loss_r": -0.66,
-     "expectancy_r": 0.803,
-     "profit_factor": 3.44,
-     "avg_days": 17.5,
-     "total_r": 3.2,
-     "equity_ret_pct": 3.2,
-     "mdd_pct": -1.3,
-     "best_r": 2.99,
-     "worst_r": -1.01,
-     "per_year": {
-      "2024": 1,
-      "2025": 3
-     },
-     "max_open": 1,
-     "over4_pct": 0.0,
-     "pf_1": {
-      "ret_pct": 3.2,
-      "cagr_pct": 2.0,
-      "mdd_pct": -1.3,
-      "taken": 4,
-      "skipped": 0,
-      "avg_invested_pct": 12
-     },
-     "pf_2": {
-      "ret_pct": 6.4,
-      "cagr_pct": 4.0,
-      "mdd_pct": -2.6,
-      "taken": 4,
+      "ret_pct": 49.1,
+      "cagr_pct": 19.1,
+      "mdd_pct": -4.0,
+      "taken": 11,
       "skipped": 0,
       "avg_invested_pct": 25
      }
     },
-    "COIN": {
-     "trades": 4,
-     "win_rate": 75.0,
-     "avg_win_r": 2.11,
-     "avg_loss_r": -1.01,
-     "expectancy_r": 1.327,
-     "profit_factor": 6.24,
-     "avg_days": 22.0,
-     "total_r": 5.3,
-     "equity_ret_pct": 5.4,
-     "mdd_pct": -1.0,
-     "best_r": 2.38,
-     "worst_r": -1.01,
+    "AVGO": {
+     "trades": 16,
+     "win_rate": 43.8,
+     "avg_win_r": 1.89,
+     "avg_loss_r": -0.69,
+     "expectancy_r": 0.438,
+     "profit_factor": 2.12,
+     "avg_days": 15.6,
+     "total_r": 7.0,
+     "equity_ret_pct": 7.1,
+     "mdd_pct": -3.6,
+     "best_r": 2.8,
+     "worst_r": -1.02,
      "per_year": {
-      "2024": 2,
-      "2025": 1,
+      "2023": 1,
+      "2024": 6,
+      "2025": 5,
+      "2026": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.1,
+      "cagr_pct": 2.8,
+      "mdd_pct": -3.6,
+      "taken": 16,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 11.4,
+      "cagr_pct": 4.5,
+      "mdd_pct": -6.8,
+      "taken": 16,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
+    },
+    "AXON": {
+     "trades": 15,
+     "win_rate": 40.0,
+     "avg_win_r": 2.51,
+     "avg_loss_r": -0.8,
+     "expectancy_r": 0.526,
+     "profit_factor": 2.1,
+     "avg_days": 15.6,
+     "total_r": 7.9,
+     "equity_ret_pct": 7.9,
+     "mdd_pct": -3.0,
+     "best_r": 5.3,
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 1,
+      "2024": 9,
+      "2025": 4,
       "2026": 1
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 5.4,
-      "cagr_pct": 2.4,
-      "mdd_pct": -1.0,
+      "ret_pct": 7.9,
+      "cagr_pct": 2.8,
+      "mdd_pct": -3.0,
+      "taken": 15,
+      "skipped": 0,
+      "avg_invested_pct": 20
+     },
+     "pf_2": {
+      "ret_pct": 8.6,
+      "cagr_pct": 3.1,
+      "mdd_pct": -5.8,
+      "taken": 15,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
+    },
+    "CELH": {
+     "trades": 5,
+     "win_rate": 40.0,
+     "avg_win_r": 2.26,
+     "avg_loss_r": -0.35,
+     "expectancy_r": 0.693,
+     "profit_factor": 4.25,
+     "avg_days": 15.6,
+     "total_r": 3.5,
+     "equity_ret_pct": 3.5,
+     "mdd_pct": -0.6,
+     "best_r": 2.99,
+     "worst_r": -0.42,
+     "per_year": {
+      "2024": 1,
+      "2025": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.5,
+      "cagr_pct": 2.0,
+      "mdd_pct": -0.6,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 7.0,
+      "cagr_pct": 4.0,
+      "mdd_pct": -1.2,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    },
+    "COIN": {
+     "trades": 4,
+     "win_rate": 100.0,
+     "avg_win_r": 1.95,
+     "avg_loss_r": 0,
+     "expectancy_r": 1.945,
+     "profit_factor": null,
+     "avg_days": 25.0,
+     "total_r": 7.8,
+     "equity_ret_pct": 8.0,
+     "mdd_pct": 0.0,
+     "best_r": 2.38,
+     "worst_r": 1.46,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 8.0,
+      "cagr_pct": 4.8,
+      "mdd_pct": 0.0,
       "taken": 4,
       "skipped": 0,
       "avg_invested_pct": 12
      },
      "pf_2": {
-      "ret_pct": 10.9,
-      "cagr_pct": 4.8,
-      "mdd_pct": -2.0,
+      "ret_pct": 16.5,
+      "cagr_pct": 9.8,
+      "mdd_pct": 0.0,
       "taken": 4,
       "skipped": 0,
       "avg_invested_pct": 25
      }
     },
     "CRWD": {
-     "trades": 11,
-     "win_rate": 72.7,
-     "avg_win_r": 1.25,
-     "avg_loss_r": -0.86,
-     "expectancy_r": 0.673,
-     "profit_factor": 3.88,
-     "avg_days": 17.8,
-     "total_r": 7.4,
-     "equity_ret_pct": 7.6,
-     "mdd_pct": -1.5,
-     "best_r": 2.84,
-     "worst_r": -1.01,
+     "trades": 15,
+     "win_rate": 53.3,
+     "avg_win_r": 1.48,
+     "avg_loss_r": -0.9,
+     "expectancy_r": 0.368,
+     "profit_factor": 1.87,
+     "avg_days": 15.1,
+     "total_r": 5.5,
+     "equity_ret_pct": 5.5,
+     "mdd_pct": -2.7,
+     "best_r": 3.31,
+     "worst_r": -1.02,
      "per_year": {
       "2023": 1,
-      "2024": 4,
-      "2025": 3,
-      "2026": 3
+      "2024": 5,
+      "2025": 4,
+      "2026": 5
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 7.6,
-      "cagr_pct": 2.6,
-      "mdd_pct": -1.5,
-      "taken": 11,
+      "ret_pct": 5.5,
+      "cagr_pct": 1.9,
+      "mdd_pct": -2.7,
+      "taken": 15,
       "skipped": 0,
       "avg_invested_pct": 14
      },
      "pf_2": {
-      "ret_pct": 14.2,
-      "cagr_pct": 4.7,
-      "mdd_pct": -3.0,
-      "taken": 11,
+      "ret_pct": 10.3,
+      "cagr_pct": 3.5,
+      "mdd_pct": -5.4,
+      "taken": 15,
       "skipped": 0,
       "avg_invested_pct": 27
      }
@@ -6032,20 +8686,21 @@
      "avg_loss_r": -1.01,
      "expectancy_r": -1.012,
      "profit_factor": 0.0,
-     "avg_days": 5.5,
+     "avg_days": 6.0,
      "total_r": -2.0,
      "equity_ret_pct": -2.0,
      "mdd_pct": -2.0,
      "best_r": -1.01,
      "worst_r": -1.01,
      "per_year": {
-      "2026": 2
+      "2024": 1,
+      "2026": 1
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
       "ret_pct": -2.0,
-      "cagr_pct": -18.4,
+      "cagr_pct": -1.4,
       "mdd_pct": -2.0,
       "taken": 2,
       "skipped": 0,
@@ -6053,7 +8708,7 @@
      },
      "pf_2": {
       "ret_pct": -4.0,
-      "cagr_pct": -33.6,
+      "cagr_pct": -2.8,
       "mdd_pct": -4.0,
       "taken": 2,
       "skipped": 0,
@@ -6061,302 +8716,303 @@
      }
     },
     "HD현대일렉트릭": {
-     "trades": 11,
-     "win_rate": 45.5,
-     "avg_win_r": 3.71,
-     "avg_loss_r": -0.68,
-     "expectancy_r": 1.32,
-     "profit_factor": 4.58,
-     "avg_days": 20.2,
-     "total_r": 14.5,
-     "equity_ret_pct": 15.0,
-     "mdd_pct": -4.0,
+     "trades": 13,
+     "win_rate": 46.2,
+     "avg_win_r": 3.48,
+     "avg_loss_r": -0.7,
+     "expectancy_r": 1.228,
+     "profit_factor": 4.23,
+     "avg_days": 20.3,
+     "total_r": 16.0,
+     "equity_ret_pct": 16.7,
+     "mdd_pct": -4.1,
      "best_r": 8.04,
      "worst_r": -1.01,
      "per_year": {
-      "2024": 5,
-      "2025": 4,
+      "2024": 6,
+      "2025": 5,
       "2026": 2
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 15.0,
-      "cagr_pct": 6.1,
-      "mdd_pct": -4.0,
-      "taken": 11,
+      "ret_pct": 16.7,
+      "cagr_pct": 6.7,
+      "mdd_pct": -4.1,
+      "taken": 13,
       "skipped": 0,
       "avg_invested_pct": 13
      },
      "pf_2": {
-      "ret_pct": 30.8,
-      "cagr_pct": 12.1,
-      "mdd_pct": -7.8,
-      "taken": 11,
+      "ret_pct": 34.5,
+      "cagr_pct": 13.4,
+      "mdd_pct": -8.1,
+      "taken": 13,
       "skipped": 0,
-      "avg_invested_pct": 26
+      "avg_invested_pct": 25
      }
     },
     "HOOD": {
-     "trades": 10,
-     "win_rate": 60.0,
-     "avg_win_r": 1.96,
-     "avg_loss_r": -0.96,
-     "expectancy_r": 0.794,
-     "profit_factor": 3.06,
-     "avg_days": 21.3,
-     "total_r": 7.9,
-     "equity_ret_pct": 8.1,
-     "mdd_pct": -3.7,
-     "best_r": 3.95,
+     "trades": 14,
+     "win_rate": 50.0,
+     "avg_win_r": 2.44,
+     "avg_loss_r": -0.9,
+     "expectancy_r": 0.769,
+     "profit_factor": 2.71,
+     "avg_days": 18.2,
+     "total_r": 10.8,
+     "equity_ret_pct": 11.0,
+     "mdd_pct": -1.6,
+     "best_r": 6.76,
      "worst_r": -1.55,
      "per_year": {
       "2023": 1,
       "2024": 5,
-      "2025": 3,
-      "2026": 1
+      "2025": 6,
+      "2026": 2
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 8.1,
-      "cagr_pct": 2.9,
-      "mdd_pct": -3.7,
-      "taken": 10,
+      "ret_pct": 11.0,
+      "cagr_pct": 3.9,
+      "mdd_pct": -1.6,
+      "taken": 14,
       "skipped": 0,
       "avg_invested_pct": 12
      },
      "pf_2": {
-      "ret_pct": 16.4,
-      "cagr_pct": 5.7,
-      "mdd_pct": -7.3,
-      "taken": 10,
+      "ret_pct": 22.4,
+      "cagr_pct": 7.6,
+      "mdd_pct": -3.3,
+      "taken": 14,
       "skipped": 0,
       "avg_invested_pct": 25
      }
     },
     "MU": {
-     "trades": 11,
-     "win_rate": 54.5,
-     "avg_win_r": 2.23,
-     "avg_loss_r": -0.83,
-     "expectancy_r": 0.836,
-     "profit_factor": 3.21,
-     "avg_days": 16.5,
-     "total_r": 9.2,
-     "equity_ret_pct": 9.3,
-     "mdd_pct": -3.0,
-     "best_r": 6.34,
+     "trades": 14,
+     "win_rate": 57.1,
+     "avg_win_r": 2.92,
+     "avg_loss_r": -0.76,
+     "expectancy_r": 1.342,
+     "profit_factor": 5.14,
+     "avg_days": 17.8,
+     "total_r": 18.8,
+     "equity_ret_pct": 19.9,
+     "mdd_pct": -1.0,
+     "best_r": 8.84,
      "worst_r": -1.01,
      "per_year": {
       "2023": 1,
-      "2024": 3,
-      "2025": 3,
-      "2026": 4
+      "2024": 6,
+      "2025": 4,
+      "2026": 3
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 9.3,
-      "cagr_pct": 3.6,
-      "mdd_pct": -3.0,
-      "taken": 11,
+      "ret_pct": 19.9,
+      "cagr_pct": 7.4,
+      "mdd_pct": -1.0,
+      "taken": 14,
       "skipped": 0,
-      "avg_invested_pct": 14
+      "avg_invested_pct": 15
      },
      "pf_2": {
-      "ret_pct": 18.2,
-      "cagr_pct": 6.8,
-      "mdd_pct": -6.0,
-      "taken": 11,
+      "ret_pct": 41.2,
+      "cagr_pct": 14.5,
+      "mdd_pct": -2.0,
+      "taken": 14,
       "skipped": 0,
-      "avg_invested_pct": 27
+      "avg_invested_pct": 28
      }
     },
     "NET": {
-     "trades": 9,
-     "win_rate": 44.4,
-     "avg_win_r": 1.16,
-     "avg_loss_r": -0.93,
-     "expectancy_r": -0.005,
-     "profit_factor": 0.99,
-     "avg_days": 14.3,
-     "total_r": -0.0,
-     "equity_ret_pct": -0.1,
-     "mdd_pct": -4.6,
+     "trades": 14,
+     "win_rate": 57.1,
+     "avg_win_r": 1.07,
+     "avg_loss_r": -0.77,
+     "expectancy_r": 0.283,
+     "profit_factor": 1.86,
+     "avg_days": 14.2,
+     "total_r": 4.0,
+     "equity_ret_pct": 3.9,
+     "mdd_pct": -4.0,
      "best_r": 2.95,
      "worst_r": -1.43,
      "per_year": {
       "2023": 1,
       "2024": 4,
-      "2025": 2,
+      "2025": 7,
       "2026": 2
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": -0.1,
-      "cagr_pct": -0.0,
-      "mdd_pct": -4.6,
-      "taken": 9,
+      "ret_pct": 3.9,
+      "cagr_pct": 1.4,
+      "mdd_pct": -4.0,
+      "taken": 14,
       "skipped": 0,
       "avg_invested_pct": 14
      },
      "pf_2": {
-      "ret_pct": -0.3,
-      "cagr_pct": -0.1,
-      "mdd_pct": -9.0,
-      "taken": 9,
+      "ret_pct": 7.8,
+      "cagr_pct": 2.6,
+      "mdd_pct": -7.8,
+      "taken": 14,
       "skipped": 0,
       "avg_invested_pct": 28
      }
     },
     "NVDA": {
-     "trades": 8,
-     "win_rate": 37.5,
-     "avg_win_r": 3.7,
-     "avg_loss_r": -0.67,
-     "expectancy_r": 0.965,
-     "profit_factor": 3.29,
-     "avg_days": 21.4,
-     "total_r": 7.7,
-     "equity_ret_pct": 7.7,
-     "mdd_pct": -2.3,
-     "best_r": 7.08,
-     "worst_r": -1.12,
+     "trades": 17,
+     "win_rate": 29.4,
+     "avg_win_r": 3.24,
+     "avg_loss_r": -0.68,
+     "expectancy_r": 0.474,
+     "profit_factor": 1.99,
+     "avg_days": 15.5,
+     "total_r": 8.1,
+     "equity_ret_pct": 7.9,
+     "mdd_pct": -4.2,
+     "best_r": 8.36,
+     "worst_r": -1.76,
      "per_year": {
-      "2024": 1,
-      "2025": 2,
+      "2023": 1,
+      "2024": 6,
+      "2025": 5,
       "2026": 5
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 7.7,
+      "ret_pct": 7.9,
       "cagr_pct": 2.7,
-      "mdd_pct": -2.3,
-      "taken": 8,
+      "mdd_pct": -4.2,
+      "taken": 17,
       "skipped": 0,
-      "avg_invested_pct": 17
+      "avg_invested_pct": 16
      },
      "pf_2": {
-      "ret_pct": 13.2,
-      "cagr_pct": 4.6,
-      "mdd_pct": -3.9,
-      "taken": 8,
+      "ret_pct": 12.1,
+      "cagr_pct": 4.1,
+      "mdd_pct": -8.2,
+      "taken": 17,
       "skipped": 0,
-      "avg_invested_pct": 30
+      "avg_invested_pct": 29
      }
     },
     "PLTR": {
-     "trades": 10,
-     "win_rate": 30.0,
-     "avg_win_r": 1.86,
-     "avg_loss_r": -0.92,
-     "expectancy_r": -0.083,
-     "profit_factor": 0.87,
-     "avg_days": 14.9,
-     "total_r": -0.8,
-     "equity_ret_pct": -0.9,
-     "mdd_pct": -3.6,
+     "trades": 15,
+     "win_rate": 40.0,
+     "avg_win_r": 1.94,
+     "avg_loss_r": -0.72,
+     "expectancy_r": 0.341,
+     "profit_factor": 1.78,
+     "avg_days": 15.1,
+     "total_r": 5.1,
+     "equity_ret_pct": 5.1,
+     "mdd_pct": -3.4,
      "best_r": 3.03,
      "worst_r": -1.02,
      "per_year": {
       "2024": 6,
-      "2025": 3,
+      "2025": 8,
       "2026": 1
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": -0.9,
-      "cagr_pct": -0.4,
-      "mdd_pct": -3.6,
-      "taken": 10,
+      "ret_pct": 5.1,
+      "cagr_pct": 1.9,
+      "mdd_pct": -3.4,
+      "taken": 15,
       "skipped": 0,
       "avg_invested_pct": 13
      },
      "pf_2": {
-      "ret_pct": -1.8,
-      "cagr_pct": -0.7,
-      "mdd_pct": -6.9,
-      "taken": 10,
+      "ret_pct": 10.2,
+      "cagr_pct": 3.8,
+      "mdd_pct": -6.5,
+      "taken": 15,
       "skipped": 0,
       "avg_invested_pct": 26
      }
     },
     "SHOP": {
-     "trades": 9,
-     "win_rate": 22.2,
-     "avg_win_r": 1.97,
-     "avg_loss_r": -0.62,
-     "expectancy_r": -0.047,
-     "profit_factor": 0.9,
-     "avg_days": 14.4,
-     "total_r": -0.4,
-     "equity_ret_pct": -0.5,
-     "mdd_pct": -2.7,
+     "trades": 15,
+     "win_rate": 26.7,
+     "avg_win_r": 1.4,
+     "avg_loss_r": -0.67,
+     "expectancy_r": -0.115,
+     "profit_factor": 0.76,
+     "avg_days": 11.6,
+     "total_r": -1.7,
+     "equity_ret_pct": -1.8,
+     "mdd_pct": -3.4,
      "best_r": 3.75,
      "worst_r": -1.01,
      "per_year": {
       "2023": 1,
-      "2024": 3,
-      "2025": 4,
+      "2024": 6,
+      "2025": 7,
       "2026": 1
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": -0.5,
-      "cagr_pct": -0.2,
-      "mdd_pct": -2.7,
-      "taken": 9,
+      "ret_pct": -1.8,
+      "cagr_pct": -0.7,
+      "mdd_pct": -3.4,
+      "taken": 15,
       "skipped": 0,
       "avg_invested_pct": 14
      },
      "pf_2": {
-      "ret_pct": -2.8,
-      "cagr_pct": -1.0,
-      "mdd_pct": -5.3,
-      "taken": 9,
+      "ret_pct": -5.4,
+      "cagr_pct": -2.0,
+      "mdd_pct": -6.6,
+      "taken": 15,
       "skipped": 0,
       "avg_invested_pct": 28
      }
     },
     "SK하이닉스": {
-     "trades": 11,
-     "win_rate": 54.5,
-     "avg_win_r": 1.87,
-     "avg_loss_r": -0.83,
-     "expectancy_r": 0.645,
-     "profit_factor": 2.72,
+     "trades": 14,
+     "win_rate": 57.1,
+     "avg_win_r": 2.07,
+     "avg_loss_r": -0.6,
+     "expectancy_r": 0.928,
+     "profit_factor": 4.62,
      "avg_days": 16.5,
-     "total_r": 7.1,
-     "equity_ret_pct": 7.2,
-     "mdd_pct": -2.1,
-     "best_r": 3.15,
+     "total_r": 13.0,
+     "equity_ret_pct": 13.6,
+     "mdd_pct": -2.4,
+     "best_r": 4.99,
      "worst_r": -1.02,
      "per_year": {
       "2023": 2,
-      "2024": 5,
+      "2024": 6,
       "2025": 2,
-      "2026": 2
+      "2026": 4
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 7.2,
-      "cagr_pct": 2.7,
-      "mdd_pct": -2.1,
-      "taken": 11,
+      "ret_pct": 13.6,
+      "cagr_pct": 5.1,
+      "mdd_pct": -2.4,
+      "taken": 14,
       "skipped": 0,
       "avg_invested_pct": 16
      },
      "pf_2": {
-      "ret_pct": 14.2,
-      "cagr_pct": 5.3,
-      "mdd_pct": -3.2,
-      "taken": 11,
+      "ret_pct": 28.8,
+      "cagr_pct": 10.3,
+      "mdd_pct": -3.6,
+      "taken": 14,
       "skipped": 0,
       "avg_invested_pct": 28
      }
@@ -6399,202 +9055,130 @@
      }
     },
     "SNOW": {
-     "trades": 9,
-     "win_rate": 22.2,
+     "trades": 12,
+     "win_rate": 16.7,
      "avg_win_r": 1.61,
-     "avg_loss_r": -0.71,
-     "expectancy_r": -0.194,
-     "profit_factor": 0.65,
-     "avg_days": 10.6,
-     "total_r": -1.7,
-     "equity_ret_pct": -1.8,
-     "mdd_pct": -2.0,
+     "avg_loss_r": -0.64,
+     "expectancy_r": -0.263,
+     "profit_factor": 0.51,
+     "avg_days": 10.2,
+     "total_r": -3.1,
+     "equity_ret_pct": -3.2,
+     "mdd_pct": -3.2,
      "best_r": 1.65,
      "worst_r": -1.02,
      "per_year": {
-      "2024": 3,
-      "2025": 3,
-      "2026": 3
+      "2024": 4,
+      "2025": 4,
+      "2026": 4
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": -1.8,
-      "cagr_pct": -0.7,
-      "mdd_pct": -2.0,
-      "taken": 9,
+      "ret_pct": -3.2,
+      "cagr_pct": -1.2,
+      "mdd_pct": -3.2,
+      "taken": 12,
       "skipped": 0,
       "avg_invested_pct": 14
      },
      "pf_2": {
-      "ret_pct": -3.1,
-      "cagr_pct": -1.1,
-      "mdd_pct": -4.0,
-      "taken": 9,
+      "ret_pct": -5.6,
+      "cagr_pct": -2.1,
+      "mdd_pct": -6.0,
+      "taken": 12,
       "skipped": 0,
       "avg_invested_pct": 27
      }
     },
     "TSLA": {
-     "trades": 6,
-     "win_rate": 33.3,
+     "trades": 9,
+     "win_rate": 22.2,
      "avg_win_r": 2.65,
-     "avg_loss_r": -0.7,
-     "expectancy_r": 0.415,
-     "profit_factor": 1.89,
-     "avg_days": 13.5,
-     "total_r": 2.5,
-     "equity_ret_pct": 2.4,
+     "avg_loss_r": -0.79,
+     "expectancy_r": -0.026,
+     "profit_factor": 0.96,
+     "avg_days": 10.7,
+     "total_r": -0.2,
+     "equity_ret_pct": -0.3,
      "mdd_pct": -2.0,
      "best_r": 3.47,
      "worst_r": -1.01,
      "per_year": {
       "2024": 3,
-      "2025": 2,
+      "2025": 5,
       "2026": 1
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 2.4,
-      "cagr_pct": 1.1,
+      "ret_pct": -0.3,
+      "cagr_pct": -0.2,
       "mdd_pct": -2.0,
-      "taken": 6,
+      "taken": 9,
       "skipped": 0,
       "avg_invested_pct": 13
      },
      "pf_2": {
-      "ret_pct": 4.7,
-      "cagr_pct": 2.2,
+      "ret_pct": -0.9,
+      "cagr_pct": -0.4,
       "mdd_pct": -4.0,
-      "taken": 6,
+      "taken": 9,
       "skipped": 0,
-      "avg_invested_pct": 27
+      "avg_invested_pct": 26
      }
     },
     "UBER": {
-     "trades": 9,
-     "win_rate": 11.1,
-     "avg_win_r": 0.13,
-     "avg_loss_r": -0.43,
-     "expectancy_r": -0.369,
-     "profit_factor": 0.04,
-     "avg_days": 9.8,
-     "total_r": -3.3,
-     "equity_ret_pct": -3.3,
-     "mdd_pct": -3.4,
-     "best_r": 0.13,
-     "worst_r": -0.75,
+     "trades": 12,
+     "win_rate": 25.0,
+     "avg_win_r": 1.52,
+     "avg_loss_r": -0.51,
+     "expectancy_r": -0.005,
+     "profit_factor": 0.99,
+     "avg_days": 12.7,
+     "total_r": -0.1,
+     "equity_ret_pct": -0.1,
+     "mdd_pct": -2.5,
+     "best_r": 2.98,
+     "worst_r": -1.02,
      "per_year": {
-      "2024": 2,
-      "2025": 7
+      "2023": 1,
+      "2024": 3,
+      "2025": 7,
+      "2026": 1
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": -3.3,
-      "cagr_pct": -1.9,
-      "mdd_pct": -3.4,
-      "taken": 9,
+      "ret_pct": -0.1,
+      "cagr_pct": -0.0,
+      "mdd_pct": -2.5,
+      "taken": 12,
       "skipped": 0,
-      "avg_invested_pct": 16
+      "avg_invested_pct": 17
      },
      "pf_2": {
-      "ret_pct": -6.1,
-      "cagr_pct": -3.6,
-      "mdd_pct": -6.3,
-      "taken": 9,
+      "ret_pct": -0.6,
+      "cagr_pct": -0.2,
+      "mdd_pct": -4.5,
+      "taken": 12,
       "skipped": 0,
       "avg_invested_pct": 29
      }
     },
     "VST": {
-     "trades": 4,
-     "win_rate": 75.0,
-     "avg_win_r": 2.78,
-     "avg_loss_r": -1.01,
-     "expectancy_r": 1.834,
-     "profit_factor": 8.23,
-     "avg_days": 25.0,
-     "total_r": 7.3,
-     "equity_ret_pct": 7.3,
+     "trades": 9,
+     "win_rate": 77.8,
+     "avg_win_r": 2.17,
+     "avg_loss_r": -0.5,
+     "expectancy_r": 1.573,
+     "profit_factor": 15.09,
+     "avg_days": 21.8,
+     "total_r": 14.2,
+     "equity_ret_pct": 14.8,
      "mdd_pct": -1.0,
      "best_r": 7.55,
-     "worst_r": -1.01,
-     "per_year": {
-      "2023": 1,
-      "2025": 3
-     },
-     "max_open": 1,
-     "over4_pct": 0.0,
-     "pf_1": {
-      "ret_pct": 7.3,
-      "cagr_pct": 4.2,
-      "mdd_pct": -1.0,
-      "taken": 4,
-      "skipped": 0,
-      "avg_invested_pct": 16
-     },
-     "pf_2": {
-      "ret_pct": 9.0,
-      "cagr_pct": 5.2,
-      "mdd_pct": -2.0,
-      "taken": 4,
-      "skipped": 0,
-      "avg_invested_pct": 27
-     }
-    },
-    "삼양식품": {
-     "trades": 11,
-     "win_rate": 54.5,
-     "avg_win_r": 2.83,
-     "avg_loss_r": -0.95,
-     "expectancy_r": 1.113,
-     "profit_factor": 3.59,
-     "avg_days": 16.6,
-     "total_r": 12.2,
-     "equity_ret_pct": 12.3,
-     "mdd_pct": -2.5,
-     "best_r": 11.23,
-     "worst_r": -1.01,
-     "per_year": {
-      "2023": 1,
-      "2024": 2,
-      "2025": 5,
-      "2026": 3
-     },
-     "max_open": 1,
-     "over4_pct": 0.0,
-     "pf_1": {
-      "ret_pct": 12.3,
-      "cagr_pct": 4.0,
-      "mdd_pct": -2.5,
-      "taken": 11,
-      "skipped": 0,
-      "avg_invested_pct": 13
-     },
-     "pf_2": {
-      "ret_pct": 24.6,
-      "cagr_pct": 7.8,
-      "mdd_pct": -5.0,
-      "taken": 11,
-      "skipped": 0,
-      "avg_invested_pct": 25
-     }
-    },
-    "알테오젠": {
-     "trades": 9,
-     "win_rate": 33.3,
-     "avg_win_r": 0.53,
-     "avg_loss_r": -0.92,
-     "expectancy_r": -0.435,
-     "profit_factor": 0.29,
-     "avg_days": 10.9,
-     "total_r": -3.9,
-     "equity_ret_pct": -3.9,
-     "mdd_pct": -4.0,
-     "best_r": 1.16,
-     "worst_r": -1.01,
+     "worst_r": -0.51,
      "per_year": {
       "2023": 1,
       "2024": 3,
@@ -6603,89 +9187,164 @@
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": -3.9,
-      "cagr_pct": -2.0,
-      "mdd_pct": -4.0,
+      "ret_pct": 14.8,
+      "cagr_pct": 7.6,
+      "mdd_pct": -1.0,
       "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 24.5,
+      "cagr_pct": 12.4,
+      "mdd_pct": -2.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    },
+    "삼양식품": {
+     "trades": 12,
+     "win_rate": 50.0,
+     "avg_win_r": 2.93,
+     "avg_loss_r": -0.91,
+     "expectancy_r": 1.01,
+     "profit_factor": 3.23,
+     "avg_days": 16.9,
+     "total_r": 12.1,
+     "equity_ret_pct": 12.1,
+     "mdd_pct": -2.5,
+     "best_r": 11.23,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 6,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 12.1,
+      "cagr_pct": 4.0,
+      "mdd_pct": -2.5,
+      "taken": 12,
       "skipped": 0,
       "avg_invested_pct": 13
      },
      "pf_2": {
-      "ret_pct": -7.7,
-      "cagr_pct": -4.0,
-      "mdd_pct": -7.8,
-      "taken": 9,
+      "ret_pct": 24.2,
+      "cagr_pct": 7.6,
+      "mdd_pct": -5.0,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "알테오젠": {
+     "trades": 12,
+     "win_rate": 33.3,
+     "avg_win_r": 0.64,
+     "avg_loss_r": -0.79,
+     "expectancy_r": -0.313,
+     "profit_factor": 0.41,
+     "avg_days": 9.8,
+     "total_r": -3.8,
+     "equity_ret_pct": -3.7,
+     "mdd_pct": -3.8,
+     "best_r": 1.16,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 5,
+      "2025": 6
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.7,
+      "cagr_pct": -1.9,
+      "mdd_pct": -3.8,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -7.4,
+      "cagr_pct": -3.9,
+      "mdd_pct": -7.6,
+      "taken": 12,
       "skipped": 0,
       "avg_invested_pct": 25
      }
     },
     "에코프로": {
-     "trades": 2,
+     "trades": 3,
      "win_rate": 0.0,
      "avg_win_r": 0,
      "avg_loss_r": -1.01,
      "expectancy_r": -1.012,
      "profit_factor": 0.0,
-     "avg_days": 3.5,
-     "total_r": -2.0,
-     "equity_ret_pct": -2.0,
-     "mdd_pct": -2.0,
+     "avg_days": 3.0,
+     "total_r": -3.0,
+     "equity_ret_pct": -3.0,
+     "mdd_pct": -3.0,
      "best_r": -1.01,
      "worst_r": -1.01,
      "per_year": {
       "2025": 1,
-      "2026": 1
+      "2026": 2
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": -2.0,
-      "cagr_pct": -15.2,
-      "mdd_pct": -2.0,
-      "taken": 2,
+      "ret_pct": -3.0,
+      "cagr_pct": -12.4,
+      "mdd_pct": -3.0,
+      "taken": 3,
       "skipped": 0,
       "avg_invested_pct": 12
      },
      "pf_2": {
-      "ret_pct": -4.0,
-      "cagr_pct": -28.3,
-      "mdd_pct": -4.0,
-      "taken": 2,
+      "ret_pct": -6.0,
+      "cagr_pct": -23.4,
+      "mdd_pct": -6.0,
+      "taken": 3,
       "skipped": 0,
       "avg_invested_pct": 25
      }
     },
     "에코프로비엠": {
-     "trades": 3,
+     "trades": 2,
      "win_rate": 0.0,
      "avg_win_r": 0,
-     "avg_loss_r": -0.62,
-     "expectancy_r": -0.619,
+     "avg_loss_r": -0.69,
+     "expectancy_r": -0.688,
      "profit_factor": 0.0,
-     "avg_days": 11.7,
-     "total_r": -1.9,
-     "equity_ret_pct": -1.8,
-     "mdd_pct": -1.8,
+     "avg_days": 12.5,
+     "total_r": -1.4,
+     "equity_ret_pct": -1.4,
+     "mdd_pct": -1.4,
      "best_r": -0.36,
      "worst_r": -1.01,
      "per_year": {
-      "2025": 3
+      "2025": 2
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": -1.8,
-      "cagr_pct": -4.4,
-      "mdd_pct": -1.8,
-      "taken": 3,
+      "ret_pct": -1.4,
+      "cagr_pct": -3.7,
+      "mdd_pct": -1.4,
+      "taken": 2,
       "skipped": 0,
       "avg_invested_pct": 12
      },
      "pf_2": {
-      "ret_pct": -3.7,
-      "cagr_pct": -8.7,
-      "mdd_pct": -3.7,
-      "taken": 3,
+      "ret_pct": -2.7,
+      "cagr_pct": -7.3,
+      "mdd_pct": -2.7,
+      "taken": 2,
       "skipped": 0,
       "avg_invested_pct": 25
      }
@@ -6728,39 +9387,39 @@
      }
     },
     "한화에어로스페이스": {
-     "trades": 12,
-     "win_rate": 33.3,
-     "avg_win_r": 2.24,
-     "avg_loss_r": -0.89,
-     "expectancy_r": 0.155,
-     "profit_factor": 1.26,
-     "avg_days": 13.5,
-     "total_r": 1.9,
-     "equity_ret_pct": 1.7,
-     "mdd_pct": -4.6,
+     "trades": 13,
+     "win_rate": 46.2,
+     "avg_win_r": 1.87,
+     "avg_loss_r": -0.74,
+     "expectancy_r": 0.464,
+     "profit_factor": 2.16,
+     "avg_days": 16.1,
+     "total_r": 6.0,
+     "equity_ret_pct": 6.0,
+     "mdd_pct": -1.9,
      "best_r": 4.75,
      "worst_r": -1.01,
      "per_year": {
       "2023": 1,
-      "2024": 4,
+      "2024": 5,
       "2025": 5,
       "2026": 2
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": 1.7,
-      "cagr_pct": 0.7,
-      "mdd_pct": -4.6,
-      "taken": 12,
+      "ret_pct": 6.0,
+      "cagr_pct": 2.5,
+      "mdd_pct": -1.9,
+      "taken": 13,
       "skipped": 0,
       "avg_invested_pct": 13
      },
      "pf_2": {
-      "ret_pct": 2.9,
-      "cagr_pct": 1.2,
-      "mdd_pct": -9.0,
-      "taken": 12,
+      "ret_pct": 11.9,
+      "cagr_pct": 4.8,
+      "mdd_pct": -3.8,
+      "taken": 13,
       "skipped": 0,
       "avg_invested_pct": 26
      }
@@ -6841,25 +9500,1258 @@
     },
     {
      "sym": "ANET",
-     "in": "2026-10-07",
+     "in": "2026-09-22",
      "out": "2026-10-13",
-     "r": -0.509,
-     "days": 5,
+     "r": -0.002,
+     "days": 16,
      "why": "EMA20 이탈",
-     "ret": -3.31,
-     "stop_pct": 6.5,
+     "ret": -0.02,
+     "stop_pct": 7.99,
      "market": "us",
      "group": "hot"
     },
     {
      "sym": "NVDA",
-     "in": "2026-09-29",
+     "in": "2026-09-23",
      "out": "2026-10-12",
-     "r": -0.405,
-     "days": 10,
+     "r": -0.155,
+     "days": 14,
      "why": "EMA20 이탈",
-     "ret": -2.11,
-     "stop_pct": 5.22,
+     "ret": -0.85,
+     "stop_pct": 5.47,
+     "market": "us",
+     "group": "hot"
+    }
+   ]
+  },
+  {
+   "trades": 92,
+   "win_rate": 44.6,
+   "avg_win_r": 2.15,
+   "avg_loss_r": -0.81,
+   "expectancy_r": 0.509,
+   "profit_factor": 2.13,
+   "avg_days": 16.3,
+   "total_r": 46.8,
+   "equity_ret_pct": 55.0,
+   "mdd_pct": -8.9,
+   "best_r": 20.51,
+   "worst_r": -1.7,
+   "per_year": {
+    "2023": 7,
+    "2024": 36,
+    "2025": 33,
+    "2026": 16
+   },
+   "max_open": 9,
+   "over4_pct": 24.3,
+   "pf_1": {
+    "ret_pct": 46.1,
+    "cagr_pct": 14.1,
+    "mdd_pct": -8.9,
+    "taken": 69,
+    "skipped": 23,
+    "avg_invested_pct": 34
+   },
+   "pf_2": {
+    "ret_pct": 94.6,
+    "cagr_pct": 26.1,
+    "mdd_pct": -17.2,
+    "taken": 69,
+    "skipped": 23,
+    "avg_invested_pct": 65
+   },
+   "key": "vol_20",
+   "name": "조합 · 거래량 2배",
+   "desc": "[거래량 비교] 200일선 위 + 돌파 + 20일 평균의 2배 이상",
+   "us": {
+    "trades": 60,
+    "win_rate": 45.0,
+    "avg_win_r": 2.18,
+    "avg_loss_r": -0.77,
+    "expectancy_r": 0.56,
+    "profit_factor": 2.33,
+    "avg_days": 17.3,
+    "total_r": 33.6,
+    "equity_ret_pct": 36.7,
+    "mdd_pct": -7.1,
+    "best_r": 20.51,
+    "worst_r": -1.43,
+    "per_year": {
+     "2023": 4,
+     "2024": 25,
+     "2025": 21,
+     "2026": 10
+    },
+    "max_open": 7,
+    "over4_pct": 10.4,
+    "pf_1": {
+     "ret_pct": 33.4,
+     "cagr_pct": 10.6,
+     "mdd_pct": -7.7,
+     "taken": 52,
+     "skipped": 8,
+     "avg_invested_pct": 35
+    },
+    "pf_2": {
+     "ret_pct": 64.0,
+     "cagr_pct": 18.8,
+     "mdd_pct": -14.8,
+     "taken": 52,
+     "skipped": 8,
+     "avg_invested_pct": 65
+    }
+   },
+   "kr": {
+    "trades": 32,
+    "win_rate": 43.8,
+    "avg_win_r": 2.09,
+    "avg_loss_r": -0.89,
+    "expectancy_r": 0.413,
+    "profit_factor": 1.82,
+    "avg_days": 14.4,
+    "total_r": 13.2,
+    "equity_ret_pct": 13.4,
+    "mdd_pct": -5.7,
+    "best_r": 8.04,
+    "worst_r": -1.7,
+    "per_year": {
+     "2023": 3,
+     "2024": 11,
+     "2025": 12,
+     "2026": 6
+    },
+    "max_open": 4,
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 12.7,
+     "cagr_pct": 5.0,
+     "mdd_pct": -5.7,
+     "taken": 32,
+     "skipped": 0,
+     "avg_invested_pct": 22
+    },
+    "pf_2": {
+     "ret_pct": 24.4,
+     "cagr_pct": 9.3,
+     "mdd_pct": -11.2,
+     "taken": 32,
+     "skipped": 0,
+     "avg_invested_pct": 43
+    }
+   },
+   "hot": {
+    "trades": 81,
+    "win_rate": 46.9,
+    "avg_win_r": 2.21,
+    "avg_loss_r": -0.81,
+    "expectancy_r": 0.608,
+    "profit_factor": 2.41,
+    "avg_days": 16.8,
+    "total_r": 49.2,
+    "equity_ret_pct": 58.9,
+    "mdd_pct": -6.4,
+    "best_r": 20.51,
+    "worst_r": -1.7,
+    "per_year": {
+     "2023": 7,
+     "2024": 34,
+     "2025": 27,
+     "2026": 13
+    },
+    "max_open": 9,
+    "over4_pct": 20.6,
+    "pf_1": {
+     "ret_pct": 54.0,
+     "cagr_pct": 16.2,
+     "mdd_pct": -4.4,
+     "taken": 64,
+     "skipped": 17,
+     "avg_invested_pct": 34
+    },
+    "pf_2": {
+     "ret_pct": 116.0,
+     "cagr_pct": 30.8,
+     "mdd_pct": -8.7,
+     "taken": 64,
+     "skipped": 17,
+     "avg_invested_pct": 66
+    }
+   },
+   "faded": {
+    "trades": 11,
+    "win_rate": 27.3,
+    "avg_win_r": 1.36,
+    "avg_loss_r": -0.81,
+    "expectancy_r": -0.22,
+    "profit_factor": 0.63,
+    "avg_days": 12.5,
+    "total_r": -2.4,
+    "equity_ret_pct": -2.5,
+    "mdd_pct": -5.0,
+    "best_r": 1.56,
+    "worst_r": -1.01,
+    "per_year": {
+     "2024": 2,
+     "2025": 6,
+     "2026": 3
+    },
+    "max_open": 2,
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": -2.5,
+     "cagr_pct": -0.9,
+     "mdd_pct": -5.0,
+     "taken": 11,
+     "skipped": 0,
+     "avg_invested_pct": 18
+    },
+    "pf_2": {
+     "ret_pct": -5.0,
+     "cagr_pct": -1.9,
+     "mdd_pct": -9.8,
+     "taken": 11,
+     "skipped": 0,
+     "avg_invested_pct": 35
+    }
+   },
+   "by_symbol": {
+    "AMD": {
+     "trades": 2,
+     "win_rate": 100.0,
+     "avg_win_r": 2.17,
+     "avg_loss_r": 0,
+     "expectancy_r": 2.166,
+     "profit_factor": null,
+     "avg_days": 30.5,
+     "total_r": 4.3,
+     "equity_ret_pct": 4.4,
+     "mdd_pct": 0.0,
+     "best_r": 3.01,
+     "worst_r": 1.32,
+     "per_year": {
+      "2023": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.4,
+      "cagr_pct": 2.6,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 8.8,
+      "cagr_pct": 5.1,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "ANET": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -1.014,
+     "profit_factor": 0.0,
+     "avg_days": 10.0,
+     "total_r": -1.0,
+     "equity_ret_pct": -1.0,
+     "mdd_pct": -1.0,
+     "best_r": -1.01,
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -9.7,
+      "mdd_pct": -1.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.5,
+      "mdd_pct": -2.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "APP": {
+     "trades": 6,
+     "win_rate": 33.3,
+     "avg_win_r": 11.44,
+     "avg_loss_r": -0.98,
+     "expectancy_r": 3.157,
+     "profit_factor": 5.81,
+     "avg_days": 20.5,
+     "total_r": 18.9,
+     "equity_ret_pct": 18.6,
+     "mdd_pct": -2.0,
+     "best_r": 20.51,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 4,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 18.6,
+      "cagr_pct": 7.7,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 36.4,
+      "cagr_pct": 14.5,
+      "mdd_pct": -4.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "AVGO": {
+     "trades": 5,
+     "win_rate": 40.0,
+     "avg_win_r": 1.46,
+     "avg_loss_r": -0.82,
+     "expectancy_r": 0.091,
+     "profit_factor": 1.18,
+     "avg_days": 16.4,
+     "total_r": 0.5,
+     "equity_ret_pct": 0.4,
+     "mdd_pct": -2.5,
+     "best_r": 1.63,
+     "worst_r": -1.32,
+     "per_year": {
+      "2023": 1,
+      "2024": 1,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.4,
+      "cagr_pct": 0.2,
+      "mdd_pct": -2.4,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -0.5,
+      "cagr_pct": -0.2,
+      "mdd_pct": -4.9,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "AXON": {
+     "trades": 6,
+     "win_rate": 50.0,
+     "avg_win_r": 1.3,
+     "avg_loss_r": -0.73,
+     "expectancy_r": 0.288,
+     "profit_factor": 1.79,
+     "avg_days": 20.0,
+     "total_r": 1.7,
+     "equity_ret_pct": 1.7,
+     "mdd_pct": -1.0,
+     "best_r": 1.94,
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 3,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.7,
+      "cagr_pct": 1.2,
+      "mdd_pct": -1.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": 2.9,
+      "cagr_pct": 2.0,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "CELH": {
+     "trades": 1,
+     "win_rate": 100.0,
+     "avg_win_r": 1.54,
+     "avg_loss_r": 0,
+     "expectancy_r": 1.536,
+     "profit_factor": null,
+     "avg_days": 21.0,
+     "total_r": 1.5,
+     "equity_ret_pct": 1.5,
+     "mdd_pct": 0.0,
+     "best_r": 1.54,
+     "worst_r": 1.54,
+     "per_year": {
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.5,
+      "cagr_pct": 16.5,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 3.1,
+      "cagr_pct": 35.3,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "COIN": {
+     "trades": 2,
+     "win_rate": 100.0,
+     "avg_win_r": 2.12,
+     "avg_loss_r": 0,
+     "expectancy_r": 2.122,
+     "profit_factor": null,
+     "avg_days": 28.0,
+     "total_r": 4.2,
+     "equity_ret_pct": 4.3,
+     "mdd_pct": 0.0,
+     "best_r": 2.38,
+     "worst_r": 1.86,
+     "per_year": {
+      "2024": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.3,
+      "cagr_pct": 6.0,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 8.7,
+      "cagr_pct": 12.2,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "CRWD": {
+     "trades": 7,
+     "win_rate": 71.4,
+     "avg_win_r": 0.81,
+     "avg_loss_r": -0.78,
+     "expectancy_r": 0.355,
+     "profit_factor": 2.6,
+     "avg_days": 17.3,
+     "total_r": 2.5,
+     "equity_ret_pct": 2.5,
+     "mdd_pct": -1.5,
+     "best_r": 1.54,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 1,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.5,
+      "cagr_pct": 0.9,
+      "mdd_pct": -1.5,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 4.3,
+      "cagr_pct": 1.5,
+      "mdd_pct": -2.9,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "ENPH": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -1.012,
+     "profit_factor": 0.0,
+     "avg_days": 6.0,
+     "total_r": -1.0,
+     "equity_ret_pct": -1.0,
+     "mdd_pct": -1.0,
+     "best_r": -1.01,
+     "worst_r": -1.01,
+     "per_year": {
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -9.7,
+      "mdd_pct": -1.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.5,
+      "mdd_pct": -2.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "HD현대일렉트릭": {
+     "trades": 4,
+     "win_rate": 50.0,
+     "avg_win_r": 4.8,
+     "avg_loss_r": -0.67,
+     "expectancy_r": 2.067,
+     "profit_factor": 7.15,
+     "avg_days": 21.2,
+     "total_r": 8.3,
+     "equity_ret_pct": 8.3,
+     "mdd_pct": -1.3,
+     "best_r": 8.04,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 2,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 8.3,
+      "cagr_pct": 4.3,
+      "mdd_pct": -1.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 16.5,
+      "cagr_pct": 8.5,
+      "mdd_pct": -2.7,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    },
+    "HOOD": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "avg_win_r": 1.44,
+     "avg_loss_r": -1.01,
+     "expectancy_r": 0.624,
+     "profit_factor": 2.85,
+     "avg_days": 18.8,
+     "total_r": 3.7,
+     "equity_ret_pct": 3.7,
+     "mdd_pct": -1.0,
+     "best_r": 2.71,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 3,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.7,
+      "cagr_pct": 1.5,
+      "mdd_pct": -1.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 7.5,
+      "cagr_pct": 2.9,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "MU": {
+     "trades": 3,
+     "win_rate": 33.3,
+     "avg_win_r": 1.41,
+     "avg_loss_r": -0.57,
+     "expectancy_r": 0.092,
+     "profit_factor": 1.24,
+     "avg_days": 12.7,
+     "total_r": 0.3,
+     "equity_ret_pct": 0.3,
+     "mdd_pct": -1.1,
+     "best_r": 1.41,
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 1,
+      "2024": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.3,
+      "cagr_pct": 0.8,
+      "mdd_pct": -1.1,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 0.9,
+      "cagr_pct": 2.7,
+      "mdd_pct": -1.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
+    },
+    "NET": {
+     "trades": 3,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -0.81,
+     "expectancy_r": -0.806,
+     "profit_factor": 0.0,
+     "avg_days": 8.7,
+     "total_r": -2.4,
+     "equity_ret_pct": -2.4,
+     "mdd_pct": -2.4,
+     "best_r": -0.17,
+     "worst_r": -1.43,
+     "per_year": {
+      "2024": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.4,
+      "cagr_pct": -1.0,
+      "mdd_pct": -2.4,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -4.7,
+      "cagr_pct": -1.9,
+      "mdd_pct": -4.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "NVDA": {
+     "trades": 1,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -0.62,
+     "expectancy_r": -0.616,
+     "profit_factor": 0.0,
+     "avg_days": 9.0,
+     "total_r": -0.6,
+     "equity_ret_pct": -0.6,
+     "mdd_pct": -0.6,
+     "best_r": -0.62,
+     "worst_r": -0.62,
+     "per_year": {
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.6,
+      "cagr_pct": -6.0,
+      "mdd_pct": -0.6,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -1.2,
+      "cagr_pct": -11.2,
+      "mdd_pct": -1.2,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
+    },
+    "PLTR": {
+     "trades": 3,
+     "win_rate": 66.7,
+     "avg_win_r": 2.62,
+     "avg_loss_r": -1.01,
+     "expectancy_r": 1.407,
+     "profit_factor": 5.17,
+     "avg_days": 28.0,
+     "total_r": 4.2,
+     "equity_ret_pct": 4.2,
+     "mdd_pct": -1.0,
+     "best_r": 3.03,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.2,
+      "cagr_pct": 5.1,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 8.5,
+      "cagr_pct": 10.2,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "SHOP": {
+     "trades": 4,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -0.63,
+     "expectancy_r": -0.631,
+     "profit_factor": 0.0,
+     "avg_days": 12.0,
+     "total_r": -2.5,
+     "equity_ret_pct": -2.5,
+     "mdd_pct": -2.5,
+     "best_r": -0.15,
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.5,
+      "cagr_pct": -1.6,
+      "mdd_pct": -2.5,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -5.0,
+      "cagr_pct": -3.2,
+      "mdd_pct": -5.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "SK하이닉스": {
+     "trades": 2,
+     "win_rate": 50.0,
+     "avg_win_r": 0.78,
+     "avg_loss_r": -0.06,
+     "expectancy_r": 0.358,
+     "profit_factor": 12.17,
+     "avg_days": 15.0,
+     "total_r": 0.7,
+     "equity_ret_pct": 0.7,
+     "mdd_pct": -0.1,
+     "best_r": 0.78,
+     "worst_r": -0.06,
+     "per_year": {
+      "2023": 1,
+      "2024": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.7,
+      "cagr_pct": 2.1,
+      "mdd_pct": -0.1,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 1.5,
+      "cagr_pct": 4.4,
+      "mdd_pct": -0.1,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
+    },
+    "SMCI": {
+     "trades": 2,
+     "win_rate": 50.0,
+     "avg_win_r": 0.99,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -0.012,
+     "profit_factor": 0.98,
+     "avg_days": 15.0,
+     "total_r": -0.0,
+     "equity_ret_pct": -0.0,
+     "mdd_pct": -1.0,
+     "best_r": 0.99,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.0,
+      "cagr_pct": -0.0,
+      "mdd_pct": -1.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -0.1,
+      "cagr_pct": -0.1,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "SNOW": {
+     "trades": 3,
+     "win_rate": 33.3,
+     "avg_win_r": 1.56,
+     "avg_loss_r": -0.54,
+     "expectancy_r": 0.158,
+     "profit_factor": 1.44,
+     "avg_days": 16.0,
+     "total_r": 0.5,
+     "equity_ret_pct": 0.5,
+     "mdd_pct": -1.0,
+     "best_r": 1.56,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 1,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.5,
+      "cagr_pct": 0.2,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 0.9,
+      "cagr_pct": 0.3,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
+    },
+    "UBER": {
+     "trades": 4,
+     "win_rate": 25.0,
+     "avg_win_r": 0.13,
+     "avg_loss_r": -0.45,
+     "expectancy_r": -0.306,
+     "profit_factor": 0.09,
+     "avg_days": 10.5,
+     "total_r": -1.2,
+     "equity_ret_pct": -1.2,
+     "mdd_pct": -1.3,
+     "best_r": 0.13,
+     "worst_r": -0.57,
+     "per_year": {
+      "2024": 1,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.2,
+      "cagr_pct": -0.7,
+      "mdd_pct": -1.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -2.4,
+      "cagr_pct": -1.4,
+      "mdd_pct": -2.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
+    },
+    "삼양식품": {
+     "trades": 5,
+     "win_rate": 40.0,
+     "avg_win_r": 2.14,
+     "avg_loss_r": -1.01,
+     "expectancy_r": 0.247,
+     "profit_factor": 1.41,
+     "avg_days": 15.0,
+     "total_r": 1.2,
+     "equity_ret_pct": 1.2,
+     "mdd_pct": -2.0,
+     "best_r": 2.68,
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 2,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.2,
+      "cagr_pct": 0.5,
+      "mdd_pct": -2.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 2.2,
+      "cagr_pct": 0.9,
+      "mdd_pct": -4.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "알테오젠": {
+     "trades": 6,
+     "win_rate": 50.0,
+     "avg_win_r": 0.53,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -0.242,
+     "profit_factor": 0.52,
+     "avg_days": 11.7,
+     "total_r": -1.4,
+     "equity_ret_pct": -1.5,
+     "mdd_pct": -2.0,
+     "best_r": 1.16,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.5,
+      "cagr_pct": -0.8,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.9,
+      "cagr_pct": -1.7,
+      "mdd_pct": -4.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "에코프로": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -1.01,
+     "expectancy_r": -1.012,
+     "profit_factor": 0.0,
+     "avg_days": 3.5,
+     "total_r": -2.0,
+     "equity_ret_pct": -2.0,
+     "mdd_pct": -2.0,
+     "best_r": -1.01,
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.0,
+      "cagr_pct": -15.2,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.0,
+      "cagr_pct": -28.3,
+      "mdd_pct": -4.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "에코프로비엠": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -0.69,
+     "expectancy_r": -0.688,
+     "profit_factor": 0.0,
+     "avg_days": 12.5,
+     "total_r": -1.4,
+     "equity_ret_pct": -1.4,
+     "mdd_pct": -1.4,
+     "best_r": -0.36,
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.4,
+      "cagr_pct": -3.7,
+      "mdd_pct": -1.4,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.7,
+      "cagr_pct": -7.3,
+      "mdd_pct": -2.7,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
+    },
+    "한미반도체": {
+     "trades": 6,
+     "win_rate": 66.7,
+     "avg_win_r": 2.22,
+     "avg_loss_r": -1.35,
+     "expectancy_r": 1.028,
+     "profit_factor": 3.28,
+     "avg_days": 13.7,
+     "total_r": 6.2,
+     "equity_ret_pct": 6.2,
+     "mdd_pct": -1.7,
+     "best_r": 3.22,
+     "worst_r": -1.7,
+     "per_year": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.2,
+      "cagr_pct": 2.9,
+      "mdd_pct": -1.7,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 12.5,
+      "cagr_pct": 5.7,
+      "mdd_pct": -3.4,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    },
+    "한화에어로스페이스": {
+     "trades": 5,
+     "win_rate": 40.0,
+     "avg_win_r": 2.08,
+     "avg_loss_r": -0.83,
+     "expectancy_r": 0.337,
+     "profit_factor": 1.68,
+     "avg_days": 17.6,
+     "total_r": 1.7,
+     "equity_ret_pct": 1.6,
+     "mdd_pct": -1.5,
+     "best_r": 3.76,
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.6,
+      "cagr_pct": 0.7,
+      "mdd_pct": -1.5,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 3.1,
+      "cagr_pct": 1.4,
+      "mdd_pct": -2.9,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
+    }
+   },
+   "recent": [
+    {
+     "sym": "CRWD",
+     "in": "2026-09-15",
+     "out": "2026-10-14",
+     "r": 1.424,
+     "days": 22,
+     "why": "EMA20 이탈",
+     "ret": 11.4,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "HOOD",
+     "in": "2026-08-24",
+     "out": "2026-09-15",
+     "r": 0.988,
+     "days": 16,
+     "why": "손절",
+     "ret": 7.9,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "NVDA",
+     "in": "2026-08-28",
+     "out": "2026-09-10",
+     "r": -0.616,
+     "days": 9,
+     "why": "EMA20 이탈",
+     "ret": -3.95,
+     "stop_pct": 6.42,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "SNOW",
+     "in": "2026-09-04",
+     "out": "2026-09-10",
+     "r": -1.012,
+     "days": 4,
+     "why": "손절",
+     "ret": -8.1,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "faded"
+    },
+    {
+     "sym": "CRWD",
+     "in": "2026-08-28",
+     "out": "2026-09-02",
+     "r": -1.012,
+     "days": 4,
+     "why": "손절",
+     "ret": -8.1,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "SHOP",
+     "in": "2026-08-06",
+     "out": "2026-09-01",
+     "r": -0.35,
+     "days": 19,
+     "why": "EMA20 이탈",
+     "ret": -2.8,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "NET",
+     "in": "2026-08-10",
+     "out": "2026-08-19",
+     "r": -0.166,
+     "days": 8,
+     "why": "EMA20 이탈",
+     "ret": -1.33,
+     "stop_pct": 8.0,
+     "market": "us",
+     "group": "hot"
+    },
+    {
+     "sym": "AVGO",
+     "in": "2026-06-01",
+     "out": "2026-06-04",
+     "r": -1.317,
+     "days": 4,
+     "why": "손절",
+     "ret": -9.23,
+     "stop_pct": 7.01,
      "market": "us",
      "group": "hot"
     }
@@ -12328,40 +16220,40 @@
    ]
   },
   {
-   "trades": 107,
-   "win_rate": 35.5,
-   "avg_win_r": 1.96,
+   "trades": 109,
+   "win_rate": 35.8,
+   "avg_win_r": 1.99,
    "avg_loss_r": -0.68,
-   "expectancy_r": 0.258,
-   "profit_factor": 1.59,
-   "avg_days": 11.5,
-   "total_r": 27.6,
-   "equity_ret_pct": 29.4,
+   "expectancy_r": 0.272,
+   "profit_factor": 1.62,
+   "avg_days": 11.6,
+   "total_r": 29.7,
+   "equity_ret_pct": 32.1,
    "mdd_pct": -11.9,
    "best_r": 12.62,
    "worst_r": -1.58,
    "per_year": {
     "2023": 3,
-    "2024": 33,
-    "2025": 28,
+    "2024": 34,
+    "2025": 29,
     "2026": 43
    },
    "max_open": 8,
-   "over4_pct": 5.7,
+   "over4_pct": 7.3,
    "pf_1": {
-    "ret_pct": 30.5,
-    "cagr_pct": 9.5,
+    "ret_pct": 28.6,
+    "cagr_pct": 9.0,
     "mdd_pct": -10.5,
-    "taken": 99,
-    "skipped": 8,
+    "taken": 100,
+    "skipped": 9,
     "avg_invested_pct": 29
    },
    "pf_2": {
-    "ret_pct": 62.7,
-    "cagr_pct": 18.1,
+    "ret_pct": 57.1,
+    "cagr_pct": 16.7,
     "mdd_pct": -19.9,
-    "taken": 99,
-    "skipped": 8,
+    "taken": 100,
+    "skipped": 9,
     "avg_invested_pct": 57
    },
    "key": "mine_nobrk",
@@ -12406,78 +16298,78 @@
     }
    },
    "kr": {
-    "trades": 32,
-    "win_rate": 34.4,
-    "avg_win_r": 1.49,
-    "avg_loss_r": -0.61,
-    "expectancy_r": 0.115,
-    "profit_factor": 1.29,
-    "avg_days": 10.1,
-    "total_r": 3.7,
-    "equity_ret_pct": 3.3,
-    "mdd_pct": -5.9,
+    "trades": 34,
+    "win_rate": 35.3,
+    "avg_win_r": 1.63,
+    "avg_loss_r": -0.63,
+    "expectancy_r": 0.171,
+    "profit_factor": 1.42,
+    "avg_days": 10.6,
+    "total_r": 5.8,
+    "equity_ret_pct": 5.5,
+    "mdd_pct": -4.9,
     "best_r": 8.07,
     "worst_r": -1.01,
     "per_year": {
      "2023": 1,
-     "2024": 10,
-     "2025": 10,
+     "2024": 11,
+     "2025": 11,
      "2026": 11
     },
     "max_open": 3,
     "over4_pct": 0.0,
     "pf_1": {
-     "ret_pct": 3.3,
-     "cagr_pct": 1.2,
-     "mdd_pct": -5.9,
-     "taken": 32,
+     "ret_pct": 5.5,
+     "cagr_pct": 1.9,
+     "mdd_pct": -4.9,
+     "taken": 34,
      "skipped": 0,
      "avg_invested_pct": 18
     },
     "pf_2": {
-     "ret_pct": 6.0,
-     "cagr_pct": 2.1,
-     "mdd_pct": -11.6,
-     "taken": 32,
+     "ret_pct": 9.5,
+     "cagr_pct": 3.3,
+     "mdd_pct": -9.7,
+     "taken": 34,
      "skipped": 0,
-     "avg_invested_pct": 36
+     "avg_invested_pct": 37
     }
    },
    "hot": {
-    "trades": 91,
-    "win_rate": 35.2,
-    "avg_win_r": 1.71,
+    "trades": 93,
+    "win_rate": 35.5,
+    "avg_win_r": 1.76,
     "avg_loss_r": -0.68,
-    "expectancy_r": 0.164,
-    "profit_factor": 1.37,
-    "avg_days": 11.0,
-    "total_r": 14.9,
-    "equity_ret_pct": 15.0,
+    "expectancy_r": 0.184,
+    "profit_factor": 1.42,
+    "avg_days": 11.2,
+    "total_r": 17.1,
+    "equity_ret_pct": 17.4,
     "mdd_pct": -12.5,
     "best_r": 8.07,
     "worst_r": -1.58,
     "per_year": {
      "2023": 2,
-     "2024": 28,
-     "2025": 24,
+     "2024": 29,
+     "2025": 25,
      "2026": 37
     },
     "max_open": 7,
-    "over4_pct": 1.9,
+    "over4_pct": 3.8,
     "pf_1": {
-     "ret_pct": 18.3,
-     "cagr_pct": 5.9,
+     "ret_pct": 19.0,
+     "cagr_pct": 6.1,
      "mdd_pct": -10.8,
-     "taken": 87,
-     "skipped": 4,
+     "taken": 88,
+     "skipped": 5,
      "avg_invested_pct": 27
     },
     "pf_2": {
-     "ret_pct": 37.0,
-     "cagr_pct": 11.4,
+     "ret_pct": 37.5,
+     "cagr_pct": 11.5,
      "mdd_pct": -20.5,
-     "taken": 87,
-     "skipped": 4,
+     "taken": 88,
+     "skipped": 5,
      "avg_invested_pct": 54
     }
    },
@@ -13100,39 +16992,40 @@
      }
     },
     "SK하이닉스": {
-     "trades": 2,
-     "win_rate": 0.0,
-     "avg_win_r": 0,
-     "avg_loss_r": -0.85,
-     "expectancy_r": -0.847,
-     "profit_factor": 0.0,
-     "avg_days": 4.5,
-     "total_r": -1.7,
-     "equity_ret_pct": -1.7,
+     "trades": 4,
+     "win_rate": 25.0,
+     "avg_win_r": 3.15,
+     "avg_loss_r": -0.9,
+     "expectancy_r": 0.11,
+     "profit_factor": 1.16,
+     "avg_days": 12.0,
+     "total_r": 0.4,
+     "equity_ret_pct": 0.4,
      "mdd_pct": -1.7,
-     "best_r": -0.68,
+     "best_r": 3.15,
      "worst_r": -1.01,
      "per_year": {
-      "2025": 1,
+      "2024": 1,
+      "2025": 2,
       "2026": 1
      },
      "max_open": 1,
      "over4_pct": 0.0,
      "pf_1": {
-      "ret_pct": -1.7,
-      "cagr_pct": -1.5,
+      "ret_pct": 0.4,
+      "cagr_pct": 0.3,
       "mdd_pct": -1.7,
-      "taken": 2,
+      "taken": 4,
       "skipped": 0,
-      "avg_invested_pct": 13
+      "avg_invested_pct": 14
      },
      "pf_2": {
-      "ret_pct": -3.4,
-      "cagr_pct": -3.0,
+      "ret_pct": -0.0,
+      "cagr_pct": -0.0,
       "mdd_pct": -3.4,
-      "taken": 2,
+      "taken": 4,
       "skipped": 0,
-      "avg_invested_pct": 26
+      "avg_invested_pct": 27
      }
     },
     "SMCI": {
