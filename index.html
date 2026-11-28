@@ -256,7 +256,7 @@ details.x .in{padding-bottom:14px;font-size:15px}
     <label>모델<select id="model"><option value="gemini-flash-latest">gemini-flash-latest</option></select></label>
     <div class="histw"><div style="font-size:13px;color:var(--lime);margin:14px 0 6px">지난 분석 · 눌러서 다시 보기 (API 사용 안 함)</div><div id="hist"></div></div>
     <label>차트 계산 서버 주소 <small style="opacity:.7">(Cloudflare Worker · 넣으면 EMA·CCI·ATR을 직접 계산)</small><input id="workerUrl" placeholder="https://aic-chart.xxxx.workers.dev" autocomplete="off"></label>
-    <label>1회 매매 허용 손실 (계좌 대비 %)<input id="riskPct" inputmode="decimal" value="1"></label>
+    <label>1회 매매 허용 손실 (계좌 대비 %)<input id="riskPct" inputmode="decimal" value="1.5"></label>
     <label>종목당 최대 비중 % (최대 4종목 기준)<input id="maxPos" inputmode="decimal" value="30"></label>
   </div>
 
@@ -325,7 +325,6 @@ details.x .in{padding-bottom:14px;font-size:15px}
 </div></section>
 
 <section class="band"><div class="wrap" id="extra"></div>
-<p class="note"><a href="backtest.html" style="font-weight:700;color:#00463c">매매 기법 백테스트 결과 보기 →</a></p>
 <p class="note">각 위원은 실제 투자자 본인이 아니라 공개된 투자 철학을 바탕으로 한 AI 분석 역할입니다. 점수는 채점 기준 충족도이며 상승 확률이 아닙니다. 수치는 검색 결과를 AI가 정리한 것이라 틀릴 수 있어요. 투자 권유가 아닙니다.</p>
 </section>
 <script src="app.js"></script>

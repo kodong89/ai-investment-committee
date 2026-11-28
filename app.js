@@ -20,11 +20,12 @@ const AG = [
     q: "내 차트 기준(EMA 리본·CCI·거래량·매물대)으로 지금 들어갈 자리인가?",
     p: "EMA 10·20·50·200 리본으로 추세 방향을 보고(게이트), CCI(20)가 -100 아래에서 올라오는 반등 또는 0선·+100 상향 돌파를 진입 신호로 쓴다. 거래량이 20일 평균보다 늘어야 신호를 믿고, 위쪽 매물대(PVP)까지 여유가 있어야 한다. 손절은 ATR, 추세가 꺾이면(EMA20 종가 이탈) 청산한다. 하락 추세에서 나온 CCI 반등은 역추세라 신뢰하지 않는다.",
     checks: [
-      { id: "ribbon", t: "추세 게이트: 주가 > EMA20 > EMA50, EMA10 > EMA20", pts: 25, rule: (F, T) => { const p = num(F.price), e10 = num(T.ema10), e20 = num(T.ema20), e50 = num(T.ema50); return (p && e10 && e20 && e50) ? (p > e20 && e20 > e50 && e10 > e20) : null; } },
+      { id: "ribbon", t: "추세 게이트: 주가 > EMA20 > EMA50, EMA10 > EMA20", pts: 20, rule: (F, T) => { const p = num(F.price), e10 = num(T.ema10), e20 = num(T.ema20), e50 = num(T.ema50); return (p && e10 && e20 && e50) ? (p > e20 && e20 > e50 && e10 > e20) : null; } },
       { id: "e200", t: "주가가 EMA200 위", pts: 10, rule: (F, T) => gt(num(F.price), num(T.ema200)) },
-      { id: "cci", t: "CCI(20) 신호: -100 상향 반등 또는 0·+100 상향 돌파", pts: 25, rule: (F, T) => { const c = num(T.cci20), p = num(T.cci20_prev); if (c == null || p == null) return null; return (p < -100 && c >= -100) || (p < 0 && c >= 0) || (p < 100 && c >= 100) || (c > p && c > -100 && c < 100 && p < c - 30); } },
-      { id: "vol", t: "거래량이 20일 평균의 1.2배 이상", pts: 15, rule: (F, T) => { const v = num(T.volume_recent), a = num(T.avg_volume_20); return (v && a) ? v >= a * 1.2 : null; } },
-      { id: "pvp", t: "위쪽 매물대(PVP)까지 손절폭 2배 이상 여유", pts: 15, rule: (F, T, M, P) => { const poc = num(T.overhead_poc), e = P?.entry, r = P ? P.entry - P.stop : null; if (!e || !r) return null; if (!poc || poc <= e) return true; return (poc - e) >= 2 * r; } },
+      { id: "brk", t: "돌파 확인: 직전 20일 고점 위 종가 또는 52주 고점 5% 이내", pts: 20, rule: (F, T) => { const p = num(F.price), h52 = num(T.high_52w), h20 = num(T.high_20d_prev); if (!p) return null; if (h52 && p >= h52 * 0.95) return true; if (h20) return p > h20; return h52 ? false : null; } },
+      { id: "cci", t: "CCI(20) 신호: -100 상향 반등 또는 0·+100 상향 돌파", pts: 20, rule: (F, T) => { const c = num(T.cci20), p = num(T.cci20_prev); if (c == null || p == null) return null; return (p < -100 && c >= -100) || (p < 0 && c >= 0) || (p < 100 && c >= 100) || (c > p && c > -100 && c < 100 && p < c - 30); } },
+      { id: "vol", t: "거래량이 20일 평균의 1.2배 이상", pts: 10, rule: (F, T) => { const v = num(T.volume_recent), a = num(T.avg_volume_20); return (v && a) ? v >= a * 1.2 : null; } },
+      { id: "pvp", t: "위쪽 매물대(PVP)까지 손절폭 2배 이상 여유", pts: 10, rule: (F, T, M, P) => { const poc = num(T.overhead_poc), e = P?.entry, r = P ? P.entry - P.stop : null; if (!e || !r) return null; if (!poc || poc <= e) return true; return (poc - e) >= 2 * r; } },
       { id: "liq", t: "거래대금 충분 (미국 2천만$·한국 100억원 이상)", pts: 10, rule: (F, T) => { const v = num(T.avg_volume_20), p = num(F.price); if (!v || !p) return null; return /KRW|원/.test(F.currency || "") ? v * p >= 1e10 : v * p >= 2e7; } } ] },
   { id: "druck", n: "스탠리 드러켄밀러", role: "시장 방향", w: 20, color: "#b08a22",
     q: "좋은 기업인지를 떠나, 지금 돈이 이 종목으로 들어오고 있는가?",
@@ -90,6 +91,7 @@ const DEFAULT_WORKER = "https://aic-chart.sukko89.workers.dev";
 let cfg = Object.assign({ key: "", model: "gemini-flash-latest", mode: "eco", worker: DEFAULT_WORKER }, store.get("aic-cfg", {}));
 if (!cfg.worker) cfg.worker = DEFAULT_WORKER;
 if ((cfg.v || 0) < 3) { cfg.riskPct = 1; cfg.maxPos = 30; cfg.v = 3; store.set("aic-cfg", cfg); }
+if (cfg.v < 4) { if (num(cfg.riskPct) == null || num(cfg.riskPct) === 1) cfg.riskPct = 1.5; cfg.v = 4; store.set("aic-cfg", cfg); } // 백테스트: 4종목 운용엔 1.5%가 무난
 $("key").value = cfg.key; $("mode").value = cfg.mode;
 const saveCfg = () => store.set("aic-cfg", cfg);
 $("setup").style.display = cfg.key ? "none" : "block";
@@ -98,7 +100,7 @@ $("saveKey").addEventListener("click", async () => { cfg.key = $("key").value.tr
 $("model").addEventListener("change", () => { cfg.model = $("model").value; saveCfg(); });
 $("mode").addEventListener("change", () => { cfg.mode = $("mode").value; saveCfg(); });
 $("workerUrl").value = cfg.worker || ""; $("workerUrl").addEventListener("change", () => { cfg.worker = $("workerUrl").value.trim(); saveCfg(); });
-$("riskPct").value = cfg.riskPct ?? 1; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
+$("riskPct").value = cfg.riskPct ?? 1.5; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
 $("maxPos").value = cfg.maxPos ?? 30; $("maxPos").addEventListener("change", () => { cfg.maxPos = $("maxPos").value; saveCfg(); });
 
 async function loadModels() {
@@ -296,7 +298,7 @@ function weekDays(W) { return W.from ? [...Array(5)].map((_, i) => { const d = n
 
 // ── 2. 종목 데이터 수집 ───────────────────────────────────
 const FUND = `{"name":"회사명","ticker":"티커","market":"거래소","currency":"USD|KRW","sector":"섹터","price":숫자,"change_pct":숫자,"as_of":"가격 기준일","market_cap":"시총(단위 포함)","per":숫자,"fwd_per":숫자,"per_hist_avg":숫자,"pbr":숫자,"roe_pct":숫자,"roic_pct":숫자,"op_margin_pct":숫자,"debt_to_equity_pct":숫자,"net_debt":"순부채(음수면 순현금, 단위 포함)","current_ratio":숫자,"fcf":"최근 연간 FCF(단위 포함)","fcf_trend":"증가|감소|흑자 유지|적자","revenue_growth_pct":숫자,"eps_growth_pct":숫자,"eps_growth_next_pct":숫자,"peg":숫자,"eps":숫자,"bps":숫자,"guidance":"최근 가이던스·컨센서스 변화 한 줄","next_earnings_date":"YYYY-MM-DD","business":"사업 한 줄","news":["최근 뉴스1","2","3"],"corporate_actions":"증자·M&A·소송·상폐 위험 한 줄(없으면 '특이사항 없음')","is_leveraged_etf":true|false}`;
-const TECH = `{"ema10":숫자,"ema20":숫자,"ema50":숫자,"ema200":숫자,"adx14":숫자,"cci20":숫자,"cci20_prev":"3거래일 전 CCI(20) 숫자","volume_recent":"최근 거래일 거래량 숫자(주)","avg_volume_20":"20일 평균 거래량 숫자(주)","overhead_poc":"현재가 위쪽에서 가장 거래가 많이 쌓인 매물대 가격(최근 6개월, 없으면 null)","ma50":숫자,"high_52w":숫자,"low_52w":숫자,"rsi14":숫자,"atr14":숫자,"support":숫자,"resistance":숫자,"swing_low":숫자,"volume_trend":"최근 거래량 흐름 한 줄","return_1m_pct":숫자,"return_3m_pct":숫자,"index_return_3m_pct":숫자,"sector_strength":"섹터 상대강도 한 줄","flow":"기관·외국인·정치인 공시·옵션 등 수급 한 줄","pattern":"돌파|눌림목|박스권|추세 이탈|과열 중 하나와 설명"}`;
+const TECH = `{"ema10":숫자,"ema20":숫자,"ema50":숫자,"ema200":숫자,"adx14":숫자,"cci20":숫자,"cci20_prev":"3거래일 전 CCI(20) 숫자","volume_recent":"최근 거래일 거래량 숫자(주)","avg_volume_20":"20일 평균 거래량 숫자(주)","overhead_poc":"현재가 위쪽에서 가장 거래가 많이 쌓인 매물대 가격(최근 6개월, 없으면 null)","ma50":숫자,"high_52w":숫자,"high_20d_prev":"오늘을 뺀 직전 20거래일 최고가 숫자","low_52w":숫자,"rsi14":숫자,"atr14":숫자,"support":숫자,"resistance":숫자,"swing_low":숫자,"volume_trend":"최근 거래량 흐름 한 줄","return_1m_pct":숫자,"return_3m_pct":숫자,"index_return_3m_pct":숫자,"sector_strength":"섹터 상대강도 한 줄","flow":"기관·외국인·정치인 공시·옵션 등 수급 한 줄","pattern":"돌파|눌림목|박스권|추세 이탈|과열 중 하나와 설명"}`;
 const KEYF = ["price", "per", "pbr", "roe_pct", "revenue_growth_pct", "eps_growth_pct", "peg", "eps", "bps", "next_earnings_date"];
 const KEYT = ["ema10", "ema20", "ema50", "ema200", "cci20", "cci20_prev", "adx14", "atr14", "support", "avg_volume_20", "return_3m_pct", "return_1m_pct"];
 const isEmpty = v => v === null || v === undefined || v === "" || v === "null";
@@ -371,7 +373,7 @@ function makePlan(F, T) {
   const rr = target ? (target - entry) / risk : null;
   const target2R = entry + 2 * risk;
   const riskPct = risk / entry;
-  const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 1, 0.1, 5);
+  const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 1.5, 0.1, 5);
   const cap = clamp(num($("maxPos").value) ?? num(cfg.maxPos) ?? 30, 5, 100);
   const size = clamp(acct / 100 / riskPct * 100, 0, cap);
   return { entry, atr, atrEst, atrPct: atr / entry, atrStop, supStop, useSup, stop, riskPct, target, rr, target2R, size, acct, cap, base, lev, breakout, exitEma: num(T.ema20) };
@@ -468,11 +470,15 @@ function finalVerdict(scores, S, M, P, ptjRes) {
   if (ptjRes?.veto && ptjRes.veto_reason) veto.push(ptjRes.veto_reason);
   let capped = veto.length ? Math.min(total, 64) : total;
   if (bear) capped = Math.min(capped, 79);
+  // 백테스트 결과: 200일선 위 + 돌파(20일 고점·신고가 5% 이내)가 겹칠 때 성과가 가장 좋음 → 둘 중 하나라도 아니면 매수 검토 대신 관심
+  const mi = scores.mine?.items || [], fail = id => mi.find(x => x.id === id)?.r === "fail";
+  const setup = fail("e200") ? "200일선 아래 · 200일선 회복 후 재검토" : fail("brk") ? "돌파 대기 · 직전 20일 고점을 종가로 넘으면 재검토" : null;
+  if (setup) capped = Math.min(capped, 79);
   const market = bear ? `${isKR(S.F) ? "한국" : "미국"} 시장 하락장 · 신규 매수 중지` : null;
   const warn = [];
   for (const a of AG) if (a.warnOnly && scores[a.id] && scores[a.id].score < 45) warn.push(`${a.n.split(" ").pop()} 경고 · ${R.agents?.[a.id]?.cons?.[0] || "큰 손실 위험 요인 있음"}`);
-  const band = capped >= 80 ? ["매수 검토", "buy"] : capped >= 65 ? [bear ? "관심 · 시장 회복 대기" : "관심 종목", "watch"] : ["매수 제외", "out"];
-  return { raw: total, score: capped, veto, band, warn, market };
+  const band = capped >= 80 ? ["매수 검토", "buy"] : capped >= 65 ? [bear ? "관심 · 시장 회복 대기" : setup && total >= 80 ? (fail("e200") ? "관심 · 200일선 회복 대기" : "관심 · 돌파 대기") : "관심 종목", "watch"] : ["매수 제외", "out"];
+  return { raw: total, score: capped, veto, band, warn, market, setup };
 }
 
 // ── 렌더링: 결론 카드 → 위원 7줄 → 접힌 상세 ───────────────
@@ -495,6 +501,7 @@ function renderHero() {
         <div class="vd">${D ? esc(D.verdict) : V ? "80점 이상 매수 검토 · 65~79 관심 · 65 미만 제외" : "위원들이 채점하고 있어요"}</div>
         ${V?.veto.length ? `<div class="veto">리스크 거부권 · ${esc(V.veto.join(" / "))}</div>` : ""}
         ${P?.breakout ? `<div class="veto" style="background:#fff4d6;color:#7a5200">돌파 대기 · 바로 위 저항 ${fmt(r2(P.breakout))}(+${pct((P.breakout - P.entry) / P.entry)})을 종가로 넘으면 재검토</div>` : ""}
+        ${V?.setup && !V?.market && V.raw >= 80 ? `<div class="veto" style="background:#fff4d6;color:#7a5200">${esc(V.setup)} · 점수 ${V.raw}점이지만 최대 79점(관심)까지</div>` : ""}
         ${V?.market ? `<div class="veto" style="background:#eef2f0;color:#33433e">${esc(V.market)} · 최대 79점(관심)까지${V.raw !== V.score ? ` · 시장 반영 전 ${V.raw}점` : ""}</div>` : ""}
         ${V?.warn?.length ? `<div class="veto" style="background:#fff4d6;color:#7a5200">${esc(V.warn.join(" / "))}</div>` : ""}</div></div>
     ${P ? `<div class="pg"><div>진입<span>${fmt(r2(P.entry))}</span></div><div>손절<span>${fmt(r2(P.stop))}</span><em style="font-style:normal;font-size:12px;color:#d9472f">-${pct(P.riskPct)}</em></div>
@@ -538,7 +545,7 @@ function renderExtra() {
   if (D) sec.push(["찬반 토론", `<div class="case pro"><h4>상승 논리의 약점</h4>${esc(D.bull_rebuttal)}</div><div class="case con"><h4>하락 시나리오</h4>${esc(D.bear_scenario)}</div>
     <dl class="kv"><dt>매수 실행 조건</dt><dd>${esc(D.entry_trigger)}</dd><dt>계획 폐기 조건</dt><dd>${esc(D.invalidation)}</dd><dt>확인할 일정</dt><dd>${esc(D.watch)}</dd></dl>`]);
   if (V) sec.push(["점수 계산", `<table><tbody>${AG.map(a => { const sc = R.scores[a.id]?.score ?? 50; return a.warnOnly ? `<tr><td>${a.n}</td><td class="r">${sc}점 · 경고 전용</td><td class="r">—</td></tr>` : `<tr><td>${a.n}</td><td class="r">${sc}점 × ${a.w}%</td><td class="r">${(sc * a.w / 100).toFixed(1)}</td></tr>`; }).join("")}
-    <tr class="pick"><td>합계</td><td></td><td class="r">${V.raw}${V.raw !== V.score ? ` → ${V.score} (${V.veto.length ? "거부권" : "하락장 상한"})` : ""}</td></tr></tbody></table>`]);
+    <tr class="pick"><td>합계</td><td></td><td class="r">${V.raw}${V.raw !== V.score ? ` → ${V.score} (${V.veto.length ? "거부권" : V.market ? "하락장 상한" : "돌파 전 상한"})` : ""}</td></tr></tbody></table>`]);
   if (P) sec.push(["손절 방식 비교", `<table><tbody>
     <tr class="${P.useSup ? "" : "pick"}"><td>2 ATR${P.atrEst ? " (추정)" : ""}</td><td class="r">${f(P.atrStop)}</td><td class="r">-${pct((P.entry - P.atrStop) / P.entry)}</td></tr>
     <tr class="${P.useSup ? "pick" : ""}"><td>지지선${P.base ? " " + f(P.base) : ""} − 0.5 ATR</td><td class="r">${f(P.supStop)}</td><td class="r">${P.supStop ? "-" + pct((P.entry - P.supStop) / P.entry) : "—"}</td></tr></tbody></table>

@@ -3,7 +3,7 @@
 // 사용: https://<worker 주소>/?s=TSLA            (미국)
 //       https://<worker 주소>/?s=005930&m=kr     (한국 종목·ETF 코드)
 
-const VERSION = "5";
+const VERSION = "6";
 const ALLOW_ORIGIN = "*"; // 필요하면 "https://kodong89.github.io" 로 제한
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
 
@@ -171,6 +171,7 @@ function compute(b, idx) {
     volume_recent: last.v, avg_volume_20: Math.round(sma(vols, 20) || 0),
     support: r2(support), resistance: r2(resistance), swing_low: r2(Math.min(...b.slice(-10).map(x => x.l))),
     overhead_poc: r2(vp.overhead), poc_120d: r2(vp.poc),
+    high_20d_prev: r2(Math.max(...b.slice(-21, -1).map(x => x.h))), // 오늘 제외 직전 20일 고점 (돌파 확인)
     high_52w: r2(Math.max(...y.map(x => x.h))), low_52w: r2(Math.min(...y.map(x => x.l))),
     return_1m_pct: pc(price, c[n - 22]), return_3m_pct: pc(price, c[n - 64]),
     index_return_3m_pct: ic && ic.length > 64 ? pc(ic[ic.length - 1], ic[ic.length - 64]) : null,
