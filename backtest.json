@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-28T11:51:14Z",
+ "updated": "2026-11-28T13:27:41Z",
  "period": "2023-11-29 ~ 2026-11-27",
  "rules": {
   "진입": "신호가 난 다음 날 시가 (라쉬키는 신호 봉 고가 돌파 시)",
@@ -12,77 +12,92 @@
   {
    "sym": "AAPL",
    "name": "AAPL",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "MSFT",
    "name": "MSFT",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "NVDA",
    "name": "NVDA",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "GOOGL",
    "name": "GOOGL",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "AMZN",
    "name": "AMZN",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "META",
    "name": "META",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "TSLA",
    "name": "TSLA",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "AVGO",
    "name": "AVGO",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "AMD",
    "name": "AMD",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "NFLX",
    "name": "NFLX",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "PLTR",
    "name": "PLTR",
-   "market": "us"
+   "market": "us",
+   "group": ""
   },
   {
    "sym": "005930.KS",
    "name": "삼성전자",
-   "market": "kr"
+   "market": "kr",
+   "group": ""
   },
   {
    "sym": "000660.KS",
    "name": "SK하이닉스",
-   "market": "kr"
+   "market": "kr",
+   "group": ""
   },
   {
    "sym": "035420.KS",
    "name": "NAVER",
-   "market": "kr"
+   "market": "kr",
+   "group": ""
   },
   {
    "sym": "035720.KS",
    "name": "카카오",
-   "market": "kr"
+   "market": "kr",
+   "group": ""
   }
  ],
  "strategies": [
@@ -150,6 +165,12 @@
     },
     "max_open": 2,
     "over4_pct": 0.0
+   },
+   "hot": {
+    "trades": 0
+   },
+   "faded": {
+    "trades": 0
    },
    "by_symbol": {
     "AMD": {
@@ -360,7 +381,8 @@
      "days": 2,
      "why": "손절",
      "ret": -5.45,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "PLTR",
@@ -370,7 +392,8 @@
      "days": 6,
      "why": "손절",
      "ret": -6.37,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "삼성전자",
@@ -380,7 +403,8 @@
      "days": 21,
      "why": "EMA20 이탈",
      "ret": 12.22,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "AVGO",
@@ -390,7 +414,8 @@
      "days": 4,
      "why": "손절",
      "ret": -9.23,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "삼성전자",
@@ -400,7 +425,8 @@
      "days": 42,
      "why": "EMA20 이탈",
      "ret": 27.65,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "SK하이닉스",
@@ -410,7 +436,8 @@
      "days": 7,
      "why": "손절",
      "ret": -8.52,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "GOOGL",
@@ -420,7 +447,8 @@
      "days": 32,
      "why": "EMA20 이탈",
      "ret": 9.19,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "삼성전자",
@@ -430,7 +458,8 @@
      "days": 34,
      "why": "EMA20 이탈",
      "ret": 17.29,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     }
    ]
   },
@@ -501,6 +530,12 @@
     },
     "max_open": 3,
     "over4_pct": 0.0
+   },
+   "hot": {
+    "trades": 0
+   },
+   "faded": {
+    "trades": 0
    },
    "by_symbol": {
     "AAPL": {
@@ -778,7 +813,8 @@
      "days": 2,
      "why": "손절",
      "ret": -5.45,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "NVDA",
@@ -788,7 +824,8 @@
      "days": 9,
      "why": "EMA20 이탈",
      "ret": -3.95,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "삼성전자",
@@ -798,7 +835,8 @@
      "days": 21,
      "why": "EMA20 이탈",
      "ret": 12.22,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "AVGO",
@@ -808,7 +846,8 @@
      "days": 4,
      "why": "손절",
      "ret": -9.23,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "GOOGL",
@@ -818,7 +857,8 @@
      "days": 20,
      "why": "EMA20 이탈",
      "ret": -0.44,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "삼성전자",
@@ -828,7 +868,8 @@
      "days": 42,
      "why": "EMA20 이탈",
      "ret": 27.65,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "SK하이닉스",
@@ -838,7 +879,8 @@
      "days": 22,
      "why": "EMA20 이탈",
      "ret": 10.16,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "NVDA",
@@ -848,31 +890,32 @@
      "days": 2,
      "why": "손절",
      "ret": -6.8,
-     "market": "us"
+     "market": "us",
+     "group": ""
     }
    ]
   },
   {
-   "trades": 114,
-   "win_rate": 45.6,
-   "avg_win_r": 1.93,
-   "avg_loss_r": -0.68,
-   "expectancy_r": 0.51,
-   "profit_factor": 2.37,
-   "avg_days": 17.9,
-   "total_r": 58.1,
-   "equity_ret_pct": 75.9,
+   "trades": 115,
+   "win_rate": 45.2,
+   "avg_win_r": 1.94,
+   "avg_loss_r": -0.69,
+   "expectancy_r": 0.502,
+   "profit_factor": 2.33,
+   "avg_days": 17.8,
+   "total_r": 57.7,
+   "equity_ret_pct": 75.1,
    "mdd_pct": -7.4,
    "best_r": 7.08,
    "worst_r": -1.32,
    "per_year": {
     "2023": 11,
-    "2024": 43,
+    "2024": 44,
     "2025": 40,
     "2026": 20
    },
    "max_open": 10,
-   "over4_pct": 30.8,
+   "over4_pct": 31.0,
    "key": "mine_brk",
    "name": "내 매매법 + 돌파 확인",
    "desc": "[비교] 내 신호 중 신고가 5% 이내·20일 고가 돌파가 겹친 것만",
@@ -899,26 +942,32 @@
     "over4_pct": 19.0
    },
    "kr": {
-    "trades": 23,
-    "win_rate": 60.9,
-    "avg_win_r": 2.28,
-    "avg_loss_r": -0.59,
-    "expectancy_r": 1.158,
-    "profit_factor": 6.01,
-    "avg_days": 21.0,
-    "total_r": 26.6,
-    "equity_ret_pct": 29.8,
-    "mdd_pct": -1.1,
+    "trades": 24,
+    "win_rate": 58.3,
+    "avg_win_r": 2.33,
+    "avg_loss_r": -0.63,
+    "expectancy_r": 1.094,
+    "profit_factor": 5.15,
+    "avg_days": 20.5,
+    "total_r": 26.3,
+    "equity_ret_pct": 29.3,
+    "mdd_pct": -2.1,
     "best_r": 5.59,
     "worst_r": -1.02,
     "per_year": {
      "2023": 5,
-     "2024": 6,
+     "2024": 7,
      "2025": 9,
      "2026": 3
     },
     "max_open": 4,
     "over4_pct": 0.0
+   },
+   "hot": {
+    "trades": 0
+   },
+   "faded": {
+    "trades": 0
    },
    "by_symbol": {
     "AAPL": {
@@ -1156,21 +1205,21 @@
      "over4_pct": 0.0
     },
     "SK하이닉스": {
-     "trades": 10,
-     "win_rate": 60.0,
-     "avg_win_r": 1.77,
-     "avg_loss_r": -0.78,
-     "expectancy_r": 0.748,
-     "profit_factor": 3.4,
-     "avg_days": 17.2,
-     "total_r": 7.5,
-     "equity_ret_pct": 7.6,
+     "trades": 11,
+     "win_rate": 54.5,
+     "avg_win_r": 1.87,
+     "avg_loss_r": -0.83,
+     "expectancy_r": 0.645,
+     "profit_factor": 2.72,
+     "avg_days": 16.5,
+     "total_r": 7.1,
+     "equity_ret_pct": 7.2,
      "mdd_pct": -2.1,
-     "best_r": 2.52,
+     "best_r": 3.15,
      "worst_r": -1.02,
      "per_year": {
       "2023": 2,
-      "2024": 4,
+      "2024": 5,
       "2025": 2,
       "2026": 2
      },
@@ -1250,7 +1299,8 @@
      "days": 12,
      "why": "EMA20 이탈",
      "ret": -3.23,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "MSFT",
@@ -1260,7 +1310,8 @@
      "days": 2,
      "why": "손절",
      "ret": -5.45,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "TSLA",
@@ -1270,7 +1321,8 @@
      "days": 7,
      "why": "EMA20 이탈",
      "ret": -3.26,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AAPL",
@@ -1280,7 +1332,8 @@
      "days": 6,
      "why": "손절",
      "ret": -3.79,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "META",
@@ -1290,7 +1343,8 @@
      "days": 19,
      "why": "EMA20 이탈",
      "ret": -3.12,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "PLTR",
@@ -1300,7 +1354,8 @@
      "days": 6,
      "why": "손절",
      "ret": -6.37,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "NVDA",
@@ -1310,7 +1365,8 @@
      "days": 10,
      "why": "EMA20 이탈",
      "ret": -2.11,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "NVDA",
@@ -1320,7 +1376,8 @@
      "days": 9,
      "why": "EMA20 이탈",
      "ret": -3.95,
-     "market": "us"
+     "market": "us",
+     "group": ""
     }
    ]
   },
@@ -1391,6 +1448,12 @@
     },
     "max_open": 2,
     "over4_pct": 0.0
+   },
+   "hot": {
+    "trades": 0
+   },
+   "faded": {
+    "trades": 0
    },
    "by_symbol": {
     "AAPL": {
@@ -1709,7 +1772,8 @@
      "days": 2,
      "why": "손절",
      "ret": -5.45,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "NVDA",
@@ -1719,7 +1783,8 @@
      "days": 9,
      "why": "EMA20 이탈",
      "ret": -3.95,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AMZN",
@@ -1729,7 +1794,8 @@
      "days": 11,
      "why": "손절",
      "ret": -6.94,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AAPL",
@@ -1739,7 +1805,8 @@
      "days": 25,
      "why": "EMA20 이탈",
      "ret": 8.58,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AVGO",
@@ -1749,7 +1816,8 @@
      "days": 4,
      "why": "손절",
      "ret": -9.23,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "삼성전자",
@@ -1759,7 +1827,8 @@
      "days": 42,
      "why": "EMA20 이탈",
      "ret": 27.65,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "NAVER",
@@ -1769,7 +1838,8 @@
      "days": 6,
      "why": "손절",
      "ret": -7.61,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "GOOGL",
@@ -1779,7 +1849,8 @@
      "days": 32,
      "why": "EMA20 이탈",
      "ret": 9.19,
-     "market": "us"
+     "market": "us",
+     "group": ""
     }
    ]
   },
@@ -1850,6 +1921,12 @@
     },
     "max_open": 4,
     "over4_pct": 0.0
+   },
+   "hot": {
+    "trades": 0
+   },
+   "faded": {
+    "trades": 0
    },
    "by_symbol": {
     "AAPL": {
@@ -2186,7 +2263,8 @@
      "days": 12,
      "why": "EMA20 이탈",
      "ret": -3.23,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "MSFT",
@@ -2196,7 +2274,8 @@
      "days": 2,
      "why": "손절",
      "ret": -5.45,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "TSLA",
@@ -2206,7 +2285,8 @@
      "days": 10,
      "why": "EMA20 이탈",
      "ret": 2.81,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AAPL",
@@ -2216,7 +2296,8 @@
      "days": 6,
      "why": "손절",
      "ret": -3.79,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "MSFT",
@@ -2226,7 +2307,8 @@
      "days": 23,
      "why": "EMA20 이탈",
      "ret": 5.44,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AMZN",
@@ -2236,7 +2318,8 @@
      "days": 3,
      "why": "손절",
      "ret": -5.03,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "META",
@@ -2246,7 +2329,8 @@
      "days": 19,
      "why": "EMA20 이탈",
      "ret": -3.12,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "PLTR",
@@ -2256,7 +2340,8 @@
      "days": 20,
      "why": "EMA20 이탈",
      "ret": 9.86,
-     "market": "us"
+     "market": "us",
+     "group": ""
     }
    ]
   },
@@ -2327,6 +2412,12 @@
     },
     "max_open": 4,
     "over4_pct": 0.0
+   },
+   "hot": {
+    "trades": 0
+   },
+   "faded": {
+    "trades": 0
    },
    "by_symbol": {
     "AAPL": {
@@ -2663,7 +2754,8 @@
      "days": 12,
      "why": "EMA20 이탈",
      "ret": -3.23,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "MSFT",
@@ -2673,7 +2765,8 @@
      "days": 2,
      "why": "손절",
      "ret": -5.45,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "TSLA",
@@ -2683,7 +2776,8 @@
      "days": 10,
      "why": "EMA20 이탈",
      "ret": 2.81,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AAPL",
@@ -2693,7 +2787,8 @@
      "days": 6,
      "why": "손절",
      "ret": -3.79,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "MSFT",
@@ -2703,7 +2798,8 @@
      "days": 23,
      "why": "EMA20 이탈",
      "ret": 5.44,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AMZN",
@@ -2713,7 +2809,8 @@
      "days": 3,
      "why": "손절",
      "ret": -5.03,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "META",
@@ -2723,7 +2820,8 @@
      "days": 19,
      "why": "EMA20 이탈",
      "ret": -3.12,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "PLTR",
@@ -2733,27 +2831,28 @@
      "days": 20,
      "why": "EMA20 이탈",
      "ret": 9.86,
-     "market": "us"
+     "market": "us",
+     "group": ""
     }
    ]
   },
   {
-   "trades": 45,
-   "win_rate": 35.6,
-   "avg_win_r": 1.53,
-   "avg_loss_r": -0.71,
-   "expectancy_r": 0.084,
-   "profit_factor": 1.18,
-   "avg_days": 12.6,
-   "total_r": 3.8,
-   "equity_ret_pct": 3.5,
+   "trades": 43,
+   "win_rate": 34.9,
+   "avg_win_r": 1.42,
+   "avg_loss_r": -0.7,
+   "expectancy_r": 0.039,
+   "profit_factor": 1.08,
+   "avg_days": 12.2,
+   "total_r": 1.7,
+   "equity_ret_pct": 1.4,
    "mdd_pct": -11.4,
    "best_r": 3.62,
    "worst_r": -1.04,
    "per_year": {
     "2023": 2,
-    "2024": 7,
-    "2025": 16,
+    "2024": 6,
+    "2025": 15,
     "2026": 20
    },
    "max_open": 4,
@@ -2784,26 +2883,32 @@
     "over4_pct": 0.0
    },
    "kr": {
-    "trades": 17,
-    "win_rate": 17.6,
-    "avg_win_r": 2.19,
-    "avg_loss_r": -0.75,
-    "expectancy_r": -0.233,
-    "profit_factor": 0.62,
-    "avg_days": 10.5,
-    "total_r": -4.0,
-    "equity_ret_pct": -4.0,
-    "mdd_pct": -7.6,
-    "best_r": 3.15,
+    "trades": 15,
+    "win_rate": 13.3,
+    "avg_win_r": 1.71,
+    "avg_loss_r": -0.73,
+    "expectancy_r": -0.407,
+    "profit_factor": 0.36,
+    "avg_days": 9.3,
+    "total_r": -6.1,
+    "equity_ret_pct": -6.0,
+    "mdd_pct": -8.6,
+    "best_r": 1.99,
     "worst_r": -1.01,
     "per_year": {
      "2023": 1,
-     "2024": 3,
-     "2025": 8,
+     "2024": 2,
+     "2025": 7,
      "2026": 5
     },
     "max_open": 2,
     "over4_pct": 0.0
+   },
+   "hot": {
+    "trades": 0
+   },
+   "faded": {
+    "trades": 0
    },
    "by_symbol": {
     "AAPL": {
@@ -3006,21 +3111,20 @@
      "over4_pct": 0.0
     },
     "SK하이닉스": {
-     "trades": 4,
-     "win_rate": 25.0,
-     "avg_win_r": 3.15,
-     "avg_loss_r": -0.9,
-     "expectancy_r": 0.11,
-     "profit_factor": 1.16,
-     "avg_days": 12.0,
-     "total_r": 0.4,
-     "equity_ret_pct": 0.4,
+     "trades": 2,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
+     "avg_loss_r": -0.85,
+     "expectancy_r": -0.847,
+     "profit_factor": 0.0,
+     "avg_days": 4.5,
+     "total_r": -1.7,
+     "equity_ret_pct": -1.7,
      "mdd_pct": -1.7,
-     "best_r": 3.15,
+     "best_r": -0.68,
      "worst_r": -1.01,
      "per_year": {
-      "2024": 1,
-      "2025": 2,
+      "2025": 1,
       "2026": 1
      },
      "max_open": 1,
@@ -3097,7 +3201,8 @@
      "days": 10,
      "why": "EMA20 이탈",
      "ret": 2.81,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "MSFT",
@@ -3107,7 +3212,8 @@
      "days": 23,
      "why": "EMA20 이탈",
      "ret": 5.44,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AMZN",
@@ -3117,7 +3223,8 @@
      "days": 3,
      "why": "손절",
      "ret": -5.03,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "PLTR",
@@ -3127,7 +3234,8 @@
      "days": 20,
      "why": "EMA20 이탈",
      "ret": 9.86,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "TSLA",
@@ -3137,7 +3245,8 @@
      "days": 8,
      "why": "EMA20 이탈",
      "ret": -0.6,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "NVDA",
@@ -3147,7 +3256,8 @@
      "days": 16,
      "why": "EMA20 이탈",
      "ret": 1.42,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "AAPL",
@@ -3157,7 +3267,8 @@
      "days": 13,
      "why": "EMA20 이탈",
      "ret": 0.5,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "NVDA",
@@ -3167,7 +3278,8 @@
      "days": 5,
      "why": "EMA20 이탈",
      "ret": -3.38,
-     "market": "us"
+     "market": "us",
+     "group": ""
     }
    ]
   },
@@ -3238,6 +3350,12 @@
     },
     "max_open": 2,
     "over4_pct": 0.0
+   },
+   "hot": {
+    "trades": 0
+   },
+   "faded": {
+    "trades": 0
    },
    "by_symbol": {
     "AAPL": {
@@ -3559,7 +3677,8 @@
      "days": 24,
      "why": "EMA20 이탈",
      "ret": 6.4,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "PLTR",
@@ -3569,7 +3688,8 @@
      "days": 1,
      "why": "손절",
      "ret": -6.92,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "MSFT",
@@ -3579,7 +3699,8 @@
      "days": 5,
      "why": "EMA20 이탈",
      "ret": -0.93,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "PLTR",
@@ -3589,7 +3710,8 @@
      "days": 3,
      "why": "EMA20 이탈",
      "ret": -4.19,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "SK하이닉스",
@@ -3599,7 +3721,8 @@
      "days": 15,
      "why": "손절",
      "ret": 7.9,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "NAVER",
@@ -3609,7 +3732,8 @@
      "days": 2,
      "why": "EMA20 이탈",
      "ret": -7.98,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     },
     {
      "sym": "AAPL",
@@ -3619,7 +3743,8 @@
      "days": 2,
      "why": "EMA20 이탈",
      "ret": -1.04,
-     "market": "us"
+     "market": "us",
+     "group": ""
     },
     {
      "sym": "삼성전자",
@@ -3629,7 +3754,8 @@
      "days": 3,
      "why": "손절",
      "ret": -8.1,
-     "market": "kr"
+     "market": "kr",
+     "group": ""
     }
    ]
   }
@@ -3638,77 +3764,109 @@
   {
    "name": "AAPL",
    "market": "us",
-   "ret_pct": 91.8
+   "group": "",
+   "ret_pct": 91.8,
+   "atr_pct": 2.21
   },
   {
    "name": "MSFT",
    "market": "us",
-   "ret_pct": 33.1
+   "group": "",
+   "ret_pct": 33.1,
+   "atr_pct": 2.1
   },
   {
    "name": "NVDA",
    "market": "us",
-   "ret_pct": 213.5
+   "group": "",
+   "ret_pct": 213.5,
+   "atr_pct": 3.8
   },
   {
    "name": "GOOGL",
    "market": "us",
-   "ret_pct": 105.6
+   "group": "",
+   "ret_pct": 105.6,
+   "atr_pct": 2.58
   },
   {
    "name": "AMZN",
    "market": "us",
-   "ret_pct": 73.7
+   "group": "",
+   "ret_pct": 73.7,
+   "atr_pct": 2.62
   },
   {
    "name": "META",
    "market": "us",
-   "ret_pct": 91.1
+   "group": "",
+   "ret_pct": 91.1,
+   "atr_pct": 2.99
   },
   {
    "name": "TSLA",
    "market": "us",
-   "ret_pct": 63.8
+   "group": "",
+   "ret_pct": 63.8,
+   "atr_pct": 4.64
   },
   {
    "name": "AVGO",
    "market": "us",
-   "ret_pct": 242.9
+   "group": "",
+   "ret_pct": 242.9,
+   "atr_pct": 3.9
   },
   {
    "name": "AMD",
    "market": "us",
-   "ret_pct": 242.8
+   "group": "",
+   "ret_pct": 242.8,
+   "atr_pct": 4.68
   },
   {
    "name": "NFLX",
    "market": "us",
-   "ret_pct": 27.7
+   "group": "",
+   "ret_pct": 27.7,
+   "atr_pct": 2.74
   },
   {
    "name": "PLTR",
    "market": "us",
-   "ret_pct": 767.8
+   "group": "",
+   "ret_pct": 767.8,
+   "atr_pct": 4.88
   },
   {
    "name": "삼성전자",
    "market": "kr",
-   "ret_pct": 163.6
+   "group": "",
+   "ret_pct": 163.6,
+   "atr_pct": 3.59
   },
   {
    "name": "SK하이닉스",
    "market": "kr",
-   "ret_pct": 784.7
+   "group": "",
+   "ret_pct": 784.7,
+   "atr_pct": 4.92
   },
   {
    "name": "NAVER",
    "market": "kr",
-   "ret_pct": -19.7
+   "group": "",
+   "ret_pct": -19.7,
+   "atr_pct": 3.6
   },
   {
    "name": "카카오",
    "market": "kr",
-   "ret_pct": -38.3
+   "group": "",
+   "ret_pct": -38.3,
+   "atr_pct": 3.88
   }
- ]
+ ],
+ "key": "bigtech",
+ "title": "빅테크"
 }
