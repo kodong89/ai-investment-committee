@@ -22,7 +22,7 @@ const AG = [
     checks: [
       { id: "ribbon", t: "추세 게이트: 주가 > EMA20 > EMA50, EMA10 > EMA20", pts: 20, rule: (F, T) => { const p = num(F.price), e10 = num(T.ema10), e20 = num(T.ema20), e50 = num(T.ema50); return (p && e10 && e20 && e50) ? (p > e20 && e20 > e50 && e10 > e20) : null; } },
       { id: "e200", t: "주가가 EMA200 위", pts: 10, rule: (F, T) => gt(num(F.price), num(T.ema200)) },
-      { id: "brk", t: "돌파 확인: 직전 20일 고점 위 종가 또는 52주 고점 5% 이내", pts: 20, rule: (F, T) => { const p = num(F.price), h52 = num(T.high_52w), h20 = num(T.high_20d_prev); if (!p) return null; if (h52 && p >= h52 * 0.95) return true; if (h20) return p > h20; return h52 ? false : null; } },
+      { id: "brk", t: "돌파 확인: 직전 20일 고점 위 종가 또는 52주 고점 5% 이내", pts: 20, rule: (F, T) => { const p = num(F.price), h52 = num(T.high_52w), h20 = num(T.high_20d_prev); if (!p) return null; if (h52 && p >= h52 * 0.95) return true; if (h20) return p > h20; return null; /* Worker v5 이하는 20일 고점이 없어 판단 보류 */ } },
       { id: "cci", t: "CCI(20) 신호: -100 상향 반등 또는 0·+100 상향 돌파", pts: 20, rule: (F, T) => { const c = num(T.cci20), p = num(T.cci20_prev); if (c == null || p == null) return null; return (p < -100 && c >= -100) || (p < 0 && c >= 0) || (p < 100 && c >= 100) || (c > p && c > -100 && c < 100 && p < c - 30); } },
       { id: "vol", t: "거래량이 20일 평균의 1.2배 이상", pts: 10, rule: (F, T) => { const v = num(T.volume_recent), a = num(T.avg_volume_20); return (v && a) ? v >= a * 1.2 : null; } },
       { id: "pvp", t: "위쪽 매물대(PVP)까지 손절폭 2배 이상 여유", pts: 10, rule: (F, T, M, P) => { const poc = num(T.overhead_poc), e = P?.entry, r = P ? P.entry - P.stop : null; if (!e || !r) return null; if (!poc || poc <= e) return true; return (poc - e) >= 2 * r; } },
