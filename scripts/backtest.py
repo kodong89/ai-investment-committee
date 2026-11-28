@@ -188,6 +188,10 @@ def sig_mine_a200(I, i):
     return sig_mine(I, i) and ok(I["e200"][i]) and I["c"][i] > I["e200"][i]
 
 
+def sig_mine_combo(I, i):
+    return sig_mine_a200(I, i) and brk(I, i)
+
+
 def sig_mine_plus(I, i):
     return sig_mine(I, i) or sig_minervini(I, i) or sig_oneil(I, i)
 
@@ -198,6 +202,7 @@ STRATS = [("mine", "내 매매법", "EMA 리본 + CCI 반등·돌파 + 거래량
           ("mine_x1020", "내 매매법 + 10/20일선 골든크로스", "[비교] 내 신호 중 최근 5일 안에 EMA10이 EMA20을 상향 돌파한 것만", sig_mine_x1020),
           ("mine_x200", "내 매매법 + 200일선 상향 돌파", "[비교] 내 신호 중 최근 10일 안에 종가가 EMA200을 상향 돌파한 것만", sig_mine_x200),
           ("mine_a200", "내 매매법 + 200일선 위", "[비교] 내 신호 중 종가가 EMA200 위에 있는 것만", sig_mine_a200),
+          ("mine_combo", "내 매매법 + 200일선 위 + 돌파 확인", "[비교] 200일선 위이면서 신고가 5% 이내·20일 고가 돌파가 겹친 것만", sig_mine_combo),
           ("mine_plus", "내 매매법 + 미너비니·오닐 신호 추가", "[비교] 셋 중 하나라도 신호가 나면 진입", sig_mine_plus),
           ("minervini", "미너비니", "추세 템플릿 + 변동성 축소 돌파", sig_minervini),
           ("qulla", "쿨라매기", "주도주 박스권 돌파", sig_qulla),
