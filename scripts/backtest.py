@@ -166,6 +166,28 @@ def sig_mine_nobrk(I, i):
     return sig_mine(I, i) and not brk(I, i)
 
 
+def crossed(a, b, i, k):
+    """최근 k일 안에 a가 b를 아래에서 위로 넘었는지"""
+    for d in range(i - k + 1, i + 1):
+        if d < 1 or not ok(a[d], b[d], a[d - 1], b[d - 1]):
+            continue
+        if a[d - 1] <= b[d - 1] and a[d] > b[d]:
+            return True
+    return False
+
+
+def sig_mine_x1020(I, i):
+    return sig_mine(I, i) and crossed(I["e10"], I["e20"], i, 5)
+
+
+def sig_mine_x200(I, i):
+    return sig_mine(I, i) and crossed(I["c"], I["e200"], i, 10)
+
+
+def sig_mine_a200(I, i):
+    return sig_mine(I, i) and ok(I["e200"][i]) and I["c"][i] > I["e200"][i]
+
+
 def sig_mine_plus(I, i):
     return sig_mine(I, i) or sig_minervini(I, i) or sig_oneil(I, i)
 
@@ -173,6 +195,9 @@ def sig_mine_plus(I, i):
 STRATS = [("mine", "내 매매법", "EMA 리본 + CCI 반등·돌파 + 거래량", sig_mine),
           ("mine_brk", "내 매매법 + 돌파 확인", "[비교] 내 신호 중 신고가 5% 이내·20일 고가 돌파가 겹친 것만", sig_mine_brk),
           ("mine_nobrk", "내 매매법 − 돌파 없음", "[비교] 내 신호 중 돌파 조건이 없던 것만", sig_mine_nobrk),
+          ("mine_x1020", "내 매매법 + 10/20일선 골든크로스", "[비교] 내 신호 중 최근 5일 안에 EMA10이 EMA20을 상향 돌파한 것만", sig_mine_x1020),
+          ("mine_x200", "내 매매법 + 200일선 상향 돌파", "[비교] 내 신호 중 최근 10일 안에 종가가 EMA200을 상향 돌파한 것만", sig_mine_x200),
+          ("mine_a200", "내 매매법 + 200일선 위", "[비교] 내 신호 중 종가가 EMA200 위에 있는 것만", sig_mine_a200),
           ("mine_plus", "내 매매법 + 미너비니·오닐 신호 추가", "[비교] 셋 중 하나라도 신호가 나면 진입", sig_mine_plus),
           ("minervini", "미너비니", "추세 템플릿 + 변동성 축소 돌파", sig_minervini),
           ("qulla", "쿨라매기", "주도주 박스권 돌파", sig_qulla),
