@@ -192,6 +192,22 @@ def sig_mine_combo(I, i):
     return sig_mine_a200(I, i) and brk(I, i)
 
 
+def sig_mine_core(I, i):
+    """내 매매법에서 거래량 조건만 뺀 것"""
+    c, e10, e20, e50, cci = I["c"], I["e10"], I["e20"], I["e50"], I["cci"]
+    if not ok(e10[i], e20[i], e50[i], cci[i], cci[i - 1]):
+        return False
+    return c[i] > e20[i] > e50[i] and e10[i] > e20[i] and any(cci[i - 1] < lv <= cci[i] for lv in (-100, 0, 100))
+
+
+def combo_vol(mult):
+    def f(I, i):
+        if not (sig_mine_core(I, i) and ok(I["e200"][i], I["v20"][i]) and I["c"][i] > I["e200"][i] and brk(I, i)):
+            return False
+        return mult == 0 or I["v"][i] >= mult * I["v20"][i]
+    return f
+
+
 def sig_mine_plus(I, i):
     return sig_mine(I, i) or sig_minervini(I, i) or sig_oneil(I, i)
 
@@ -203,6 +219,9 @@ STRATS = [("mine", "내 매매법", "EMA 리본 + CCI 반등·돌파 + 거래량
           ("mine_x200", "내 매매법 + 200일선 상향 돌파", "[비교] 내 신호 중 최근 10일 안에 종가가 EMA200을 상향 돌파한 것만", sig_mine_x200),
           ("mine_a200", "내 매매법 + 200일선 위", "[비교] 내 신호 중 종가가 EMA200 위에 있는 것만", sig_mine_a200),
           ("mine_combo", "내 매매법 + 200일선 위 + 돌파 확인", "[비교] 200일선 위이면서 신고가 5% 이내·20일 고가 돌파가 겹친 것만", sig_mine_combo),
+          ("vol_0", "조합 · 거래량 조건 없음", "[거래량 비교] 200일선 위 + 돌파, 거래량 무관", combo_vol(0)),
+          ("vol_15", "조합 · 거래량 1.5배", "[거래량 비교] 200일선 위 + 돌파 + 20일 평균의 1.5배 이상", combo_vol(1.5)),
+          ("vol_20", "조합 · 거래량 2배", "[거래량 비교] 200일선 위 + 돌파 + 20일 평균의 2배 이상", combo_vol(2.0)),
           ("mine_plus", "내 매매법 + 미너비니·오닐 신호 추가", "[비교] 셋 중 하나라도 신호가 나면 진입", sig_mine_plus),
           ("minervini", "미너비니", "추세 템플릿 + 변동성 축소 돌파", sig_minervini),
           ("qulla", "쿨라매기", "주도주 박스권 돌파", sig_qulla),
