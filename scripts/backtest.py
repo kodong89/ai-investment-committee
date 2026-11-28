@@ -221,7 +221,28 @@ def stats(tr):
             "profit_factor": round(sum(wins) / -sum(loss), 2) if loss and sum(loss) < 0 else None,
             "avg_days": round(sum(t["days"] for t in tr) / len(tr), 1),
             "total_r": round(sum(rs), 1), "equity_ret_pct": round((eq - 1) * 100, 1), "mdd_pct": round(mdd * 100, 1),
-            "best_r": round(max(rs), 2), "worst_r": round(min(rs), 2)}
+            "best_r": round(max(rs), 2), "worst_r": round(min(rs), 2),
+            "per_year": per_year(tr), **concurrency(tr)}
+
+
+def per_year(tr):
+    y = {}
+    for t in tr:
+        k = str(t["in"])[:4]; y[k] = y.get(k, 0) + 1
+    return dict(sorted(y.items()))
+
+
+def concurrency(tr):
+    """같은 날 동시에 들고 있던 종목 수 (최대 4종목 운용과 비교)"""
+    ev = {}
+    for t in tr:
+        ev[str(t["in"])] = ev.get(str(t["in"]), 0) + 1
+        ev[str(t["out"]) + "~"] = ev.get(str(t["out"]) + "~", 0) - 1
+    cur = mx = 0; over = 0; last = None; days = {}
+    for d in sorted(ev):
+        cur += ev[d]; mx = max(mx, cur); days[d[:10]] = cur
+    held = list(days.values())
+    return {"max_open": mx, "over4_pct": round(sum(1 for x in held if x > 4) / len(held) * 100, 1) if held else 0}
 
 
 def main():
