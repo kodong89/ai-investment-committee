@@ -3,7 +3,7 @@
 // 사용: https://<worker 주소>/?s=TSLA            (미국)
 //       https://<worker 주소>/?s=005930&m=kr     (한국 종목·ETF 코드)
 
-const VERSION = "4";
+const VERSION = "5";
 const ALLOW_ORIGIN = "*"; // 필요하면 "https://kodong89.github.io" 로 제한
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
 
@@ -30,7 +30,7 @@ export default {
       ctx.waitUntil(cache.put(key, res.clone()));
       return res;
     } catch (e) {
-      return json({ error: String(e.message || e) }, 502);
+      return json({ error: String(e.message || e), version: VERSION }, 502);
     }
   },
 };
@@ -42,9 +42,11 @@ async function loadBars(sym, mkt) {
   else if (mkt === "kr-index") tries.push(() => yahoo(sym));
   else {
     const day = b => b && b.length ? new Date(b[b.length - 1].t).toISOString().slice(0, 10) : "";
-    const [y, s] = await Promise.all([yahoo(sym).catch(() => null), stooq(sym).catch(() => null)]);
+    const y = await yahoo(sym).catch(() => null);
+    const stale = !y || y.length < 60 || Date.now() - y[y.length - 1].t > 3.5 * 864e5; // 주말·휴장 감안
+    const s = stale ? await stooq(sym).catch(() => null) : null;
     const ok = [y, s].filter(b => b && b.length >= 60).sort((a, b) => day(b).localeCompare(day(a)));
-    if (ok.length) { ok[0].checked = { yahoo: day(y) || "실패", stooq: day(s) || "실패" }; return ok[0]; }
+    if (ok.length) { ok[0].checked = { yahoo: day(y) || "실패", stooq: stale ? (day(s) || "실패") : "확인 안 함" }; return ok[0]; }
     return null;
   }
   for (const t of tries) {
@@ -72,7 +74,8 @@ async function yahoo(s) {
   return b;
 }
 async function stooq(s) {
-  const r = await fetch(`https://stooq.com/q/d/l/?s=${encodeURIComponent(s.toLowerCase())}.us&i=d`, { headers: { "User-Agent": UA } });
+  const d = t => new Date(t).toISOString().slice(0, 10).replace(/-/g, "");
+  const r = await fetch(`https://stooq.com/q/d/l/?s=${encodeURIComponent(s.toLowerCase())}.us&i=d&d1=${d(Date.now() - 760 * 864e5)}&d2=${d(Date.now() + 864e5)}`, { headers: { "User-Agent": UA } });
   const txt = await r.text(), lines = txt.trim().split("\n").slice(1);
   const b = lines.map(l => l.split(",")).filter(x => x.length >= 6 && x[4] !== "").map(x => ({ t: Date.parse(x[0]), o: +x[1], h: +x[2], l: +x[3], c: +x[4], v: +x[5] || 0 })).slice(-520);
   b.source = "Stooq"; b.currency = "USD";
