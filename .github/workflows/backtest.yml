@@ -2,7 +2,7 @@ name: 매매 기법 백테스트
 on:
   workflow_dispatch:
   push:
-    paths: ["scripts/backtest.py", ".github/workflows/backtest.yml"]
+    paths: ["scripts/backtest.py", "scripts/volcurve.py", ".github/workflows/backtest.yml"]
   schedule:
     - cron: "37 22 * * 6"   # 매주 일요일 아침(KST 07:37) 갱신
 permissions:
@@ -15,10 +15,11 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install yfinance
+      - run: python scripts/volcurve.py
       - run: python scripts/backtest.py
       - name: 변경 시 커밋
         run: |
           git config user.name "backtest-bot"
           git config user.email "backtest-bot@users.noreply.github.com"
-          git add backtest.json backtest_vol.json
+          git add backtest.json backtest_vol.json volcurve.json
           git diff --cached --quiet || (git commit -m "백테스트 결과 갱신" && git pull --rebase -q && git push)
