@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-28T13:27:52Z",
+ "updated": "2026-11-28T13:32:37Z",
  "period": "2023-11-29 ~ 2026-11-27",
  "rules": {
   "진입": "신호가 난 다음 날 시가 (라쉬키는 신호 봉 고가 돌파 시)",
@@ -200,6 +200,22 @@
    },
    "max_open": 20,
    "over4_pct": 65.0,
+   "pf_1": {
+    "ret_pct": 86.8,
+    "cagr_pct": 23.2,
+    "mdd_pct": -12.2,
+    "taken": 144,
+    "skipped": 162,
+    "avg_invested_pct": 43
+   },
+   "pf_2": {
+    "ret_pct": 182.8,
+    "cagr_pct": 41.5,
+    "mdd_pct": -22.1,
+    "taken": 144,
+    "skipped": 162,
+    "avg_invested_pct": 81
+   },
    "key": "mine_plus",
    "name": "내 매매법 + 미너비니·오닐 신호 추가",
    "desc": "[비교] 셋 중 하나라도 신호가 나면 진입",
@@ -223,7 +239,23 @@
      "2026": 53
     },
     "max_open": 15,
-    "over4_pct": 50.0
+    "over4_pct": 50.0,
+    "pf_1": {
+     "ret_pct": 86.9,
+     "cagr_pct": 23.8,
+     "mdd_pct": -9.9,
+     "taken": 114,
+     "skipped": 101,
+     "avg_invested_pct": 40
+    },
+    "pf_2": {
+     "ret_pct": 176.6,
+     "cagr_pct": 41.5,
+     "mdd_pct": -18.1,
+     "taken": 114,
+     "skipped": 101,
+     "avg_invested_pct": 74
+    }
    },
    "kr": {
     "trades": 91,
@@ -245,7 +277,23 @@
      "2026": 24
     },
     "max_open": 5,
-    "over4_pct": 2.6
+    "over4_pct": 2.6,
+    "pf_1": {
+     "ret_pct": 30.9,
+     "cagr_pct": 9.4,
+     "mdd_pct": -7.3,
+     "taken": 87,
+     "skipped": 4,
+     "avg_invested_pct": 34
+    },
+    "pf_2": {
+     "ret_pct": 62.4,
+     "cagr_pct": 17.6,
+     "mdd_pct": -14.2,
+     "taken": 87,
+     "skipped": 4,
+     "avg_invested_pct": 67
+    }
    },
    "hot": {
     "trades": 272,
@@ -267,7 +315,23 @@
      "2026": 66
     },
     "max_open": 18,
-    "over4_pct": 61.0
+    "over4_pct": 61.0,
+    "pf_1": {
+     "ret_pct": 111.1,
+     "cagr_pct": 28.4,
+     "mdd_pct": -6.0,
+     "taken": 133,
+     "skipped": 139,
+     "avg_invested_pct": 43
+    },
+    "pf_2": {
+     "ret_pct": 255.1,
+     "cagr_pct": 52.7,
+     "mdd_pct": -11.6,
+     "taken": 133,
+     "skipped": 139,
+     "avg_invested_pct": 81
+    }
    },
    "faded": {
     "trades": 34,
@@ -289,7 +353,23 @@
      "2026": 11
     },
     "max_open": 3,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 7.9,
+     "cagr_pct": 2.7,
+     "mdd_pct": -6.6,
+     "taken": 34,
+     "skipped": 0,
+     "avg_invested_pct": 22
+    },
+    "pf_2": {
+     "ret_pct": 14.9,
+     "cagr_pct": 5.0,
+     "mdd_pct": -12.8,
+     "taken": 34,
+     "skipped": 0,
+     "avg_invested_pct": 43
+    }
    },
    "by_symbol": {
     "AMD": {
@@ -312,7 +392,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.3,
+      "cagr_pct": 2.8,
+      "mdd_pct": -1.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 14.8,
+      "cagr_pct": 5.5,
+      "mdd_pct": -3.2,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "ANET": {
      "trades": 15,
@@ -334,7 +430,23 @@
       "2026": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.3,
+      "cagr_pct": 0.1,
+      "mdd_pct": -4.3,
+      "taken": 15,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -0.9,
+      "cagr_pct": -0.3,
+      "mdd_pct": -8.5,
+      "taken": 15,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "APP": {
      "trades": 10,
@@ -355,7 +467,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 29.9,
+      "cagr_pct": 11.6,
+      "mdd_pct": -1.4,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 63.1,
+      "cagr_pct": 22.9,
+      "mdd_pct": -2.7,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "AVGO": {
      "trades": 10,
@@ -377,7 +505,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.3,
+      "cagr_pct": 2.1,
+      "mdd_pct": -2.8,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": 8.5,
+      "cagr_pct": 3.4,
+      "mdd_pct": -5.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "AXON": {
      "trades": 14,
@@ -399,7 +543,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 10.3,
+      "cagr_pct": 3.6,
+      "mdd_pct": -1.7,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 12.6,
+      "cagr_pct": 4.4,
+      "mdd_pct": -3.3,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "CELH": {
      "trades": 6,
@@ -419,7 +579,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.6,
+      "cagr_pct": 3.3,
+      "mdd_pct": -1.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 11.3,
+      "cagr_pct": 6.7,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "COIN": {
      "trades": 7,
@@ -440,7 +616,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.4,
+      "cagr_pct": 2.4,
+      "mdd_pct": -2.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 12.9,
+      "cagr_pct": 4.8,
+      "mdd_pct": -4.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "CRWD": {
      "trades": 15,
@@ -462,7 +654,23 @@
       "2026": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 9.7,
+      "cagr_pct": 3.3,
+      "mdd_pct": -1.3,
+      "taken": 15,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 18.7,
+      "cagr_pct": 6.2,
+      "mdd_pct": -2.5,
+      "taken": 15,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "ENPH": {
      "trades": 4,
@@ -482,7 +690,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.9,
+      "cagr_pct": -2.2,
+      "mdd_pct": -3.9,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -7.6,
+      "cagr_pct": -4.4,
+      "mdd_pct": -7.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "HD현대일렉트릭": {
      "trades": 14,
@@ -503,7 +727,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 16.3,
+      "cagr_pct": 6.6,
+      "mdd_pct": -3.1,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 33.7,
+      "cagr_pct": 13.1,
+      "mdd_pct": -6.1,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "HOOD": {
      "trades": 14,
@@ -525,7 +765,23 @@
       "2026": 4
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 13.9,
+      "cagr_pct": 4.8,
+      "mdd_pct": -2.0,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 29.0,
+      "cagr_pct": 9.6,
+      "mdd_pct": -4.0,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "MU": {
      "trades": 14,
@@ -547,7 +803,23 @@
       "2026": 6
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 9.7,
+      "cagr_pct": 3.3,
+      "mdd_pct": -5.7,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 18.7,
+      "cagr_pct": 6.3,
+      "mdd_pct": -11.1,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "NET": {
      "trades": 15,
@@ -569,7 +841,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.6,
+      "cagr_pct": 0.9,
+      "mdd_pct": -3.1,
+      "taken": 15,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 5.3,
+      "cagr_pct": 1.9,
+      "mdd_pct": -5.8,
+      "taken": 15,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "NVDA": {
      "trades": 12,
@@ -590,7 +878,23 @@
       "2026": 7
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.3,
+      "cagr_pct": 2.6,
+      "mdd_pct": -4.6,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 12.8,
+      "cagr_pct": 4.5,
+      "mdd_pct": -7.9,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "PLTR": {
      "trades": 13,
@@ -611,7 +915,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.9,
+      "cagr_pct": 0.7,
+      "mdd_pct": -4.5,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 3.7,
+      "cagr_pct": 1.4,
+      "mdd_pct": -8.7,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "SHOP": {
      "trades": 13,
@@ -633,7 +953,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.7,
+      "cagr_pct": -0.6,
+      "mdd_pct": -4.5,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -5.2,
+      "cagr_pct": -2.0,
+      "mdd_pct": -8.9,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "SK하이닉스": {
      "trades": 13,
@@ -655,7 +991,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 9.5,
+      "cagr_pct": 3.6,
+      "mdd_pct": -2.1,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 17.8,
+      "cagr_pct": 6.6,
+      "mdd_pct": -4.0,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "SMCI": {
      "trades": 4,
@@ -677,7 +1029,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 13.1,
+      "cagr_pct": 4.5,
+      "mdd_pct": -0.5,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 26.3,
+      "cagr_pct": 8.6,
+      "mdd_pct": -0.9,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "SNOW": {
      "trades": 10,
@@ -698,7 +1066,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.9,
+      "cagr_pct": -0.7,
+      "mdd_pct": -2.4,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -3.3,
+      "cagr_pct": -1.2,
+      "mdd_pct": -4.2,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "TSLA": {
      "trades": 10,
@@ -720,7 +1104,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.9,
+      "cagr_pct": 1.3,
+      "mdd_pct": -2.0,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 7.7,
+      "cagr_pct": 2.6,
+      "mdd_pct": -4.0,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "UBER": {
      "trades": 12,
@@ -741,7 +1141,23 @@
       "2025": 7
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.0,
+      "cagr_pct": -1.6,
+      "mdd_pct": -3.3,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -5.9,
+      "cagr_pct": -3.1,
+      "mdd_pct": -6.2,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "VST": {
      "trades": 7,
@@ -763,7 +1179,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 10.6,
+      "cagr_pct": 3.9,
+      "mdd_pct": -1.3,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 15.6,
+      "cagr_pct": 5.7,
+      "mdd_pct": -2.5,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "삼양식품": {
      "trades": 14,
@@ -785,7 +1217,23 @@
       "2026": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 12.4,
+      "cagr_pct": 4.1,
+      "mdd_pct": -2.0,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 24.9,
+      "cagr_pct": 7.9,
+      "mdd_pct": -4.1,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "알테오젠": {
      "trades": 12,
@@ -807,7 +1255,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.0,
+      "cagr_pct": 0.7,
+      "mdd_pct": -5.7,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 3.4,
+      "cagr_pct": 1.3,
+      "mdd_pct": -11.2,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로": {
      "trades": 4,
@@ -827,7 +1291,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.2,
+      "cagr_pct": -0.3,
+      "mdd_pct": -1.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -0.5,
+      "cagr_pct": -0.6,
+      "mdd_pct": -3.1,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로비엠": {
      "trades": 6,
@@ -848,7 +1328,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -4.0,
+      "cagr_pct": -1.7,
+      "mdd_pct": -4.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -7.8,
+      "cagr_pct": -3.4,
+      "mdd_pct": -7.8,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한미반도체": {
      "trades": 11,
@@ -869,7 +1365,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 8.5,
+      "cagr_pct": 3.5,
+      "mdd_pct": -2.2,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 17.2,
+      "cagr_pct": 7.0,
+      "mdd_pct": -4.4,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한화에어로스페이스": {
      "trades": 17,
@@ -891,7 +1403,23 @@
       "2026": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.8,
+      "cagr_pct": 1.7,
+      "mdd_pct": -6.5,
+      "taken": 17,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 9.3,
+      "cagr_pct": 3.2,
+      "mdd_pct": -12.7,
+      "taken": 17,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     }
    },
    "recent": [
@@ -903,6 +1431,7 @@
      "days": 2,
      "why": "보유 중(평가)",
      "ret": 0.44,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "hot"
     },
@@ -914,6 +1443,7 @@
      "days": 10,
      "why": "EMA20 이탈",
      "ret": 2.81,
+     "stop_pct": 6.64,
      "market": "us",
      "group": "hot"
     },
@@ -925,6 +1455,7 @@
      "days": 20,
      "why": "EMA20 이탈",
      "ret": 9.86,
+     "stop_pct": 7.92,
      "market": "us",
      "group": "hot"
     },
@@ -936,6 +1467,7 @@
      "days": 8,
      "why": "EMA20 이탈",
      "ret": -0.6,
+     "stop_pct": 6.74,
      "market": "us",
      "group": "hot"
     },
@@ -947,6 +1479,7 @@
      "days": 22,
      "why": "EMA20 이탈",
      "ret": 11.4,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -958,6 +1491,7 @@
      "days": 25,
      "why": "EMA20 이탈",
      "ret": 9.65,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -969,6 +1503,7 @@
      "days": 3,
      "why": "손절",
      "ret": -7.88,
+     "stop_pct": 7.78,
      "market": "us",
      "group": "faded"
     },
@@ -980,6 +1515,7 @@
      "days": 5,
      "why": "EMA20 이탈",
      "ret": -3.31,
+     "stop_pct": 6.5,
      "market": "us",
      "group": "hot"
     }
@@ -1006,6 +1542,22 @@
    },
    "max_open": 18,
    "over4_pct": 62.9,
+   "pf_1": {
+    "ret_pct": 97.9,
+    "cagr_pct": 25.6,
+    "mdd_pct": -10.2,
+    "taken": 141,
+    "skipped": 152,
+    "avg_invested_pct": 42
+   },
+   "pf_2": {
+    "ret_pct": 216.3,
+    "cagr_pct": 46.9,
+    "mdd_pct": -18.6,
+    "taken": 141,
+    "skipped": 152,
+    "avg_invested_pct": 81
+   },
    "key": "mine",
    "name": "내 매매법",
    "desc": "EMA 리본 + CCI 반등·돌파 + 거래량",
@@ -1029,7 +1581,23 @@
      "2026": 53
     },
     "max_open": 14,
-    "over4_pct": 49.4
+    "over4_pct": 49.4,
+    "pf_1": {
+     "ret_pct": 100.0,
+     "cagr_pct": 26.7,
+     "mdd_pct": -9.9,
+     "taken": 112,
+     "skipped": 93,
+     "avg_invested_pct": 40
+    },
+    "pf_2": {
+     "ret_pct": 214.0,
+     "cagr_pct": 47.8,
+     "mdd_pct": -18.1,
+     "taken": 112,
+     "skipped": 93,
+     "avg_invested_pct": 76
+    }
    },
    "kr": {
     "trades": 88,
@@ -1051,7 +1619,23 @@
      "2026": 23
     },
     "max_open": 5,
-    "over4_pct": 2.6
+    "over4_pct": 2.6,
+    "pf_1": {
+     "ret_pct": 46.8,
+     "cagr_pct": 13.7,
+     "mdd_pct": -7.3,
+     "taken": 86,
+     "skipped": 2,
+     "avg_invested_pct": 34
+    },
+    "pf_2": {
+     "ret_pct": 99.9,
+     "cagr_pct": 26.0,
+     "mdd_pct": -14.2,
+     "taken": 86,
+     "skipped": 2,
+     "avg_invested_pct": 66
+    }
    },
    "hot": {
     "trades": 261,
@@ -1073,7 +1657,23 @@
      "2026": 66
     },
     "max_open": 16,
-    "over4_pct": 59.6
+    "over4_pct": 59.6,
+    "pf_1": {
+     "ret_pct": 117.5,
+     "cagr_pct": 29.7,
+     "mdd_pct": -6.0,
+     "taken": 131,
+     "skipped": 130,
+     "avg_invested_pct": 43
+    },
+    "pf_2": {
+     "ret_pct": 275.7,
+     "cagr_pct": 55.6,
+     "mdd_pct": -11.6,
+     "taken": 131,
+     "skipped": 130,
+     "avg_invested_pct": 81
+    }
    },
    "faded": {
     "trades": 32,
@@ -1095,7 +1695,23 @@
      "2026": 10
     },
     "max_open": 3,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 10.1,
+     "cagr_pct": 3.5,
+     "mdd_pct": -5.6,
+     "taken": 32,
+     "skipped": 0,
+     "avg_invested_pct": 22
+    },
+    "pf_2": {
+     "ret_pct": 19.7,
+     "cagr_pct": 6.5,
+     "mdd_pct": -10.9,
+     "taken": 32,
+     "skipped": 0,
+     "avg_invested_pct": 43
+    }
    },
    "by_symbol": {
     "AMD": {
@@ -1118,7 +1734,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.6,
+      "cagr_pct": 2.1,
+      "mdd_pct": -1.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 11.2,
+      "cagr_pct": 4.2,
+      "mdd_pct": -3.2,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "ANET": {
      "trades": 13,
@@ -1140,7 +1772,23 @@
       "2026": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.5,
+      "cagr_pct": 0.2,
+      "mdd_pct": -4.3,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -0.6,
+      "cagr_pct": -0.2,
+      "mdd_pct": -8.5,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "APP": {
      "trades": 10,
@@ -1161,7 +1809,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 29.9,
+      "cagr_pct": 11.6,
+      "mdd_pct": -1.4,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 63.1,
+      "cagr_pct": 22.9,
+      "mdd_pct": -2.7,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "AVGO": {
      "trades": 10,
@@ -1183,7 +1847,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.3,
+      "cagr_pct": 2.1,
+      "mdd_pct": -2.8,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": 8.5,
+      "cagr_pct": 3.4,
+      "mdd_pct": -5.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "AXON": {
      "trades": 14,
@@ -1205,7 +1885,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.1,
+      "cagr_pct": 2.5,
+      "mdd_pct": -1.7,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 8.4,
+      "cagr_pct": 3.0,
+      "mdd_pct": -3.3,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "CELH": {
      "trades": 6,
@@ -1225,7 +1921,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.6,
+      "cagr_pct": 3.3,
+      "mdd_pct": -1.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 11.3,
+      "cagr_pct": 6.7,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "COIN": {
      "trades": 7,
@@ -1246,7 +1958,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.4,
+      "cagr_pct": 2.4,
+      "mdd_pct": -2.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 12.9,
+      "cagr_pct": 4.8,
+      "mdd_pct": -4.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "CRWD": {
      "trades": 14,
@@ -1268,7 +1996,23 @@
       "2026": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 10.2,
+      "cagr_pct": 3.5,
+      "mdd_pct": -1.3,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 19.9,
+      "cagr_pct": 6.5,
+      "mdd_pct": -2.5,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "ENPH": {
      "trades": 4,
@@ -1288,7 +2032,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.9,
+      "cagr_pct": -2.2,
+      "mdd_pct": -3.9,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -7.6,
+      "cagr_pct": -4.4,
+      "mdd_pct": -7.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "HD현대일렉트릭": {
      "trades": 14,
@@ -1309,7 +2069,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 16.3,
+      "cagr_pct": 6.6,
+      "mdd_pct": -3.1,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 33.7,
+      "cagr_pct": 13.1,
+      "mdd_pct": -6.1,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "HOOD": {
      "trades": 14,
@@ -1331,7 +2107,23 @@
       "2026": 4
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.8,
+      "cagr_pct": 2.4,
+      "mdd_pct": -3.7,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 13.6,
+      "cagr_pct": 4.7,
+      "mdd_pct": -7.3,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "MU": {
      "trades": 14,
@@ -1353,7 +2145,23 @@
       "2026": 6
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 9.7,
+      "cagr_pct": 3.3,
+      "mdd_pct": -5.7,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 18.7,
+      "cagr_pct": 6.3,
+      "mdd_pct": -11.1,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "NET": {
      "trades": 14,
@@ -1375,7 +2183,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.6,
+      "cagr_pct": 1.3,
+      "mdd_pct": -3.1,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 7.5,
+      "cagr_pct": 2.6,
+      "mdd_pct": -5.8,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "NVDA": {
      "trades": 10,
@@ -1396,7 +2220,23 @@
       "2026": 7
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.4,
+      "cagr_pct": 2.3,
+      "mdd_pct": -3.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 10.6,
+      "cagr_pct": 3.7,
+      "mdd_pct": -6.2,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "PLTR": {
      "trades": 12,
@@ -1417,7 +2257,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.4,
+      "cagr_pct": 0.1,
+      "mdd_pct": -3.5,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 0.6,
+      "cagr_pct": 0.2,
+      "mdd_pct": -6.9,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "SHOP": {
      "trades": 12,
@@ -1439,7 +2295,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.7,
+      "cagr_pct": 0.2,
+      "mdd_pct": -2.6,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -0.5,
+      "cagr_pct": -0.2,
+      "mdd_pct": -5.1,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "SK하이닉스": {
      "trades": 13,
@@ -1461,7 +2333,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.4,
+      "cagr_pct": 2.1,
+      "mdd_pct": -2.1,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": 10.4,
+      "cagr_pct": 3.9,
+      "mdd_pct": -4.0,
+      "taken": 13,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "SMCI": {
      "trades": 4,
@@ -1483,7 +2371,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 13.1,
+      "cagr_pct": 4.5,
+      "mdd_pct": -0.5,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 26.3,
+      "cagr_pct": 8.6,
+      "mdd_pct": -0.9,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "SNOW": {
      "trades": 9,
@@ -1504,7 +2408,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.9,
+      "cagr_pct": -0.3,
+      "mdd_pct": -2.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -1.3,
+      "cagr_pct": -0.5,
+      "mdd_pct": -4.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "TSLA": {
      "trades": 10,
@@ -1526,7 +2446,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.9,
+      "cagr_pct": 1.3,
+      "mdd_pct": -2.0,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 7.7,
+      "cagr_pct": 2.6,
+      "mdd_pct": -4.0,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "UBER": {
      "trades": 11,
@@ -1546,7 +2482,23 @@
       "2025": 7
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.1,
+      "cagr_pct": -1.8,
+      "mdd_pct": -3.3,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -6.0,
+      "cagr_pct": -3.5,
+      "mdd_pct": -6.2,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "VST": {
      "trades": 7,
@@ -1568,7 +2520,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 10.6,
+      "cagr_pct": 3.9,
+      "mdd_pct": -1.3,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 15.6,
+      "cagr_pct": 5.7,
+      "mdd_pct": -2.5,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "삼양식품": {
      "trades": 14,
@@ -1590,7 +2558,23 @@
       "2026": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 12.4,
+      "cagr_pct": 4.1,
+      "mdd_pct": -2.0,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 24.9,
+      "cagr_pct": 7.9,
+      "mdd_pct": -4.1,
+      "taken": 14,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "알테오젠": {
      "trades": 11,
@@ -1612,7 +2596,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.0,
+      "cagr_pct": 1.1,
+      "mdd_pct": -4.7,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 5.5,
+      "cagr_pct": 2.0,
+      "mdd_pct": -9.3,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로": {
      "trades": 4,
@@ -1632,7 +2632,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.2,
+      "cagr_pct": -0.3,
+      "mdd_pct": -1.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -0.5,
+      "cagr_pct": -0.6,
+      "mdd_pct": -3.1,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로비엠": {
      "trades": 5,
@@ -1653,7 +2669,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.0,
+      "cagr_pct": -1.3,
+      "mdd_pct": -3.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -5.9,
+      "cagr_pct": -2.6,
+      "mdd_pct": -5.9,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한미반도체": {
      "trades": 10,
@@ -1674,7 +2706,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 9.6,
+      "cagr_pct": 4.0,
+      "mdd_pct": -2.2,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 19.6,
+      "cagr_pct": 7.9,
+      "mdd_pct": -4.4,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한화에어로스페이스": {
      "trades": 17,
@@ -1696,7 +2744,23 @@
       "2026": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.8,
+      "cagr_pct": 1.7,
+      "mdd_pct": -6.5,
+      "taken": 17,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 9.3,
+      "cagr_pct": 3.2,
+      "mdd_pct": -12.7,
+      "taken": 17,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     }
    },
    "recent": [
@@ -1708,6 +2772,7 @@
      "days": 2,
      "why": "보유 중(평가)",
      "ret": 0.44,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "hot"
     },
@@ -1719,6 +2784,7 @@
      "days": 10,
      "why": "EMA20 이탈",
      "ret": 2.81,
+     "stop_pct": 6.64,
      "market": "us",
      "group": "hot"
     },
@@ -1730,6 +2796,7 @@
      "days": 20,
      "why": "EMA20 이탈",
      "ret": 9.86,
+     "stop_pct": 7.92,
      "market": "us",
      "group": "hot"
     },
@@ -1741,6 +2808,7 @@
      "days": 8,
      "why": "EMA20 이탈",
      "ret": -0.6,
+     "stop_pct": 6.74,
      "market": "us",
      "group": "hot"
     },
@@ -1752,6 +2820,7 @@
      "days": 22,
      "why": "EMA20 이탈",
      "ret": 11.4,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -1763,6 +2832,7 @@
      "days": 25,
      "why": "EMA20 이탈",
      "ret": 9.65,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -1774,6 +2844,7 @@
      "days": 3,
      "why": "손절",
      "ret": -7.88,
+     "stop_pct": 7.78,
      "market": "us",
      "group": "faded"
     },
@@ -1785,6 +2856,7 @@
      "days": 5,
      "why": "EMA20 이탈",
      "ret": -3.31,
+     "stop_pct": 6.5,
      "market": "us",
      "group": "hot"
     }
@@ -1795,11 +2867,11 @@
    "win_rate": 44.1,
    "avg_win_r": 2.28,
    "avg_loss_r": -0.81,
-   "expectancy_r": 0.553,
+   "expectancy_r": 0.556,
    "profit_factor": 2.23,
    "avg_days": 16.2,
-   "total_r": 122.9,
-   "equity_ret_pct": 221.6,
+   "total_r": 123.5,
+   "equity_ret_pct": 223.6,
    "mdd_pct": -9.5,
    "best_r": 20.51,
    "worst_r": -1.7,
@@ -1811,6 +2883,22 @@
    },
    "max_open": 16,
    "over4_pct": 53.5,
+   "pf_1": {
+    "ret_pct": 108.2,
+    "cagr_pct": 27.8,
+    "mdd_pct": -9.5,
+    "taken": 116,
+    "skipped": 106,
+    "avg_invested_pct": 42
+   },
+   "pf_2": {
+    "ret_pct": 239.5,
+    "cagr_pct": 50.4,
+    "mdd_pct": -17.9,
+    "taken": 116,
+    "skipped": 106,
+    "avg_invested_pct": 78
+   },
    "key": "mine_brk",
    "name": "내 매매법 + 돌파 확인",
    "desc": "[비교] 내 신호 중 신고가 5% 이내·20일 고가 돌파가 겹친 것만",
@@ -1834,18 +2922,34 @@
      "2026": 31
     },
     "max_open": 13,
-    "over4_pct": 43.1
+    "over4_pct": 43.1,
+    "pf_1": {
+     "ret_pct": 81.4,
+     "cagr_pct": 22.5,
+     "mdd_pct": -8.4,
+     "taken": 95,
+     "skipped": 60,
+     "avg_invested_pct": 40
+    },
+    "pf_2": {
+     "ret_pct": 163.4,
+     "cagr_pct": 39.2,
+     "mdd_pct": -15.6,
+     "taken": 95,
+     "skipped": 60,
+     "avg_invested_pct": 73
+    }
    },
    "kr": {
     "trades": 67,
     "win_rate": 41.8,
-    "avg_win_r": 2.41,
+    "avg_win_r": 2.43,
     "avg_loss_r": -0.86,
-    "expectancy_r": 0.505,
-    "profit_factor": 2.01,
-    "avg_days": 15.0,
-    "total_r": 33.8,
-    "equity_ret_pct": 37.8,
+    "expectancy_r": 0.514,
+    "profit_factor": 2.02,
+    "avg_days": 15.1,
+    "total_r": 34.4,
+    "equity_ret_pct": 38.6,
     "mdd_pct": -9.1,
     "best_r": 11.23,
     "worst_r": -1.7,
@@ -1856,18 +2960,34 @@
      "2026": 13
     },
     "max_open": 5,
-    "over4_pct": 0.8
+    "over4_pct": 0.8,
+    "pf_1": {
+     "ret_pct": 23.2,
+     "cagr_pct": 7.2,
+     "mdd_pct": -9.2,
+     "taken": 66,
+     "skipped": 1,
+     "avg_invested_pct": 29
+    },
+    "pf_2": {
+     "ret_pct": 45.2,
+     "cagr_pct": 13.3,
+     "mdd_pct": -17.6,
+     "taken": 66,
+     "skipped": 1,
+     "avg_invested_pct": 56
+    }
    },
    "hot": {
     "trades": 198,
     "win_rate": 46.5,
-    "avg_win_r": 2.32,
+    "avg_win_r": 2.33,
     "avg_loss_r": -0.81,
-    "expectancy_r": 0.643,
-    "profit_factor": 2.48,
+    "expectancy_r": 0.646,
+    "profit_factor": 2.49,
     "avg_days": 16.9,
-    "total_r": 127.4,
-    "equity_ret_pct": 236.9,
+    "total_r": 128.0,
+    "equity_ret_pct": 239.0,
     "mdd_pct": -7.4,
     "best_r": 20.51,
     "worst_r": -1.7,
@@ -1878,7 +2998,23 @@
      "2026": 38
     },
     "max_open": 14,
-    "over4_pct": 53.4
+    "over4_pct": 53.4,
+    "pf_1": {
+     "ret_pct": 122.1,
+     "cagr_pct": 30.6,
+     "mdd_pct": -5.9,
+     "taken": 107,
+     "skipped": 91,
+     "avg_invested_pct": 42
+    },
+    "pf_2": {
+     "ret_pct": 286.7,
+     "cagr_pct": 57.1,
+     "mdd_pct": -11.6,
+     "taken": 107,
+     "skipped": 91,
+     "avg_invested_pct": 77
+    }
    },
    "faded": {
     "trades": 24,
@@ -1900,7 +3036,23 @@
      "2026": 6
     },
     "max_open": 3,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": -4.6,
+     "cagr_pct": -1.6,
+     "mdd_pct": -5.9,
+     "taken": 24,
+     "skipped": 0,
+     "avg_invested_pct": 20
+    },
+    "pf_2": {
+     "ret_pct": -8.8,
+     "cagr_pct": -3.2,
+     "mdd_pct": -11.2,
+     "taken": 24,
+     "skipped": 0,
+     "avg_invested_pct": 39
+    }
    },
    "by_symbol": {
     "AMD": {
@@ -1923,7 +3075,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.1,
+      "cagr_pct": 2.3,
+      "mdd_pct": -1.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 12.3,
+      "cagr_pct": 4.6,
+      "mdd_pct": -2.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "ANET": {
      "trades": 10,
@@ -1945,7 +3113,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.6,
+      "cagr_pct": 0.6,
+      "mdd_pct": -3.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 1.6,
+      "cagr_pct": 0.6,
+      "mdd_pct": -7.1,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "APP": {
      "trades": 7,
@@ -1966,7 +3150,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 26.5,
+      "cagr_pct": 10.8,
+      "mdd_pct": -1.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 54.7,
+      "cagr_pct": 21.0,
+      "mdd_pct": -2.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "AVGO": {
      "trades": 9,
@@ -1988,7 +3188,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.7,
+      "cagr_pct": 2.3,
+      "mdd_pct": -2.8,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 9.4,
+      "cagr_pct": 3.7,
+      "mdd_pct": -5.6,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "AXON": {
      "trades": 10,
@@ -2009,7 +3225,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 8.0,
+      "cagr_pct": 4.7,
+      "mdd_pct": -1.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": 10.3,
+      "cagr_pct": 6.0,
+      "mdd_pct": -2.3,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "CELH": {
      "trades": 4,
@@ -2029,7 +3261,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.2,
+      "cagr_pct": 2.0,
+      "mdd_pct": -1.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 6.4,
+      "cagr_pct": 4.0,
+      "mdd_pct": -2.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "COIN": {
      "trades": 4,
@@ -2050,7 +3298,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.4,
+      "cagr_pct": 2.4,
+      "mdd_pct": -1.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 10.9,
+      "cagr_pct": 4.8,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "CRWD": {
      "trades": 11,
@@ -2072,7 +3336,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.6,
+      "cagr_pct": 2.6,
+      "mdd_pct": -1.5,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 14.2,
+      "cagr_pct": 4.7,
+      "mdd_pct": -3.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "ENPH": {
      "trades": 2,
@@ -2091,7 +3371,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.4,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.0,
+      "cagr_pct": -33.6,
+      "mdd_pct": -4.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "HD현대일렉트릭": {
      "trades": 11,
@@ -2112,7 +3408,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 15.0,
+      "cagr_pct": 6.1,
+      "mdd_pct": -4.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 30.8,
+      "cagr_pct": 12.1,
+      "mdd_pct": -7.8,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "HOOD": {
      "trades": 10,
@@ -2134,7 +3446,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 8.1,
+      "cagr_pct": 2.9,
+      "mdd_pct": -3.7,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 16.4,
+      "cagr_pct": 5.7,
+      "mdd_pct": -7.3,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "MU": {
      "trades": 11,
@@ -2156,7 +3484,23 @@
       "2026": 4
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 9.3,
+      "cagr_pct": 3.6,
+      "mdd_pct": -3.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 18.2,
+      "cagr_pct": 6.8,
+      "mdd_pct": -6.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "NET": {
      "trades": 9,
@@ -2178,7 +3522,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.1,
+      "cagr_pct": -0.0,
+      "mdd_pct": -4.6,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -0.3,
+      "cagr_pct": -0.1,
+      "mdd_pct": -9.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "NVDA": {
      "trades": 8,
@@ -2199,7 +3559,23 @@
       "2026": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.7,
+      "cagr_pct": 2.7,
+      "mdd_pct": -2.3,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 13.2,
+      "cagr_pct": 4.6,
+      "mdd_pct": -3.9,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "PLTR": {
      "trades": 10,
@@ -2220,7 +3596,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.9,
+      "cagr_pct": -0.4,
+      "mdd_pct": -3.6,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -1.8,
+      "cagr_pct": -0.7,
+      "mdd_pct": -6.9,
+      "taken": 10,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "SHOP": {
      "trades": 9,
@@ -2242,20 +3634,36 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.5,
+      "cagr_pct": -0.2,
+      "mdd_pct": -2.7,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -2.8,
+      "cagr_pct": -1.0,
+      "mdd_pct": -5.3,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "SK하이닉스": {
      "trades": 11,
      "win_rate": 54.5,
-     "avg_win_r": 1.77,
+     "avg_win_r": 1.87,
      "avg_loss_r": -0.83,
-     "expectancy_r": 0.588,
-     "profit_factor": 2.57,
-     "avg_days": 16.1,
-     "total_r": 6.5,
-     "equity_ret_pct": 6.6,
+     "expectancy_r": 0.645,
+     "profit_factor": 2.72,
+     "avg_days": 16.5,
+     "total_r": 7.1,
+     "equity_ret_pct": 7.2,
      "mdd_pct": -2.1,
-     "best_r": 2.52,
+     "best_r": 3.15,
      "worst_r": -1.02,
      "per_year": {
       "2023": 2,
@@ -2264,7 +3672,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.2,
+      "cagr_pct": 2.7,
+      "mdd_pct": -2.1,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 14.2,
+      "cagr_pct": 5.3,
+      "mdd_pct": -3.2,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "SMCI": {
      "trades": 4,
@@ -2285,7 +3709,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.1,
+      "cagr_pct": -0.0,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -0.2,
+      "cagr_pct": -0.1,
+      "mdd_pct": -4.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "SNOW": {
      "trades": 9,
@@ -2306,7 +3746,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.8,
+      "cagr_pct": -0.7,
+      "mdd_pct": -2.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -3.1,
+      "cagr_pct": -1.1,
+      "mdd_pct": -4.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "TSLA": {
      "trades": 6,
@@ -2327,7 +3783,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.4,
+      "cagr_pct": 1.1,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 4.7,
+      "cagr_pct": 2.2,
+      "mdd_pct": -4.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "UBER": {
      "trades": 9,
@@ -2347,7 +3819,23 @@
       "2025": 7
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.3,
+      "cagr_pct": -1.9,
+      "mdd_pct": -3.4,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -6.1,
+      "cagr_pct": -3.6,
+      "mdd_pct": -6.3,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "VST": {
      "trades": 4,
@@ -2367,7 +3855,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.3,
+      "cagr_pct": 4.2,
+      "mdd_pct": -1.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 9.0,
+      "cagr_pct": 5.2,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "삼양식품": {
      "trades": 11,
@@ -2389,7 +3893,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 12.3,
+      "cagr_pct": 4.0,
+      "mdd_pct": -2.5,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 24.6,
+      "cagr_pct": 7.8,
+      "mdd_pct": -5.0,
+      "taken": 11,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "알테오젠": {
      "trades": 9,
@@ -2410,7 +3930,23 @@
       "2025": 5
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.9,
+      "cagr_pct": -2.0,
+      "mdd_pct": -4.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -7.7,
+      "cagr_pct": -4.0,
+      "mdd_pct": -7.8,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로": {
      "trades": 2,
@@ -2430,7 +3966,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.0,
+      "cagr_pct": -15.2,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.0,
+      "cagr_pct": -28.3,
+      "mdd_pct": -4.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로비엠": {
      "trades": 3,
@@ -2449,7 +4001,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.8,
+      "cagr_pct": -4.4,
+      "mdd_pct": -1.8,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -3.7,
+      "cagr_pct": -8.7,
+      "mdd_pct": -3.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한미반도체": {
      "trades": 8,
@@ -2470,7 +4038,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.5,
+      "cagr_pct": 2.9,
+      "mdd_pct": -3.2,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 13.1,
+      "cagr_pct": 5.7,
+      "mdd_pct": -6.4,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한화에어로스페이스": {
      "trades": 12,
@@ -2492,7 +4076,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.7,
+      "cagr_pct": 0.7,
+      "mdd_pct": -4.6,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 2.9,
+      "cagr_pct": 1.2,
+      "mdd_pct": -9.0,
+      "taken": 12,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     }
    },
    "recent": [
@@ -2504,6 +4104,7 @@
      "days": 2,
      "why": "보유 중(평가)",
      "ret": 0.44,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "hot"
     },
@@ -2515,6 +4116,7 @@
      "days": 7,
      "why": "EMA20 이탈",
      "ret": -3.26,
+     "stop_pct": 6.77,
      "market": "us",
      "group": "hot"
     },
@@ -2526,6 +4128,7 @@
      "days": 6,
      "why": "손절",
      "ret": -6.37,
+     "stop_pct": 6.27,
      "market": "us",
      "group": "hot"
     },
@@ -2537,6 +4140,7 @@
      "days": 22,
      "why": "EMA20 이탈",
      "ret": 11.4,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -2548,6 +4152,7 @@
      "days": 22,
      "why": "EMA20 이탈",
      "ret": 0.59,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -2559,6 +4164,7 @@
      "days": 3,
      "why": "손절",
      "ret": -7.88,
+     "stop_pct": 7.78,
      "market": "us",
      "group": "faded"
     },
@@ -2570,6 +4176,7 @@
      "days": 5,
      "why": "EMA20 이탈",
      "ret": -3.31,
+     "stop_pct": 6.5,
      "market": "us",
      "group": "hot"
     },
@@ -2581,6 +4188,7 @@
      "days": 10,
      "why": "EMA20 이탈",
      "ret": -2.11,
+     "stop_pct": 5.22,
      "market": "us",
      "group": "hot"
     }
@@ -2607,6 +4215,22 @@
    },
    "max_open": 7,
    "over4_pct": 6.3,
+   "pf_1": {
+    "ret_pct": 32.5,
+    "cagr_pct": 10.3,
+    "mdd_pct": -6.3,
+    "taken": 49,
+    "skipped": 7,
+    "avg_invested_pct": 31
+   },
+   "pf_2": {
+    "ret_pct": 63.5,
+    "cagr_pct": 18.6,
+    "mdd_pct": -11.4,
+    "taken": 49,
+    "skipped": 7,
+    "avg_invested_pct": 57
+   },
    "key": "qulla",
    "name": "쿨라매기",
    "desc": "주도주 박스권 돌파",
@@ -2630,7 +4254,23 @@
      "2026": 5
     },
     "max_open": 7,
-    "over4_pct": 7.0
+    "over4_pct": 7.0,
+    "pf_1": {
+     "ret_pct": 26.1,
+     "cagr_pct": 8.4,
+     "mdd_pct": -6.7,
+     "taken": 37,
+     "skipped": 5,
+     "avg_invested_pct": 33
+    },
+    "pf_2": {
+     "ret_pct": 49.5,
+     "cagr_pct": 15.0,
+     "mdd_pct": -12.0,
+     "taken": 37,
+     "skipped": 5,
+     "avg_invested_pct": 60
+    }
    },
    "kr": {
     "trades": 14,
@@ -2651,7 +4291,23 @@
      "2026": 4
     },
     "max_open": 2,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 3.0,
+     "cagr_pct": 1.6,
+     "mdd_pct": -3.5,
+     "taken": 14,
+     "skipped": 0,
+     "avg_invested_pct": 17
+    },
+    "pf_2": {
+     "ret_pct": 5.8,
+     "cagr_pct": 3.0,
+     "mdd_pct": -6.9,
+     "taken": 14,
+     "skipped": 0,
+     "avg_invested_pct": 33
+    }
    },
    "hot": {
     "trades": 46,
@@ -2673,7 +4329,23 @@
      "2026": 3
     },
     "max_open": 7,
-    "over4_pct": 7.6
+    "over4_pct": 7.6,
+    "pf_1": {
+     "ret_pct": 38.2,
+     "cagr_pct": 11.9,
+     "mdd_pct": -4.9,
+     "taken": 39,
+     "skipped": 7,
+     "avg_invested_pct": 30
+    },
+    "pf_2": {
+     "ret_pct": 76.7,
+     "cagr_pct": 21.9,
+     "mdd_pct": -9.2,
+     "taken": 39,
+     "skipped": 7,
+     "avg_invested_pct": 56
+    }
    },
    "faded": {
     "trades": 10,
@@ -2694,7 +4366,23 @@
      "2026": 6
     },
     "max_open": 1,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": -4.2,
+     "cagr_pct": -1.6,
+     "mdd_pct": -4.2,
+     "taken": 10,
+     "skipped": 0,
+     "avg_invested_pct": 14
+    },
+    "pf_2": {
+     "ret_pct": -7.7,
+     "cagr_pct": -2.9,
+     "mdd_pct": -7.7,
+     "taken": 10,
+     "skipped": 0,
+     "avg_invested_pct": 27
+    }
    },
    "by_symbol": {
     "AMD": {
@@ -2715,7 +4403,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.3,
+      "cagr_pct": 1.3,
+      "mdd_pct": -0.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 4.5,
+      "cagr_pct": 2.5,
+      "mdd_pct": -1.4,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "ANET": {
      "trades": 2,
@@ -2735,7 +4439,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.3,
+      "cagr_pct": -1.4,
+      "mdd_pct": -2.3,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": -3.8,
+      "cagr_pct": -2.4,
+      "mdd_pct": -3.8,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "APP": {
      "trades": 2,
@@ -2755,7 +4475,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.9,
+      "cagr_pct": 3.8,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 12.0,
+      "cagr_pct": 7.6,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "AVGO": {
      "trades": 4,
@@ -2776,7 +4512,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.4,
+      "cagr_pct": -0.2,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -1.7,
+      "cagr_pct": -0.7,
+      "mdd_pct": -4.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "AXON": {
      "trades": 5,
@@ -2796,7 +4548,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.5,
+      "cagr_pct": 3.9,
+      "mdd_pct": -3.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": 3.4,
+      "cagr_pct": 3.7,
+      "mdd_pct": -5.4,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "CRWD": {
      "trades": 2,
@@ -2816,7 +4584,23 @@
       "2024": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.5,
+      "cagr_pct": 11.6,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 4.5,
+      "cagr_pct": 21.2,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "MU": {
      "trades": 2,
@@ -2835,7 +4619,23 @@
       "2025": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.3,
+      "cagr_pct": 20.8,
+      "mdd_pct": -1.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 10.4,
+      "cagr_pct": 44.0,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "NET": {
      "trades": 3,
@@ -2855,7 +4655,23 @@
       "2025": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.4,
+      "cagr_pct": 0.9,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 2.6,
+      "cagr_pct": 1.7,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "NVDA": {
      "trades": 1,
@@ -2874,7 +4690,23 @@
       "2024": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.9,
+      "cagr_pct": 20.7,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 3.8,
+      "cagr_pct": 45.2,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "PLTR": {
      "trades": 5,
@@ -2895,7 +4727,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.9,
+      "cagr_pct": 1.2,
+      "mdd_pct": -2.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 5.9,
+      "cagr_pct": 2.4,
+      "mdd_pct": -3.9,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "SHOP": {
      "trades": 5,
@@ -2915,7 +4763,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.6,
+      "cagr_pct": -1.0,
+      "mdd_pct": -3.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -4.8,
+      "cagr_pct": -2.9,
+      "mdd_pct": -5.8,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "SK하이닉스": {
      "trades": 2,
@@ -2935,7 +4799,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.8,
+      "cagr_pct": -0.5,
+      "mdd_pct": -1.1,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -1.6,
+      "cagr_pct": -1.0,
+      "mdd_pct": -2.3,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "SNOW": {
      "trades": 6,
@@ -2956,7 +4836,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.9,
+      "cagr_pct": -1.1,
+      "mdd_pct": -2.9,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -5.1,
+      "cagr_pct": -1.9,
+      "mdd_pct": -5.1,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "UBER": {
      "trades": 1,
@@ -2975,7 +4871,23 @@
       "2024": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.3,
+      "cagr_pct": 24.6,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 20
+     },
+     "pf_2": {
+      "ret_pct": 3.3,
+      "cagr_pct": 38.1,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "VST": {
      "trades": 1,
@@ -2994,7 +4906,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.6,
+      "cagr_pct": 5.8,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 1.1,
+      "cagr_pct": 12.0,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "삼양식품": {
      "trades": 2,
@@ -3013,7 +4941,23 @@
       "2025": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.6,
+      "cagr_pct": -7.6,
+      "mdd_pct": -1.6,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -3.2,
+      "cagr_pct": -14.7,
+      "mdd_pct": -3.2,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "알테오젠": {
      "trades": 3,
@@ -3032,7 +4976,23 @@
       "2024": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.7,
+      "cagr_pct": -5.5,
+      "mdd_pct": -1.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -3.4,
+      "cagr_pct": -10.7,
+      "mdd_pct": -3.4,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로": {
      "trades": 2,
@@ -3051,7 +5011,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.6,
+      "cagr_pct": -5.7,
+      "mdd_pct": -1.6,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -3.1,
+      "cagr_pct": -11.2,
+      "mdd_pct": -3.1,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로비엠": {
      "trades": 2,
@@ -3071,7 +5047,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.2,
+      "cagr_pct": 0.4,
+      "mdd_pct": -1.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 0.4,
+      "cagr_pct": 0.7,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "한미반도체": {
      "trades": 1,
@@ -3090,7 +5082,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.5,
+      "cagr_pct": 35.7,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 15.1,
+      "cagr_pct": 80.3,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한화에어로스페이스": {
      "trades": 2,
@@ -3110,7 +5118,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.0,
+      "cagr_pct": 1.1,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 2.1,
+      "cagr_pct": 2.2,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     }
    },
    "recent": [
@@ -3122,6 +5146,7 @@
      "days": 6,
      "why": "손절",
      "ret": -6.37,
+     "stop_pct": 6.27,
      "market": "us",
      "group": "hot"
     },
@@ -3133,6 +5158,7 @@
      "days": 3,
      "why": "손절",
      "ret": -7.88,
+     "stop_pct": 7.78,
      "market": "us",
      "group": "faded"
     },
@@ -3144,6 +5170,7 @@
      "days": 4,
      "why": "손절",
      "ret": -8.1,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "faded"
     },
@@ -3155,6 +5182,7 @@
      "days": 20,
      "why": "EMA20 이탈",
      "ret": 13.23,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "faded"
     },
@@ -3166,6 +5194,7 @@
      "days": 4,
      "why": "손절",
      "ret": -9.23,
+     "stop_pct": 7.01,
      "market": "us",
      "group": "hot"
     },
@@ -3177,6 +5206,7 @@
      "days": 4,
      "why": "손절",
      "ret": -8.1,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "faded"
     },
@@ -3188,6 +5218,7 @@
      "days": 8,
      "why": "EMA20 이탈",
      "ret": -4.36,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "faded"
     },
@@ -3199,6 +5230,7 @@
      "days": 58,
      "why": "EMA20 이탈",
      "ret": 60.27,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "hot"
     }
@@ -3225,6 +5257,22 @@
    },
    "max_open": 9,
    "over4_pct": 14.1,
+   "pf_1": {
+    "ret_pct": 14.2,
+    "cagr_pct": 4.7,
+    "mdd_pct": -10.0,
+    "taken": 41,
+    "skipped": 12,
+    "avg_invested_pct": 29
+   },
+   "pf_2": {
+    "ret_pct": 18.1,
+    "cagr_pct": 6.0,
+    "mdd_pct": -17.6,
+    "taken": 41,
+    "skipped": 12,
+    "avg_invested_pct": 51
+   },
    "key": "minervini",
    "name": "미너비니",
    "desc": "추세 템플릿 + 변동성 축소 돌파",
@@ -3248,7 +5296,23 @@
      "2026": 4
     },
     "max_open": 8,
-    "over4_pct": 12.2
+    "over4_pct": 12.2,
+    "pf_1": {
+     "ret_pct": 9.1,
+     "cagr_pct": 3.1,
+     "mdd_pct": -10.6,
+     "taken": 35,
+     "skipped": 8,
+     "avg_invested_pct": 28
+    },
+    "pf_2": {
+     "ret_pct": 9.0,
+     "cagr_pct": 3.1,
+     "mdd_pct": -18.4,
+     "taken": 35,
+     "skipped": 8,
+     "avg_invested_pct": 49
+    }
    },
    "kr": {
     "trades": 10,
@@ -3270,7 +5334,23 @@
      "2026": 3
     },
     "max_open": 2,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 4.4,
+     "cagr_pct": 1.8,
+     "mdd_pct": -2.0,
+     "taken": 10,
+     "skipped": 0,
+     "avg_invested_pct": 18
+    },
+    "pf_2": {
+     "ret_pct": 8.1,
+     "cagr_pct": 3.3,
+     "mdd_pct": -4.0,
+     "taken": 10,
+     "skipped": 0,
+     "avg_invested_pct": 35
+    }
    },
    "hot": {
     "trades": 47,
@@ -3292,7 +5372,23 @@
      "2026": 4
     },
     "max_open": 9,
-    "over4_pct": 15.0
+    "over4_pct": 15.0,
+    "pf_1": {
+     "ret_pct": 17.0,
+     "cagr_pct": 5.8,
+     "mdd_pct": -10.5,
+     "taken": 36,
+     "skipped": 11,
+     "avg_invested_pct": 30
+    },
+    "pf_2": {
+     "ret_pct": 24.1,
+     "cagr_pct": 8.1,
+     "mdd_pct": -18.5,
+     "taken": 36,
+     "skipped": 11,
+     "avg_invested_pct": 53
+    }
    },
    "faded": {
     "trades": 6,
@@ -3313,7 +5409,23 @@
      "2026": 3
     },
     "max_open": 1,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": -3.5,
+     "cagr_pct": -1.3,
+     "mdd_pct": -4.0,
+     "taken": 6,
+     "skipped": 0,
+     "avg_invested_pct": 14
+    },
+    "pf_2": {
+     "ret_pct": -6.7,
+     "cagr_pct": -2.5,
+     "mdd_pct": -7.9,
+     "taken": 6,
+     "skipped": 0,
+     "avg_invested_pct": 27
+    }
    },
    "by_symbol": {
     "AMD": {
@@ -3334,7 +5446,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.0,
+      "cagr_pct": 1.6,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 6.0,
+      "cagr_pct": 3.1,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "ANET": {
      "trades": 3,
@@ -3353,7 +5481,23 @@
       "2024": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.6,
+      "cagr_pct": -0.8,
+      "mdd_pct": -1.3,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": -0.6,
+      "cagr_pct": -0.8,
+      "mdd_pct": -1.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "AVGO": {
      "trades": 5,
@@ -3375,7 +5519,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.2,
+      "cagr_pct": 0.1,
+      "mdd_pct": -2.6,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -0.9,
+      "cagr_pct": -0.4,
+      "mdd_pct": -5.2,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "AXON": {
      "trades": 7,
@@ -3395,7 +5555,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.4,
+      "cagr_pct": -0.3,
+      "mdd_pct": -5.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 19
+     },
+     "pf_2": {
+      "ret_pct": -1.9,
+      "cagr_pct": -1.2,
+      "mdd_pct": -8.2,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "CRWD": {
      "trades": 3,
@@ -3415,7 +5591,23 @@
       "2024": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.5,
+      "cagr_pct": 1.4,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 2.4,
+      "cagr_pct": 2.2,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "HD현대일렉트릭": {
      "trades": 1,
@@ -3434,7 +5626,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.2,
+      "cagr_pct": 24.9,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": 8.4,
+      "cagr_pct": 54.2,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "HOOD": {
      "trades": 2,
@@ -3453,7 +5661,23 @@
       "2024": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.5,
+      "cagr_pct": 4.9,
+      "mdd_pct": -1.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 6.9,
+      "cagr_pct": 9.8,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "MU": {
      "trades": 2,
@@ -3473,7 +5697,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.5,
+      "cagr_pct": 0.7,
+      "mdd_pct": -1.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 3.4,
+      "cagr_pct": 1.7,
+      "mdd_pct": -1.5,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "NET": {
      "trades": 3,
@@ -3494,7 +5734,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.4,
+      "cagr_pct": -1.4,
+      "mdd_pct": -2.4,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -4.7,
+      "cagr_pct": -2.9,
+      "mdd_pct": -4.8,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "NVDA": {
      "trades": 5,
@@ -3515,7 +5771,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.1,
+      "cagr_pct": 2.3,
+      "mdd_pct": -2.7,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 9.7,
+      "cagr_pct": 3.5,
+      "mdd_pct": -4.9,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "PLTR": {
      "trades": 1,
@@ -3534,7 +5806,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.7,
+      "cagr_pct": -6.9,
+      "mdd_pct": -0.7,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -1.4,
+      "cagr_pct": -13.3,
+      "mdd_pct": -1.4,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "SHOP": {
      "trades": 3,
@@ -3554,7 +5842,23 @@
       "2025": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.5,
+      "cagr_pct": -2.7,
+      "mdd_pct": -3.5,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -6.9,
+      "cagr_pct": -5.5,
+      "mdd_pct": -6.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "SK하이닉스": {
      "trades": 4,
@@ -3576,7 +5880,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.4,
+      "cagr_pct": 2.4,
+      "mdd_pct": -0.1,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 10.6,
+      "cagr_pct": 4.6,
+      "mdd_pct": -0.1,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "SNOW": {
      "trades": 4,
@@ -3597,7 +5917,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.5,
+      "cagr_pct": -0.6,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -2.8,
+      "cagr_pct": -1.1,
+      "mdd_pct": -4.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "UBER": {
      "trades": 2,
@@ -3617,7 +5953,23 @@
       "2024": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.1,
+      "cagr_pct": -1.2,
+      "mdd_pct": -1.2,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": -1.9,
+      "cagr_pct": -2.2,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "VST": {
      "trades": 1,
@@ -3636,7 +5988,23 @@
       "2023": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.5,
+      "cagr_pct": 33.9,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 24
+     },
+     "pf_2": {
+      "ret_pct": 9.4,
+      "cagr_pct": 43.9,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "삼양식품": {
      "trades": 1,
@@ -3655,7 +6023,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -9.7,
+      "mdd_pct": -1.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.5,
+      "mdd_pct": -2.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "알테오젠": {
      "trades": 1,
@@ -3674,7 +6058,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -9.7,
+      "mdd_pct": -1.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.5,
+      "mdd_pct": -2.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로비엠": {
      "trades": 2,
@@ -3693,7 +6093,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.4,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.0,
+      "cagr_pct": -33.6,
+      "mdd_pct": -4.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한미반도체": {
      "trades": 1,
@@ -3712,7 +6128,23 @@
       "2024": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -9.7,
+      "mdd_pct": -1.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.5,
+      "mdd_pct": -2.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     }
    },
    "recent": [
@@ -3724,6 +6156,7 @@
      "days": 3,
      "why": "손절",
      "ret": -7.88,
+     "stop_pct": 7.78,
      "market": "us",
      "group": "faded"
     },
@@ -3735,6 +6168,7 @@
      "days": 9,
      "why": "EMA20 이탈",
      "ret": -3.95,
+     "stop_pct": 6.42,
      "market": "us",
      "group": "hot"
     },
@@ -3746,6 +6180,7 @@
      "days": 4,
      "why": "손절",
      "ret": -9.23,
+     "stop_pct": 7.01,
      "market": "us",
      "group": "hot"
     },
@@ -3757,6 +6192,7 @@
      "days": 4,
      "why": "손절",
      "ret": -8.1,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "faded"
     },
@@ -3768,6 +6204,7 @@
      "days": 2,
      "why": "손절",
      "ret": -8.1,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "faded"
     },
@@ -3779,6 +6216,7 @@
      "days": 22,
      "why": "EMA20 이탈",
      "ret": 10.16,
+     "stop_pct": 7.76,
      "market": "kr",
      "group": "hot"
     },
@@ -3790,6 +6228,7 @@
      "days": 2,
      "why": "손절",
      "ret": -6.8,
+     "stop_pct": 6.05,
      "market": "us",
      "group": "hot"
     },
@@ -3801,6 +6240,7 @@
      "days": 5,
      "why": "EMA20 이탈",
      "ret": -5.67,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     }
@@ -3827,6 +6267,22 @@
    },
    "max_open": 10,
    "over4_pct": 21.4,
+   "pf_1": {
+    "ret_pct": 26.0,
+    "cagr_pct": 8.7,
+    "mdd_pct": -6.4,
+    "taken": 51,
+    "skipped": 16,
+    "avg_invested_pct": 40
+   },
+   "pf_2": {
+    "ret_pct": 41.8,
+    "cagr_pct": 13.5,
+    "mdd_pct": -11.7,
+    "taken": 51,
+    "skipped": 16,
+    "avg_invested_pct": 69
+   },
    "key": "oneil",
    "name": "오닐 (차트)",
    "desc": "신고가 근처 베이스 돌파",
@@ -3850,7 +6306,23 @@
      "2026": 3
     },
     "max_open": 8,
-    "over4_pct": 11.2
+    "over4_pct": 11.2,
+    "pf_1": {
+     "ret_pct": 6.7,
+     "cagr_pct": 2.4,
+     "mdd_pct": -9.6,
+     "taken": 45,
+     "skipped": 6,
+     "avg_invested_pct": 38
+    },
+    "pf_2": {
+     "ret_pct": 4.8,
+     "cagr_pct": 1.7,
+     "mdd_pct": -17.6,
+     "taken": 45,
+     "skipped": 6,
+     "avg_invested_pct": 65
+    }
    },
    "kr": {
     "trades": 16,
@@ -3871,7 +6343,23 @@
      "2025": 8
     },
     "max_open": 3,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 15.2,
+     "cagr_pct": 7.6,
+     "mdd_pct": -4.7,
+     "taken": 16,
+     "skipped": 0,
+     "avg_invested_pct": 24
+    },
+    "pf_2": {
+     "ret_pct": 29.4,
+     "cagr_pct": 14.2,
+     "mdd_pct": -9.2,
+     "taken": 16,
+     "skipped": 0,
+     "avg_invested_pct": 46
+    }
    },
    "hot": {
     "trades": 63,
@@ -3893,7 +6381,23 @@
      "2026": 3
     },
     "max_open": 10,
-    "over4_pct": 19.2
+    "over4_pct": 19.2,
+    "pf_1": {
+     "ret_pct": 25.3,
+     "cagr_pct": 8.5,
+     "mdd_pct": -6.9,
+     "taken": 49,
+     "skipped": 14,
+     "avg_invested_pct": 39
+    },
+    "pf_2": {
+     "ret_pct": 40.1,
+     "cagr_pct": 13.0,
+     "mdd_pct": -12.8,
+     "taken": 49,
+     "skipped": 14,
+     "avg_invested_pct": 67
+    }
    },
    "faded": {
     "trades": 4,
@@ -3913,7 +6417,23 @@
      "2025": 2
     },
     "max_open": 2,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": -0.6,
+     "cagr_pct": -0.4,
+     "mdd_pct": -2.1,
+     "taken": 4,
+     "skipped": 0,
+     "avg_invested_pct": 17
+    },
+    "pf_2": {
+     "ret_pct": -1.0,
+     "cagr_pct": -0.6,
+     "mdd_pct": -4.0,
+     "taken": 4,
+     "skipped": 0,
+     "avg_invested_pct": 33
+    }
    },
    "by_symbol": {
     "AMD": {
@@ -3934,7 +6454,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.9,
+      "cagr_pct": 0.6,
+      "mdd_pct": -0.7,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 1.9,
+      "cagr_pct": 1.1,
+      "mdd_pct": -1.4,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "ANET": {
      "trades": 4,
@@ -3954,7 +6490,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.5,
+      "cagr_pct": -1.0,
+      "mdd_pct": -2.5,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": -4.1,
+      "cagr_pct": -1.7,
+      "mdd_pct": -4.1,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "APP": {
      "trades": 2,
@@ -3973,7 +6525,23 @@
       "2024": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.0,
+      "cagr_pct": -6.0,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -4.0,
+      "cagr_pct": -11.7,
+      "mdd_pct": -4.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "AVGO": {
      "trades": 7,
@@ -3995,7 +6563,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.0,
+      "cagr_pct": -0.8,
+      "mdd_pct": -3.6,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -4.6,
+      "cagr_pct": -1.9,
+      "mdd_pct": -7.1,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "AXON": {
      "trades": 7,
@@ -4016,7 +6600,23 @@
       "2025": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.1,
+      "cagr_pct": 0.6,
+      "mdd_pct": -3.0,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 20
+     },
+     "pf_2": {
+      "ret_pct": 0.8,
+      "cagr_pct": 0.5,
+      "mdd_pct": -4.7,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "CELH": {
      "trades": 1,
@@ -4035,7 +6635,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.5,
+      "cagr_pct": 16.5,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 3.1,
+      "cagr_pct": 35.3,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "CRWD": {
      "trades": 3,
@@ -4055,7 +6671,23 @@
       "2025": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.4,
+      "cagr_pct": -0.3,
+      "mdd_pct": -0.5,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -0.8,
+      "cagr_pct": -0.6,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "HD현대일렉트릭": {
      "trades": 3,
@@ -4075,7 +6707,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 11.9,
+      "cagr_pct": 6.3,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 24.3,
+      "cagr_pct": 12.4,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "HOOD": {
      "trades": 2,
@@ -4094,7 +6742,23 @@
       "2024": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.6,
+      "cagr_pct": 13.5,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 9.3,
+      "cagr_pct": 28.3,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "MU": {
      "trades": 3,
@@ -4114,7 +6778,23 @@
       "2024": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.0,
+      "cagr_pct": -11.7,
+      "mdd_pct": -3.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 19
+     },
+     "pf_2": {
+      "ret_pct": -4.9,
+      "cagr_pct": -18.5,
+      "mdd_pct": -4.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "NET": {
      "trades": 4,
@@ -4134,7 +6814,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.1,
+      "cagr_pct": -0.1,
+      "mdd_pct": -1.4,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -0.3,
+      "cagr_pct": -0.2,
+      "mdd_pct": -2.8,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "NVDA": {
      "trades": 3,
@@ -4155,7 +6851,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.3,
+      "cagr_pct": 2.0,
+      "mdd_pct": -1.6,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": 7.9,
+      "cagr_pct": 2.9,
+      "mdd_pct": -2.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "PLTR": {
      "trades": 2,
@@ -4175,7 +6887,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.5,
+      "cagr_pct": 0.3,
+      "mdd_pct": -1.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 1.0,
+      "cagr_pct": 0.6,
+      "mdd_pct": -2.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "SHOP": {
      "trades": 5,
@@ -4195,7 +6923,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -0.6,
+      "mdd_pct": -2.4,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": -3.8,
+      "cagr_pct": -2.3,
+      "mdd_pct": -4.7,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "SK하이닉스": {
      "trades": 3,
@@ -4216,7 +6960,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 8.1,
+      "cagr_pct": 4.1,
+      "mdd_pct": -0.1,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": 15.0,
+      "cagr_pct": 7.5,
+      "mdd_pct": -0.1,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "SNOW": {
      "trades": 3,
@@ -4236,7 +6996,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.1,
+      "cagr_pct": -1.3,
+      "mdd_pct": -2.1,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -4.0,
+      "cagr_pct": -2.5,
+      "mdd_pct": -4.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "TSLA": {
      "trades": 1,
@@ -4255,7 +7031,23 @@
       "2024": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.0,
+      "cagr_pct": -9.7,
+      "mdd_pct": -1.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.5,
+      "mdd_pct": -2.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "UBER": {
      "trades": 1,
@@ -4274,7 +7066,23 @@
       "2024": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.2,
+      "cagr_pct": -11.0,
+      "mdd_pct": -1.2,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 17
+     },
+     "pf_2": {
+      "ret_pct": -2.0,
+      "cagr_pct": -18.6,
+      "mdd_pct": -2.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "VST": {
      "trades": 1,
@@ -4293,7 +7101,23 @@
       "2023": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.5,
+      "cagr_pct": 33.9,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 24
+     },
+     "pf_2": {
+      "ret_pct": 9.4,
+      "cagr_pct": 43.9,
+      "mdd_pct": 0.0,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "삼양식품": {
      "trades": 3,
@@ -4313,7 +7137,23 @@
       "2025": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.1,
+      "cagr_pct": -0.1,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -0.3,
+      "cagr_pct": -0.2,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "알테오젠": {
      "trades": 5,
@@ -4333,7 +7173,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -5.0,
+      "cagr_pct": -3.9,
+      "mdd_pct": -5.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -9.7,
+      "cagr_pct": -7.7,
+      "mdd_pct": -9.7,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한화에어로스페이스": {
      "trades": 2,
@@ -4353,7 +7209,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.5,
+      "cagr_pct": 0.6,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 0.9,
+      "cagr_pct": 1.3,
+      "mdd_pct": 0.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     }
    },
    "recent": [
@@ -4365,6 +7237,7 @@
      "days": 9,
      "why": "EMA20 이탈",
      "ret": -3.95,
+     "stop_pct": 6.42,
      "market": "us",
      "group": "hot"
     },
@@ -4376,6 +7249,7 @@
      "days": 1,
      "why": "손절",
      "ret": -8.1,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -4387,6 +7261,7 @@
      "days": 4,
      "why": "손절",
      "ret": -9.23,
+     "stop_pct": 7.01,
      "market": "us",
      "group": "hot"
     },
@@ -4398,6 +7273,7 @@
      "days": 2,
      "why": "손절",
      "ret": -7.53,
+     "stop_pct": 7.43,
      "market": "us",
      "group": "hot"
     },
@@ -4409,6 +7285,7 @@
      "days": 46,
      "why": "EMA20 이탈",
      "ret": 40.15,
+     "stop_pct": 6.21,
      "market": "kr",
      "group": "hot"
     },
@@ -4420,6 +7297,7 @@
      "days": 43,
      "why": "EMA20 이탈",
      "ret": 28.0,
+     "stop_pct": 6.62,
      "market": "kr",
      "group": "hot"
     },
@@ -4431,6 +7309,7 @@
      "days": 5,
      "why": "손절",
      "ret": -8.1,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "hot"
     },
@@ -4442,32 +7321,49 @@
      "days": 23,
      "why": "EMA20 이탈",
      "ret": 13.22,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     }
    ]
   },
   {
-   "trades": 108,
-   "win_rate": 36.1,
-   "avg_win_r": 1.99,
+   "trades": 107,
+   "win_rate": 35.5,
+   "avg_win_r": 1.96,
    "avg_loss_r": -0.68,
-   "expectancy_r": 0.284,
-   "profit_factor": 1.65,
-   "avg_days": 11.7,
-   "total_r": 30.7,
-   "equity_ret_pct": 33.4,
+   "expectancy_r": 0.258,
+   "profit_factor": 1.59,
+   "avg_days": 11.5,
+   "total_r": 27.6,
+   "equity_ret_pct": 29.4,
    "mdd_pct": -11.9,
    "best_r": 12.62,
    "worst_r": -1.58,
    "per_year": {
     "2023": 3,
     "2024": 33,
-    "2025": 29,
+    "2025": 28,
     "2026": 43
    },
    "max_open": 8,
-   "over4_pct": 7.3,
+   "over4_pct": 5.7,
+   "pf_1": {
+    "ret_pct": 30.5,
+    "cagr_pct": 9.5,
+    "mdd_pct": -10.5,
+    "taken": 99,
+    "skipped": 8,
+    "avg_invested_pct": 29
+   },
+   "pf_2": {
+    "ret_pct": 62.7,
+    "cagr_pct": 18.1,
+    "mdd_pct": -19.9,
+    "taken": 99,
+    "skipped": 8,
+    "avg_invested_pct": 57
+   },
    "key": "mine_nobrk",
    "name": "내 매매법 − 돌파 없음",
    "desc": "[비교] 내 신호 중 돌파 조건이 없던 것만",
@@ -4491,51 +7387,99 @@
      "2026": 32
     },
     "max_open": 7,
-    "over4_pct": 5.8
+    "over4_pct": 5.8,
+    "pf_1": {
+     "ret_pct": 30.6,
+     "cagr_pct": 9.7,
+     "mdd_pct": -8.0,
+     "taken": 68,
+     "skipped": 7,
+     "avg_invested_pct": 26
+    },
+    "pf_2": {
+     "ret_pct": 65.6,
+     "cagr_pct": 19.1,
+     "mdd_pct": -15.3,
+     "taken": 68,
+     "skipped": 7,
+     "avg_invested_pct": 52
+    }
    },
    "kr": {
-    "trades": 33,
-    "win_rate": 36.4,
-    "avg_win_r": 1.63,
+    "trades": 32,
+    "win_rate": 34.4,
+    "avg_win_r": 1.49,
     "avg_loss_r": -0.61,
-    "expectancy_r": 0.207,
-    "profit_factor": 1.54,
-    "avg_days": 10.8,
-    "total_r": 6.8,
-    "equity_ret_pct": 6.6,
-    "mdd_pct": -4.9,
+    "expectancy_r": 0.115,
+    "profit_factor": 1.29,
+    "avg_days": 10.1,
+    "total_r": 3.7,
+    "equity_ret_pct": 3.3,
+    "mdd_pct": -5.9,
     "best_r": 8.07,
     "worst_r": -1.01,
     "per_year": {
      "2023": 1,
      "2024": 10,
-     "2025": 11,
+     "2025": 10,
      "2026": 11
     },
     "max_open": 3,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 3.3,
+     "cagr_pct": 1.2,
+     "mdd_pct": -5.9,
+     "taken": 32,
+     "skipped": 0,
+     "avg_invested_pct": 18
+    },
+    "pf_2": {
+     "ret_pct": 6.0,
+     "cagr_pct": 2.1,
+     "mdd_pct": -11.6,
+     "taken": 32,
+     "skipped": 0,
+     "avg_invested_pct": 36
+    }
    },
    "hot": {
-    "trades": 92,
-    "win_rate": 35.9,
-    "avg_win_r": 1.76,
+    "trades": 91,
+    "win_rate": 35.2,
+    "avg_win_r": 1.71,
     "avg_loss_r": -0.68,
-    "expectancy_r": 0.197,
-    "profit_factor": 1.45,
-    "avg_days": 11.3,
-    "total_r": 18.1,
-    "equity_ret_pct": 18.6,
+    "expectancy_r": 0.164,
+    "profit_factor": 1.37,
+    "avg_days": 11.0,
+    "total_r": 14.9,
+    "equity_ret_pct": 15.0,
     "mdd_pct": -12.5,
     "best_r": 8.07,
     "worst_r": -1.58,
     "per_year": {
      "2023": 2,
      "2024": 28,
-     "2025": 25,
+     "2025": 24,
      "2026": 37
     },
     "max_open": 7,
-    "over4_pct": 3.8
+    "over4_pct": 1.9,
+    "pf_1": {
+     "ret_pct": 18.3,
+     "cagr_pct": 5.9,
+     "mdd_pct": -10.8,
+     "taken": 87,
+     "skipped": 4,
+     "avg_invested_pct": 27
+    },
+    "pf_2": {
+     "ret_pct": 37.0,
+     "cagr_pct": 11.4,
+     "mdd_pct": -20.5,
+     "taken": 87,
+     "skipped": 4,
+     "avg_invested_pct": 54
+    }
    },
    "faded": {
     "trades": 16,
@@ -4557,7 +7501,23 @@
      "2026": 6
     },
     "max_open": 3,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 12.7,
+     "cagr_pct": 4.3,
+     "mdd_pct": -2.7,
+     "taken": 16,
+     "skipped": 0,
+     "avg_invested_pct": 16
+    },
+    "pf_2": {
+     "ret_pct": 25.7,
+     "cagr_pct": 8.4,
+     "mdd_pct": -5.3,
+     "taken": 16,
+     "skipped": 0,
+     "avg_invested_pct": 31
+    }
    },
    "by_symbol": {
     "AMD": {
@@ -4578,7 +7538,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.5,
+      "cagr_pct": 3.9,
+      "mdd_pct": -1.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 5.0,
+      "cagr_pct": 7.7,
+      "mdd_pct": -2.1,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "ANET": {
      "trades": 3,
@@ -4598,7 +7574,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.1,
+      "cagr_pct": -1.0,
+      "mdd_pct": -1.1,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -2.2,
+      "cagr_pct": -2.0,
+      "mdd_pct": -2.2,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "APP": {
      "trades": 4,
@@ -4619,7 +7611,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.7,
+      "cagr_pct": 0.8,
+      "mdd_pct": -1.4,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 3.3,
+      "cagr_pct": 1.5,
+      "mdd_pct": -2.7,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "AVGO": {
      "trades": 1,
@@ -4638,7 +7646,23 @@
       "2024": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.4,
+      "cagr_pct": -3.9,
+      "mdd_pct": -0.4,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -0.8,
+      "cagr_pct": -7.7,
+      "mdd_pct": -0.8,
+      "taken": 1,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "AXON": {
      "trades": 4,
@@ -4658,7 +7682,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.9,
+      "cagr_pct": -0.5,
+      "mdd_pct": -1.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -1.8,
+      "cagr_pct": -1.1,
+      "mdd_pct": -3.2,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "CELH": {
      "trades": 3,
@@ -4678,7 +7718,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.0,
+      "cagr_pct": 1.3,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 4.0,
+      "cagr_pct": 2.6,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "COIN": {
      "trades": 5,
@@ -4699,7 +7755,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.3,
+      "cagr_pct": 1.0,
+      "mdd_pct": -2.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 4.6,
+      "cagr_pct": 1.9,
+      "mdd_pct": -4.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "CRWD": {
      "trades": 4,
@@ -4719,7 +7791,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.5,
+      "cagr_pct": 1.0,
+      "mdd_pct": -0.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 5.1,
+      "cagr_pct": 2.0,
+      "mdd_pct": -0.5,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "ENPH": {
      "trades": 3,
@@ -4739,7 +7827,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.9,
+      "cagr_pct": -1.6,
+      "mdd_pct": -2.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -5.7,
+      "cagr_pct": -3.3,
+      "mdd_pct": -5.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "HD현대일렉트릭": {
      "trades": 7,
@@ -4760,7 +7864,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.9,
+      "cagr_pct": -1.1,
+      "mdd_pct": -2.6,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -3.8,
+      "cagr_pct": -2.1,
+      "mdd_pct": -5.2,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "HOOD": {
      "trades": 4,
@@ -4780,7 +7900,23 @@
       "2026": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.2,
+      "cagr_pct": -1.3,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.4,
+      "cagr_pct": -2.7,
+      "mdd_pct": -4.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "MU": {
      "trades": 5,
@@ -4800,7 +7936,23 @@
       "2026": 4
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.3,
+      "cagr_pct": 0.3,
+      "mdd_pct": -3.7,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 0.3,
+      "cagr_pct": 0.4,
+      "mdd_pct": -7.4,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "NET": {
      "trades": 8,
@@ -4821,7 +7973,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.3,
+      "cagr_pct": 0.5,
+      "mdd_pct": -2.3,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 2.9,
+      "cagr_pct": 1.1,
+      "mdd_pct": -4.2,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "NVDA": {
      "trades": 4,
@@ -4840,7 +8008,23 @@
       "2026": 4
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.1,
+      "cagr_pct": -2.8,
+      "mdd_pct": -2.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -3.9,
+      "cagr_pct": -5.3,
+      "mdd_pct": -4.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "PLTR": {
      "trades": 3,
@@ -4860,7 +8044,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.3,
+      "cagr_pct": 0.3,
+      "mdd_pct": -0.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 0.6,
+      "cagr_pct": 0.6,
+      "mdd_pct": -1.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "SHOP": {
      "trades": 5,
@@ -4881,27 +8081,59 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.3,
+      "cagr_pct": 0.1,
+      "mdd_pct": -1.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 0.6,
+      "cagr_pct": 0.3,
+      "mdd_pct": -2.0,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "SK하이닉스": {
-     "trades": 3,
-     "win_rate": 33.3,
-     "avg_win_r": 3.15,
+     "trades": 2,
+     "win_rate": 0.0,
+     "avg_win_r": 0,
      "avg_loss_r": -0.85,
-     "expectancy_r": 0.484,
-     "profit_factor": 1.86,
-     "avg_days": 14.3,
-     "total_r": 1.5,
-     "equity_ret_pct": 1.4,
-     "mdd_pct": -1.0,
-     "best_r": 3.15,
+     "expectancy_r": -0.847,
+     "profit_factor": 0.0,
+     "avg_days": 4.5,
+     "total_r": -1.7,
+     "equity_ret_pct": -1.7,
+     "mdd_pct": -1.7,
+     "best_r": -0.68,
      "worst_r": -1.01,
      "per_year": {
-      "2025": 2,
+      "2025": 1,
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.7,
+      "cagr_pct": -1.5,
+      "mdd_pct": -1.7,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -3.4,
+      "cagr_pct": -3.0,
+      "mdd_pct": -3.4,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "SMCI": {
      "trades": 3,
@@ -4922,7 +8154,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 12.0,
+      "cagr_pct": 4.1,
+      "mdd_pct": -0.5,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 23.9,
+      "cagr_pct": 7.9,
+      "mdd_pct": -0.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "SNOW": {
      "trades": 2,
@@ -4942,7 +8190,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.7,
+      "cagr_pct": 1.1,
+      "mdd_pct": -0.8,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 3.4,
+      "cagr_pct": 2.2,
+      "mdd_pct": -1.7,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "TSLA": {
      "trades": 6,
@@ -4964,7 +8228,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.8,
+      "cagr_pct": 0.9,
+      "mdd_pct": -1.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 5.5,
+      "cagr_pct": 1.9,
+      "mdd_pct": -2.0,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "UBER": {
      "trades": 2,
@@ -4983,7 +8263,23 @@
       "2024": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.1,
+      "cagr_pct": 0.5,
+      "mdd_pct": -0.8,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": 0.0,
+      "cagr_pct": 0.2,
+      "mdd_pct": -1.5,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "VST": {
      "trades": 4,
@@ -5004,7 +8300,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.0,
+      "cagr_pct": 1.2,
+      "mdd_pct": -1.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 3.9,
+      "cagr_pct": 2.3,
+      "mdd_pct": -2.5,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "삼양식품": {
      "trades": 4,
@@ -5024,7 +8336,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.9,
+      "cagr_pct": -0.7,
+      "mdd_pct": -0.9,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -1.8,
+      "cagr_pct": -1.3,
+      "mdd_pct": -1.8,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "알테오젠": {
      "trades": 3,
@@ -5045,7 +8373,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 6.1,
+      "cagr_pct": 2.4,
+      "mdd_pct": -1.8,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 11.9,
+      "cagr_pct": 4.6,
+      "mdd_pct": -3.6,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로": {
      "trades": 3,
@@ -5065,7 +8409,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.8,
+      "cagr_pct": 1.1,
+      "mdd_pct": -0.6,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 1.6,
+      "cagr_pct": 2.2,
+      "mdd_pct": -1.1,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로비엠": {
      "trades": 2,
@@ -5085,7 +8445,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.1,
+      "cagr_pct": -0.5,
+      "mdd_pct": -1.1,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.3,
+      "cagr_pct": -1.0,
+      "mdd_pct": -2.3,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한미반도체": {
      "trades": 3,
@@ -5105,7 +8481,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.8,
+      "cagr_pct": 1.2,
+      "mdd_pct": -0.5,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 3.7,
+      "cagr_pct": 2.4,
+      "mdd_pct": -0.9,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한화에어로스페이스": {
      "trades": 8,
@@ -5127,7 +8519,23 @@
       "2026": 4
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.4,
+      "cagr_pct": 0.1,
+      "mdd_pct": -2.7,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 0.7,
+      "cagr_pct": 0.2,
+      "mdd_pct": -5.4,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     }
    },
    "recent": [
@@ -5139,6 +8547,7 @@
      "days": 10,
      "why": "EMA20 이탈",
      "ret": 2.81,
+     "stop_pct": 6.64,
      "market": "us",
      "group": "hot"
     },
@@ -5150,6 +8559,7 @@
      "days": 20,
      "why": "EMA20 이탈",
      "ret": 9.86,
+     "stop_pct": 7.92,
      "market": "us",
      "group": "hot"
     },
@@ -5161,6 +8571,7 @@
      "days": 8,
      "why": "EMA20 이탈",
      "ret": -0.6,
+     "stop_pct": 6.74,
      "market": "us",
      "group": "hot"
     },
@@ -5172,6 +8583,7 @@
      "days": 25,
      "why": "EMA20 이탈",
      "ret": 9.65,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -5183,6 +8595,7 @@
      "days": 16,
      "why": "EMA20 이탈",
      "ret": 1.42,
+     "stop_pct": 5.75,
      "market": "us",
      "group": "hot"
     },
@@ -5194,6 +8607,7 @@
      "days": 17,
      "why": "EMA20 이탈",
      "ret": -0.65,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "faded"
     },
@@ -5205,6 +8619,7 @@
      "days": 14,
      "why": "EMA20 이탈",
      "ret": -0.98,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -5216,32 +8631,49 @@
      "days": 7,
      "why": "손절",
      "ret": -8.1,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     }
    ]
   },
   {
-   "trades": 124,
-   "win_rate": 30.6,
+   "trades": 123,
+   "win_rate": 30.9,
    "avg_win_r": 2.14,
    "avg_loss_r": -0.66,
-   "expectancy_r": 0.201,
-   "profit_factor": 1.44,
-   "avg_days": 10.2,
-   "total_r": 24.9,
-   "equity_ret_pct": 25.7,
-   "mdd_pct": -13.6,
+   "expectancy_r": 0.208,
+   "profit_factor": 1.46,
+   "avg_days": 10.3,
+   "total_r": 25.6,
+   "equity_ret_pct": 26.6,
+   "mdd_pct": -13.0,
    "best_r": 11.3,
    "worst_r": -1.63,
    "per_year": {
     "2023": 4,
-    "2024": 67,
+    "2024": 66,
     "2025": 35,
     "2026": 18
    },
    "max_open": 11,
-   "over4_pct": 13.3,
+   "over4_pct": 13.4,
+   "pf_1": {
+    "ret_pct": 8.3,
+    "cagr_pct": 2.7,
+    "mdd_pct": -14.2,
+    "taken": 109,
+    "skipped": 14,
+    "avg_invested_pct": 33
+   },
+   "pf_2": {
+    "ret_pct": 7.6,
+    "cagr_pct": 2.5,
+    "mdd_pct": -30.0,
+    "taken": 109,
+    "skipped": 14,
+    "avg_invested_pct": 63
+   },
    "key": "raschke",
    "name": "라쉬키 Holy Grail",
    "desc": "강한 추세 20 EMA 눌림목",
@@ -5265,51 +8697,99 @@
      "2026": 9
     },
     "max_open": 11,
-    "over4_pct": 11.7
+    "over4_pct": 11.7,
+    "pf_1": {
+     "ret_pct": 4.4,
+     "cagr_pct": 1.5,
+     "mdd_pct": -10.2,
+     "taken": 64,
+     "skipped": 9,
+     "avg_invested_pct": 29
+    },
+    "pf_2": {
+     "ret_pct": 2.1,
+     "cagr_pct": 0.7,
+     "mdd_pct": -22.1,
+     "taken": 64,
+     "skipped": 9,
+     "avg_invested_pct": 53
+    }
    },
    "kr": {
-    "trades": 51,
-    "win_rate": 31.4,
+    "trades": 50,
+    "win_rate": 32.0,
     "avg_win_r": 1.75,
-    "avg_loss_r": -0.65,
-    "expectancy_r": 0.107,
-    "profit_factor": 1.24,
-    "avg_days": 8.8,
-    "total_r": 5.5,
-    "equity_ret_pct": 4.9,
-    "mdd_pct": -5.3,
+    "avg_loss_r": -0.64,
+    "expectancy_r": 0.123,
+    "profit_factor": 1.28,
+    "avg_days": 8.9,
+    "total_r": 6.2,
+    "equity_ret_pct": 5.6,
+    "mdd_pct": -4.8,
     "best_r": 9.45,
     "worst_r": -1.63,
     "per_year": {
      "2023": 3,
-     "2024": 22,
+     "2024": 21,
      "2025": 17,
      "2026": 9
     },
     "max_open": 4,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 5.8,
+     "cagr_pct": 2.2,
+     "mdd_pct": -4.8,
+     "taken": 50,
+     "skipped": 0,
+     "avg_invested_pct": 20
+    },
+    "pf_2": {
+     "ret_pct": 10.7,
+     "cagr_pct": 4.0,
+     "mdd_pct": -9.4,
+     "taken": 50,
+     "skipped": 0,
+     "avg_invested_pct": 41
+    }
    },
    "hot": {
-    "trades": 104,
-    "win_rate": 30.8,
+    "trades": 103,
+    "win_rate": 31.1,
     "avg_win_r": 2.19,
     "avg_loss_r": -0.65,
-    "expectancy_r": 0.225,
-    "profit_factor": 1.5,
-    "avg_days": 10.5,
-    "total_r": 23.4,
-    "equity_ret_pct": 24.0,
+    "expectancy_r": 0.234,
+    "profit_factor": 1.52,
+    "avg_days": 10.6,
+    "total_r": 24.1,
+    "equity_ret_pct": 24.9,
     "mdd_pct": -10.0,
     "best_r": 11.3,
     "worst_r": -1.63,
     "per_year": {
      "2023": 4,
-     "2024": 61,
+     "2024": 60,
      "2025": 27,
      "2026": 12
     },
     "max_open": 10,
-    "over4_pct": 12.7
+    "over4_pct": 12.9,
+    "pf_1": {
+     "ret_pct": 5.6,
+     "cagr_pct": 1.8,
+     "mdd_pct": -10.8,
+     "taken": 93,
+     "skipped": 10,
+     "avg_invested_pct": 33
+    },
+    "pf_2": {
+     "ret_pct": 3.2,
+     "cagr_pct": 1.1,
+     "mdd_pct": -22.8,
+     "taken": 93,
+     "skipped": 10,
+     "avg_invested_pct": 62
+    }
    },
    "faded": {
     "trades": 20,
@@ -5330,7 +8810,23 @@
      "2026": 6
     },
     "max_open": 3,
-    "over4_pct": 0.0
+    "over4_pct": 0.0,
+    "pf_1": {
+     "ret_pct": 1.4,
+     "cagr_pct": 0.5,
+     "mdd_pct": -5.7,
+     "taken": 20,
+     "skipped": 0,
+     "avg_invested_pct": 16
+    },
+    "pf_2": {
+     "ret_pct": 2.5,
+     "cagr_pct": 0.9,
+     "mdd_pct": -11.1,
+     "taken": 20,
+     "skipped": 0,
+     "avg_invested_pct": 32
+    }
    },
    "by_symbol": {
     "AMD": {
@@ -5351,7 +8847,23 @@
       "2025": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.8,
+      "cagr_pct": 1.0,
+      "mdd_pct": -0.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 3.6,
+      "cagr_pct": 1.9,
+      "mdd_pct": -1.3,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "ANET": {
      "trades": 2,
@@ -5371,7 +8883,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.8,
+      "cagr_pct": 0.5,
+      "mdd_pct": -0.5,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 1.6,
+      "cagr_pct": 1.0,
+      "mdd_pct": -1.0,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "APP": {
      "trades": 4,
@@ -5392,7 +8920,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.7,
+      "cagr_pct": -0.9,
+      "mdd_pct": -2.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -3.3,
+      "cagr_pct": -1.7,
+      "mdd_pct": -4.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "AVGO": {
      "trades": 3,
@@ -5412,7 +8956,23 @@
       "2025": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.4,
+      "cagr_pct": 2.7,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 6.7,
+      "cagr_pct": 4.1,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "AXON": {
      "trades": 4,
@@ -5432,7 +8992,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 4.8,
+      "cagr_pct": 1.9,
+      "mdd_pct": -1.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 22
+     },
+     "pf_2": {
+      "ret_pct": 4.7,
+      "cagr_pct": 1.8,
+      "mdd_pct": -2.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "CELH": {
      "trades": 4,
@@ -5453,7 +9029,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.5,
+      "cagr_pct": -0.8,
+      "mdd_pct": -2.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -3.1,
+      "cagr_pct": -1.6,
+      "mdd_pct": -5.1,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "COIN": {
      "trades": 4,
@@ -5473,7 +9065,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.9,
+      "cagr_pct": -1.2,
+      "mdd_pct": -2.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -3.9,
+      "cagr_pct": -2.5,
+      "mdd_pct": -5.2,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "CRWD": {
      "trades": 4,
@@ -5493,7 +9101,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.2,
+      "cagr_pct": 1.3,
+      "mdd_pct": -1.3,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": 5.3,
+      "cagr_pct": 2.1,
+      "mdd_pct": -2.4,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 29
+     }
     },
     "ENPH": {
      "trades": 2,
@@ -5513,7 +9137,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 1.4,
+      "cagr_pct": 1.1,
+      "mdd_pct": -0.5,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 2.8,
+      "cagr_pct": 2.3,
+      "mdd_pct": -0.9,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "HD현대일렉트릭": {
      "trades": 6,
@@ -5535,7 +9175,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 7.0,
+      "cagr_pct": 2.8,
+      "mdd_pct": -1.6,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 13.6,
+      "cagr_pct": 5.3,
+      "mdd_pct": -3.3,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "HOOD": {
      "trades": 5,
@@ -5555,7 +9211,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.1,
+      "cagr_pct": -1.9,
+      "mdd_pct": -3.2,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -6.2,
+      "cagr_pct": -3.9,
+      "mdd_pct": -6.3,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "MU": {
      "trades": 5,
@@ -5577,7 +9249,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.8,
+      "cagr_pct": -1.3,
+      "mdd_pct": -2.8,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 16
+     },
+     "pf_2": {
+      "ret_pct": -5.2,
+      "cagr_pct": -2.4,
+      "mdd_pct": -5.2,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "NET": {
      "trades": 4,
@@ -5596,7 +9284,23 @@
       "2024": 4
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.8,
+      "cagr_pct": -1.9,
+      "mdd_pct": -1.8,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -3.5,
+      "cagr_pct": -3.6,
+      "mdd_pct": -3.5,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 28
+     }
     },
     "NVDA": {
      "trades": 4,
@@ -5615,7 +9319,23 @@
       "2024": 4
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.5,
+      "cagr_pct": 1.3,
+      "mdd_pct": -1.6,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 0.9,
+      "cagr_pct": 2.2,
+      "mdd_pct": -3.1,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "PLTR": {
      "trades": 4,
@@ -5635,7 +9355,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 0.8,
+      "cagr_pct": 0.4,
+      "mdd_pct": -1.5,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 1.4,
+      "cagr_pct": 0.8,
+      "mdd_pct": -3.1,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "SHOP": {
      "trades": 3,
@@ -5654,7 +9390,23 @@
       "2024": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.1,
+      "cagr_pct": -0.1,
+      "mdd_pct": -0.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": -0.1,
+      "cagr_pct": -0.1,
+      "mdd_pct": -1.5,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "SK하이닉스": {
      "trades": 6,
@@ -5675,7 +9427,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.2,
+      "cagr_pct": -0.5,
+      "mdd_pct": -3.1,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -2.4,
+      "cagr_pct": -1.1,
+      "mdd_pct": -6.1,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "SMCI": {
      "trades": 3,
@@ -5695,7 +9463,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.4,
+      "cagr_pct": -2.6,
+      "mdd_pct": -2.4,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.7,
+      "cagr_pct": -5.1,
+      "mdd_pct": -4.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "SNOW": {
      "trades": 3,
@@ -5715,7 +9499,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.8,
+      "cagr_pct": 1.1,
+      "mdd_pct": -0.4,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 14
+     },
+     "pf_2": {
+      "ret_pct": 5.6,
+      "cagr_pct": 2.1,
+      "mdd_pct": -0.7,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 27
+     }
     },
     "TSLA": {
      "trades": 4,
@@ -5735,7 +9535,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.0,
+      "cagr_pct": -3.6,
+      "mdd_pct": -3.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -6.0,
+      "cagr_pct": -7.0,
+      "mdd_pct": -6.0,
+      "taken": 4,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "UBER": {
      "trades": 2,
@@ -5755,7 +9571,23 @@
       "2025": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 3.3,
+      "cagr_pct": 3.1,
+      "mdd_pct": -0.1,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 18
+     },
+     "pf_2": {
+      "ret_pct": 5.2,
+      "cagr_pct": 4.9,
+      "mdd_pct": -0.2,
+      "taken": 2,
+      "skipped": 0,
+      "avg_invested_pct": 30
+     }
     },
     "VST": {
      "trades": 6,
@@ -5774,28 +9606,60 @@
       "2024": 6
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 14.2,
+      "cagr_pct": 15.7,
+      "mdd_pct": -1.4,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 15
+     },
+     "pf_2": {
+      "ret_pct": 19.2,
+      "cagr_pct": 21.3,
+      "mdd_pct": -2.8,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "삼양식품": {
-     "trades": 10,
-     "win_rate": 10.0,
+     "trades": 9,
+     "win_rate": 11.1,
      "avg_win_r": 0.16,
-     "avg_loss_r": -0.36,
-     "expectancy_r": -0.309,
-     "profit_factor": 0.05,
-     "avg_days": 6.2,
-     "total_r": -3.1,
-     "equity_ret_pct": -3.1,
-     "mdd_pct": -3.2,
+     "avg_loss_r": -0.32,
+     "expectancy_r": -0.266,
+     "profit_factor": 0.06,
+     "avg_days": 6.7,
+     "total_r": -2.4,
+     "equity_ret_pct": -2.4,
+     "mdd_pct": -2.5,
      "best_r": 0.16,
-     "worst_r": -0.7,
+     "worst_r": -0.62,
      "per_year": {
       "2023": 2,
-      "2024": 4,
+      "2024": 3,
       "2025": 4
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -2.4,
+      "cagr_pct": -1.5,
+      "mdd_pct": -2.5,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -4.7,
+      "cagr_pct": -2.9,
+      "mdd_pct": -5.0,
+      "taken": 9,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "알테오젠": {
      "trades": 6,
@@ -5815,7 +9679,23 @@
       "2025": 3
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -3.7,
+      "cagr_pct": -2.2,
+      "mdd_pct": -3.7,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -7.2,
+      "cagr_pct": -4.3,
+      "mdd_pct": -7.2,
+      "taken": 6,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로": {
      "trades": 3,
@@ -5835,7 +9715,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 2.5,
+      "cagr_pct": 4.3,
+      "mdd_pct": -1.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": 5.0,
+      "cagr_pct": 8.6,
+      "mdd_pct": -2.0,
+      "taken": 3,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "에코프로비엠": {
      "trades": 5,
@@ -5855,7 +9751,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -1.3,
+      "cagr_pct": -2.3,
+      "mdd_pct": -2.9,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 12
+     },
+     "pf_2": {
+      "ret_pct": -2.6,
+      "cagr_pct": -4.5,
+      "mdd_pct": -5.7,
+      "taken": 5,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     },
     "한미반도체": {
      "trades": 7,
@@ -5876,7 +9788,23 @@
       "2026": 1
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": 5.8,
+      "cagr_pct": 3.2,
+      "mdd_pct": -1.2,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": 11.7,
+      "cagr_pct": 6.4,
+      "mdd_pct": -2.4,
+      "taken": 7,
+      "skipped": 0,
+      "avg_invested_pct": 26
+     }
     },
     "한화에어로스페이스": {
      "trades": 8,
@@ -5896,7 +9824,23 @@
       "2026": 2
      },
      "max_open": 1,
-     "over4_pct": 0.0
+     "over4_pct": 0.0,
+     "pf_1": {
+      "ret_pct": -0.8,
+      "cagr_pct": -0.4,
+      "mdd_pct": -3.0,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 13
+     },
+     "pf_2": {
+      "ret_pct": -1.6,
+      "cagr_pct": -0.8,
+      "mdd_pct": -6.0,
+      "taken": 8,
+      "skipped": 0,
+      "avg_invested_pct": 25
+     }
     }
    },
    "recent": [
@@ -5908,6 +9852,7 @@
      "days": 4,
      "why": "보유 중(평가)",
      "ret": 5.17,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -5919,6 +9864,7 @@
      "days": 1,
      "why": "손절",
      "ret": -6.92,
+     "stop_pct": 6.82,
      "market": "us",
      "group": "hot"
     },
@@ -5930,6 +9876,7 @@
      "days": 3,
      "why": "EMA20 이탈",
      "ret": -4.19,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -5941,6 +9888,7 @@
      "days": 47,
      "why": "EMA20 이탈",
      "ret": 25.36,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "faded"
     },
@@ -5952,6 +9900,7 @@
      "days": 27,
      "why": "EMA20 이탈",
      "ret": 15.64,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -5963,6 +9912,7 @@
      "days": 3,
      "why": "손절",
      "ret": -8.1,
+     "stop_pct": 8.0,
      "market": "us",
      "group": "hot"
     },
@@ -5974,6 +9924,7 @@
      "days": 15,
      "why": "손절",
      "ret": 7.9,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "hot"
     },
@@ -5985,6 +9936,7 @@
      "days": 2,
      "why": "손절",
      "ret": -8.1,
+     "stop_pct": 8.0,
      "market": "kr",
      "group": "hot"
     }
@@ -6190,5 +10142,19 @@
   }
  ],
  "key": "vol",
- "title": "고변동 모멘텀주"
+ "title": "고변동 모멘텀주",
+ "bench": [
+  {
+   "name": "나스닥100 (QQQ)",
+   "ret_pct": 69.8
+  },
+  {
+   "name": "코스피",
+   "ret_pct": 95.1
+  },
+  {
+   "name": "대상 종목 똑같이 나눠 보유",
+   "ret_pct": 262.1
+  }
+ ]
 }
