@@ -215,7 +215,7 @@ def simulate(sym, b, I, sig, key, start_idx):
             r_total += (0.5 if half else 1.0) * (c[k] - entry) / risk; exit_day = k
         r_total -= COST * entry / risk
         trades.append({"sym": sym, "in": b[j][0], "out": b[exit_day][0], "r": round(r_total, 3), "days": exit_day - j + 1, "why": reason,
-                       "ret": round((r_total * risk) / entry * 100, 2)})
+                       "ret": round((r_total * risk) / entry * 100, 2), "stop_pct": round(risk / entry * 100, 2)})
         i = exit_day + 1
     return trades
 
@@ -234,7 +234,31 @@ def stats(tr):
             "avg_days": round(sum(t["days"] for t in tr) / len(tr), 1),
             "total_r": round(sum(rs), 1), "equity_ret_pct": round((eq - 1) * 100, 1), "mdd_pct": round(mdd * 100, 1),
             "best_r": round(max(rs), 2), "worst_r": round(min(rs), 2),
-            "per_year": per_year(tr), **concurrency(tr)}
+            "per_year": per_year(tr), **concurrency(tr),
+            "pf_1": portfolio(tr, 4, 0.01), "pf_2": portfolio(tr, 4, 0.02)}
+
+
+def portfolio(tr, slots=4, risk=0.01, cap=0.30):
+    """실제 계좌처럼: 동시에 최대 slots종목, 종목당 비중 = 위험% ÷ 손절폭(최대 cap), 복리"""
+    if not tr:
+        return None
+    eq, peak, mdd, opn, taken, skip, expo = 1.0, 1.0, 0.0, [], 0, 0, []
+    def close_until(d):
+        nonlocal eq, peak, mdd, opn
+        for x in sorted([x for x in opn if x[0] < d], key=lambda x: x[0]):
+            eq += x[1] * x[2] / 100; peak = max(peak, eq); mdd = min(mdd, eq / peak - 1)
+        opn = [x for x in opn if x[0] >= d]
+    for t in sorted(tr, key=lambda x: x["in"]):
+        close_until(t["in"])
+        if len(opn) >= slots:
+            skip += 1; continue
+        w = min(risk / max(t["stop_pct"] / 100, 1e-4), cap)
+        opn.append((t["out"], eq * w, t["ret"])); taken += 1
+        expo.append(sum(x[1] for x in opn) / eq)
+    close_until("9999")
+    yrs = max((dt.date.fromisoformat(max(t["out"] for t in tr)) - dt.date.fromisoformat(min(t["in"] for t in tr))).days / 365.25, 0.1)
+    return {"ret_pct": round((eq - 1) * 100, 1), "cagr_pct": round((eq ** (1 / yrs) - 1) * 100, 1), "mdd_pct": round(mdd * 100, 1),
+            "taken": taken, "skipped": skip, "avg_invested_pct": round(sum(expo) / len(expo) * 100) if expo else 0}
 
 
 def per_year(tr):
@@ -296,6 +320,15 @@ def main(which="bigtech"):
         a = [I["atr"][i] / b[i][4] * 100 for i in range(st, len(b)) if I["atr"][i]]
         out["buyhold"].append({"name": nm, "market": m, "group": grp[nm], "ret_pct": round((b[-1][4] / b[st][4] - 1) * 100, 1),
                                "atr_pct": round(sum(a) / len(a), 2) if a else None})
+    out["bench"] = []
+    for t, nm in [("QQQ", "나스닥100 (QQQ)"), ("^KS11", "코스피")]:
+        bb = load(t)
+        if bb:
+            st = next((i for i, x in enumerate(bb) if x[0] >= first_day), 0)
+            out["bench"].append({"name": nm, "ret_pct": round((bb[-1][4] / bb[st][4] - 1) * 100, 1)})
+    ew = [x["ret_pct"] for x in out["buyhold"]]
+    if ew:
+        out["bench"].append({"name": "대상 종목 똑같이 나눠 보유", "ret_pct": round(sum(ew) / len(ew), 1)})
     out["period"] = f"{min(all_days)} ~ {max(all_days)}" if all_days else None
     out["strategies"].sort(key=lambda s: s.get("expectancy_r", -9), reverse=True)
     with open(U["file"], "w", encoding="utf-8") as f:
