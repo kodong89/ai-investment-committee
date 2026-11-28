@@ -343,15 +343,19 @@ function makePlan(F, T) {
   const stop = lev ? entry * 0.93 : (useSup ? supStop : atrStop);
   const risk = entry - stop;
   const poc = num(T.overhead_poc);
-  const res = [num(T.resistance), poc].filter(v => v && v > entry).sort((a, b) => a - b)[0] ?? null;
-  const target = (res && res > entry) ? res : null;
+  const levels = [num(T.resistance), poc, num(T.high_52w)].filter(v => v && v > entry).sort((a, b) => a - b);
+  // 현재가에서 ATR 1개 이내의 저항은 목표가 아니라 '돌파해야 할 벽' → 그 위 다음 저항(없으면 2R)을 목표로
+  const near = levels.filter(v => v - entry < atr);
+  const breakout = near.length ? Math.max(...near) : null;
+  const res = levels.find(v => v - entry >= atr && (!breakout || v > breakout + 0.5 * atr)) ?? null;
+  const target = res;
   const rr = target ? (target - entry) / risk : null;
   const target2R = entry + 2 * risk;
   const riskPct = risk / entry;
   const acct = clamp(num($("riskPct").value) ?? num(cfg.riskPct) ?? 1, 0.1, 5);
   const cap = clamp(num($("maxPos").value) ?? num(cfg.maxPos) ?? 30, 5, 100);
   const size = clamp(acct / 100 / riskPct * 100, 0, cap);
-  return { entry, atr, atrEst, atrPct: atr / entry, atrStop, supStop, useSup, stop, riskPct, target, rr, target2R, size, acct, cap, base, lev, exitEma: num(T.ema20) };
+  return { entry, atr, atrEst, atrPct: atr / entry, atrStop, supStop, useSup, stop, riskPct, target, rr, target2R, size, acct, cap, base, lev, breakout, exitEma: num(T.ema20) };
 }
 
 // ── 4. 위원 분석 ──────────────────────────────────────────
@@ -370,7 +374,7 @@ function ctxBlock(tk, S, M, P) {
 펀더멘털: ${JSON.stringify(S.F)}
 기술적 지표: ${JSON.stringify(S.T)}
 시장 국면: ${JSON.stringify({ ...M, sources: undefined })}
-코드가 계산한 매매 계획: ${P ? JSON.stringify({ 진입: r2(P.entry), 손절: r2(P.stop), 손절폭_pct: r2(P.riskPct * 100), 목표_저항선: r2(P.target), 손익비: r2(P.rr), ATR_pct: r2(P.atrPct * 100) }) : "계산 불가"}
+코드가 계산한 매매 계획: ${P ? JSON.stringify({ 진입: r2(P.entry), 손절: r2(P.stop), 손절폭_pct: r2(P.riskPct * 100), 목표_저항선: r2(P.target), 손익비: r2(P.rr), ATR_pct: r2(P.atrPct * 100), 돌파_대기_저항: r2(P.breakout) }) : "계산 불가"}
 ${userCtx()}`;
 }
 const r2 = v => v == null ? null : Math.round(v * 100) / 100;
@@ -471,10 +475,11 @@ function renderHero() {
       <div><div class="band2">${V ? V.band[0] : "심사 중"}</div>
         <div class="vd">${D ? esc(D.verdict) : V ? "80점 이상 매수 검토 · 65~79 관심 · 65 미만 제외" : "위원들이 채점하고 있어요"}</div>
         ${V?.veto.length ? `<div class="veto">리스크 거부권 · ${esc(V.veto.join(" / "))}</div>` : ""}
+        ${P?.breakout ? `<div class="veto" style="background:#fff4d6;color:#7a5200">돌파 대기 · 바로 위 저항 ${fmt(r2(P.breakout))}(+${pct((P.breakout - P.entry) / P.entry)})을 종가로 넘으면 재검토</div>` : ""}
         ${V?.market ? `<div class="veto" style="background:#eef2f0;color:#33433e">${esc(V.market)} · 최대 79점(관심)까지${V.raw !== V.score ? ` · 시장 반영 전 ${V.raw}점` : ""}</div>` : ""}
         ${V?.warn?.length ? `<div class="veto" style="background:#fff4d6;color:#7a5200">${esc(V.warn.join(" / "))}</div>` : ""}</div></div>
     ${P ? `<div class="pg"><div>진입<span>${fmt(r2(P.entry))}</span></div><div>손절<span>${fmt(r2(P.stop))}</span><em style="font-style:normal;font-size:12px;color:#d9472f">-${pct(P.riskPct)}</em></div>
-      <div>목표<span>${fmt(r2(P.target ?? P.target2R))}</span><em style="font-style:normal;font-size:12px;color:#1d9a64">+${pct(((P.target ?? P.target2R) - P.entry) / P.entry)}</em></div>
+      <div>목표${P.target ? "" : " (2R)"}<span>${fmt(r2(P.target ?? P.target2R))}</span><em style="font-style:normal;font-size:12px;color:#1d9a64">+${pct(((P.target ?? P.target2R) - P.entry) / P.entry)}</em></div>
       <div>손익비<span style="color:${P.rr == null ? "inherit" : P.rr >= 2 ? "#1d9a64" : "#d9472f"}">${P.rr == null ? "2.0R" : P.rr.toFixed(1) + " : 1"}</span></div>
       <div>권장 비중<span>${P.size.toFixed(1)}%</span></div></div>` : ""}
     ${P ? `<div class="mline" style="color:#0f1a17"><b>청산 규칙</b> · ${P.lev ? `레버리지 ETF: -7% 손절, 최대 2주 보유` : `${fmt(r2(P.target2R))}(2R)에서 절반 익절 · 나머지는 EMA20${P.exitEma ? "(" + fmt(r2(P.exitEma)) + ")" : ""} 종가 이탈 시 청산`}</div>` : ""}
@@ -518,7 +523,7 @@ function renderExtra() {
   if (P) sec.push(["손절 방식 비교", `<table><tbody>
     <tr class="${P.useSup ? "" : "pick"}"><td>2 ATR${P.atrEst ? " (추정)" : ""}</td><td class="r">${f(P.atrStop)}</td><td class="r">-${pct((P.entry - P.atrStop) / P.entry)}</td></tr>
     <tr class="${P.useSup ? "pick" : ""}"><td>지지선${P.base ? " " + f(P.base) : ""} − 0.5 ATR</td><td class="r">${f(P.supStop)}</td><td class="r">${P.supStop ? "-" + pct((P.entry - P.supStop) / P.entry) : "—"}</td></tr></tbody></table>
-    <p class="tag">더 가까운 쪽(손실이 작은 쪽)을 씁니다. 권장 비중 = 허용 손실 ${P.acct}% ÷ 손절폭, 종목당 최대 ${P.cap ?? 25}%. 집중 투자는 갭 하락 시 손절가보다 더 잃을 수 있어요. 저항선이 없으면 목표는 손절폭의 2배(2R)입니다.</p>`]);
+    <p class="tag">더 가까운 쪽(손실이 작은 쪽)을 씁니다. 권장 비중 = 허용 손실 ${P.acct}% ÷ 손절폭, 종목당 최대 ${P.cap ?? 25}%. 집중 투자는 갭 하락 시 손절가보다 더 잃을 수 있어요. 저항선이 없으면 목표는 손절폭의 2배(2R)입니다. 현재가에서 ATR 1개 이내의 저항은 목표가 아니라 돌파해야 할 벽으로 보고, 그 위 다음 저항을 목표로 씁니다.</p>`]);
   const items = [["PER", fmt(num(F.per), "배")], ["PEG", fmt(num(F.peg))], ["ROE", fmt(num(F.roe_pct), "%")], ["매출 성장", fmt(num(F.revenue_growth_pct), "%")], ["EPS 성장", fmt(num(F.eps_growth_pct), "%")],
     ["EMA 10/20", `${fmt(num(T.ema10))} / ${fmt(num(T.ema20))}`], ["EMA 50/200", `${fmt(num(T.ema50))} / ${fmt(num(T.ema200))}`], ["CCI(20)", fmt(num(T.cci20))], ["ADX(14)", fmt(num(T.adx14))], ["거래량/20일 평균", (num(T.volume_recent) && num(T.avg_volume_20)) ? (num(T.volume_recent) / num(T.avg_volume_20)).toFixed(2) + "배" : "—"], ["위쪽 매물대", fmt(num(T.overhead_poc))], ["ATR", fmt(num(T.atr14))], ["3개월 수익률", fmt(num(T.return_3m_pct), "%")], ["지수 3개월", fmt(num(T.index_return_3m_pct), "%")]];
   sec.push(["종목 데이터 · 출처", `<dl class="kv">${items.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
