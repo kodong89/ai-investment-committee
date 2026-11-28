@@ -3,6 +3,7 @@
 // 사용: https://<worker 주소>/?s=TSLA            (미국)
 //       https://<worker 주소>/?s=005930&m=kr     (한국 종목·ETF 코드)
 
+const VERSION = "4";
 const ALLOW_ORIGIN = "*"; // 필요하면 "https://kodong89.github.io" 로 제한
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
 
@@ -15,7 +16,7 @@ export default {
     if (!sym) return json({ error: "s(종목 코드)가 필요해요. 예: ?s=TSLA 또는 ?s=005930&m=kr" }, 400);
     if (!mkt) mkt = /^\d{4}[0-9A-Z]{2}$/i.test(sym) ? "kr" : "us";
 
-    const cache = caches.default, key = new Request(`https://cache.local/v3/${mkt}/${sym.toUpperCase()}`);
+    const cache = caches.default, key = new Request(`https://cache.local/v${VERSION}/${mkt}/${sym.toUpperCase()}`);
     const hit = await cache.match(key);
     if (hit) return cors(hit);
 
@@ -24,7 +25,7 @@ export default {
       if (!bars || bars.length < 60) return json({ error: `일봉 데이터를 찾지 못했어요 (${sym})` }, 404);
       const idx = await loadBars(mkt === "kr" ? "^KS11" : "SPY", mkt === "kr" ? "kr-index" : "us").catch(() => null);
       const out = compute(bars, idx);
-      out.symbol = sym.toUpperCase(); out.market = mkt; out.source = bars.source;
+      out.symbol = sym.toUpperCase(); out.market = mkt; out.source = bars.source; out.version = VERSION; out.checked = bars.checked || null;
       const res = json(out, 200, 600);
       ctx.waitUntil(cache.put(key, res.clone()));
       return res;
@@ -39,7 +40,13 @@ async function loadBars(sym, mkt) {
   const tries = [];
   if (mkt === "kr") tries.push(() => naver(sym), () => yahoo(`${sym}.KS`), () => yahoo(`${sym}.KQ`));
   else if (mkt === "kr-index") tries.push(() => yahoo(sym));
-  else tries.push(() => yahoo(sym), () => stooq(sym));
+  else {
+    const day = b => b && b.length ? new Date(b[b.length - 1].t).toISOString().slice(0, 10) : "";
+    const [y, s] = await Promise.all([yahoo(sym).catch(() => null), stooq(sym).catch(() => null)]);
+    const ok = [y, s].filter(b => b && b.length >= 60).sort((a, b) => day(b).localeCompare(day(a)));
+    if (ok.length) { ok[0].checked = { yahoo: day(y) || "실패", stooq: day(s) || "실패" }; return ok[0]; }
+    return null;
+  }
   for (const t of tries) {
     try { const b = await t(); if (b && b.length >= 60) return b; } catch (e) {}
   }
