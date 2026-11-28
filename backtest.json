@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-28T11:43:12Z",
+ "updated": "2026-11-28T11:51:14Z",
  "period": "2023-11-29 ~ 2026-11-27",
  "rules": {
   "진입": "신호가 난 다음 날 시가 (라쉬키는 신호 봉 고가 돌파 시)",
@@ -99,6 +99,13 @@
    "mdd_pct": -3.0,
    "best_r": 4.9,
    "worst_r": -1.32,
+   "per_year": {
+    "2024": 8,
+    "2025": 10,
+    "2026": 5
+   },
+   "max_open": 4,
+   "over4_pct": 0.0,
    "key": "qulla",
    "name": "쿨라매기",
    "desc": "주도주 박스권 돌파",
@@ -114,7 +121,14 @@
     "equity_ret_pct": 6.2,
     "mdd_pct": -3.3,
     "best_r": 3.03,
-    "worst_r": -1.32
+    "worst_r": -1.32,
+    "per_year": {
+     "2024": 7,
+     "2025": 7,
+     "2026": 3
+    },
+    "max_open": 3,
+    "over4_pct": 0.0
    },
    "kr": {
     "trades": 6,
@@ -128,7 +142,14 @@
     "equity_ret_pct": 10.6,
     "mdd_pct": -1.1,
     "best_r": 4.9,
-    "worst_r": -1.13
+    "worst_r": -1.13,
+    "per_year": {
+     "2024": 1,
+     "2025": 3,
+     "2026": 2
+    },
+    "max_open": 2,
+    "over4_pct": 0.0
    },
    "by_symbol": {
     "AMD": {
@@ -143,7 +164,13 @@
      "equity_ret_pct": 2.3,
      "mdd_pct": -0.7,
      "best_r": 1.65,
-     "worst_r": -0.7
+     "worst_r": -0.7,
+     "per_year": {
+      "2024": 2,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AVGO": {
      "trades": 4,
@@ -157,7 +184,14 @@
      "equity_ret_pct": -0.4,
      "mdd_pct": -2.0,
      "best_r": 1.63,
-     "worst_r": -1.32
+     "worst_r": -1.32,
+     "per_year": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "GOOGL": {
      "trades": 1,
@@ -171,7 +205,12 @@
      "equity_ret_pct": 1.8,
      "mdd_pct": 0.0,
      "best_r": 1.79,
-     "worst_r": 1.79
+     "worst_r": 1.79,
+     "per_year": {
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "META": {
      "trades": 1,
@@ -185,7 +224,12 @@
      "equity_ret_pct": -0.3,
      "mdd_pct": -0.3,
      "best_r": -0.25,
-     "worst_r": -0.25
+     "worst_r": -0.25,
+     "per_year": {
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "MSFT": {
      "trades": 2,
@@ -199,7 +243,13 @@
      "equity_ret_pct": -2.0,
      "mdd_pct": -2.0,
      "best_r": -1.02,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NVDA": {
      "trades": 1,
@@ -213,7 +263,12 @@
      "equity_ret_pct": 1.9,
      "mdd_pct": 0.0,
      "best_r": 1.9,
-     "worst_r": 1.9
+     "worst_r": 1.9,
+     "per_year": {
+      "2024": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "PLTR": {
      "trades": 5,
@@ -227,7 +282,14 @@
      "equity_ret_pct": 2.9,
      "mdd_pct": -2.0,
      "best_r": 3.03,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 3,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "SK하이닉스": {
      "trades": 2,
@@ -241,7 +303,13 @@
      "equity_ret_pct": -0.8,
      "mdd_pct": -1.1,
      "best_r": 0.36,
-     "worst_r": -1.13
+     "worst_r": -1.13,
+     "per_year": {
+      "2024": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "삼성전자": {
      "trades": 3,
@@ -255,7 +323,13 @@
      "equity_ret_pct": 11.5,
      "mdd_pct": 0.0,
      "best_r": 4.9,
-     "worst_r": 1.53
+     "worst_r": 1.53,
+     "per_year": {
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "카카오": {
      "trades": 1,
@@ -269,7 +343,12 @@
      "equity_ret_pct": -0.0,
      "mdd_pct": -0.0,
      "best_r": -0.01,
-     "worst_r": -0.01
+     "worst_r": -0.01,
+     "per_year": {
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     }
    },
    "recent": [
@@ -368,6 +447,14 @@
    "mdd_pct": -5.4,
    "best_r": 7.08,
    "worst_r": -1.32,
+   "per_year": {
+    "2023": 4,
+    "2024": 16,
+    "2025": 16,
+    "2026": 8
+   },
+   "max_open": 6,
+   "over4_pct": 6.7,
    "key": "minervini",
    "name": "미너비니",
    "desc": "추세 템플릿 + 변동성 축소 돌파",
@@ -383,7 +470,15 @@
     "equity_ret_pct": 14.2,
     "mdd_pct": -8.2,
     "best_r": 7.08,
-    "worst_r": -1.32
+    "worst_r": -1.32,
+    "per_year": {
+     "2023": 2,
+     "2024": 13,
+     "2025": 11,
+     "2026": 5
+    },
+    "max_open": 5,
+    "over4_pct": 1.9
    },
    "kr": {
     "trades": 13,
@@ -397,7 +492,15 @@
     "equity_ret_pct": 14.9,
     "mdd_pct": -1.6,
     "best_r": 4.9,
-    "worst_r": -1.04
+    "worst_r": -1.04,
+    "per_year": {
+     "2023": 2,
+     "2024": 3,
+     "2025": 5,
+     "2026": 3
+    },
+    "max_open": 3,
+    "over4_pct": 0.0
    },
    "by_symbol": {
     "AAPL": {
@@ -412,7 +515,12 @@
      "equity_ret_pct": -1.0,
      "mdd_pct": -1.0,
      "best_r": -1.03,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2024": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMD": {
      "trades": 2,
@@ -426,7 +534,13 @@
      "equity_ret_pct": 3.0,
      "mdd_pct": 0.0,
      "best_r": 1.65,
-     "worst_r": 1.32
+     "worst_r": 1.32,
+     "per_year": {
+      "2023": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMZN": {
      "trades": 3,
@@ -440,7 +554,12 @@
      "equity_ret_pct": 1.7,
      "mdd_pct": 0.0,
      "best_r": 0.98,
-     "worst_r": 0.2
+     "worst_r": 0.2,
+     "per_year": {
+      "2024": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AVGO": {
      "trades": 5,
@@ -454,7 +573,15 @@
      "equity_ret_pct": 0.2,
      "mdd_pct": -2.6,
      "best_r": 1.63,
-     "worst_r": -1.32
+     "worst_r": -1.32,
+     "per_year": {
+      "2023": 1,
+      "2024": 1,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "GOOGL": {
      "trades": 3,
@@ -468,7 +595,14 @@
      "equity_ret_pct": 2.8,
      "mdd_pct": -0.1,
      "best_r": 2.8,
-     "worst_r": -0.08
+     "worst_r": -0.08,
+     "per_year": {
+      "2024": 1,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "META": {
      "trades": 4,
@@ -482,7 +616,13 @@
      "equity_ret_pct": 1.0,
      "mdd_pct": -1.0,
      "best_r": 1.8,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 2,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "MSFT": {
      "trades": 5,
@@ -496,7 +636,14 @@
      "equity_ret_pct": -3.7,
      "mdd_pct": -3.7,
      "best_r": -0.12,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2024": 1,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NAVER": {
      "trades": 3,
@@ -510,7 +657,13 @@
      "equity_ret_pct": -2.0,
      "mdd_pct": -2.0,
      "best_r": -0.56,
-     "worst_r": -0.75
+     "worst_r": -0.75,
+     "per_year": {
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NFLX": {
      "trades": 2,
@@ -524,7 +677,12 @@
      "equity_ret_pct": 4.4,
      "mdd_pct": 0.0,
      "best_r": 2.51,
-     "worst_r": 1.84
+     "worst_r": 1.84,
+     "per_year": {
+      "2024": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NVDA": {
      "trades": 5,
@@ -538,7 +696,14 @@
      "equity_ret_pct": 6.1,
      "mdd_pct": -2.7,
      "best_r": 7.08,
-     "worst_r": -1.12
+     "worst_r": -1.12,
+     "per_year": {
+      "2024": 2,
+      "2025": 1,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "PLTR": {
      "trades": 1,
@@ -552,7 +717,12 @@
      "equity_ret_pct": -0.7,
      "mdd_pct": -0.7,
      "best_r": -0.71,
-     "worst_r": -0.71
+     "worst_r": -0.71,
+     "per_year": {
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "SK하이닉스": {
      "trades": 4,
@@ -566,7 +736,15 @@
      "equity_ret_pct": 5.4,
      "mdd_pct": -0.1,
      "best_r": 2.51,
-     "worst_r": -0.06
+     "worst_r": -0.06,
+     "per_year": {
+      "2023": 1,
+      "2024": 1,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "삼성전자": {
      "trades": 6,
@@ -580,7 +758,15 @@
      "equity_ret_pct": 11.2,
      "mdd_pct": -1.0,
      "best_r": 4.9,
-     "worst_r": -1.04
+     "worst_r": -1.04,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     }
    },
    "recent": [
@@ -679,6 +865,14 @@
    "mdd_pct": -7.4,
    "best_r": 7.08,
    "worst_r": -1.32,
+   "per_year": {
+    "2023": 11,
+    "2024": 43,
+    "2025": 40,
+    "2026": 20
+   },
+   "max_open": 10,
+   "over4_pct": 30.8,
    "key": "mine_brk",
    "name": "내 매매법 + 돌파 확인",
    "desc": "[비교] 내 신호 중 신고가 5% 이내·20일 고가 돌파가 겹친 것만",
@@ -694,7 +888,15 @@
     "equity_ret_pct": 35.5,
     "mdd_pct": -7.2,
     "best_r": 7.08,
-    "worst_r": -1.32
+    "worst_r": -1.32,
+    "per_year": {
+     "2023": 6,
+     "2024": 37,
+     "2025": 31,
+     "2026": 17
+    },
+    "max_open": 8,
+    "over4_pct": 19.0
    },
    "kr": {
     "trades": 23,
@@ -708,7 +910,15 @@
     "equity_ret_pct": 29.8,
     "mdd_pct": -1.1,
     "best_r": 5.59,
-    "worst_r": -1.02
+    "worst_r": -1.02,
+    "per_year": {
+     "2023": 5,
+     "2024": 6,
+     "2025": 9,
+     "2026": 3
+    },
+    "max_open": 4,
+    "over4_pct": 0.0
    },
    "by_symbol": {
     "AAPL": {
@@ -723,7 +933,15 @@
      "equity_ret_pct": 3.9,
      "mdd_pct": -1.7,
      "best_r": 1.82,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 4,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMD": {
      "trades": 9,
@@ -737,7 +955,15 @@
      "equity_ret_pct": 6.1,
      "mdd_pct": -1.0,
      "best_r": 3.01,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 3,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMZN": {
      "trades": 9,
@@ -751,7 +977,14 @@
      "equity_ret_pct": -3.0,
      "mdd_pct": -4.5,
      "best_r": 0.98,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 3,
+      "2025": 5,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AVGO": {
      "trades": 9,
@@ -765,7 +998,15 @@
      "equity_ret_pct": 5.7,
      "mdd_pct": -2.8,
      "best_r": 1.87,
-     "worst_r": -1.32
+     "worst_r": -1.32,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 4,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "GOOGL": {
      "trades": 7,
@@ -779,7 +1020,15 @@
      "equity_ret_pct": 7.0,
      "mdd_pct": -0.8,
      "best_r": 3.1,
-     "worst_r": -0.77
+     "worst_r": -0.77,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "META": {
      "trades": 9,
@@ -793,7 +1042,14 @@
      "equity_ret_pct": 3.6,
      "mdd_pct": -1.7,
      "best_r": 4.58,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 6,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "MSFT": {
      "trades": 6,
@@ -807,7 +1063,15 @@
      "equity_ret_pct": -4.2,
      "mdd_pct": -4.3,
      "best_r": 0.06,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2023": 1,
+      "2024": 1,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NAVER": {
      "trades": 3,
@@ -821,7 +1085,13 @@
      "equity_ret_pct": -0.7,
      "mdd_pct": -0.7,
      "best_r": 0.18,
-     "worst_r": -0.56
+     "worst_r": -0.56,
+     "per_year": {
+      "2023": 1,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NFLX": {
      "trades": 7,
@@ -835,7 +1105,13 @@
      "equity_ret_pct": 3.3,
      "mdd_pct": -1.6,
      "best_r": 3.49,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 1,
+      "2024": 6
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NVDA": {
      "trades": 8,
@@ -849,7 +1125,14 @@
      "equity_ret_pct": 7.7,
      "mdd_pct": -2.3,
      "best_r": 7.08,
-     "worst_r": -1.12
+     "worst_r": -1.12,
+     "per_year": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 5
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "PLTR": {
      "trades": 10,
@@ -863,7 +1146,14 @@
      "equity_ret_pct": -0.9,
      "mdd_pct": -3.6,
      "best_r": 3.03,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 6,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "SK하이닉스": {
      "trades": 10,
@@ -877,7 +1167,15 @@
      "equity_ret_pct": 7.6,
      "mdd_pct": -2.1,
      "best_r": 2.52,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 2,
+      "2024": 4,
+      "2025": 2,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "TSLA": {
      "trades": 6,
@@ -891,7 +1189,14 @@
      "equity_ret_pct": 2.4,
      "mdd_pct": -2.0,
      "best_r": 3.47,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 3,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "삼성전자": {
      "trades": 8,
@@ -905,7 +1210,15 @@
      "equity_ret_pct": 19.8,
      "mdd_pct": -1.3,
      "best_r": 5.59,
-     "worst_r": -0.95
+     "worst_r": -0.95,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 4,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "카카오": {
      "trades": 2,
@@ -919,7 +1232,13 @@
      "equity_ret_pct": 1.4,
      "mdd_pct": -0.0,
      "best_r": 1.38,
-     "worst_r": -0.01
+     "worst_r": -0.01,
+     "per_year": {
+      "2023": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     }
    },
    "recent": [
@@ -1018,6 +1337,14 @@
    "mdd_pct": -3.5,
    "best_r": 7.08,
    "worst_r": -1.32,
+   "per_year": {
+    "2023": 3,
+    "2024": 25,
+    "2025": 23,
+    "2026": 6
+   },
+   "max_open": 8,
+   "over4_pct": 19.2,
    "key": "oneil",
    "name": "오닐 (차트)",
    "desc": "신고가 근처 베이스 돌파",
@@ -1033,7 +1360,15 @@
     "equity_ret_pct": 12.6,
     "mdd_pct": -4.5,
     "best_r": 7.08,
-    "worst_r": -1.32
+    "worst_r": -1.32,
+    "per_year": {
+     "2023": 1,
+     "2024": 22,
+     "2025": 17,
+     "2026": 5
+    },
+    "max_open": 7,
+    "over4_pct": 11.4
    },
    "kr": {
     "trades": 12,
@@ -1047,7 +1382,15 @@
     "equity_ret_pct": 16.3,
     "mdd_pct": -2.1,
     "best_r": 6.46,
-    "worst_r": -1.04
+    "worst_r": -1.04,
+    "per_year": {
+     "2023": 2,
+     "2024": 3,
+     "2025": 6,
+     "2026": 1
+    },
+    "max_open": 2,
+    "over4_pct": 0.0
    },
    "by_symbol": {
     "AAPL": {
@@ -1062,7 +1405,14 @@
      "equity_ret_pct": 1.8,
      "mdd_pct": -2.0,
      "best_r": 1.82,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2024": 2,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMD": {
      "trades": 2,
@@ -1076,7 +1426,13 @@
      "equity_ret_pct": 0.9,
      "mdd_pct": -0.7,
      "best_r": 1.65,
-     "worst_r": -0.7
+     "worst_r": -0.7,
+     "per_year": {
+      "2024": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMZN": {
      "trades": 6,
@@ -1090,7 +1446,14 @@
      "equity_ret_pct": -1.9,
      "mdd_pct": -2.1,
      "best_r": 0.98,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 4,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AVGO": {
      "trades": 7,
@@ -1104,7 +1467,15 @@
      "equity_ret_pct": -2.0,
      "mdd_pct": -3.6,
      "best_r": 1.38,
-     "worst_r": -1.32
+     "worst_r": -1.32,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "GOOGL": {
      "trades": 5,
@@ -1118,7 +1489,13 @@
      "equity_ret_pct": 5.6,
      "mdd_pct": 0.0,
      "best_r": 1.79,
-     "worst_r": 0.04
+     "worst_r": 0.04,
+     "per_year": {
+      "2024": 2,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "META": {
      "trades": 5,
@@ -1132,7 +1509,13 @@
      "equity_ret_pct": 0.1,
      "mdd_pct": -1.9,
      "best_r": 1.8,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 3,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "MSFT": {
      "trades": 4,
@@ -1146,7 +1529,14 @@
      "equity_ret_pct": -3.2,
      "mdd_pct": -3.2,
      "best_r": -0.12,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NAVER": {
      "trades": 3,
@@ -1160,7 +1550,13 @@
      "equity_ret_pct": -0.7,
      "mdd_pct": -1.0,
      "best_r": 0.98,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NFLX": {
      "trades": 5,
@@ -1174,7 +1570,13 @@
      "equity_ret_pct": 6.2,
      "mdd_pct": -0.9,
      "best_r": 2.51,
-     "worst_r": -0.88
+     "worst_r": -0.88,
+     "per_year": {
+      "2024": 3,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NVDA": {
      "trades": 3,
@@ -1188,7 +1590,14 @@
      "equity_ret_pct": 5.3,
      "mdd_pct": -1.6,
      "best_r": 7.08,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 1,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "PLTR": {
      "trades": 2,
@@ -1202,7 +1611,13 @@
      "equity_ret_pct": 0.5,
      "mdd_pct": -1.0,
      "best_r": 1.53,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "SK하이닉스": {
      "trades": 3,
@@ -1216,7 +1631,14 @@
      "equity_ret_pct": 8.1,
      "mdd_pct": -0.1,
      "best_r": 6.46,
-     "worst_r": -0.06
+     "worst_r": -0.06,
+     "per_year": {
+      "2023": 1,
+      "2024": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "TSLA": {
      "trades": 1,
@@ -1230,7 +1652,12 @@
      "equity_ret_pct": -1.0,
      "mdd_pct": -1.0,
      "best_r": -1.01,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "삼성전자": {
      "trades": 5,
@@ -1244,7 +1671,14 @@
      "equity_ret_pct": 9.5,
      "mdd_pct": -1.0,
      "best_r": 4.9,
-     "worst_r": -1.04
+     "worst_r": -1.04,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "카카오": {
      "trades": 1,
@@ -1258,7 +1692,12 @@
      "equity_ret_pct": -1.0,
      "mdd_pct": -1.0,
      "best_r": -1.01,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     }
    },
    "recent": [
@@ -1357,6 +1796,14 @@
    "mdd_pct": -6.1,
    "best_r": 7.08,
    "worst_r": -1.32,
+   "per_year": {
+    "2023": 12,
+    "2024": 50,
+    "2025": 51,
+    "2026": 36
+   },
+   "max_open": 10,
+   "over4_pct": 38.6,
    "key": "mine",
    "name": "내 매매법",
    "desc": "EMA 리본 + CCI 반등·돌파 + 거래량",
@@ -1372,7 +1819,15 @@
     "equity_ret_pct": 43.2,
     "mdd_pct": -6.8,
     "best_r": 7.08,
-    "worst_r": -1.32
+    "worst_r": -1.32,
+    "per_year": {
+     "2023": 7,
+     "2024": 41,
+     "2025": 36,
+     "2026": 28
+    },
+    "max_open": 8,
+    "over4_pct": 24.7
    },
    "kr": {
     "trades": 37,
@@ -1386,7 +1841,15 @@
     "equity_ret_pct": 22.8,
     "mdd_pct": -3.0,
     "best_r": 5.59,
-    "worst_r": -1.02
+    "worst_r": -1.02,
+    "per_year": {
+     "2023": 5,
+     "2024": 9,
+     "2025": 15,
+     "2026": 8
+    },
+    "max_open": 4,
+    "over4_pct": 0.0
    },
    "by_symbol": {
     "AAPL": {
@@ -1401,7 +1864,15 @@
      "equity_ret_pct": 5.7,
      "mdd_pct": -1.7,
      "best_r": 1.82,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 4,
+      "2026": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMD": {
      "trades": 10,
@@ -1415,7 +1886,15 @@
      "equity_ret_pct": 5.6,
      "mdd_pct": -1.6,
      "best_r": 3.62,
-     "worst_r": -1.04
+     "worst_r": -1.04,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 3,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMZN": {
      "trades": 12,
@@ -1429,7 +1908,14 @@
      "equity_ret_pct": -5.6,
      "mdd_pct": -6.2,
      "best_r": 0.98,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2024": 4,
+      "2025": 5,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AVGO": {
      "trades": 10,
@@ -1443,7 +1929,15 @@
      "equity_ret_pct": 5.3,
      "mdd_pct": -2.8,
      "best_r": 1.87,
-     "worst_r": -1.32
+     "worst_r": -1.32,
+     "per_year": {
+      "2023": 1,
+      "2024": 4,
+      "2025": 4,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "GOOGL": {
      "trades": 9,
@@ -1457,7 +1951,15 @@
      "equity_ret_pct": 9.1,
      "mdd_pct": -0.8,
      "best_r": 3.1,
-     "worst_r": -0.77
+     "worst_r": -0.77,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 4,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "META": {
      "trades": 9,
@@ -1471,7 +1973,14 @@
      "equity_ret_pct": 3.6,
      "mdd_pct": -1.7,
      "best_r": 4.58,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 6,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "MSFT": {
      "trades": 9,
@@ -1485,7 +1994,15 @@
      "equity_ret_pct": -3.9,
      "mdd_pct": -4.2,
      "best_r": 1.3,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2023": 1,
+      "2024": 1,
+      "2025": 3,
+      "2026": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NAVER": {
      "trades": 8,
@@ -1499,7 +2016,15 @@
      "equity_ret_pct": -0.5,
      "mdd_pct": -3.4,
      "best_r": 1.99,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 3,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NFLX": {
      "trades": 9,
@@ -1513,7 +2038,15 @@
      "equity_ret_pct": 6.9,
      "mdd_pct": -1.6,
      "best_r": 3.49,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 1,
+      "2024": 6,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NVDA": {
      "trades": 10,
@@ -1527,7 +2060,14 @@
      "equity_ret_pct": 6.4,
      "mdd_pct": -3.6,
      "best_r": 7.08,
-     "worst_r": -1.12
+     "worst_r": -1.12,
+     "per_year": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 7
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "PLTR": {
      "trades": 12,
@@ -1541,7 +2081,14 @@
      "equity_ret_pct": 0.4,
      "mdd_pct": -3.5,
      "best_r": 3.03,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 6,
+      "2025": 5,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "SK하이닉스": {
      "trades": 13,
@@ -1555,7 +2102,15 @@
      "equity_ret_pct": 5.4,
      "mdd_pct": -2.1,
      "best_r": 3.15,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 2,
+      "2024": 5,
+      "2025": 3,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "TSLA": {
      "trades": 10,
@@ -1569,7 +2124,15 @@
      "equity_ret_pct": 3.9,
      "mdd_pct": -2.0,
      "best_r": 3.47,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 4,
+      "2025": 3,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "삼성전자": {
      "trades": 11,
@@ -1583,7 +2146,15 @@
      "equity_ret_pct": 16.9,
      "mdd_pct": -1.7,
      "best_r": 5.59,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 5,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "카카오": {
      "trades": 5,
@@ -1597,7 +2168,13 @@
      "equity_ret_pct": 0.2,
      "mdd_pct": -1.2,
      "best_r": 1.38,
-     "worst_r": -0.7
+     "worst_r": -0.7,
+     "per_year": {
+      "2023": 1,
+      "2025": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     }
    },
    "recent": [
@@ -1696,6 +2273,14 @@
    "mdd_pct": -7.6,
    "best_r": 7.08,
    "worst_r": -1.32,
+   "per_year": {
+    "2023": 12,
+    "2024": 56,
+    "2025": 59,
+    "2026": 38
+   },
+   "max_open": 10,
+   "over4_pct": 42.2,
    "key": "mine_plus",
    "name": "내 매매법 + 미너비니·오닐 신호 추가",
    "desc": "[비교] 셋 중 하나라도 신호가 나면 진입",
@@ -1711,7 +2296,15 @@
     "equity_ret_pct": 47.2,
     "mdd_pct": -8.9,
     "best_r": 7.08,
-    "worst_r": -1.32
+    "worst_r": -1.32,
+    "per_year": {
+     "2023": 7,
+     "2024": 47,
+     "2025": 42,
+     "2026": 29
+    },
+    "max_open": 9,
+    "over4_pct": 27.6
    },
    "kr": {
     "trades": 40,
@@ -1725,7 +2318,15 @@
     "equity_ret_pct": 26.6,
     "mdd_pct": -3.0,
     "best_r": 6.46,
-    "worst_r": -1.02
+    "worst_r": -1.02,
+    "per_year": {
+     "2023": 5,
+     "2024": 9,
+     "2025": 17,
+     "2026": 9
+    },
+    "max_open": 4,
+    "over4_pct": 0.0
    },
    "by_symbol": {
     "AAPL": {
@@ -1740,7 +2341,15 @@
      "equity_ret_pct": 5.7,
      "mdd_pct": -1.7,
      "best_r": 1.82,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 4,
+      "2026": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMD": {
      "trades": 10,
@@ -1754,7 +2363,15 @@
      "equity_ret_pct": 7.3,
      "mdd_pct": -1.6,
      "best_r": 3.62,
-     "worst_r": -1.04
+     "worst_r": -1.04,
+     "per_year": {
+      "2023": 1,
+      "2024": 3,
+      "2025": 3,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMZN": {
      "trades": 14,
@@ -1768,7 +2385,14 @@
      "equity_ret_pct": -7.2,
      "mdd_pct": -7.8,
      "best_r": 0.98,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2024": 5,
+      "2025": 5,
+      "2026": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AVGO": {
      "trades": 10,
@@ -1782,7 +2406,15 @@
      "equity_ret_pct": 5.3,
      "mdd_pct": -2.8,
      "best_r": 1.87,
-     "worst_r": -1.32
+     "worst_r": -1.32,
+     "per_year": {
+      "2023": 1,
+      "2024": 4,
+      "2025": 4,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "GOOGL": {
      "trades": 11,
@@ -1796,7 +2428,15 @@
      "equity_ret_pct": 10.5,
      "mdd_pct": -0.8,
      "best_r": 3.1,
-     "worst_r": -0.77
+     "worst_r": -0.77,
+     "per_year": {
+      "2023": 1,
+      "2024": 4,
+      "2025": 5,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "META": {
      "trades": 11,
@@ -1810,7 +2450,14 @@
      "equity_ret_pct": 4.5,
      "mdd_pct": -2.6,
      "best_r": 4.58,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 7,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "MSFT": {
      "trades": 11,
@@ -1824,7 +2471,15 @@
      "equity_ret_pct": -5.0,
      "mdd_pct": -5.3,
      "best_r": 1.3,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 4,
+      "2026": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NAVER": {
      "trades": 10,
@@ -1838,7 +2493,15 @@
      "equity_ret_pct": -0.3,
      "mdd_pct": -4.2,
      "best_r": 1.99,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 4,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NFLX": {
      "trades": 11,
@@ -1852,7 +2515,15 @@
      "equity_ret_pct": 6.5,
      "mdd_pct": -1.6,
      "best_r": 3.49,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 1,
+      "2024": 7,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NVDA": {
      "trades": 12,
@@ -1866,7 +2537,14 @@
      "equity_ret_pct": 7.3,
      "mdd_pct": -4.6,
      "best_r": 7.08,
-     "worst_r": -1.12
+     "worst_r": -1.12,
+     "per_year": {
+      "2024": 2,
+      "2025": 3,
+      "2026": 7
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "PLTR": {
      "trades": 13,
@@ -1880,7 +2558,14 @@
      "equity_ret_pct": 1.9,
      "mdd_pct": -4.5,
      "best_r": 3.03,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 6,
+      "2025": 6,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "SK하이닉스": {
      "trades": 13,
@@ -1894,7 +2579,15 @@
      "equity_ret_pct": 9.5,
      "mdd_pct": -2.1,
      "best_r": 6.46,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2023": 2,
+      "2024": 5,
+      "2025": 3,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "TSLA": {
      "trades": 10,
@@ -1908,7 +2601,15 @@
      "equity_ret_pct": 3.9,
      "mdd_pct": -2.0,
      "best_r": 3.47,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 4,
+      "2025": 3,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "삼성전자": {
      "trades": 11,
@@ -1922,7 +2623,15 @@
      "equity_ret_pct": 16.9,
      "mdd_pct": -1.7,
      "best_r": 5.59,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 5,
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "카카오": {
      "trades": 6,
@@ -1936,7 +2645,13 @@
      "equity_ret_pct": -0.8,
      "mdd_pct": -2.2,
      "best_r": 1.38,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2025": 5
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     }
    },
    "recent": [
@@ -2035,6 +2750,14 @@
    "mdd_pct": -11.4,
    "best_r": 3.62,
    "worst_r": -1.04,
+   "per_year": {
+    "2023": 2,
+    "2024": 7,
+    "2025": 16,
+    "2026": 20
+   },
+   "max_open": 4,
+   "over4_pct": 0.0,
    "key": "mine_nobrk",
    "name": "내 매매법 − 돌파 없음",
    "desc": "[비교] 내 신호 중 돌파 조건이 없던 것만",
@@ -2050,7 +2773,15 @@
     "equity_ret_pct": 7.8,
     "mdd_pct": -4.2,
     "best_r": 3.62,
-    "worst_r": -1.04
+    "worst_r": -1.04,
+    "per_year": {
+     "2023": 1,
+     "2024": 4,
+     "2025": 8,
+     "2026": 15
+    },
+    "max_open": 4,
+    "over4_pct": 0.0
    },
    "kr": {
     "trades": 17,
@@ -2064,7 +2795,15 @@
     "equity_ret_pct": -4.0,
     "mdd_pct": -7.6,
     "best_r": 3.15,
-    "worst_r": -1.01
+    "worst_r": -1.01,
+    "per_year": {
+     "2023": 1,
+     "2024": 3,
+     "2025": 8,
+     "2026": 5
+    },
+    "max_open": 2,
+    "over4_pct": 0.0
    },
    "by_symbol": {
     "AAPL": {
@@ -2079,7 +2818,13 @@
      "equity_ret_pct": 1.4,
      "mdd_pct": 0.0,
      "best_r": 1.31,
-     "worst_r": 0.1
+     "worst_r": 0.1,
+     "per_year": {
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMD": {
      "trades": 2,
@@ -2093,7 +2838,13 @@
      "equity_ret_pct": 2.5,
      "mdd_pct": -1.0,
      "best_r": 3.62,
-     "worst_r": -1.04
+     "worst_r": -1.04,
+     "per_year": {
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMZN": {
      "trades": 3,
@@ -2107,7 +2858,13 @@
      "equity_ret_pct": -2.7,
      "mdd_pct": -2.7,
      "best_r": -0.65,
-     "worst_r": -1.03
+     "worst_r": -1.03,
+     "per_year": {
+      "2024": 1,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AVGO": {
      "trades": 1,
@@ -2121,7 +2878,12 @@
      "equity_ret_pct": -0.4,
      "mdd_pct": -0.4,
      "best_r": -0.4,
-     "worst_r": -0.4
+     "worst_r": -0.4,
+     "per_year": {
+      "2024": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "GOOGL": {
      "trades": 2,
@@ -2135,7 +2897,13 @@
      "equity_ret_pct": 2.0,
      "mdd_pct": 0.0,
      "best_r": 1.35,
-     "worst_r": 0.67
+     "worst_r": 0.67,
+     "per_year": {
+      "2024": 1,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "MSFT": {
      "trades": 3,
@@ -2149,7 +2917,12 @@
      "equity_ret_pct": 0.4,
      "mdd_pct": -0.9,
      "best_r": 1.3,
-     "worst_r": -0.75
+     "worst_r": -0.75,
+     "per_year": {
+      "2026": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NAVER": {
      "trades": 7,
@@ -2163,7 +2936,15 @@
      "equity_ret_pct": -0.9,
      "mdd_pct": -3.6,
      "best_r": 1.99,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 2,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NFLX": {
      "trades": 2,
@@ -2177,7 +2958,13 @@
      "equity_ret_pct": 3.5,
      "mdd_pct": 0.0,
      "best_r": 2.51,
-     "worst_r": 0.97
+     "worst_r": 0.97,
+     "per_year": {
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NVDA": {
      "trades": 4,
@@ -2191,7 +2978,12 @@
      "equity_ret_pct": -2.1,
      "mdd_pct": -2.3,
      "best_r": 0.25,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2026": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "PLTR": {
      "trades": 3,
@@ -2205,7 +2997,13 @@
      "equity_ret_pct": 0.3,
      "mdd_pct": -0.9,
      "best_r": 1.25,
-     "worst_r": -0.52
+     "worst_r": -0.52,
+     "per_year": {
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "SK하이닉스": {
      "trades": 4,
@@ -2219,7 +3017,14 @@
      "equity_ret_pct": 0.4,
      "mdd_pct": -1.7,
      "best_r": 3.15,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "TSLA": {
      "trades": 6,
@@ -2233,7 +3038,15 @@
      "equity_ret_pct": 2.8,
      "mdd_pct": -1.0,
      "best_r": 2.17,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2023": 1,
+      "2024": 1,
+      "2025": 2,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "삼성전자": {
      "trades": 3,
@@ -2247,7 +3060,13 @@
      "equity_ret_pct": -2.4,
      "mdd_pct": -2.4,
      "best_r": -0.39,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 1,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "카카오": {
      "trades": 3,
@@ -2261,7 +3080,12 @@
      "equity_ret_pct": -1.2,
      "mdd_pct": -1.2,
      "best_r": -0.07,
-     "worst_r": -0.7
+     "worst_r": -0.7,
+     "per_year": {
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     }
    },
    "recent": [
@@ -2360,6 +3184,14 @@
    "mdd_pct": -9.3,
    "best_r": 4.01,
    "worst_r": -1.63,
+   "per_year": {
+    "2023": 7,
+    "2024": 27,
+    "2025": 26,
+    "2026": 14
+   },
+   "max_open": 5,
+   "over4_pct": 0.8,
    "key": "raschke",
    "name": "라쉬키 Holy Grail",
    "desc": "강한 추세 20 EMA 눌림목",
@@ -2375,7 +3207,15 @@
     "equity_ret_pct": 4.7,
     "mdd_pct": -8.1,
     "best_r": 4.01,
-    "worst_r": -1.09
+    "worst_r": -1.09,
+    "per_year": {
+     "2023": 6,
+     "2024": 21,
+     "2025": 18,
+     "2026": 9
+    },
+    "max_open": 4,
+    "over4_pct": 0.0
    },
    "kr": {
     "trades": 20,
@@ -2389,7 +3229,15 @@
     "equity_ret_pct": -6.2,
     "mdd_pct": -7.6,
     "best_r": 1.53,
-    "worst_r": -1.63
+    "worst_r": -1.63,
+    "per_year": {
+     "2023": 1,
+     "2024": 6,
+     "2025": 8,
+     "2026": 5
+    },
+    "max_open": 2,
+    "over4_pct": 0.0
    },
    "by_symbol": {
     "AAPL": {
@@ -2404,7 +3252,15 @@
      "equity_ret_pct": -1.8,
      "mdd_pct": -2.3,
      "best_r": 0.49,
-     "worst_r": -0.83
+     "worst_r": -0.83,
+     "per_year": {
+      "2023": 1,
+      "2024": 1,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMD": {
      "trades": 3,
@@ -2418,7 +3274,13 @@
      "equity_ret_pct": 1.8,
      "mdd_pct": -0.7,
      "best_r": 2.5,
-     "worst_r": -0.64
+     "worst_r": -0.64,
+     "per_year": {
+      "2024": 1,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AMZN": {
      "trades": 3,
@@ -2432,7 +3294,13 @@
      "equity_ret_pct": -1.2,
      "mdd_pct": -1.2,
      "best_r": -0.34,
-     "worst_r": -0.46
+     "worst_r": -0.46,
+     "per_year": {
+      "2024": 1,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "AVGO": {
      "trades": 3,
@@ -2446,7 +3314,13 @@
      "equity_ret_pct": 4.4,
      "mdd_pct": -1.0,
      "best_r": 3.05,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2024": 1,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "GOOGL": {
      "trades": 3,
@@ -2460,7 +3334,14 @@
      "equity_ret_pct": 2.5,
      "mdd_pct": -1.0,
      "best_r": 4.01,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 1,
+      "2025": 1,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "META": {
      "trades": 9,
@@ -2474,7 +3355,14 @@
      "equity_ret_pct": -2.8,
      "mdd_pct": -2.8,
      "best_r": 0.14,
-     "worst_r": -0.83
+     "worst_r": -0.83,
+     "per_year": {
+      "2024": 5,
+      "2025": 3,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "MSFT": {
      "trades": 7,
@@ -2488,7 +3376,15 @@
      "equity_ret_pct": 1.5,
      "mdd_pct": -1.1,
      "best_r": 1.5,
-     "worst_r": -0.45
+     "worst_r": -0.45,
+     "per_year": {
+      "2023": 3,
+      "2024": 1,
+      "2025": 1,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NAVER": {
      "trades": 4,
@@ -2502,7 +3398,14 @@
      "equity_ret_pct": -2.2,
      "mdd_pct": -2.2,
      "best_r": 0.24,
-     "worst_r": -1.02
+     "worst_r": -1.02,
+     "per_year": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NFLX": {
      "trades": 8,
@@ -2516,7 +3419,14 @@
      "equity_ret_pct": 2.3,
      "mdd_pct": -0.6,
      "best_r": 1.27,
-     "worst_r": -0.47
+     "worst_r": -0.47,
+     "per_year": {
+      "2023": 2,
+      "2024": 5,
+      "2025": 1
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "NVDA": {
      "trades": 4,
@@ -2530,7 +3440,12 @@
      "equity_ret_pct": 0.5,
      "mdd_pct": -1.6,
      "best_r": 2.1,
-     "worst_r": -0.66
+     "worst_r": -0.66,
+     "per_year": {
+      "2024": 4
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "PLTR": {
      "trades": 4,
@@ -2544,7 +3459,13 @@
      "equity_ret_pct": 0.8,
      "mdd_pct": -1.5,
      "best_r": 3.39,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 2,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "SK하이닉스": {
      "trades": 6,
@@ -2558,7 +3479,14 @@
      "equity_ret_pct": -1.2,
      "mdd_pct": -3.1,
      "best_r": 0.99,
-     "worst_r": -1.63
+     "worst_r": -1.63,
+     "per_year": {
+      "2024": 3,
+      "2025": 1,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "TSLA": {
      "trades": 4,
@@ -2572,7 +3500,13 @@
      "equity_ret_pct": -3.0,
      "mdd_pct": -3.0,
      "best_r": -0.17,
-     "worst_r": -1.09
+     "worst_r": -1.09,
+     "per_year": {
+      "2024": 1,
+      "2025": 3
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "삼성전자": {
      "trades": 5,
@@ -2586,7 +3520,13 @@
      "equity_ret_pct": -2.1,
      "mdd_pct": -2.2,
      "best_r": 1.12,
-     "worst_r": -1.01
+     "worst_r": -1.01,
+     "per_year": {
+      "2025": 3,
+      "2026": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     },
     "카카오": {
      "trades": 5,
@@ -2600,7 +3540,14 @@
      "equity_ret_pct": -0.8,
      "mdd_pct": -2.3,
      "best_r": 1.53,
-     "worst_r": -0.64
+     "worst_r": -0.64,
+     "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 2
+     },
+     "max_open": 1,
+     "over4_pct": 0.0
     }
    },
    "recent": [
