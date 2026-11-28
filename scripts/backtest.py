@@ -138,7 +138,30 @@ def sig_oneil(I, i):
     return c[i] >= 0.95 * hi52 and (base_hi - base_lo) / base_hi <= 0.20 and c[i] > base_hi and v[i] >= 1.4 * v50[i] and c[i] > s50[i]
 
 
+def brk(I, i):
+    """돌파 조건: 52주 고가 5% 이내 또는 20일 고가 종가 돌파"""
+    c, h = I["c"], I["h"]
+    if i < 260:
+        return False
+    return c[i] >= 0.95 * max(h[i - 251:i]) or c[i] > max(h[i - 20:i])
+
+
+def sig_mine_brk(I, i):
+    return sig_mine(I, i) and brk(I, i)
+
+
+def sig_mine_nobrk(I, i):
+    return sig_mine(I, i) and not brk(I, i)
+
+
+def sig_mine_plus(I, i):
+    return sig_mine(I, i) or sig_minervini(I, i) or sig_oneil(I, i)
+
+
 STRATS = [("mine", "내 매매법", "EMA 리본 + CCI 반등·돌파 + 거래량", sig_mine),
+          ("mine_brk", "내 매매법 + 돌파 확인", "[비교] 내 신호 중 신고가 5% 이내·20일 고가 돌파가 겹친 것만", sig_mine_brk),
+          ("mine_nobrk", "내 매매법 − 돌파 없음", "[비교] 내 신호 중 돌파 조건이 없던 것만", sig_mine_nobrk),
+          ("mine_plus", "내 매매법 + 미너비니·오닐 신호 추가", "[비교] 셋 중 하나라도 신호가 나면 진입", sig_mine_plus),
           ("minervini", "미너비니", "추세 템플릿 + 변동성 축소 돌파", sig_minervini),
           ("qulla", "쿨라매기", "주도주 박스권 돌파", sig_qulla),
           ("raschke", "라쉬키 Holy Grail", "강한 추세 20 EMA 눌림목", sig_raschke),
