@@ -15,7 +15,7 @@ export default {
     if (!sym) return json({ error: "s(종목 코드)가 필요해요. 예: ?s=TSLA 또는 ?s=005930&m=kr" }, 400);
     if (!mkt) mkt = /^\d{4}[0-9A-Z]{2}$/i.test(sym) ? "kr" : "us";
 
-    const cache = caches.default, key = new Request(`https://cache.local/v2/${mkt}/${sym.toUpperCase()}`);
+    const cache = caches.default, key = new Request(`https://cache.local/v3/${mkt}/${sym.toUpperCase()}`);
     const hit = await cache.match(key);
     if (hit) return cors(hit);
 
@@ -52,7 +52,16 @@ async function yahoo(s) {
   if (!res || !q) throw new Error("yahoo empty");
   const b = [];
   res.timestamp.forEach((t, i) => { if (q.close[i] != null && q.high[i] != null && q.low[i] != null) b.push({ t: t * 1000, o: q.open[i], h: q.high[i], l: q.low[i], c: q.close[i], v: q.volume[i] || 0 }); });
-  b.source = "Yahoo Finance"; b.name = res.meta?.shortName || res.meta?.symbol; b.currency = res.meta?.currency;
+  // 가장 최근 거래일 봉이 목록에 없거나 덜 채워진 경우 meta(현재가 정보)로 보완
+  const m = res.meta || {};
+  if (m.regularMarketPrice && m.regularMarketTime) {
+    const t = m.regularMarketTime * 1000, day = d => new Date(d + (m.gmtoffset || 0) * 1000).toISOString().slice(0, 10);
+    const last = b[b.length - 1];
+    const bar = { t, o: m.regularMarketOpen ?? last?.c, h: m.regularMarketDayHigh ?? m.regularMarketPrice, l: m.regularMarketDayLow ?? m.regularMarketPrice, c: m.regularMarketPrice, v: m.regularMarketVolume || 0 };
+    if (!last || day(t) > day(last.t)) b.push(bar);
+    else if (day(t) === day(last.t)) b[b.length - 1] = { ...last, c: bar.c, h: Math.max(last.h, bar.h), l: Math.min(last.l, bar.l), v: Math.max(last.v, bar.v) };
+  }
+  b.source = "Yahoo Finance"; b.name = m.shortName || m.symbol; b.currency = m.currency;
   return b;
 }
 async function stooq(s) {
