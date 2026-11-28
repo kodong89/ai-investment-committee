@@ -3,11 +3,23 @@
 - 결과는 R 배수(손절폭 대비 손익)로 비교. 거래비용 왕복 0.1%.
 - 실행: GitHub Actions (yfinance). 결과: backtest.json
 """
-import json, math, datetime as dt
+import json, math, sys, datetime as dt
 import yfinance as yf
 
 US = ["AAPL", "MSFT", "NVDA", "GOOGL", "AMZN", "META", "TSLA", "AVGO", "AMD", "NFLX", "PLTR"]
 KR = [("005930.KS", "삼성전자"), ("000660.KS", "SK하이닉스"), ("035420.KS", "NAVER"), ("035720.KS", "카카오")]
+
+# 변동성 큰 실적·모멘텀 종목 (hot) + 2023년 말 인기였다가 이후 부진한 종목 (faded, 사후 선택 착시 보정용)
+UNIVERSES = {
+    "bigtech": {"file": "backtest.json", "title": "빅테크",
+                "list": [(t, t, "us", "") for t in US] + [(t, nm, "kr", "") for t, nm in KR]},
+    "vol": {"file": "backtest_vol.json", "title": "고변동 모멘텀주",
+            "list": [(t, t, "us", "hot") for t in ["TSLA", "NVDA", "AMD", "PLTR", "MU", "AVGO", "ANET", "CRWD", "NET", "SHOP", "APP", "AXON", "VST", "HOOD", "COIN", "UBER"]]
+                    + [(t, t, "us", "faded") for t in ["SMCI", "ENPH", "CELH", "SNOW"]]
+                    + [(t, nm, "kr", "hot") for t, nm in [("000660.KS", "SK하이닉스"), ("042700.KS", "한미반도체"), ("012450.KS", "한화에어로스페이스"),
+                                                          ("267260.KS", "HD현대일렉트릭"), ("196170.KQ", "알테오젠"), ("003230.KS", "삼양식품")]]
+                    + [(t, nm, "kr", "faded") for t, nm in [("247540.KQ", "에코프로비엠"), ("086520.KQ", "에코프로")]]},
+}
 YEARS = 3
 COST = 0.001  # 왕복 수수료·슬리피지
 
@@ -245,21 +257,22 @@ def concurrency(tr):
     return {"max_open": mx, "over4_pct": round(sum(1 for x in held if x > 4) / len(held) * 100, 1) if held else 0}
 
 
-def main():
-    universe = [(t, t, "us") for t in US] + [(t, nm, "kr") for t, nm in KR]
-    data, bh = {}, {}
-    for t, nm, m in universe:
+def main(which="bigtech"):
+    U = UNIVERSES[which]
+    data, grp = {}, {}
+    for t, nm, m, g in U["list"]:
         b = load(t)
         if not b or len(b) < 300:
             print("skip", t); continue
-        data[t] = (nm, m, b, indicators(b))
+        data[t] = (nm, m, b, indicators(b)); grp[nm] = g
     first_day = (dt.date.today() - dt.timedelta(days=365 * YEARS)).isoformat()
     out = {"updated": dt.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"), "period": None, "rules": {
         "진입": "신호가 난 다음 날 시가 (라쉬키는 신호 봉 고가 돌파 시)",
         "손절": "진입가 − 2 ATR, 단 최대 -8%",
         "청산": "2R 도달 시 절반 익절(나머지 손절은 본전으로), 나머지는 EMA20 종가 이탈 시, 최대 60거래일",
         "비용": "왕복 0.1%", "자산 곡선": "거래마다 계좌의 1% 위험(1R=1%)"},
-        "universe": [{"sym": t, "name": nm, "market": m} for t, (nm, m, _, _) in data.items()], "strategies": [], "buyhold": []}
+        "universe": [{"sym": t, "name": nm, "market": m, "group": grp[nm]} for t, (nm, m, _, _) in data.items()], "strategies": [], "buyhold": [],
+        "key": which, "title": U["title"]}
     all_days = []
     for key, name, desc, sig in STRATS:
         tr_all = []
@@ -268,25 +281,29 @@ def main():
             st = max(st, 260)
             tr = simulate(nm, b, I, sig, key, st)
             for x in tr:
-                x["market"] = m
+                x["market"] = m; x["group"] = grp[nm]
             tr_all += tr
             all_days.append(b[st][0]); all_days.append(b[-1][0])
         s = stats(tr_all)
         s.update({"key": key, "name": name, "desc": desc,
                   "us": stats([x for x in tr_all if x["market"] == "us"]), "kr": stats([x for x in tr_all if x["market"] == "kr"]),
+                  "hot": stats([x for x in tr_all if x["group"] == "hot"]), "faded": stats([x for x in tr_all if x["group"] == "faded"]),
                   "by_symbol": {nm: stats([x for x in tr_all if x["sym"] == nm]) for nm in sorted({x["sym"] for x in tr_all})},
                   "recent": sorted(tr_all, key=lambda x: x["out"], reverse=True)[:8]})
         out["strategies"].append(s)
     for t, (nm, m, b, I) in data.items():
         st = next((i for i, x in enumerate(b) if x[0] >= first_day), 0)
-        out["buyhold"].append({"name": nm, "market": m, "ret_pct": round((b[-1][4] / b[st][4] - 1) * 100, 1)})
+        a = [I["atr"][i] / b[i][4] * 100 for i in range(st, len(b)) if I["atr"][i]]
+        out["buyhold"].append({"name": nm, "market": m, "group": grp[nm], "ret_pct": round((b[-1][4] / b[st][4] - 1) * 100, 1),
+                               "atr_pct": round(sum(a) / len(a), 2) if a else None})
     out["period"] = f"{min(all_days)} ~ {max(all_days)}" if all_days else None
     out["strategies"].sort(key=lambda s: s.get("expectancy_r", -9), reverse=True)
-    with open("backtest.json", "w", encoding="utf-8") as f:
+    with open(U["file"], "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     for s in out["strategies"]:
         print(s["name"], {k: s.get(k) for k in ("trades", "win_rate", "avg_win_r", "avg_loss_r", "expectancy_r", "profit_factor", "equity_ret_pct", "mdd_pct")})
 
 
 if __name__ == "__main__":
-    main()
+    for w in (sys.argv[1:] or ["bigtech", "vol"]):
+        main(w)

@@ -18,6 +18,7 @@ table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}td,th{pa
 details{margin-top:6px}summary{cursor:pointer;min-height:36px;display:flex;align-items:center;font-weight:700;font-size:14px;color:var(--g)}
 .note{font-size:13px;color:var(--mut);margin-top:16px}.rules{font-size:13px}.rules li{margin:2px 0}
 .scroll{overflow-x:auto}
+.tabs{display:flex;gap:8px;margin-bottom:14px}.tabs a{flex:1;text-align:center;padding:10px;border-radius:10px;border:1px solid var(--line);color:var(--g);font-weight:700;text-decoration:none;font-size:14px}.tabs a.on{background:var(--g);color:#fff;border-color:var(--g)}
 @media(max-width:600px){.kp{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style></head><body>
 <div class="top"><a href="./">← AI 투자위원회로</a><h1>매매 기법 백테스트</h1><p class="sub" id="sub">불러오는 중…</p></div>
@@ -27,23 +28,26 @@ details{margin-top:6px}summary{cursor:pointer;min-height:36px;display:flex;align
 const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const sg = v => v == null ? "—" : (v > 0 ? "+" : "") + v;
 const cls = v => v > 0 ? "pos" : v < 0 ? "neg" : "";
-fetch("backtest.json?t=" + Date.now()).then(r => r.json()).then(J => {
-  document.getElementById("sub").textContent = `${J.period} · ${J.universe.length}종목 · 갱신 ${J.updated.slice(0, 10)}`;
+const U = new URLSearchParams(location.search).get("u") === "vol" ? "vol" : "bigtech";
+fetch((U === "vol" ? "backtest_vol.json" : "backtest.json") + "?t=" + Date.now()).then(r => r.json()).then(J => {
+  document.getElementById("sub").textContent = `${J.title || "빅테크"} · ${J.period} · ${J.universe.length}종목 · 갱신 ${J.updated.slice(0, 10)}`;
   const S = J.strategies, best = S[0];
   const kp = s => `<div class="kp"><div><small>승률</small><span>${s.win_rate ?? "—"}%</span></div><div><small>기대값 (1회)</small><span class="${cls(s.expectancy_r)}">${sg(s.expectancy_r)}R</span></div>
     <div><small>평균 수익 / 손실</small><span><span class="pos">${s.avg_win_r}</span> / <span class="neg">${s.avg_loss_r}</span>R</span></div><div><small>거래 수</small><span>${s.trades}</span></div>
     <div><small>손익비(PF)</small><span>${s.profit_factor ?? "—"}</span></div><div><small>1% 위험 누적</small><span class="${cls(s.equity_ret_pct)}">${sg(s.equity_ret_pct)}%</span></div>
     <div><small>최대 낙폭</small><span class="neg">${s.mdd_pct}%</span></div><div><small>평균 보유</small><span>${s.avg_days}일</span></div></div>`;
   const mk = (s, m) => s && s.trades ? `<td>${s.trades}</td><td>${s.win_rate}%</td><td class="${cls(s.expectancy_r)}">${sg(s.expectancy_r)}</td><td class="${cls(s.equity_ret_pct)}">${sg(s.equity_ret_pct)}%</td>` : `<td colspan="4" style="text-align:center;color:#999">거래 없음</td>`;
-  let h = `<div class="best">가장 좋은 기대값: <b>${esc(best.name)}</b> · 거래 1번에 평균 <b class="${cls(best.expectancy_r)}">${sg(best.expectancy_r)}R</b> (승률 ${best.win_rate}%, 거래 ${best.trades}회)<br><small>R = 손절폭. 기대값 +0.3R이면 손절폭 대비 평균 30%씩 버는 셈이에요. 승률이 낮아도 기대값이 양수면 남는 기법이에요.</small></div>`;
+  const tabs = `<div class="tabs"><a href="?u=bigtech" class="${U === "bigtech" ? "on" : ""}">빅테크</a><a href="?u=vol" class="${U === "vol" ? "on" : ""}">고변동 모멘텀주</a></div>`;
+  const hasG = J.universe.some(u => u.group);
+  let h = tabs + `<div class="best">가장 좋은 기대값: <b>${esc(best.name)}</b> · 거래 1번에 평균 <b class="${cls(best.expectancy_r)}">${sg(best.expectancy_r)}R</b> (승률 ${best.win_rate}%, 거래 ${best.trades}회)<br><small>R = 손절폭. 기대값 +0.3R이면 손절폭 대비 평균 30%씩 버는 셈이에요. 승률이 낮아도 기대값이 양수면 남는 기법이에요.</small></div>`;
   h += S.map((s, i) => `<div class="card"><div class="hd"><b><span class="rk">${i + 1}</span>${esc(s.name)}</b><span class="desc">${esc(s.desc)}</span></div>${s.trades ? kp(s) : "<p>이 기간에 신호가 없었어요.</p>"}
     <details><summary>미국·한국 나눠 보기</summary><div class="scroll"><table><tr><th>시장</th><th>거래</th><th>승률</th><th>기대값 R</th><th>누적</th></tr>
-      <tr><td>미국 빅테크</td>${mk(s.us)}</tr><tr><td>한국 대형 기술주</td>${mk(s.kr)}</tr></table></div></details>
+      <tr><td>미국</td>${mk(s.us)}</tr><tr><td>한국</td>${mk(s.kr)}</tr>${hasG ? `<tr><td>잘 오른 주도주</td>${mk(s.hot)}</tr><tr><td>인기 후 부진주</td>${mk(s.faded)}</tr>` : ""}</table></div></details>
     <details><summary>종목별 보기</summary><div class="scroll"><table><tr><th>종목</th><th>거래</th><th>승률</th><th>기대값 R</th><th>누적</th></tr>
       ${Object.entries(s.by_symbol || {}).sort((a, b) => (b[1].expectancy_r ?? -9) - (a[1].expectancy_r ?? -9)).map(([k, v]) => `<tr><td>${esc(k)}</td>${mk(v)}</tr>`).join("")}</table></div></details>
     <details><summary>최근 거래</summary><div class="scroll"><table><tr><th>종목</th><th>진입</th><th>청산</th><th>R</th><th>수익률</th><th>사유</th></tr>
       ${(s.recent || []).map(t => `<tr><td>${esc(t.sym)}</td><td>${esc(t.in.slice(2))}</td><td>${esc(t.out.slice(2))}</td><td class="${cls(t.r)}">${sg(t.r)}</td><td class="${cls(t.ret)}">${sg(t.ret)}%</td><td>${esc(t.why)}</td></tr>`).join("")}</table></div></details></div>`).join("");
-  h += `<div class="card"><b>같은 기간 그냥 보유했다면 (Buy & Hold)</b><div class="scroll"><table><tr><th>종목</th><th>수익률</th></tr>${J.buyhold.sort((a, b) => b.ret_pct - a.ret_pct).map(b => `<tr><td>${esc(b.name)}</td><td class="${cls(b.ret_pct)}">${sg(b.ret_pct)}%</td></tr>`).join("")}</table></div></div>`;
+  h += `<div class="card"><b>같은 기간 그냥 보유했다면 (Buy & Hold)</b><div class="scroll"><table><tr><th>종목</th><th>수익률</th><th>하루 변동폭</th></tr>${J.buyhold.sort((a, b) => b.ret_pct - a.ret_pct).map(b => `<tr><td>${esc(b.name)}${b.group === "faded" ? " <small style=\"color:#999\">부진주</small>" : ""}</td><td class="${cls(b.ret_pct)}">${sg(b.ret_pct)}%</td><td>${b.atr_pct ?? "—"}%</td></tr>`).join("")}</table></div></div>`;
   h += `<div class="card rules"><b>공통 규칙</b><ul>${Object.entries(J.rules).map(([k, v]) => `<li><b>${esc(k)}</b> · ${esc(v)}</li>`).join("")}</ul></div>
     <p class="note">과거 결과이며 미래 수익을 보장하지 않아요. 기법 신호는 공개된 원칙을 코드로 단순화한 것이라 원작자의 실제 매매와 다를 수 있어요. 빅테크처럼 3년간 크게 오른 종목은 추세 추종 기법에 유리하게 나올 수 있어요.</p>`;
   document.getElementById("out").innerHTML = h;
