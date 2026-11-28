@@ -1,6 +1,8 @@
 name: 장중 예상 거래량 정확도
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "51 22 * * 6"   # 매주 일요일 아침(KST 07:51) 갱신
   push:
     paths: ["scripts/volcurve.py", ".github/workflows/volcurve.yml"]
 permissions:

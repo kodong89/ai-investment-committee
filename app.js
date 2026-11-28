@@ -15,6 +15,28 @@ const store = {
 // 점수 = 충족 항목 배점 합 ÷ 판정 가능 항목 배점 합 × 100, 자료가 부족하면 50점 쪽으로 당김
 // rule(F,T,M,P)가 true/false를 돌려주면 AI 판정 대신 코드 판정 사용 (null이면 AI 판정)
 const gt = (a, b) => (a == null || b == null) ? null : a > b;
+// 장중 예상 거래량: 실측(60일 5분봉) 시간대별 누적 비율로 마감 거래량을 환산 (단순 비례는 1시간 시점 오차 ±86%, 분포 반영 ±15%)
+let VC = null;
+fetch("volcurve.json?d=" + Math.floor(Date.now() / 864e5)).then(r => r.ok ? r.json() : null).then(j => { VC = j; }).catch(() => {});
+function sessionInfo(F, T) {
+  const kr = isKR(F), tz = kr ? "Asia/Seoul" : "America/New_York";
+  const p = Object.fromEntries(new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date()).map(x => [x.type, x.value]));
+  const m = (+p.hour % 24) * 60 + (+p.minute) - (kr ? 540 : 570); // 한국 09:00, 미국 09:30 개장
+  if (!T?.date || T.date !== `${p.year}-${p.month}-${p.day}` || m < 0 || m >= 390) return null; // 장 마감 후·휴장이면 확정치
+  return { m, kr };
+}
+function volRule(F, T) {
+  const v = num(T.volume_recent), a = num(T.avg_volume_20);
+  if (!v || !a) return null;
+  const s = sessionInfo(F, T);
+  if (!s) return { v: v >= a * 1.2, n: `거래량 ${(v / a).toFixed(1)}배` };
+  if (s.m < 30) return { v: null, n: "장 시작 30분 이내 · 판단 보류" };
+  const f = num(VC?.markets?.[s.kr ? "kr" : "us"]?.profile_cum_frac?.[String(Math.min(390, Math.floor(s.m / 5) * 5))]);
+  if (!f) return { v: null, n: "장중 · 거래량 분포 자료 없음 · 판단 보류" };
+  const base = T.computed ? Math.max((a * 20 - v) / 19, 1) : a; // 계산 서버 평균엔 오늘(장중) 거래량이 섞여 있어 제외
+  const x = v / f / base;
+  return { v: x >= 1.2, n: `장중 예상 ${x.toFixed(1)}배${x >= 1 && x < 1.4 ? " · 경계" : ""} (마감 시 확정)` };
+}
 const AG = [
   { id: "mine", n: "내 매매법", role: "추세 · 진입 신호", w: 25, color: "#00463c", gate: "trend",
     q: "내 차트 기준(EMA 리본·CCI·거래량·매물대)으로 지금 들어갈 자리인가?",
@@ -24,7 +46,7 @@ const AG = [
       { id: "e200", t: "주가가 EMA200 위", pts: 10, rule: (F, T) => gt(num(F.price), num(T.ema200)) },
       { id: "brk", t: "돌파 확인: 직전 20일 고점 위 종가 또는 52주 고점 5% 이내", pts: 20, rule: (F, T) => { const p = num(F.price), h52 = num(T.high_52w), h20 = num(T.high_20d_prev); if (!p) return null; if (h52 && p >= h52 * 0.95) return true; if (h20) return p > h20; return null; /* Worker v5 이하는 20일 고점이 없어 판단 보류 */ } },
       { id: "cci", t: "CCI(20) 신호: -100 상향 반등 또는 0·+100 상향 돌파", pts: 20, rule: (F, T) => { const c = num(T.cci20), p = num(T.cci20_prev); if (c == null || p == null) return null; return (p < -100 && c >= -100) || (p < 0 && c >= 0) || (p < 100 && c >= 100) || (c > p && c > -100 && c < 100 && p < c - 30); } },
-      { id: "vol", t: "거래량이 20일 평균의 1.2배 이상", pts: 10, rule: (F, T) => { const v = num(T.volume_recent), a = num(T.avg_volume_20); return (v && a) ? v >= a * 1.2 : null; } },
+      { id: "vol", t: "거래량이 20일 평균의 1.2배 이상", pts: 10, rule: (F, T) => volRule(F, T) },
       { id: "pvp", t: "위쪽 매물대(PVP)까지 손절폭 2배 이상 여유", pts: 10, rule: (F, T, M, P) => { const poc = num(T.overhead_poc), e = P?.entry, r = P ? P.entry - P.stop : null; if (!e || !r) return null; if (!poc || poc <= e) return true; return (poc - e) >= 2 * r; } },
       { id: "liq", t: "거래대금 충분 (미국 2천만$·한국 100억원 이상)", pts: 10, rule: (F, T) => { const v = num(T.avg_volume_20), p = num(F.price); if (!v || !p) return null; return /KRW|원/.test(F.currency || "") ? v * p >= 1e10 : v * p >= 2e7; } } ] },
   { id: "druck", n: "스탠리 드러켄밀러", role: "시장 방향", w: 20, color: "#b08a22",
@@ -447,7 +469,7 @@ function scoreAgent(a, res, S, M, P) {
   const items = a.checks.map(c => {
     total += c.pts;
     let r = res?.checks?.[c.id]?.r || "unknown", n = res?.checks?.[c.id]?.n || "", by = "AI";
-    if (c.rule) { const v = c.rule(S.F, S.T, M, P); if (v === true || v === false) { r = v ? "pass" : "fail"; by = "코드"; } }
+    if (c.rule) { const o = c.rule(S.F, S.T, M, P), v = o && typeof o === "object" ? o.v : o; if (o?.n) { n = o.n; by = "코드"; } if (v === true || v === false) { r = v ? "pass" : "fail"; by = "코드"; } else if (o?.n) r = "unknown"; }
     if (r !== "unknown") known += c.pts;
     if (r === "pass") got += c.pts;
     return { ...c, r, n, by };
