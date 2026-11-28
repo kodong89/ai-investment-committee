@@ -225,6 +225,9 @@ details.x .in{padding-bottom:14px;font-size:15px}
 .pr .x{min-height:44px;padding:0;background:transparent;border:1px solid rgba(230,245,200,.35);color:var(--lime)}
 .pfb{display:flex;justify-content:space-between;gap:8px;margin-top:10px}
 .wide{width:100%;margin-top:14px}
+.tvw{display:none;margin-top:16px;background:rgba(0,0,0,.22);border-radius:16px;padding:12px 14px}
+.tvh{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.tvh b{font-size:16px}.tvh small{font-size:12px;color:var(--lime);opacity:.8;flex:1}
+#tvBox{height:0;overflow:hidden;border-radius:10px}#tvBox.on{height:min(70vh,560px);margin-top:10px}
 .pfl{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(230,245,200,.12);color:#fff;font-size:15px}
 .pfl small{display:block;color:var(--lime);opacity:.75;font-size:12px}
 .pfform{display:grid;gap:8px;margin-top:12px;background:rgba(255,255,255,.05);border-radius:12px;padding:12px}
@@ -252,6 +255,7 @@ details.x .in{padding-bottom:14px;font-size:15px}
     <label>분석 모드<select id="mode"><option value="eco">절약 · 1회에 API 약 5번</option><option value="full">정밀 · 위원별 따로, 약 11번</option></select></label>
     <label>모델<select id="model"><option value="gemini-flash-latest">gemini-flash-latest</option></select></label>
     <div class="histw"><div style="font-size:13px;color:var(--lime);margin:14px 0 6px">지난 분석 · 눌러서 다시 보기 (API 사용 안 함)</div><div id="hist"></div></div>
+    <label>차트 계산 서버 주소 <small style="opacity:.7">(Cloudflare Worker · 넣으면 EMA·CCI·ATR을 직접 계산)</small><input id="workerUrl" placeholder="https://aic-chart.xxxx.workers.dev" autocomplete="off"></label>
     <label>1회 매매 허용 손실 (계좌 대비 %)<input id="riskPct" inputmode="decimal" value="1"></label>
     <label>종목당 최대 비중 % (최대 4종목 기준)<input id="maxPos" inputmode="decimal" value="30"></label>
   </div>
@@ -276,6 +280,7 @@ details.x .in{padding-bottom:14px;font-size:15px}
       <div class="hero" id="hero"></div>
       <div class="mkt" id="mkt"></div>
       <div class="board" id="board"><div class="bh"><span>7인 위원 의견</span><span>눌러서 채점표 보기</span></div><div id="rows"></div></div>
+      <div class="tvw" id="tvw"><div class="tvh"><b>트레이딩뷰 차트</b><small>EMA 10·20·50·200 · CCI(20) · ATR(14)</small><button type="button" id="tvOpen" class="mini">차트 열기</button></div><div id="tvBox"></div></div>
       <div class="tools" id="tools">
         <div class="tool">
           <div class="tt">내 매수 근거 검증 <small>무조건 동의하지 않는 리스크 분석가</small></div>

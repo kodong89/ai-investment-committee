@@ -314,4 +314,29 @@ ${past.length ? "위원회 최근 분석: " + past.join(" / ") : ""}
 try { localStorage.removeItem("aic-pf"); localStorage.removeItem("aic-pfopt"); } catch (e) {}
 renderPF();
 setCur("USD");
+
+// ── 트레이딩뷰 차트 (공식 위젯, 눌렀을 때만 불러옴) ─────────────
+const tvSymbol = F => { const t = String(F?.ticker || "").replace(/\.(KS|KQ)$/i, "").trim(); if (!t) return null;
+  if (/^(KRX|NASDAQ|NYSE|AMEX):/i.test(t)) return t.toUpperCase();
+  return /^\d{4}[0-9A-Z]{2}$/i.test(t) || /KRW|원/.test(F.currency || "") ? `KRX:${t.toUpperCase()}` : t.toUpperCase(); };
+function loadTV() { return window.TradingView ? Promise.resolve() : new Promise((ok, no) => { const s = document.createElement("script"); s.src = "https://s3.tradingview.com/tv.js"; s.onload = ok; s.onerror = no; document.head.appendChild(s); }); }
+async function openTV() {
+  const sym = tvSymbol(A.R?.S?.F); if (!sym) return;
+  const box = $("tvBox"); box.classList.add("on"); box.innerHTML = `<div id="tvChart" style="height:100%"></div>`; $("tvOpen").textContent = "다시 불러오기";
+  try {
+    await loadTV();
+    new window.TradingView.widget({ container_id: "tvChart", symbol: sym, interval: "D", timezone: "Asia/Seoul", theme: "dark", style: "1", locale: "kr", autosize: true,
+      hide_side_toolbar: true, allow_symbol_change: true, withdateranges: true, save_image: false,
+      studies: [
+        { id: "MAExp@tv-basicstudies", inputs: { length: 10 } }, { id: "MAExp@tv-basicstudies", inputs: { length: 20 } },
+        { id: "MAExp@tv-basicstudies", inputs: { length: 50 } }, { id: "MAExp@tv-basicstudies", inputs: { length: 200 } },
+        { id: "CCI@tv-basicstudies", inputs: { length: 20 } }, { id: "ATR@tv-basicstudies", inputs: { length: 14 } } ] });
+  } catch (e) { box.innerHTML = `<div style="padding:16px;color:#ffd6cf">트레이딩뷰 차트를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.</div>`; }
+}
+$("tvOpen").addEventListener("click", openTV);
+document.addEventListener("aic:render", () => {
+  const ok = !!(A.R?.S?.F?.ticker); $("tvw").style.display = ok ? "block" : "none";
+  const sym = ok ? tvSymbol(A.R.S.F) : null;
+  if ($("tvw").dataset.sym !== sym) { $("tvw").dataset.sym = sym || ""; $("tvBox").classList.remove("on"); $("tvBox").innerHTML = ""; $("tvOpen").textContent = "차트 열기"; }
+});
 }

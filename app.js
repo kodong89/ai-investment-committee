@@ -95,6 +95,7 @@ $("openSet").addEventListener("click", () => { const s = $("setup"); s.style.dis
 $("saveKey").addEventListener("click", async () => { cfg.key = $("key").value.trim(); saveCfg(); if (cfg.key) { await loadModels(); setStatus("키 저장 완료. 종목을 검색해 보세요."); $("setup").style.display = "none"; } });
 $("model").addEventListener("change", () => { cfg.model = $("model").value; saveCfg(); });
 $("mode").addEventListener("change", () => { cfg.mode = $("mode").value; saveCfg(); });
+$("workerUrl").value = cfg.worker || ""; $("workerUrl").addEventListener("change", () => { cfg.worker = $("workerUrl").value.trim(); saveCfg(); });
 $("riskPct").value = cfg.riskPct ?? 1; $("riskPct").addEventListener("change", () => { cfg.riskPct = $("riskPct").value; saveCfg(); });
 $("maxPos").value = cfg.maxPos ?? 30; $("maxPos").addEventListener("change", () => { cfg.maxPos = $("maxPos").value; saveCfg(); });
 
@@ -298,21 +299,37 @@ const KEYF = ["price", "per", "pbr", "roe_pct", "revenue_growth_pct", "eps_growt
 const KEYT = ["ema10", "ema20", "ema50", "ema200", "cci20", "cci20_prev", "adx14", "atr14", "support", "avg_volume_20", "return_3m_pct", "return_1m_pct"];
 const isEmpty = v => v === null || v === undefined || v === "" || v === "null";
 
+async function getComputedTech(F) {
+  const base = String(cfg.worker || "").trim().replace(/\/+$/, ""); if (!base || !F?.ticker) return null;
+  const code = String(F.ticker).replace(/^(KRX|KOSDAQ|KOSPI|NASDAQ|NYSE|AMEX):/i, "").replace(/\.(KS|KQ)$/i, "").trim();
+  const kr = isKR(F) || /^\d{4}[0-9A-Z]{2}$/i.test(code);
+  try {
+    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 15000);
+    const r = await fetch(`${base}/?s=${encodeURIComponent(code)}${kr ? "&m=kr" : ""}`, { signal: ctl.signal }); clearTimeout(to);
+    const j = await r.json(); return j && j.computed ? j : null;
+  } catch (e) { return null; }
+}
 async function getStock(tk) {
   const src = `한국 종목은 네이버 금융·FnGuide·한국거래소, 미국 종목은 Yahoo Finance·stockanalysis.com·finviz·회사 IR 참고.`;
   const f = await gemini(`오늘은 ${today()}. 종목 "${tk}"의 최신 펀더멘털을 구글 검색으로 찾아라. ${src}
 가격은 최근 종가, 재무는 최근 4분기(TTM) 기준. 퍼센트는 숫자만. 찾은 값만 넣고 못 찾으면 null.
 설명 없이 JSON 하나만:
 ${FUND}`, { search: true, label: "펀더멘털 수집" });
-  setStatus("2/5 · 차트·수급 지표 수집 중…");
+  setStatus("2/5 · 차트 지표 계산 중…");
   let t = { data: {}, sources: [] };
-  try {
+  const CT = await getComputedTech(f.data);
+  if (CT) {
+    t = { data: { ...CT, pattern: null }, sources: [], computed: true };
+    // 가격도 계산 서버의 최근 종가로 맞춤 (AI 검색 가격보다 정확)
+    f.data.price = CT.price; f.data.change_pct = CT.change_pct; f.data.as_of = CT.date + " 종가";
+  } else try {
   t = await gemini(`오늘은 ${today()}. 종목 "${f.data.name || tk}"(${f.data.ticker || ""})의 기술적 지표를 구글 검색으로 찾아라. ${src}
 이동평균은 일봉 종가 기준 EMA(지수이동평균), CCI는 20일, ATR은 14일, 지지·저항은 최근 3개월 일봉 기준 가장 가까운 가격대, index_return_3m_pct는 해당 시장 대표 지수(미국 S&P500, 한국 코스피)의 3개월 수익률.
 찾은 값만 넣고 못 찾으면 null. 설명 없이 JSON 하나만:
 ${TECH}`, { search: true, label: "기술적 지표 수집" });
   } catch (e) { if (/한도를 다 썼/.test(e.message) || e.status === 401 || e.status === 403) throw e; }
   const F = f.data, T = t.data, sources = [...f.sources, ...t.sources];
+  T._src = t.computed ? `일봉으로 직접 계산 · ${CT.source} · ${CT.date}` : (cfg.worker ? "계산 서버 연결 실패 → AI 검색값(부정확할 수 있음)" : "AI 검색값(부정확할 수 있음)");
   const miss = [...KEYF.filter(k => isEmpty(F[k])), ...KEYT.filter(k => isEmpty(T[k]))];
   if (miss.length >= 4) {
     setStatus(`2/5 · 빠진 지표 ${miss.length}개 추가 검색 중…`);
@@ -526,7 +543,7 @@ function renderExtra() {
     <p class="tag">더 가까운 쪽(손실이 작은 쪽)을 씁니다. 권장 비중 = 허용 손실 ${P.acct}% ÷ 손절폭, 종목당 최대 ${P.cap ?? 25}%. 집중 투자는 갭 하락 시 손절가보다 더 잃을 수 있어요. 저항선이 없으면 목표는 손절폭의 2배(2R)입니다. 현재가에서 ATR 1개 이내의 저항은 목표가 아니라 돌파해야 할 벽으로 보고, 그 위 다음 저항을 목표로 씁니다.</p>`]);
   const items = [["PER", fmt(num(F.per), "배")], ["PEG", fmt(num(F.peg))], ["ROE", fmt(num(F.roe_pct), "%")], ["매출 성장", fmt(num(F.revenue_growth_pct), "%")], ["EPS 성장", fmt(num(F.eps_growth_pct), "%")],
     ["EMA 10/20", `${fmt(num(T.ema10))} / ${fmt(num(T.ema20))}`], ["EMA 50/200", `${fmt(num(T.ema50))} / ${fmt(num(T.ema200))}`], ["CCI(20)", fmt(num(T.cci20))], ["ADX(14)", fmt(num(T.adx14))], ["거래량/20일 평균", (num(T.volume_recent) && num(T.avg_volume_20)) ? (num(T.volume_recent) / num(T.avg_volume_20)).toFixed(2) + "배" : "—"], ["위쪽 매물대", fmt(num(T.overhead_poc))], ["ATR", fmt(num(T.atr14))], ["3개월 수익률", fmt(num(T.return_3m_pct), "%")], ["지수 3개월", fmt(num(T.index_return_3m_pct), "%")]];
-  sec.push(["종목 데이터 · 출처", `<dl class="kv">${items.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+  sec.push(["종목 데이터 · 출처", `<p class="tag" style="margin:0 0 6px">차트 지표: ${esc(T._src || "AI 검색값")}</p><dl class="kv">${items.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
     <ul class="w">${(F.news || []).slice(0, 3).map(n => `<li>${esc(n)}</li>`).join("")}</ul>
     
     ${S.sources?.length ? `<p class="tag" style="overflow-wrap:anywhere">${S.sources.slice(0, 8).map(x => `<a href="${esc(x.uri)}" target="_blank" rel="noopener">${esc(x.title || "링크")}</a>`).join(" · ")}</p>` : ""}`]);
