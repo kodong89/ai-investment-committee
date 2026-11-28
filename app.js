@@ -86,7 +86,9 @@ const AGI = Object.fromEntries(AG.map(a => [a.id, a]));
 function daysTo(s) { if (!s) return null; const d = new Date(s); if (isNaN(d)) return null; return Math.round((d - new Date()) / 864e5); }
 
 // ── 설정 ───────────────────────────────────────────────────
-let cfg = Object.assign({ key: "", model: "gemini-flash-latest", mode: "eco" }, store.get("aic-cfg", {}));
+const DEFAULT_WORKER = "https://aic-chart.sukko89.workers.dev";
+let cfg = Object.assign({ key: "", model: "gemini-flash-latest", mode: "eco", worker: DEFAULT_WORKER }, store.get("aic-cfg", {}));
+if (!cfg.worker) cfg.worker = DEFAULT_WORKER;
 if ((cfg.v || 0) < 3) { cfg.riskPct = 1; cfg.maxPos = 30; cfg.v = 3; store.set("aic-cfg", cfg); }
 $("key").value = cfg.key; $("mode").value = cfg.mode;
 const saveCfg = () => store.set("aic-cfg", cfg);
