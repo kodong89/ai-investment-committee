@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>매매 기법 백테스트</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--g:#00463c;--lime:#e6f5c8;--up:#1d9a64;--dn:#d9472f;--mut:#5b6b66;--line:#e3e9e6}
+*{box-sizing:border-box;min-width:0}body{margin:0;font:15px/1.55 "Noto Sans KR",system-ui,sans-serif;background:#fff;color:#0f1a17}
+.top{background:var(--g);color:#fff;padding:24px max(5vw,16px)}.top a{color:var(--lime);font-size:14px}
+h1{font:900 clamp(26px,5vw,40px)/1.1 "Noto Sans KR";margin:10px 0 6px}.sub{color:var(--lime);margin:0;font-size:14px}
+.wrap{max-width:1000px;margin:0 auto;padding:18px max(5vw,16px) 40px}
+.best{background:#f0faf5;border:1px solid #bfe8d3;border-radius:14px;padding:14px 16px;margin-bottom:16px}.best b{font-size:18px}
+.card{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:12px}
+.hd{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}.hd b{font-size:18px}.rk{font:800 22px "Inter Tight";color:var(--g);margin-right:6px}
+.desc{color:var(--mut);font-size:13px}
+.kp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0}
+.kp div{background:#f5f8f6;border-radius:10px;padding:8px}.kp small{display:block;color:var(--mut);font-size:12px}.kp span{font:800 18px "Inter Tight","Noto Sans KR";white-space:nowrap}
+.pos{color:var(--up)}.neg{color:var(--dn)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}td,th{padding:5px 4px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}td:first-child,th:first-child{text-align:left}
+details{margin-top:6px}summary{cursor:pointer;min-height:36px;display:flex;align-items:center;font-weight:700;font-size:14px;color:var(--g)}
+.note{font-size:13px;color:var(--mut);margin-top:16px}.rules{font-size:13px}.rules li{margin:2px 0}
+.scroll{overflow-x:auto}
+@media(max-width:600px){.kp{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head><body>
+<div class="top"><a href="./">← AI 투자위원회로</a><h1>매매 기법 백테스트</h1><p class="sub" id="sub">불러오는 중…</p></div>
+<div class="wrap" id="out"></div>
+<script>
+{
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const sg = v => v == null ? "—" : (v > 0 ? "+" : "") + v;
+const cls = v => v > 0 ? "pos" : v < 0 ? "neg" : "";
+fetch("backtest.json?t=" + Date.now()).then(r => r.json()).then(J => {
+  document.getElementById("sub").textContent = `${J.period} · ${J.universe.length}종목 · 갱신 ${J.updated.slice(0, 10)}`;
+  const S = J.strategies, best = S[0];
+  const kp = s => `<div class="kp"><div><small>승률</small><span>${s.win_rate ?? "—"}%</span></div><div><small>기대값 (1회)</small><span class="${cls(s.expectancy_r)}">${sg(s.expectancy_r)}R</span></div>
+    <div><small>평균 수익 / 손실</small><span><span class="pos">${s.avg_win_r}</span> / <span class="neg">${s.avg_loss_r}</span>R</span></div><div><small>거래 수</small><span>${s.trades}</span></div>
+    <div><small>손익비(PF)</small><span>${s.profit_factor ?? "—"}</span></div><div><small>1% 위험 누적</small><span class="${cls(s.equity_ret_pct)}">${sg(s.equity_ret_pct)}%</span></div>
+    <div><small>최대 낙폭</small><span class="neg">${s.mdd_pct}%</span></div><div><small>평균 보유</small><span>${s.avg_days}일</span></div></div>`;
+  const mk = (s, m) => s && s.trades ? `<td>${s.trades}</td><td>${s.win_rate}%</td><td class="${cls(s.expectancy_r)}">${sg(s.expectancy_r)}</td><td class="${cls(s.equity_ret_pct)}">${sg(s.equity_ret_pct)}%</td>` : `<td colspan="4" style="text-align:center;color:#999">거래 없음</td>`;
+  let h = `<div class="best">가장 좋은 기대값: <b>${esc(best.name)}</b> · 거래 1번에 평균 <b class="${cls(best.expectancy_r)}">${sg(best.expectancy_r)}R</b> (승률 ${best.win_rate}%, 거래 ${best.trades}회)<br><small>R = 손절폭. 기대값 +0.3R이면 손절폭 대비 평균 30%씩 버는 셈이에요. 승률이 낮아도 기대값이 양수면 남는 기법이에요.</small></div>`;
+  h += S.map((s, i) => `<div class="card"><div class="hd"><b><span class="rk">${i + 1}</span>${esc(s.name)}</b><span class="desc">${esc(s.desc)}</span></div>${s.trades ? kp(s) : "<p>이 기간에 신호가 없었어요.</p>"}
+    <details><summary>미국·한국 나눠 보기</summary><div class="scroll"><table><tr><th>시장</th><th>거래</th><th>승률</th><th>기대값 R</th><th>누적</th></tr>
+      <tr><td>미국 빅테크</td>${mk(s.us)}</tr><tr><td>한국 대형 기술주</td>${mk(s.kr)}</tr></table></div></details>
+    <details><summary>종목별 보기</summary><div class="scroll"><table><tr><th>종목</th><th>거래</th><th>승률</th><th>기대값 R</th><th>누적</th></tr>
+      ${Object.entries(s.by_symbol || {}).sort((a, b) => (b[1].expectancy_r ?? -9) - (a[1].expectancy_r ?? -9)).map(([k, v]) => `<tr><td>${esc(k)}</td>${mk(v)}</tr>`).join("")}</table></div></details>
+    <details><summary>최근 거래</summary><div class="scroll"><table><tr><th>종목</th><th>진입</th><th>청산</th><th>R</th><th>수익률</th><th>사유</th></tr>
+      ${(s.recent || []).map(t => `<tr><td>${esc(t.sym)}</td><td>${esc(t.in.slice(2))}</td><td>${esc(t.out.slice(2))}</td><td class="${cls(t.r)}">${sg(t.r)}</td><td class="${cls(t.ret)}">${sg(t.ret)}%</td><td>${esc(t.why)}</td></tr>`).join("")}</table></div></details></div>`).join("");
+  h += `<div class="card"><b>같은 기간 그냥 보유했다면 (Buy & Hold)</b><div class="scroll"><table><tr><th>종목</th><th>수익률</th></tr>${J.buyhold.sort((a, b) => b.ret_pct - a.ret_pct).map(b => `<tr><td>${esc(b.name)}</td><td class="${cls(b.ret_pct)}">${sg(b.ret_pct)}%</td></tr>`).join("")}</table></div></div>`;
+  h += `<div class="card rules"><b>공통 규칙</b><ul>${Object.entries(J.rules).map(([k, v]) => `<li><b>${esc(k)}</b> · ${esc(v)}</li>`).join("")}</ul></div>
+    <p class="note">과거 결과이며 미래 수익을 보장하지 않아요. 기법 신호는 공개된 원칙을 코드로 단순화한 것이라 원작자의 실제 매매와 다를 수 있어요. 빅테크처럼 3년간 크게 오른 종목은 추세 추종 기법에 유리하게 나올 수 있어요.</p>`;
+  document.getElementById("out").innerHTML = h;
+}).catch(() => { document.getElementById("sub").textContent = "아직 결과가 없어요. 몇 분 뒤 새로고침해 주세요."; });
+}
+</script></body></html>
